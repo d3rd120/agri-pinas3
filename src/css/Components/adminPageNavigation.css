@@ -1,0 +1,313 @@
+.adminPageNavigation {
+    align-self: stretch;
+    background-color: #557153;
+    display: flex;
+    flex-direction: column;
+    padding: 3.31rem 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5.81rem;
+  }
+  
+
+  .adminPageNavigationLogoParent {
+    height: 1.84rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    cursor:pointer;
+    top: 2rem;
+    position: sticky;
+  }
+
+  .adminPageNavigationLogoIcon {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+  }
+  .adminPageNavigationMainText {
+    position: relative;
+    display: inline-block;
+    width: 6.63rem;
+    height: 1.36rem;
+    flex-shrink: 0;
+  }
+
+  .adminPageNavigationGroupParent {
+    position: relative;
+    width: 9.56rem;
+    height: 16.28rem;
+    top: 10rem;
+    position: sticky;
+  }
+
+  .adminPageNavigationLink1{
+    text-decoration: none;
+    position: absolute;
+    top: 7.47rem;
+    left: 0.05rem;
+    width: 9.14rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  
+
+  .adminPageNavigationLinks {
+    position: absolute;
+    top: 0;
+    left: 2.51rem;
+    display: inline-block;
+    width: 12rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s
+  }
+  /* Add this CSS to your stylesheet */
+.active .adminPageNavigationLinksIcon {
+  color: #FBA403;
+}
+
+.adminPageNavigationLinks:hover {
+    color: #FBA403;
+  }
+  
+
+  .adminPageNavigationLinksIcon {
+    position: absolute;
+    top: 0.14rem;
+    left: 0;
+    width: 1.25rem;
+    height: 1.05rem;
+  }
+
+  .adminPageNavigationLink2 {
+    text-decoration: none;
+    position: absolute;
+    top: 11.22rem;
+    left: 0.02rem;
+    width: 9.49rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+
+  .adminPageNavigationLink3 {
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 0.08rem;
+    width: 8.42rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+
+  .adminPageNavigationLink4 {
+    text-decoration: none;
+    position: absolute;
+    top: 3.78rem;
+    left: 0;
+    width: 9.44rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+
+  .adminPageNavigationLink5 {
+    text-decoration: none;
+    position: absolute;
+    top: 14.91rem;
+    left: 0.04rem;
+    width: 9.53rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+
+  .adminPageNavigationProfileParent {
+    top: 32rem; 
+    position: sticky;
+    text-decoration: none;
+    color:white;
+    transition: 0.5s;
+  }
+
+  
+
+  
+  .adminPageNavigationProfileParent:hover {
+    color: #FBA403;
+  }
+
+  .adminPageNavigationProfile {
+    position: absolute;
+    height: 100%;
+    width: 36%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 38%;
+    border-radius: 50%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+
+  .adminPageNavigationProfile:hover {
+    color: #FBA403;
+  }
+
+  
+  .adminPageNavigationProfile svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .adminPageNavigationGroupItem {
+    position: absolute;
+    height: 84.48%;
+    width: 0.7%;
+    top: 7.76%;
+    right: 55.3%;
+    bottom: 7.76%;
+    left: 44%;
+    border-right: 0.7px solid #fff;
+    box-sizing: border-box;
+  }
+
+  .adminPageNavigationBellParent {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    height: 74.07%;
+    width: 24%;
+    top: 12.96%;
+    right: 76%;
+    bottom: 12.96%;
+    left: 0;
+  }
+  
+  .adminPageNavigationBell{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+  }
+
+  .adminPageNavigationBell:hover {
+    color: #FBA403;
+  }
+  
+  .adminPageNavigationBell svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .adminPageNavigationInner {
+    position: absolute;
+    height: 35.98%;
+    width: 39.98%;
+    top: 3.9%;
+    right: 0;
+    bottom: 60.12%;
+    left: 60.02%;
+    border-radius: 50%;
+    background-color: #fba403;
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #557153;
+    padding: 0.5rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dropdown a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: 0.3s;
+  }
+  
+  .dropdown a:hover {
+    background-color: #FBA403;
+  }
+  
+  .adminPageNavigationLink2.active .dropdown,
+  .adminPageNavigationLink5.active .dropdown {
+    display: block;
+  }
+  
+  .adminPageNavigationLink2:hover .adminPageNavigationLink5,
+  .adminPageNavigationLink5:hover .adminPageNavigationProfileParent {
+    transform: translateY(3.81rem);
+  }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #557153;
+    padding: 0.5rem 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+    transform: translateY(-100%);
+  }
+  
+  
+  .adminPageNavigationLink2:hover .dropdown,
+  .adminPageNavigationLink5:hover .dropdown {
+    transform: translateY(0);
+  }
+
+  .adminPageNavigationLinks {
+    display: flex;
+    align-items: center;  
+  }
+  
+  
+
+
+  @media screen and (max-width: 1200px) {
+    .adminPageNavigation {
+      display: none;
+    }
+  }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  
+}

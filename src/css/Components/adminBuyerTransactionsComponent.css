@@ -1,0 +1,234 @@
+  .adminBuyerTransactionsComponentBlankLine {
+    margin: 0;
+    color: #557153;
+    font-size: 1.31rem;
+  }
+  .adminBuyerTransactionsComponentMainTextContainer {
+    align-self: stretch;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .adminBuyerTransactionsComponentMainText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .adminBuyerTransactionsComponentTopSection {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.88rem;
+  }
+  .adminBuyerTransactionsComponentMiddleSection,
+  .adminBuyerTransactionsComponentTopSection {
+    align-self: stretch;
+  }
+  .adminBuyerTransactionsComponent,
+  .adminBuyerTransactionsComponentMainPanel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .adminBuyerTransactionsComponentMainPanel {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.75rem 3.38rem;
+    gap: 3.19rem;
+    font-size: 1rem;
+    color: #434343;
+  }
+  .adminBuyerTransactionsComponent {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 52.94rem;
+    flex-direction: row;
+    gap: 0.06rem;
+    text-align: left;
+    font-size: 1.13rem;
+    color: #fff; 
+    height: 100%;
+    min-height: 100vh;
+  }
+
+  .adminBuyerTransactionsTitleLayout {
+    text-align: center;
+  }
+  .adminBuyerTransactionsTitleCard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #E6E5A3;
+    
+  }
+  .adminBuyerTransactionsTitleDetails {
+    flex-grow: 1;
+    
+  }
+  
+  .adminBuyerTransactionsTitleName {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #557153;
+    margin-right: 990px;
+  margin-left: 0;
+  }
+  
+  
+  .adminBuyerTransactionsTable {
+      width: 100%;
+      border-collapse: collapse;      
+    }
+    
+    .adminBuyerTransactionsTable th, .adminBuyerTransactionsTable td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    
+    .adminBuyerTransactionsTable th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    
+    .adminBuyerTransactionsTable tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    .adminBuyerTransactionsTable tbody tr:hover {
+    }
+    .adminBuyerTransactionsCard {
+      background-color: #f7f7f7;
+      border-radius: 5px; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 100%;
+      height: 500px;
+      height: fit-content;
+      align-items: center;
+      justify-content: center;
+    }
+    .adminBuyerTransactionsDropdown {
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #333;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .adminBuyerTransactionsDropdown:hover {
+      background-color: #ddd;
+    }
+    
+    .adminBuyerTransactionsDropdown:focus {
+      outline: none;
+      background-color: #e5e5e5;
+    }
+  
+    .adminBuyerTransactionsPageLayout1 {
+      text-align: center;
+    }
+  
+    .adminBuyerTransactionsPageLayout2 {
+      display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    }  
+  
+    
+    .adminBuyerTransactionsSubTitle {
+      background-color: #e7e7e7;
+      padding: 10px;
+      margin-right: 8px;
+      margin-left: 30px; 
+      text-align: start;
+      font-size: 1rem;      
+      font-weight: 600;
+    }
+    .adminBuyerTransactionsRowSelect{
+      padding: 8px;
+      border: 1px solid #7D8F69;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .adminBuyerTransactionsRowSelect:focus {
+      outline: none;
+      border-color: #557153;
+    }
+    .adminBuyerTransactionsShow {
+      text-align:justify;
+      font-weight:500;     
+      margin-right: 8px;
+      margin-left: 40px; 
+      text-align: start;
+    }
+
+    .adminBuyerTransactionsComponentCategories {
+        flex-direction: row;
+        padding: 0 0.75rem 0 0;
+        align-items: center;
+        gap: 0.63rem;
+        font-size: 1.06rem;    
+        align-self: stretch;
+        display: flex;
+        justify-content: flex-start;
+      }  
+    
+      .adminBuyerTransactionsComponentPaginationContainer {
+         border-radius: 6px;
+        border: 1px solid #bac2d6;
+        display: flex;
+        flex-direction: column;
+        padding: 0.88rem 1.88rem;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        transition: 0.5s;
+        cursor: pointer;
+      }
+    
+      .adminBuyerTransactionsComponentPaginationContainer:hover {
+        background-color: #E5FCE7;
+      }
+    
+      .adminBuyerTransactionsComponentPaginationNumber {
+        position: relative;
+        letter-spacing: -0.02em;
+        line-height: 2rem;
+        text-transform: uppercase;
+        font-weight: 600;
+      }  
+    
+
+
+  
+  @media screen and (max-width: 960px) {
+    .adminBuyerTransactionsComponentMainText {
+      padding-right: 0;
+      box-sizing: border-box;
+      flex: unset;
+      align-self: stretch;
+    }
+    .adminBuyerTransactionsComponentMiddleSection,
+    .adminBuyerTransactionsComponentTopSection{
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    .adminBuyerTransactionsComponentMainText{
+      width: 100%;
+    }
+    .adminBuyerTransactionsComponentMainPanel {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      box-sizing: border-box;
+    }
+  }
+  

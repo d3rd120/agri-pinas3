@@ -1,0 +1,232 @@
+  .adminFarmerTransactionsComponentBlankLine {
+    margin: 0;
+    color: #557153;
+    font-size: 1.31rem;
+  }
+  .adminFarmerTransactionsComponentMainTextContainer {
+    align-self: stretch;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .adminFarmerTransactionsComponentMainText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .adminFarmerTransactionsComponentTopSection {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.88rem;
+  }
+  .adminFarmerTransactionsComponentMiddleSection,
+  .adminFarmerTransactionsComponentTopSection {
+    align-self: stretch;
+  }
+  .adminFarmerTransactionsComponent,
+  .adminFarmerTransactionsComponentMainPanel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .adminFarmerTransactionsComponentMainPanel {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.75rem 3.38rem;
+    gap: 3.19rem;
+    font-size: 1rem;
+    color: #434343;
+  }
+  .adminFarmerTransactionsComponent {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 52.94rem;
+    flex-direction: row;
+    gap: 0.06rem;
+    text-align: left;
+    font-size: 1.13rem;
+    color: #fff;
+    height: 100%;
+    min-height: 100vh;
+  }
+
+  .adminFarmerTransactionsTitleLayout {
+    text-align: center;
+  }
+  .adminFarmerTransactionsTitleCard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #E6E5A3;
+    
+  }
+  .adminFarmerTransactionsTitleDetails {
+    flex-grow: 1;
+    
+  }
+  
+  .adminFarmerTransactionsTitleName {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #557153;
+    margin-right: 990px;
+  margin-left: 0;
+  }
+  
+  
+  .adminFarmerTransactionsTable {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .adminFarmerTransactionsTable th, .adminFarmerTransactionsTable td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    
+    .adminFarmerTransactionsTable th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    
+    .adminFarmerTransactionsTable tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    .adminFarmerTransactionsTable tbody tr:hover {
+    }
+    .adminFarmerTransactionsCard {
+      background-color: #f7f7f7;
+      border-radius: 5px; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 100%;
+      height: 500px;
+      height: fit-content;
+      align-items: center;
+      justify-content: center;
+    }
+    .adminFarmerTransactionsDropdown {
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #333;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    
+    .adminFarmerTransactionsDropdown:hover {
+      background-color: #ddd;
+    }
+    
+    .adminFarmerTransactionsDropdown:focus {
+      outline: none;
+      background-color: #e5e5e5;
+    }
+  
+    .adminFarmerTransactionsPageLayout1 {
+      text-align: center;
+    }
+  
+    .adminFarmerTransactionsPageLayout2 {
+      display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    }  
+  
+    
+    .adminFarmerTransactionsSubTitle {
+      background-color: #e7e7e7;
+      padding: 10px;
+      margin-right: 8px;
+      margin-left: 30px; 
+      text-align: start;    
+      font-weight: 600;
+    }
+    .adminFarmerTransactionsRowSelect{
+      padding: 8px;
+      border: 1px solid #7D8F69;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    .adminFarmerTransactionsRowSelect:focus {
+      outline: none;
+      border-color: #557153;
+    }
+    .adminFarmerTransactionsShow {
+      text-align:justify;
+      font-weight:500;     
+      margin-right: 8px;
+      margin-left: 40px; 
+      text-align: start;
+    }
+
+    .adminFarmerTransactionsComponentCategories {
+        flex-direction: row;
+        padding: 0 0.75rem 0 0;
+        align-items: center;
+        gap: 0.63rem;
+        font-size: 1.06rem;    
+        align-self: stretch;
+        display: flex;
+        justify-content: flex-start;
+      }  
+    
+      .adminFarmerTransactionsComponentPaginationContainer {
+         border-radius: 6px;
+        border: 1px solid #bac2d6;
+        display: flex;
+        flex-direction: column;
+        padding: 0.88rem 1.88rem;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        transition: 0.5s;
+        cursor: pointer;
+      }
+    
+      .adminFarmerTransactionsComponentPaginationContainer:hover {
+        background-color: #E5FCE7;
+      }
+    
+      .adminFarmerTransactionsComponentPaginationNumber {
+        position: relative;
+        letter-spacing: -0.02em;
+        line-height: 2rem;
+        text-transform: uppercase;
+        font-weight: 600;
+      }  
+    
+
+ 
+  @media screen and (max-width: 960px) {
+    .adminFarmerTransactionsComponentMainText {
+      padding-right: 0;
+      box-sizing: border-box;
+      flex: unset;
+      align-self: stretch;
+    }
+    .adminFarmerTransactionsComponentMiddleSection,
+    .adminFarmerTransactionsComponentTopSection {
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    .adminFarmerTransactionsComponentMainText{
+      width: 100%;
+    }
+    .adminFarmerTransactionsComponentMainPanel {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      box-sizing: border-box;
+    }
+  }
+  

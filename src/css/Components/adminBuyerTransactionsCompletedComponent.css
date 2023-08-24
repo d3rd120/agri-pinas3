@@ -1,0 +1,367 @@
+.adminBuyerTransactionsCompletedComponentForumContainer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentBlankLine {
+    margin: 0;
+    color: #557153;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentMainTextWrapper {
+    align-self: stretch;
+    position: relative;
+    text-transform: uppercase;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentMainText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentTopSection {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.88rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentButtonIcon {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    color: white;
+  }
+  
+  .button {
+    position: relative;
+    font-size: 1.13rem;
+    letter-spacing: 0.46px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentButton {
+    cursor: pointer;
+    border: 0;
+    padding: 0.75rem 1.13rem;
+    background-color: #27ae60;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.38rem;
+    transition: 0.3s;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentButton:hover {
+    background-color: #598025;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentButtonText {
+    position: relative;
+    font-size: 0.88rem;
+    letter-spacing: 0.46px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentDetails {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.63rem;
+    align-self: stretch;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentMiddleSection {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentMiddleSection {
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: 1.63rem;
+    color: #1a202e;
+  }
+  
+  .adminBuyerTransactionsCompletedComponent,
+  .adminBuyerTransactionsCompletedComponentMainPanel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentMainPanel {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.75rem 3.38rem;
+    gap: 3.19rem;
+    font-size: 1.31rem;
+    color: #151630;
+  }
+  
+  .adminBuyerTransactionsCompletedComponent {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 52.94rem;
+    flex-direction: row;
+    gap: 0.06rem;
+    text-align: left;
+    font-size: 1.13rem;
+    color: #fff;
+    height: 100%;
+    min-height: 100vh;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentFrameParent {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.88rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentFrameWrapper {
+    align-self: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentRectangleParent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-decoration: none;
+    flex: 1;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 0.7px solid #dee3eb;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: column;
+    gap: 0.25rem;
+    cursor: pointer;
+    width: 32%;
+    margin-bottom: 1.25rem;
+    transition: 0.5s;
+    color: inherit;
+    margin-right: 1rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentRectangleParent:hover {
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .adminBuyerTransactionsCompletedComponentFrameChild {
+    align-self: stretch;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    height: 15rem;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentFrameGroup {
+    align-self: stretch;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.81rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentFrameContainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentSubText1Wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentSubText1 {
+    align-self: stretch;
+    position: relative;
+    letter-spacing: 0.02em;
+    line-height: 2.13rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentSubText2Wrapper2 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 1rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentSubText2 {
+    align-self: stretch;
+    position: relative;
+    letter-spacing: 0.01em;
+    line-height: 1.75rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentFrameItem {
+    align-self: stretch;
+    position: relative;
+    border-top: 0.7px solid #ecf0f6;
+    box-sizing: border-box;
+    height: 0.04rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentForumNumber {
+    flex-direction: row;
+    padding: 0 0.75rem 0 0;
+    align-items: center;
+    gap: 0.63rem;
+    font-size: 1.06rem;
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentForumContainer {
+    border-radius: 6px;
+    border: 1px solid #bac2d6;
+    display: flex;
+    flex-direction: column;
+    padding: 0.88rem 1.88rem;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentForumContainer:hover {
+    background-color: #E5FCE7;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentForumNumberBox {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentCard {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    height: 500px;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentSubTitle {
+    background-color: #e7e7e7;
+    padding: 10px;
+    margin-right: 8px;
+    margin-left: 30px;
+    text-align: start;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentShow {
+    text-align: justify;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-right: 8px;
+    margin-left: 40px;
+    text-align: start;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentRowSelect {
+    padding: 8px;
+    border: 1px solid #7D8F69;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right:0.5rem;
+  }
+  
+  .adminBuyerTransactionsCompletedComponentRowSelect:focus {
+    outline: none;
+    border-color: #557153;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .adminBuyerTransactionsCompletedComponentForumContainer {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      box-sizing: border-box;
+    }
+  }
+  
+  @media screen and (max-width: 960px) {
+    .adminBuyerTransactionsCompletedComponentMainText {
+      padding-right: 0;
+      box-sizing: border-box;
+      flex: unset;
+      align-self: stretch;
+    }
+    .adminBuyerTransactionsCompletedComponentTopSection {
+      flex-direction: column;
+    }
+    .adminBuyerTransactionsCompletedComponentButton {
+      margin-right: auto;
+    }
+  
+    .adminBuyerTransactionsCompletedComponentMiddleSection {
+      flex-direction: column;
+    }
+    .adminBuyerTransactionsCompletedComponentFrameParent {
+      flex: unset;
+      align-self: stretch;
+    }
+  }
+  
+  @media screen and (max-width: 420px) {
+    .adminBuyerTransactionsCompletedComponentMainText {
+      width: 100%;
+    }
+    .adminBuyerTransactionsCompletedComponentButton {
+      width: 100% !important;
+    }
+    .adminBuyerTransactionsCompletedComponentMainPanel {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      box-sizing: border-box;
+    }
+  }
+  

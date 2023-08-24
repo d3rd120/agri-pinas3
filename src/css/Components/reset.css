@@ -1,0 +1,53 @@
+.reset {
+    height: 100vh;
+    width: 100vw;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reset__container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
+    padding: 30px;  
+}
+
+
+.reset__textBox {
+    padding: 10px;  
+    margin-bottom: 10px;
+}
+
+.reset__btn {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    color: white;
+    background-color: #27AE60;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.resetContainerText {
+    margin-bottom: 1rem;
+}
+
+.reset__btn:hover {
+    background-color: #3e8e41;
+}
+
+.reset div {
+    margin-top: 7px;
+}
+
+.resetComponentSignupText {
+    color:#27AE60;
+    transition: 0.5s;
+}
+
+.resetComponentSignupText:hover {
+    color: #3e8e41;
+}

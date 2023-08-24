@@ -1,0 +1,11 @@
+.courseProfile {
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 5px 2px rgba(2, 0, 0, 0.1);
+	display: flex;
+	max-width: 100%;
+	margin: 0px;
+	overflow: hidden;
+	width: 900px;
+    height: 400px;
+}

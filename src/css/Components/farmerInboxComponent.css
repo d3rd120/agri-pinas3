@@ -1,0 +1,95 @@
+.farmer-inbox-component {
+  display: flex;
+  height: 100vh; /* Set the height of the parent container to 100vh */
+
+}
+
+.inbox {
+  width: 100%;
+  height:100%;
+  padding: 10px;
+  color: white;
+  overflow-y: auto;
+  background-color: #557153;
+  cursor: pointer;
+
+}
+
+
+
+.inbox-message {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  transition: 0.5s;
+  font-size: 1rem;
+}
+
+.inbox-message:hover {
+ color:#FBA403;
+}
+
+.sender {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.message {
+  margin-bottom: 5px;
+}
+
+.timestamp {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.chatbot {
+  flex: 1;
+  padding: 10px;
+  height: 100%; /* Set the height of the chatbot container to 100% */
+}
+
+.react-simple-chatbot {
+  width: 100%; /* Set the width of the chatbot component to 100% */
+  height: 100%; /*
+   Set the height of the chatbot component to 100% */
+}
+
+.farmerInboxComponent,
+.farmerInboxComponentMainPanel {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.farmerInboxComponentMainPanel {
+  align-self: stretch;
+  flex: 1;
+  flex-direction: column;
+  padding: 2.75rem 3.38rem;
+  gap: 3.19rem;
+  font-size: 1.31rem;
+  color: #151630;
+}
+
+.farmerInboxComponentMainPanel2 {
+  align-self: stretch;
+  flex: 1;
+  flex-direction: column;
+  padding: 0;
+  gap: 3.19rem;
+  font-size: 1.31rem;
+  color: #151630;
+}
+.farmerInboxComponent {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 45.54rem;
+  flex-direction: row;
+  gap: 0.06rem;
+  text-align: left;
+  font-size: 1.13rem;
+  color: #fff;
+  min-height: 100vh; /* Set a minimum height of 100 viewport height units */
+  height: 100%; /* Use 100% height to fill the available space */
+  font-family: Arial, Helvetica, sans-serif;
+}

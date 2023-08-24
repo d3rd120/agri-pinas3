@@ -1,0 +1,372 @@
+.farmerMarketplaceComponentPostPopupWindow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Set a higher z-index value */
+ 
+}
+
+.farmerMarketplaceComponentPostPopupContent {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 100%;
+  text-align: center;
+
+}
+
+.farmerMarketplaceComponentPostCloseButton {
+  cursor: pointer;   
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+.farmerMarketplaceComponentPostBlankLine{
+    margin: 0;
+  }
+  .farmerMarketplaceComponentPostMainTextWrapper {
+    align-self: stretch;
+    position: relative;
+    text-transform: uppercase;
+  }
+  .farmerMarketplaceComponentPostMainTextContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .farmerMarketplaceComponentPostTopSection {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.88rem;   
+  }
+  .farmerMarketplaceComponentPostCard1Image {
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    border-radius: 10px;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+  }
+  .farmerMarketplaceComponentPostCard1{
+    flex: 1;
+    border-radius: 10.52px;
+    height: 34.94rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1.56rem;
+    box-sizing: border-box;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .farmerMarketplaceComponentPostSmallCardsProductName,
+  .farmerMarketplaceComponentPostSmallCardsFarmerName {
+    align-self: stretch;
+    position: relative;
+    line-height: 2.73rem;
+  }
+  .farmerMarketplaceComponentPostSmallCardsFarmerName {
+    font-size: 0.88rem;
+    line-height: 1.23rem;
+  }
+  .farmerMarketplaceComponentPostSmallCardsDetails {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .farmerMarketplaceComponentPostSmallCardsFullDescription {
+    flex: 1;
+    position: relative;
+    letter-spacing: 0.01em;
+    line-height: 1.75rem;
+  }
+  .farmerMarketplaceComponentPostSmallCardsDescriptionWrapper {
+    align-self: stretch;  
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 1rem;  
+  }
+  .farmerMarketplaceComponentPostButtonIcon {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    color: white;
+  }
+  .farmerMarketplaceComponentPostButtonText {
+    position: relative;
+    font-size: 0.88rem;
+    letter-spacing: 0.46px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+  }
+  .farmerMarketplaceComponentPostButton {
+    cursor: pointer;
+    border: 0;
+    padding: 0.75rem 1.13rem;
+    background-color: #27ae60;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.38rem;
+    transition: 0.3s;
+  }
+  .farmerMarketplaceComponentPostButton:hover {
+    background-color: #598025;
+  }
+  .farmerMarketplaceComponentPostButtonContainer {
+    justify-content: flex-start;
+    gap: 0.63rem;
+    display: flex;
+  }
+  .farmerMarketplaceComponentPostSmallCardsContent,
+  .farmerMarketplaceComponentPostSmallCardsDescription,
+  .farmerMarketplaceComponentPostSmallCardsHeading {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .farmerMarketplaceComponentPostSmallCardsHeading{
+    justify-content: flex-start;
+    gap: 1.94rem;
+  }
+  .farmerMarketplaceComponentPostSmallCardsContent,
+  .farmerMarketplaceComponentPostSmallCardsDescription {
+    flex: 1;
+    justify-content: space-between;
+  }
+  .farmerMarketplaceComponentPostSmallCardsDescription {
+    border-radius: 10.52px;
+    background-color: #fff;
+    align-items: center;
+    justify-content: center;
+  }
+  .farmerMarketplaceComponentPostCardsContainer,
+  .farmerMarketplaceComponentPostSmallCards {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+  .farmerMarketplaceComponentPostSmallCards {
+    height: 34.94rem;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .farmerMarketplaceComponentPostCardsContainer {
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    flex-direction: row;
+    padding: 0.38rem 3rem 3.06rem 0;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .farmerMarketplaceComponentPostMiddleSection {
+    align-self: stretch;
+    height: 39.44rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    font-size: 2rem;
+    color: #434343;
+  }
+  .farmerMarketplaceComponentPostButtonNewTitle {
+    position: relative;
+    line-height: 220.52%;
+    font-weight: 600;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1Title,
+  .farmerMarketplaceComponentPostButtonNewCard1Image {
+    align-self: stretch;
+    position: relative;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1Image {
+    border-radius: 10px 10px 0 0;
+    max-width: 100%;
+    overflow: hidden;
+    height: 15.13rem;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1Title {
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    color: #000;
+    text-align: left;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1Wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1Details,
+  .farmerMarketplaceComponentPostButtonNewCard1DetailsInner {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1Details {
+    flex: 1;
+    border-radius: 0 0 10px 10px;
+    background-color: #fff;
+    flex-direction: column;
+    padding: 1.25rem 1rem;
+    justify-content: center;
+  }
+  
+  .farmerMarketplaceComponentPostButtonNewCard1{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .farmerMarketplaceComponentPostButtonNewCard1 {
+    cursor: pointer;
+    border: 1px solid #ececec;
+    padding: 0;
+    background-color: transparent;
+    flex: 1;
+    border-radius: 10px;
+    box-shadow: 0 0 26px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    height: 22.44rem;
+    flex-direction: column;
+  }
+  
+  .farmerMarketplaceComponentPostButtonNewCourses,
+  .farmerMarketplaceComponentPostButtonNew {
+    align-self: stretch;
+    gap: 0.63rem;
+  }
+  .farmerMarketplaceComponentPostButtonNewCourses {
+    display: grid;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .farmerMarketplaceComponentPostButtonNew {
+    flex: 1;
+    flex-direction: column;
+    padding: 0.63rem 5.13rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #000;
+  }
+  .farmerMarketplaceComponentPost,
+  .farmerMarketplaceComponentPostMainPanel,
+  .farmerMarketplaceComponentPostButtonNew {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .farmerMarketplaceComponentPostMainPanel {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.75rem 3.38rem;
+    gap: 3.19rem;
+    font-size: 1.31rem;
+    color: #557153;
+
+  }
+  .farmerMarketplaceComponentPost {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 83.5rem;
+    flex-direction: row;
+    gap: 0.06rem;
+    text-align: left;
+    font-size: 1.13rem;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  @media screen and (max-width: 1200px) {
+   
+    .farmerMarketplaceComponentPostCard1 {
+      width: 100%;
+    }
+  }
+  @media screen and (max-width: 960px) {
+    .farmerMarketplaceComponentPostMainTextContainer {
+      padding-right: 0;
+      box-sizing: border-box;
+      flex: unset;
+      align-self: stretch;
+    }
+    .farmerMarketplaceComponentPostTopSection {
+      flex-direction: column;
+    }
+    .farmerMarketplaceComponentPostCard1 {
+      flex: unset;
+      align-self: stretch;
+    }
+    .farmerMarketplaceComponentPostButton {
+      margin-right: auto;
+    }
+    .farmerMarketplaceComponentPostSmallCardsDescription {
+      flex-direction: column;
+    }
+    .farmerMarketplaceComponentPostCardsContainer,
+    .farmerMarketplaceComponentPostSmallCards {
+      flex: unset;
+      align-self: stretch;
+    }
+    .farmerMarketplaceComponentPostCardsContainer,
+    .farmerMarketplaceComponentPostMiddleSection {
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    .farmerMarketplaceComponentPostMainTextContainer {
+      width: 100%;
+    }
+    .farmerMarketplaceComponentPostCard1Image{
+      height: auto !important;
+    }
+    .farmerMarketplaceComponentPostButton,
+    .farmerMarketplaceComponentPostCard1Image{
+      width: 100% !important;
+    }
+    .farmerMarketplaceComponentPostButtonNewCard1DetailsInner {
+      flex-direction: row;
+      gap: 0;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .farmerMarketplaceComponentPostMainPanel {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      box-sizing: border-box;
+    }
+  }
+  

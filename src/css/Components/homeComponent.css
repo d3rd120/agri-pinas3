@@ -1,0 +1,116 @@
+.homeComponentContainerText {
+  margin: 0;
+}
+.homeComponentTitleContainer,
+.homeComponentTextContainer {
+  align-self: stretch;
+  position: relative;
+  line-height: 100.5%;
+}
+.homeComponentTextContainer {
+  font-size: 1rem;
+  line-height:200.02%;
+}
+.homeComponentTagLine {
+  width: 28.13rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center; /* Updated */
+  gap: 0.13rem;
+}
+
+.homeComponentMore {
+  position: relative;
+  font-size: 1.25rem;
+  line-height: 220.52%;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+.homeComponentButton,
+.homeComponentSet {
+  align-items: flex-start;
+}
+.homeComponentButton {
+  cursor: pointer;
+  border: 0;
+  padding: 0 1.25rem;
+  background-color: #27ae60;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  transition: 0.5s;
+  text-decoration: none;  
+}
+
+.homeComponentButton:hover {
+  background-color: #3e8e41;
+  color: white;
+}
+.homeComponentSet {
+  flex: 1;
+  flex-direction: column;
+  padding: 0 3.06rem;
+  gap: 1.94rem;
+}
+.homeComponentBackground,
+.homeComponentSet,
+.homeComponent {
+  display: flex;
+  justify-content: flex-start;
+}
+.homeComponentBackground {
+  align-self: stretch;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; /* Updated */
+  height: 100vh;
+}
+.homeComponent {
+  position: relative;
+  background-image: url('../../img/homePhoto.png');
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5rem;
+  box-sizing: border-box;
+  font-size: 2.25rem;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+@media screen and (max-width: 960px) {
+  .homeComponentTitleContainer,
+  .homeComponentTextContainer {
+    text-align: center;
+  }
+  .homeComponentTagLine {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .homeComponentBackground,
+  .cthomeComponentSeta {
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .homeComponentSet {
+    gap: 1.56rem;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    flex: unset;
+    align-self: stretch;
+  }
+  .homeComponentBackground {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 3rem;
+  }
+}

@@ -1,0 +1,135 @@
+.loginComponentMainText {
+  align-self: stretch;
+  position: relative;
+  line-height: 2.13rem;
+  font-weight: 600;
+}
+.logInPageSubText2 { 
+  color: #27ae60;
+  font-size: 0.90rem;
+  transition: 0.5s;
+}
+
+.logInPageSubText2:hover {
+  color: #3e8e41;
+}
+
+.loginComponentLogo {
+  position: relative;
+  width: 2.63rem;
+  height: 3.19rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.loginComponentFormText {
+  flex-direction: column;
+  padding: 0 0 1rem;
+  align-items: center;
+}
+.loginComponentFormFields,
+.loginComponentFormText,
+.loginComponentInput {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-start;
+}
+.loginComponentInput {
+  border: 1px solid #dee3eb;
+  font-size: 1rem;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-direction: row;
+  padding: 0.63rem 0.88rem;
+  align-items: center;
+  line-height: 1.13rem;
+  outline: 0;
+}
+.loginComponentFormFields {
+  flex-direction: column;
+  padding: 0 2.06rem;
+  align-items: flex-start;
+  gap: 0.63rem;
+}
+.loginComponentButtonText {
+  position: relative;
+  font-size: 1rem;
+  line-height: 150%;
+  font-weight: 600;
+  color: #fff;
+  text-align: left;
+}
+.loginComponentButton {
+  cursor: pointer;
+  border: 0;
+  padding: 0.5rem 1rem;
+  background-color: #27ae60;
+  border-radius: 8px;
+  width: 7.19rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+}
+
+.loginComponentButton:hover {
+  background-color: #3e8e41;
+  color: white;
+}
+.loginComponentSignUpLink {
+  color: #27ae60;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.loginComponentSignUpLink:hover {  
+  color: #3e8e41;  
+}
+
+.loginComponentSubTextContainter {
+  position: relative;
+  font-size: 0.90rem;
+  line-height: 150%; 
+  display: inline-block;
+  width: 15rem;
+  height: 0.94rem;
+  flex-shrink: 0;
+  color: #000;
+}
+.loginComponentForm {
+  border-radius: 12px;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.03);
+  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  width: 32rem;
+  height: 32rem;
+  padding: 1.75rem 3.19rem;
+  gap: 2.06rem;
+  max-width: 90%;
+}
+.loginComponentForm,
+.loginComponent,
+.loginComponentWrapper {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.loginComponentWrapper {
+  align-self: stretch;
+  padding: 5rem 0;
+}
+.loginComponent {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  color: #557153;
+  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+}

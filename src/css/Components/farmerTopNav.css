@@ -1,0 +1,204 @@
+.farmerComponentGroupChild2,
+.farmerComponentGroupInner2 {
+  position: absolute;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.farmerComponentGroupChild2 {
+  color: #557153;
+  height: 100%;
+  width: 36%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left:29%;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+.farmerComponentGroupChild3 {
+  color: #557153;
+  height: 100%;
+  width: 36%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 50%;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+}
+
+.farmerComponentGroupInner2 {
+  color: #557153;
+  height: 74.07%;
+  width: 24%;
+  top: 12.96%;
+  right: 40rem;
+  bottom: 12.96%;
+  left: -1.5rem;
+}
+.farmerComponentEllipseParent2 {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 6.25rem;
+  height: 2.25rem;
+  color: #557153;
+  cursor: pointer;
+  z-index: 9999; 
+}
+
+.farmerComponentGroupChild2:hover {
+  color: #fba403;
+  transition: 0.5s;
+}
+.farmerComponentGroupChild3:hover {
+  color: #fba403;
+  transition: 0.5s;
+}
+
+
+.farmerComponentGroupInner2:hover {
+  color: #fba403;
+  transition: 0.5s;
+}
+
+
+.dropdownMenu {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.dropdownOption {
+  padding: 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdownOption:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdownOption.selected {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+.farmersearchBar {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.farmersearchIcon {
+  position:absolute;
+  font-size: 18px;
+  margin-right: 5px;
+  color: #888;
+  left: 83.5%;
+}
+
+input[type="text"] {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.farmerTopNavContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  margin-left: 35rem;
+  margin-top: -1.3rem;
+ 
+}
+.farmernotificationsModal {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999999;
+}
+
+.farmernotificationsModal h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: #333333;
+  text-align: center;
+}
+
+.farmernotificationList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.farmernotificationItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eeeeee;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+.farmernotificationItem:hover {
+  background-color: #f5f5f5;
+}
+.farmernotificationMessage { 
+  margin-top: -10px;
+  font-weight: 300;
+  font-size: 13px;
+  color: #333333;
+ 
+ }
+
+ .farmernotificationMessage2 {
+  position: relative;
+  margin-top: 1rem;
+  font-weight: 300;
+  font-size: 13px;
+  color: #333333;
+  left: 5rem;
+ }
+
+.farmernotificationTime {
+  color: #888888;
+  font-size: 13px;
+}
+
+.closeButton {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #cccccc;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.closeButton:hover {
+  background-color: #999999;
+}
+.farmerprofileImage {
+  width: 25px;
+  height: 25px;
+}
+.farmernotificationSender {
+ font-size: 13px;
+}

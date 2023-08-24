@@ -1,0 +1,49 @@
+.farmerTransactionsNavigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  height: 5.06rem;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  justify-content: center;
+  border-bottom: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #333;
+  text-align: center;
+  font-size: 1rem;  
+}
+
+.farmerTransactionsNavigationParent {
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center; /* Center horizontally */
+gap: 10rem;
+}
+
+.farmerTransactionsNavigationText {
+ text-decoration: none;
+position: relative;
+font-weight: 700;
+color: inherit;
+display: inline-block;
+width: 6.31rem;
+flex-shrink: 0;
+color: #557153;
+cursor:pointer;
+transition: 0.5s;
+}
+
+.farmerTransactionsNavigationText:hover {
+  color: #FBA403;
+ 
+}
+
+.farmerTransactionsNavigationText.active {
+  color: #FBA403;
+}
+
+

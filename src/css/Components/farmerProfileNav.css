@@ -1,0 +1,588 @@
+.buyerNavigation {
+    align-self: stretch;
+    background-color: #557153;
+    display: flex;
+    flex-direction: column;
+    padding: 3.31rem 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5.81rem;
+  }
+
+  .buyerNavigationLogoParent {
+    height: 1.84rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    cursor:pointer;
+    top: 9000%;
+  }
+
+  .buyerNavigationLogoIcon {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+  }
+  .buyerNavigationMainText {
+    position: relative;
+    display: inline-block;
+    width: 6.63rem;
+    height: 1.36rem;
+    flex-shrink: 0;
+  }
+
+  .buyerNavigationGroupParent {
+    position: relative;
+    width: 9.56rem;
+    height: 16.28rem;
+  }
+
+  .buyerNavigationLink1{
+    text-decoration: none;
+    position: absolute;
+    top: 7.47rem;
+    left: 0.05rem;
+    width: 9.14rem;
+    height: 1.38rem;
+    color: inherit;
+  
+  }
+  
+
+  .buyerNavigationLinks {
+    position: absolute;
+    top: 0;
+    left: 2.51rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s
+  }
+  .buyerNavigationLinksProfile {
+    position: absolute;
+    top: -20px;
+    left: 2.51rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s
+  }
+  .buyerNavigationLinksAddress {
+    position: absolute;
+    top: -40px;
+    left: 2.51rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s
+  }
+  .buyerNavigationLinks1 {
+    position: absolute;
+    left: 2.51rem;
+    top: 0.10rem;
+    display: flex;
+    align-items: center;
+    margin-left: 0.70rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s;
+    font-size: 13px;
+  }
+  .buyerNavigationLinks2 {
+    position: absolute;
+    left: 2.30rem;
+    bottom: -1.7rem;
+    display: flex;
+    align-items: center;
+    margin-left: 2.5rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s;
+    font-size: 13px;
+  }
+.active .buyerNavigationLinksIcon {
+  color: #FBA403;
+}
+
+.buyerNavigationLinksProfile:hover {
+    color: #FBA403;
+  }
+  .active .buyerNavigationLinksProfile{
+  color: #FBA403;
+}
+.buyerNavigationLinksAddress:hover {
+  color: #FBA403;
+}
+.active .buyerNavigationLinksAddress{
+color: #FBA403;
+}
+
+
+.buyerNavigationLinks:hover {
+    color: #FBA403;
+  }
+  
+
+  .buyerNavigationLinksIcon {
+    position: absolute;
+    top: 0.14rem;
+    left: 0;
+    width: 1.25rem;
+    height: 1.05rem;
+  }
+  .buyerNavigationLinksIcon1 {
+    position: absolute;
+    bottom: -1.5rem;
+    left: 3.6rem;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .buyerNavigationLink2 {
+    text-decoration: none;
+    position: absolute;
+    top: 11.22rem;
+    left: 0.02rem;
+    width: 9.49rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+
+  .buyerNavigationLink3 {
+    text-decoration: none;
+    position: absolute;
+    top: -3rem;
+    left: 0.08rem;
+    width: 8.42rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+
+  .buyerNavigationLink4 {
+    text-decoration: none;
+    position: absolute;
+    top: 3.78rem;
+    left: 0;
+    width: 9.44rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+
+  .buyerNavigationLink5 {
+    text-decoration: none;
+    position: absolute;
+    top: 14.91rem;
+    left: 0.04rem;
+    width: 9.53rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+
+  .buyerNavigationProfileParent {
+    position: relative;
+    width: 6.25rem;
+    height: 2.25rem;
+  }
+
+  .buyerNavigationProfile {
+    position: absolute;
+    height: 100%;
+    width: 36%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 38%;
+    border-radius: 50%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+    cursor: pointer;
+    color: white;
+  }
+
+  .buyerNavigationProfile:hover {
+    color: #FBA403;
+  }
+
+  
+  .buyerNavigationProfile svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .buyerNavigationGroupItem {
+    position: absolute;
+    height: 84.48%;
+    width: 0.7%;
+    top: 7.76%;
+    right: 55.3%;
+    bottom: 7.76%;
+    left: 44%;
+    border-right: 0.7px solid black;
+    box-sizing: border-box;
+  }
+
+  .buyerNavigationBellParent {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    height: 74.07%;
+    width: 24%;
+    top: 12.96%;
+    right: 76%;
+    bottom: 12.96%;
+    left: 0;
+  }
+  
+  .buyerNavigationBell{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 4910%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    color: #A9AF7E
+  }
+
+  .buyerNavigationBell:hover {
+    color: #FBA403;
+  }
+  
+  .buyerNavigationBell svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .buyerNavigationMessageParent {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    height: 74.07%;
+    width: 24%;
+    top: 12.96%;
+    right: 76%;
+    bottom: 12.96%;
+    left: 0;
+  }
+  
+  .buyerNavigationMessage{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 5190%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    color: #A9AF7E
+  }
+
+  .buyerNavigationMessage:hover {
+    color: #FBA403;
+  }
+  
+  .buyerNavigationMessage svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+
+  .buyerNavigationInner {
+    position: absolute;
+    height: 35.98%;
+    width: 39.98%;
+    top: 3.9%;
+    right: 0;
+    bottom: 60.12%;
+    left: 60.02%;
+    border-radius: 50%;
+    background-color: #fba403;
+  }
+ 
+
+  @media screen and (max-width: 1200px) {
+    .buyerNavigation {
+      display: none;
+    }
+  }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  
+}
+.accountIcon {
+    width: 40px; /* Adjust the width as needed */
+    height: 40px; /* Adjust the height as needed */
+    margin-right: 5px; /* Add some spacing between the image and the text */
+  }
+  .accountIcon1 {
+    width: 30px; 
+    height: 30px; 
+    margin-right: 5px;
+    margin-top: -16px; 
+  }
+  .MuiModal-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buyerEditModal {
+    background-color: #fff;
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .buyerEditModal h2 {
+    margin-top: 0;
+  }
+  
+  .buyerNavEditProductComponentInputParent {
+    margin-bottom: 20px;
+  }
+  
+  .buyerNavEditProductComponentTitle {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .buyerNavEditProductComponentInput2 {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .buyerNavEditProductComponentInput2.error {
+    border-color: red;
+  }
+  .buttonContainer1 .saveButton{
+    background-color: #27AE60;
+    border-radius: 5px;
+    color: white;
+    width: 100px;
+    font-weight: 500;
+    
+  }
+  .buttonContainer1 .cancelButton{
+    background-color: #A9AF7E;
+    border-radius: 5px;
+    color: white;
+    width: 100px;
+    font-weight: 500;
+    right: -200px;
+  }
+  .buttonContainer1 .saveButton:hover{
+    background-color: #27AE60;
+  }
+  .buttonContainer1 .cancelButton:hover{
+    background-color: #A9AF7E;
+  }
+ 
+  .dateOfBirthFieldParent {
+    width: 25.4rem; 
+  }
+  
+  .dateOfBirthField {
+    width:25.4rem;
+  }
+
+.courseAddress{
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 2px rgba(2, 0, 0, 0.1);
+  display: flex;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  width: 900px;
+  height:300px;
+}
+.course-field {
+    width: 1000px;
+}
+
+
+.nameAddress{
+  font-weight: 600;
+  font-size: 17px;
+  color: black;
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+.nameAddress1{
+  font-weight: 600;
+  font-size: 17px;
+  color: black;
+  margin-left: 2rem;
+  margin-top: 1.2rem;
+}
+.numberAddress{
+  color: rgb(97, 97, 97);
+  font-weight: 100;
+  font-size: 14.8px;
+  margin-left: 10.6rem;
+  margin-top: -1.5rem;
+}
+.locAddress1,
+.locAddress2 {
+  color: rgb(80, 80, 80);
+  font-weight: 100;
+  font-size: 13px;
+  margin-left: 2rem;
+}
+
+.EditIconAddress {
+  position: relative;
+  top: -3.9rem;
+  margin-left: 45rem;
+}
+
+.defaultAddress1 {
+  display: inline-block;
+  padding: 3px 9px;
+  border: 1px solid #9DC08B;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #557153;
+  margin-left: 2rem;
+}
+.EditIconAddress1 {
+  position: relative;
+  top: -4rem;
+  margin-left: 48rem;
+}
+
+.DeleteIconAddress1 {
+  position: relative;
+  top: -4rem;
+  margin-left: 1rem;
+}
+.buyerNavigationLinksLogout {
+  position: absolute;
+  top: 0;
+  left: 2.51rem;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  width: 8rem;
+  height: 1.38rem;
+  cursor:pointer;
+  transition: 0.5s
+}
+
+.buyerNavigationLinksLogout:hover {
+  color: #FBA403;
+}
+
+
+.buyerNavigationLinksIconLogout {
+  position: absolute;
+  top: 0.14rem;
+  left: 0;
+  width: 1.25rem;
+  height: 1.05rem;
+}
+.buyerNavigationLogout {
+  text-decoration: none;
+  position: absolute;
+  top: 11.22rem;
+  left: 0.02rem;
+  width: 9.49rem;
+  height: 1.35rem;
+  color: inherit;
+}
+/* Styles for the modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+h2 {
+  color: #000;
+  margin-top: 0;
+  font-size: 20px;
+}

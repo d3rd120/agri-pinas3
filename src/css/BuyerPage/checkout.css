@@ -1,0 +1,324 @@
+.shoppingcartPageLayout {
+    text-align: center;
+  }
+  
+  .placeOrderCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  .shoppingCheckbox {
+    margin-right: 5px;
+  }
+  .shoppingCheckbox input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  
+  .shoppingDetails {
+    flex-grow: 1;
+    
+  }
+  .card {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 550px;
+  }
+  .card1 {
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 550px;
+    height: fit-content;
+  }
+  .orderBuynow {
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #557153;
+  }
+  
+  .orderBuynow .backButton {
+    margin-right: 8px;
+    margin-left: 0; 
+  }
+  
+  .shoppingImage {
+    display: flex;
+  align-items: center;
+  margin-right: 10px;
+  }
+  .ShoppingcartCard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #E6E5A3;
+    
+  }
+  
+  .shoppingImage img {
+    max-width: 150%;
+    height: 150px;
+    margin-right: auto;
+  }
+  
+  .shopProductName {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+   
+  }
+  
+  .shoppingDetails2,
+  .shoppingDetails3 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .backButton {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .backButton:hover {
+    color: #000;
+  }
+  
+  .shoppingDetailsRow {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .shoppingDetailsItem {
+    flex: 1;
+  }
+  
+  .shoppingDetailsItem b {
+    margin-right: 5px;
+  }
+  
+  .shoppingActions {
+    margin-top: 10px;
+  }
+  
+  .shoppingDeleteButton {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .shoppingDeleteButton:hover {
+    background-color: #cc0000;
+  }
+  .shoppingPageLayout {
+    display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  }  
+  .checkoutButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .placeordercheckoutButton2{
+    padding: 10px 20px;
+    background-color: #9DC08B;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .placeordercheckoutButton2:hover {
+    background-color: #b1d4a0;
+  }
+  .CheckoutPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+
+  .CheckoutItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+
+  .CheckoutItemImage img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
+
+  .CheckoutItemDetails {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border-radius: 10px;
+  }
+
+  .CheckoutItemName {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .CheckoutItemInfoItem {
+    margin-bottom: 5px;
+  }
+
+  .CheckoutItemInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 10px;
+  }
+
+  .CheckoutItemActions {
+    margin-top: 10px;
+  }
+
+  .CheckoutItemActionButton {
+   padding: 5px 10px;
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .CheckoutSummary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 500px;
+  }
+
+  .CheckoutSummaryTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;;
+  }
+
+  .CheckoutSummaryItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .CheckoutSummaryTotal {
+    font-weight: bold;
+}
+
+  .CheckoutProceedButton {
+    padding: 10px 20px;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+  }  .DeliveryAddressForm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  .DeliveryAddress {
+    display: flex;
+    flex-direction: row;
+    gap: 10px ;
+    align-items: center;
+  }
+
+  .DeliveryAddressFormTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .DeliveryAddressFormItem {
+    margin-bottom: 10px;
+  }
+
+  .DeliveryAddressFormLabel {
+    font-weight: bold;
+  }
+
+  .DeliveryAddressFormInput {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .DeliveryAddressFormButton {
+    padding: 10px 20px;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .DeliveryAddressDefault {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .DeliveryAddressDefaultText {
+    margin-right: 10px;
+  }
+  .DeliveryAddressTitle {
+    font-weight: bold;
+    color: #557153;
+  }
+
+  .DeliveryAddressChangeButton {
+    padding: 5px 10px;
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor:pointer;
+  }
+  .DeliveryAddressRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .DeliveryAddressButtons {
+    display: flex;
+    gap: 10px;
+  }
+  .DeliveryAddressItem {
+    margin-bottom: 5px;
+  }
+  .outlined-text {
+    display: inline-block;
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }

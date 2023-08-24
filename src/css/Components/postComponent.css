@@ -1,0 +1,192 @@
+.postComponentSubTitle,
+.postComponentTitle{
+  align-self: stretch;
+  position: relative;
+}
+  
+.postComponentSubTitle {
+  letter-spacing: 0.06em;
+  line-height: 2.63rem;
+  text-transform: uppercase;
+}
+.postComponentTitle {
+  font-size: 2rem;
+  line-height: 3.68rem;
+  font-weight: 700;
+  color: #434343;
+}
+.postComponentParent{
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.38rem;
+}
+.postComponentCard1Image {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  border-radius: 5.26px;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.postComponentCard1Title {
+  align-self: stretch;
+  position: relative;
+  line-height: 2.73rem;
+}
+.postComponentCard1ViewBlog {
+  color: rgba(39, 174, 96, 0.9);
+}
+.postComponentCard1DescriptionContainer {
+  align-self: stretch;
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.97rem;
+  color: #576074;
+}
+.postComponentCard1,
+.postComponentCard1Details {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.postComponentCard1 {
+  flex: 1;
+  border-radius: 10.52px;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  padding: 1.31rem;
+  gap: 1.31rem;
+}
+.postComponentCard2Image {
+  align-self: stretch;
+  position: relative;
+  border-radius: 5.26px;
+  max-height: 100%;
+  width: 14.06rem;
+  object-fit: cover;
+}
+.postComponentCard1ViewBlog1 {
+  color: #27ae60;
+}
+.postComponentCard2,
+.postComponentCard2Details {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.postComponentCard2Details {
+  flex: 1;
+  flex-direction: column;
+}
+.postComponentCard2{
+  align-self: stretch;
+  border-radius: 10.52px;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  flex-direction: row;
+  padding: 1rem 1.38rem;
+  gap: 1.5rem;
+}
+.kyoto-card-image {
+  align-self: stretch;
+  position: relative;
+  border-radius: 5.26px;
+  max-height: 100%;
+  width: 14rem;
+  object-fit: cover;
+}
+.farming-is-a-container {
+  align-self: stretch;
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.97rem;
+  color: #576074;
+}
+.postComponentCardContainer,
+.postComponentSmallCards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.postComponentSmallCards{
+  flex: 1;
+  flex-direction: column;
+  gap: 0.94rem;
+}
+.postComponentCardContainer {
+  align-self: stretch;
+  flex-direction: row;
+  gap: 1.31rem;
+  text-align: left;
+  font-size: 1.5rem;
+  color: #434343;
+}
+.postComponentFrame {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 3.13rem 6.06rem;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2.88rem;
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(85, 113, 83, 0.9);
+  background-color: #F5F5F5;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+  .postComponentCard1 {
+    width: 100%;
+  }
+  .postComponentSmallCards,
+  .postComponentCard1{
+    flex: unset;
+    align-self: stretch;
+  }
+  .postComponentCardContainer {
+    flex-direction: column;
+  }
+  .postComponentFrame {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 960px) {
+  .postComponentCard2Image {
+    width: 100%;
+  }
+  .postComponentCard2Details {
+    flex: unset;
+    align-self: stretch;
+  }
+  .postComponentCard2 {
+    flex-direction: column;
+  }
+  .kyoto-card-image {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 420px) {
+  .postComponentCard1Image {
+    width: 100% !important;
+    height: auto !important;
+  }
+}

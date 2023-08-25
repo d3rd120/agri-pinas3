@@ -34,12 +34,12 @@
     "contactComponentText10": "Ipadala ang mensahe",
 
     "mainPageNavigationComponentText1": "Pangunahin",
-    "mainPageNavigationComponentText2": "Tungkol",
-    "mainPageNavigationComponentText3": "Mga Post",
+    "mainPageNavigationComponentText2": "Mag Log-in",
+    "mainPageNavigationComponentText3": "Tungkol",
     "mainPageNavigationComponentText4": "Kontak",
     "mainPageNavigationComponentText5": "Lengwahe",
 
-    "loginComponentText1": "Mag Log-in",
+    "loginComponentText1": "Mag Log-in bilang Admin",
     "loginComponentText2": "I-reset ang password",
     "loginComponentText3": "Wala pang account? ",
     "loginComponentText4": "Signup",
@@ -380,6 +380,7 @@
     "Text32": "Akawnts",
     "Text33": "Akawnt ng Magasasaka",
     "Text34": "Akawnt ng Mamimili"
+
     
 
 

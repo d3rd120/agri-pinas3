@@ -1,116 +1,172 @@
-.homeComponentContainerText {
+.grown-with-care {
+  align-self: stretch;
+  position: relative;
+  letter-spacing: -0.25px;
+  text-transform: uppercase;
+  margin-bottom: 0 !important;
+}
+.introducing-the {
   margin: 0;
 }
-.homeComponentTitleContainer,
-.homeComponentTextContainer {
+.agripinas-mobile-app1 {
+  font-weight: 700;
+}
+.agripinas-mobile-app {
+  margin: 0;
+  color: #434343;
+}
+.introducing-the-agripinas-container {
   align-self: stretch;
   position: relative;
-  line-height: 100.5%;
+  font-size: 3.13rem;
+  letter-spacing: -0.25px;
+  color: #557153;
 }
-.homeComponentTextContainer {
-  font-size: 1rem;
-  line-height:200.02%;
-}
-.homeComponentTagLine {
-  width: 28.13rem;
+.banner-titles {
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center; /* Updated */
+  justify-content: flex-start;
   gap: 0.13rem;
 }
-
-.homeComponentMore {
-  position: relative;
-  font-size: 1.25rem;
-  line-height: 220.52%;
-  font-weight: 600;
-  color: #fff;
-  text-align: center;
+.group-icon,
+.group-icon1 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
 }
-.homeComponentButton,
-.homeComponentSet {
-  align-items: flex-start;
+.group-icon1 {
+  height: 16.62%;
+  width: 58.64%;
+  top: 19.77%;
+  right: 11.85%;
+  bottom: 63.61%;
+  left: 29.51%;
 }
-.homeComponentButton {
+.app-store {
   cursor: pointer;
   border: 0;
-  padding: 0 1.25rem;
-  background-color: #27ae60;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  transition: 0.5s;
-  text-decoration: none;  
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  height: 99.75%;
+  width: 46.01%;
+  top: 0;
+  right: 0;
+  bottom: 0.25%;
+  left: 53.99%;
 }
-
-.homeComponentButton:hover {
-  background-color: #3e8e41;
-  color: white;
+.g4036-icon,
+.google-play {
+  position: absolute;
+  overflow: hidden;
 }
-.homeComponentSet {
+.g4036-icon {
+  height: 99.5%;
+  width: 99.78%;
+  top: 0.25%;
+  right: 0.15%;
+  bottom: 0.25%;
+  left: 0.07%;
+  max-width: 100%;
+  max-height: 100%;
+}
+.google-play {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 0;
+  left: 0;
+  width: 9.61rem;
+  height: 2.85rem;
+}
+.download-buttons {
+  position: relative;
+  width: 19.08rem;
+  height: 2.85rem;
+}
+.banner-text {
   flex: 1;
-  flex-direction: column;
-  padding: 0 3.06rem;
-  gap: 1.94rem;
-}
-.homeComponentBackground,
-.homeComponentSet,
-.homeComponent {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
+  gap: 1.88rem;
 }
-.homeComponentBackground {
+.group-1334-1 {
+  position: relative;
+  width: 45.75rem;
+  height: 33.75rem;
+  object-fit: cover;
+}
+.banner-container {
   align-self: stretch;
-  border-radius: 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center; /* Updated */
-  height: 100vh;
+  justify-content: center;
+  gap: 2.63rem;
 }
-.homeComponent {
+.app-page-banner {
   position: relative;
-  background-image: url('../../img/homePhoto.png');
-  background-size: cover;
-  height: 100vh;
+  background-color: #ffff;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 5rem;
+  padding: 4.63rem 5.56rem;
   box-sizing: border-box;
-  font-size: 2.25rem;
-  color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 1.38rem;
+  color: #434343;
+  height: 100vh;
 }
-@media screen and (max-width: 960px) {
-  .homeComponentTitleContainer,
-  .homeComponentTextContainer {
-    text-align: center;
+
+@media screen and (max-width: 1366px) {
+  .app-page-banner {
+    font-size: 1.2rem;
   }
-  .homeComponentTagLine {
-    align-items: flex-start;
-    justify-content: flex-start;
+  .introducing-the-agripinas-container {   
+    font-size: 2rem;
+   
   }
-  .homeComponentBackground,
-  .cthomeComponentSeta {
-    align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .app-page-banner {
+    padding: 2.5rem;
     box-sizing: border-box;
   }
-  .homeComponentSet {
-    gap: 1.56rem;
-    justify-content: center;
+}
+@media screen and (max-width: 960px) {
+  .introducing-the-agripinas-container {
+    font-size: 2.88rem;
+  }
+}
+@media screen and (max-width: 420px) {
+  .grown-with-care {
+    font-size: 1.13rem;
+  }
+  .introducing-the-agripinas-container {
+    font-size: 2rem;
+  }
+  .banner-text {
+    width: 100% !important;
+    padding: 24px !important;
+  }
+  .app-page-banner {
     padding-left: 0;
     padding-right: 0;
-    flex: unset;
-    align-self: stretch;
-  }
-  .homeComponentBackground {
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 3rem;
+    box-sizing: border-box;
   }
 }

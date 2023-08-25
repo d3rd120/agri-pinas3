@@ -173,18 +173,11 @@ const LoginPage = () => {
               onKeyPress={handleKeyPress} // Trigger handleSubmit on Enter key press
             />
           </div>
-          <Link className="logInPageSubText2" to = '/reset'>
-          {t('loginComponentText2')}
-          </Link>
+         
           <button className="loginComponentButton" onClick={handleSubmit}>
             <div className="loginComponentButtonText">Login</div>
           </button>
-          <div className="loginComponentSubTextContainter">
-            <span>{t('loginComponentText3')}</span>
-            <Link className="loginComponentSignUpLink" to="/signup">
-            {t('loginComponentText4')}
-            </Link>
-          </div>
+         
         </div>
       </div>
     </div>

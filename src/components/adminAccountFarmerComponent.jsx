@@ -49,7 +49,7 @@ const AdminFarmerTransactions = () => {
         <table className="adminFarmerAccountManagementTable">
           <thead>
             <tr>
-              <th>User ID</th>
+           
               <th>Full Name</th>
               <th>Email</th>
               <th>Contact No.</th>
@@ -62,7 +62,7 @@ const AdminFarmerTransactions = () => {
           </thead>
           <tbody>
           <tr> 
-                 <td>F001</td>
+              
                  <td>Ryan Edward Amador</td>
                  <td>ryan@gmail.com</td>
                  <td>(+63)9123456789</td>
@@ -74,7 +74,7 @@ const AdminFarmerTransactions = () => {
            </tr>         
 
            <tr> 
-                 <td>F002</td>
+          
                  <td>Daniel Raymond Ribaya</td>
                  <td>daniel@gmail.com</td>
                  <td>(+63)9987654321</td>
@@ -86,7 +86,7 @@ const AdminFarmerTransactions = () => {
            </tr>         
 
            <tr> 
-                 <td>F003</td>
+           
                  <td>Yagerobi Doria</td>
                  <td>yage@gmail.com</td>
                  <td>(+63)9876543219</td>
@@ -98,7 +98,7 @@ const AdminFarmerTransactions = () => {
            </tr>         
 
            <tr> 
-                 <td>F004</td>
+          
                  <td>Enzio James Reyes</td>
                  <td>enzio@gmail.com</td>
                  <td>(+63)9765432198</td>
@@ -110,7 +110,7 @@ const AdminFarmerTransactions = () => {
            </tr>        
             
            <tr> 
-                 <td>F005</td>
+           
                  <td>Joebert Edward Torres</td>
                  <td>joebert@gmail.com</td>
                  <td>(+63)9654321987</td>

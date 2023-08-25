@@ -69,8 +69,7 @@ const AdminFarmerTransactions = () => {
            
         <table className="adminBuyerAccountManagementTable">
           <thead>
-            <tr>
-              <th>User ID</th>
+            <tr>  
               <th>Full Name</th>
               <th>Email</th>
               <th>Contact No.</th>
@@ -84,8 +83,7 @@ const AdminFarmerTransactions = () => {
           </thead>
           <tbody>
             {registeredUsers.map((user) => (
-              <tr key={user.uid}>
-                <td>{user.uid}</td>
+              <tr key={user.uid}>           
                 <td>{user.fullname}</td>
                 <td>{user.email}</td>
                 <td>{user.contact}</td>
@@ -98,7 +96,7 @@ const AdminFarmerTransactions = () => {
             ))} 
 
             <tr> 
-                 <td>B002</td>
+    
                  <td>Romeo London III</td>
                  <td>romeo@gmail.com</td>
                  <td>(+63)9234567891</td>
@@ -111,7 +109,7 @@ const AdminFarmerTransactions = () => {
            </tr>          
 
            <tr> 
-                 <td>B003</td>
+          
                  <td>Daniella Tungol</td>
                  <td>daniella@gmail.com</td>
                  <td>(+63)9234567891</td>
@@ -124,7 +122,7 @@ const AdminFarmerTransactions = () => {
            </tr>    
 
            <tr> 
-                 <td>B004</td>
+           
                  <td>Marievic Anes</td>
                  <td>marievic@gmail.com</td>
                  <td>(+63)9234567891</td>
@@ -137,7 +135,7 @@ const AdminFarmerTransactions = () => {
            </tr>    
 
            <tr> 
-                 <td>B005</td>
+        
                  <td>Jenkins Mesina</td>
                  <td>jenkins@gmail.com</td>
                  <td>(+63)9234567891</td>

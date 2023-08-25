@@ -21,20 +21,20 @@ const HomeComponent = () => {
             </div>
             <div className="introducing-the-agripinas-container">
               <p className="introducing-the">
-                <b>Introducing the</b>
+                <b>Available na ang</b>
               </p>
               <p className="agripinas-mobile-app">
                 <i className="agripinas-mobile-app1">AgriPinas Mobile App</i>
               </p>
             </div>
           </div>
-          <div className="download-buttons">
-            <button className="app-store">
-              <img className="group-icon" alt="" src={HomePagePic1} />             
-            </button>
+          <div className="download-buttons">    
+          {/* <div className="grown-with-care">
+             get it here
+            </div>        */}
             <button className="google-play">
               <img className="g4036-icon" alt="" src={HomePagePic2}/>
-            </button>
+            </button> 
           </div>
         </div>
         <img className="group-1334-1" alt="" src={HomeIcon} />

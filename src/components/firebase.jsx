@@ -97,5 +97,6 @@ export {
     registerWithEmailAndPassword,
     sendPasswordReset,
     logout,
-    uploadImage
+    uploadImage,
+    storage
 };

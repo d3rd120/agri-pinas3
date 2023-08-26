@@ -3,32 +3,41 @@ import { Link } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import HomeIcon from '../img/homePagePic.png';
+import HomePagePic1 from '../img/homePagePic1.png';
+import HomePagePic2 from '../img/homePagePic2.png';
 
 const HomeComponent = () => {
-  const { t } = useTranslation();
-  
-   
+  const { t } = useTranslation();   
 
   return (
     <I18nextProvider i18n={i18n}>      
-    <div className="homeComponent">
-      <div className="homeComponentBackground">
-        <div className="homeComponentSet">
-          <div className="homeComponentTagLine">
-            <b className="homeComponentTitleContainer">
-              <p className="homeComponentContainerText">{t('homeComponentText1')}</p>             
-            </b>
-            <div className="homeComponentTextContainer">
-              <p className="homeComponentContainerText">{t('homeComponentText2')}</p>
-              <p className="homeComponentContainerText">
-              {t('homeComponentText3')}
+  <div className="app-page-banner">
+      <div className="banner-container">
+        <div className="banner-text">
+          <div className="banner-titles">
+            <div className="grown-with-care">
+              grown with care, traded with trust
+            </div>
+            <div className="introducing-the-agripinas-container">
+              <p className="introducing-the">
+                <b>Available na ang</b>
+              </p>
+              <p className="agripinas-mobile-app">
+                <i className="agripinas-mobile-app1">AgriPinas Mobile App</i>
               </p>
             </div>
           </div>
-          <Link className="homeComponentButton" to = '/login'>
-            <div className="homeComponentMore">{t('homeComponentText4')}</div>
-          </Link>
+          <div className="download-buttons">    
+          {/* <div className="grown-with-care">
+             get it here
+            </div>        */}
+            <button className="google-play">
+              <img className="g4036-icon" alt="" src={HomePagePic2}/>
+            </button> 
+          </div>
         </div>
+        <img className="group-1334-1" alt="" src={HomeIcon} />
       </div>
     </div>
     </I18nextProvider>

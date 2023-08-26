@@ -20,6 +20,7 @@ const AdminFarmerTransactions = () => {
         users.push({ ...user, editing: false });
       });
 
+
       const filteredFarmerAccounts = users.filter((user) => user.role === 'Farmer');
       setFarmerAccounts(filteredFarmerAccounts);
     });
@@ -40,6 +41,104 @@ const AdminFarmerTransactions = () => {
     );
     setFarmerAccounts(updatedAccounts);
   };
+
+        <div className="adminAccountFarmerComponentMiddleSection">
+        <div className="adminFarmerAccountManagementPageLayout1">     
+            <div className="adminFarmerAccountManagementPageLayout2">
+        <div className="adminFarmerAccountManagementCard">
+            <div className="adminFarmerAccountManagementSubTitle"><FaPeopleArrows /> {t('Text33')}
+            </div>
+            <br></br>
+           <div className = "adminFarmerAccountManagementShow">{t('Text3')}  
+           <select className="adminFarmerAccountManagementRowSelect" onchange="updateRows(this.value)">
+                   <option value="5">5</option>
+                   <option value="10">10</option>
+                   <option value="15">15</option>
+                   <option value="20">20</option>
+            </select>
+            <input 
+            className="adminFarmerAccountManagementRowSelect"
+            type = "text"
+            placeholder = "Search">                    
+            </input>
+            </div> 
+            <br></br>
+           
+        <table className="adminFarmerAccountManagementTable">
+          <thead>
+            <tr>
+           
+              <th>Full Name</th>
+              <th>Email</th>
+              <th>Contact No.</th>
+              <th>Address</th>
+              <th>Birthday</th>
+              <th>Age</th>   
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr> 
+              
+                 <td>Ryan Edward Amador</td>
+                 <td>ryan@gmail.com</td>
+                 <td>(+63)9123456789</td>
+                 <td>Antipolo</td>
+                 <td>01-01-1999</td>
+                 <td>23</td>       
+                 <td> <FaEdit /> </td>
+                 <td> <FaTrash /> </td>               
+           </tr>         
+
+           <tr> 
+          
+                 <td>Daniel Raymond Ribaya</td>
+                 <td>daniel@gmail.com</td>
+                 <td>(+63)9987654321</td>
+                 <td>Rizal</td>
+                 <td>02-02-1999</td>
+                 <td>23</td>       
+                 <td> <FaEdit /> </td>
+                 <td> <FaTrash /> </td>               
+           </tr>         
+
+           <tr> 
+           
+                 <td>Yagerobi Doria</td>
+                 <td>yage@gmail.com</td>
+                 <td>(+63)9876543219</td>
+                 <td>Tondo, Manila</td>
+                 <td>03-03-1999</td>
+                 <td>23</td>       
+                 <td> <FaEdit /> </td>
+                 <td> <FaTrash /> </td>               
+           </tr>         
+
+           <tr> 
+          
+                 <td>Enzio James Reyes</td>
+                 <td>enzio@gmail.com</td>
+                 <td>(+63)9765432198</td>
+                 <td>Novaliches, Quezon City</td>
+                 <td>04-04-1999</td>
+                 <td>23</td>       
+                 <td> <FaEdit /> </td>
+                 <td> <FaTrash /> </td>               
+           </tr>        
+            
+           <tr> 
+           
+                 <td>Joebert Edward Torres</td>
+                 <td>joebert@gmail.com</td>
+                 <td>(+63)9654321987</td>
+                 <td>Sta. Mesa, Manila</td>
+                 <td>05-05-1999</td>
+                 <td>23</td>       
+                 <td> <FaEdit /> </td>
+                 <td> <FaTrash /> </td>               
+           </tr>         
+
 
   const cancelEditing = (user) => {
     const updatedAccounts = farmerAccounts.map((account) =>

@@ -5,6 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import { FaGlobe } from "react-icons/fa";
 import i18n from '../i18n';
+import { Link } from 'react-router-dom';
 
 const MainPageNavigation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,9 +48,8 @@ const MainPageNavigation = () => {
             </b>
           </div>
           <div className="mainNavigationRightLinks">
-            <div className="mainNavigationMenu">
-              <a className="mainNavigationLink">{t('mainPageNavigationComponentText1')}</a>
-              <a className="mainNavigationLink">{t('mainPageNavigationComponentText2')}</a>
+            <div className="mainNavigationMenu">           
+              <Link className="mainNavigationLink" to = '/login'>{t('mainPageNavigationComponentText2')}</Link>            
               <a className="mainNavigationLink">{t('mainPageNavigationComponentText3')}</a>  
               <a className="mainNavigationLink">{t('mainPageNavigationComponentText4')}</a>           
               <div

@@ -134,6 +134,7 @@ const AdminFarmerTransactions = () => {
             </tr>
           </thead>
           <tbody>
+
                       {buyerAccounts.map((user) => (
                         <tr key={user.uid}>
                           <td>
@@ -247,6 +248,72 @@ const AdminFarmerTransactions = () => {
                           </td>
                         </tr>
                       ))}
+
+            {registeredUsers.map((user) => (
+              <tr key={user.uid}>           
+                <td>{user.fullname}</td>
+                <td>{user.email}</td>
+                <td>{user.contact}</td>
+                <td>{user.address}</td>
+                <td>{user.birthdate}</td>
+                <td>{user.age}</td>
+                <td><FaEdit /></td>
+                <td><FaTrash /></td>
+              </tr>
+            ))} 
+
+            <tr> 
+    
+                 <td>Romeo London III</td>
+                 <td>romeo@gmail.com</td>
+                 <td>(+63)9234567891</td>
+                 <td>Sampaloc, Manila</td>
+                 <td>07-12-1999</td>
+                 <td>23</td>       
+                 <td><FaEdit /></td>  
+                 <td><FaTrash /> </td>   
+                                
+           </tr>          
+
+           <tr> 
+          
+                 <td>Daniella Tungol</td>
+                 <td>daniella@gmail.com</td>
+                 <td>(+63)9234567891</td>
+                 <td>Tandang Sora, Quezon City</td>
+                 <td>12-15-1999</td>
+                 <td>23</td>       
+                 <td><FaEdit /></td> 
+                 <td><FaTrash /> </td>  
+                                  
+           </tr>    
+
+           <tr> 
+           
+                 <td>Marievic Anes</td>
+                 <td>marievic@gmail.com</td>
+                 <td>(+63)9234567891</td>
+                 <td>East Avenue, Quezon City</td>
+                 <td>08-12-2000</td>
+                 <td>22</td>       
+                 <td><FaEdit /></td> 
+                 <td><FaTrash /> </td>               
+                     
+           </tr>    
+
+           <tr> 
+        
+                 <td>Jenkins Mesina</td>
+                 <td>jenkins@gmail.com</td>
+                 <td>(+63)9234567891</td>
+                 <td>Sta Mesa, Manila City</td>
+                 <td>01-15-1999</td>
+                 <td>23</td>       
+                 <td><FaEdit /></td> 
+                 <td><FaTrash /> </td>  
+                                  
+           </tr>    
+
           </tbody>
         </table>
 

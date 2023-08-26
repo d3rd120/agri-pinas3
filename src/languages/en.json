@@ -33,14 +33,13 @@
   "contactComponentText9": "Enter your message",
   "contactComponentText10": "Send message",
 
-    "mainPageNavigationComponentText1": "Home",
-    "mainPageNavigationComponentText2": "About",
-    "mainPageNavigationComponentText3": "Posts",
+    "mainPageNavigationComponentText2": "Login",
+    "mainPageNavigationComponentText3": "About",
     "mainPageNavigationComponentText4": "Contact",
     "mainPageNavigationComponentText5": "Language",
   
 
-    "loginComponentText1": "Login",
+    "loginComponentText1": "Login as Admin",
     "loginComponentText2": "Reset password",
     "loginComponentText3": "Don't have an account? ",
     "loginComponentText4": "Signup",

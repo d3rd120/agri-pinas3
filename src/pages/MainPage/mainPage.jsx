@@ -1,7 +1,6 @@
 import React from 'react';
 import MainPageNavigation from '../../components/mainPageNavigation';
 import HomeComponent from '../../components/homeComponent';
-import PostComponent from '../../components/postComponent';
 import ContactComponent from '../../components/contactComponent';
 import AboutComponent from '../../components/aboutComponent';
 
@@ -13,8 +12,7 @@ const MainPage = () => {
         <>       
         <MainPageNavigation />                    
         <HomeComponent />  
-        <AboutComponent />     
-        <PostComponent />        
+        <AboutComponent />                
         <ContactComponent />       
         </>
     );

@@ -17,7 +17,7 @@ const HomeComponent = () => {
         <div className="banner-text">
           <div className="banner-titles">
             <div className="grown-with-care">
-              grown with care, traded with trust
+              grown with care, traded with trust hello world
             </div>
             <div className="introducing-the-agripinas-container">
               <p className="introducing-the">

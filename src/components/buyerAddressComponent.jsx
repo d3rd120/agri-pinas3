@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/BuyerPage/buyerCommunityForumPost.css';
 import BuyerProfileNav from '../components/buyerProfileNav';
-import { IconButton, Modal, TextField, Button } from '@material-ui/core';
+import { Modal, Button } from '@material-ui/core';
 import BuyerTopNav from '../components/buyerTopNav';
 import { FaTrashAlt, FaEdit, FaPlus } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
@@ -15,7 +15,8 @@ const BuyerAddress = () => {
 
   const [openEditModal1, setOpenEditModal1] = useState(false);
   const [openEditModal2, setOpenEditModal2] = useState(false);
-  const [fullname, setFullname] = useState(''); 
+  const [name, setName] = useState('');
+  const [fullname, setFullname] = useState('');
   const [contact, setContact] = useState('');
   const [barangay, setBarangay] = useState('');
   const [address, setAddress] = useState('');
@@ -174,7 +175,7 @@ const BuyerAddress = () => {
                 type="text"
                 placeholder="Enter your name"
                 value={fullname}
-                onChange={(e) => setfullname(e.target.value)}
+                onChange={(e) => setFullname(e.target.value)}
               />
             </div>
             <div className={`farmerMarketplaceEditProductComponentInputParent ${phoneNumberError ? 'error' : ''}`}>
@@ -249,8 +250,8 @@ const BuyerAddress = () => {
               className={`farmerMarketplaceEditProductComponentInput2 ${nameError ? 'error' : ''}`}
               type="text"
               placeholder={t('farmerProfileText28')}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
             />
           </div>
           <div className={`farmerMarketplaceEditProductComponentInputParent ${phoneNumberError ? 'error' : ''}`}>

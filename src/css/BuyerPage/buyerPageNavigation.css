@@ -1,0 +1,292 @@
+.buyerPageNavigation {
+    align-self: stretch;
+    background-color: #557153;
+    display: flex;
+    flex-direction: column;
+    padding: 3.31rem 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5.81rem;
+  }
+  
+  .buyerPageNavigationLogoParent {
+    height: 1.84rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    top: 9000%;
+    position: sticky;
+    top: 2rem;
+  }
+  
+  .buyerPageNavigationLogoIcon {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+  }
+  
+  .buyerPageNavigationMainText {
+    position: relative;
+    display: inline-block;
+    width: 6.63rem;
+    height: 1.36rem;
+    flex-shrink: 0;
+  }
+  
+  .buyerPageNavigationGroupParent {
+    position: relative;
+    width: 9.56rem;
+    height: 16.28rem;
+    position: sticky;
+    top: 10rem;
+  }
+  
+  .buyerPageNavigationLink1 {
+    text-decoration: none;
+    position: absolute;
+    top: 7.47rem;
+    left: 0.05rem;
+    width: 9.14rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  
+  .buyerPageNavigationLinks {
+    position: absolute;
+    top: 0;
+    left: 2.51rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .active .buyerPageNavigationLinksIcon {
+    color: #FBA403;
+  }
+  
+  .buyerPageNavigationLinks:hover {
+    color: #FBA403;
+  }
+  
+  .buyerPageNavigationLinksIcon {
+    position: absolute;
+    top: 0.14rem;
+    left: 0;
+    width: 1.25rem;
+    height: 1.05rem;
+  }
+  
+  .buyerPageNavigationLink2 {
+    text-decoration: none;
+    position: absolute;
+    top: 11.22rem;
+    left: 0.02rem;
+    width: 9.49rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+  
+  .buyerPageNavigationLink3 {
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 0.08rem;
+    width: 8.42rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+  
+  .buyerPageNavigationLink4 {
+    text-decoration: none;
+    position: absolute;
+    top: 3.78rem;
+    left: 0;
+    width: 9.44rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  
+  .buyerPageNavigationLink5 {
+    text-decoration: none;
+    position: absolute;
+    top: 14.91rem;
+    left: 0.04rem;
+    width: 9.53rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  
+  .buyerPageNavigationProfileParent {
+    position: relative;
+    width: 6.25rem;
+    height: 2.25rem;
+  }
+  
+  .buyerPageNavigationProfile {
+    position: absolute;
+    height: 100%;
+    width: 36%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 38%;
+    border-radius: 50%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .buyerPageNavigationProfile:hover {
+    color: #FBA403;
+  }
+  
+  .buyerPageNavigationProfile svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .buyerPageNavigationGroupItem {
+    position: absolute;
+    height: 84.48%;
+    width: 0.7%;
+    top: 7.76%;
+    right: 55.3%;
+    bottom: 7.76%;
+    left: 44%;
+    border-right: 0.7px solid black;
+    box-sizing: border-box;
+  }
+  
+  .buyerPageNavigationBellParent {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    height: 74.07%;
+    width: 24%;
+    top: 12.96%;
+    right: 76%;
+    bottom: 12.96%;
+    left: 0;
+  }
+  
+  .buyerPageNavigationBell {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 4910%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    color: #A9AF7E;
+  }
+  
+  .buyerPageNavigationBell:hover {
+    color: #FBA403;
+  }
+  
+  .buyerPageNavigationBell svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .buyerPageNavigationMessageParent {
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    position: absolute;
+    height: 74.07%;
+    width: 24%;
+    top: 12.96%;
+    right: 76%;
+    bottom: 12.96%;
+    left: 0;
+  }
+  
+  .buyerPageNavigationMessage {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 5190%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+    color: white;
+    transition: 0.5s;
+    cursor: pointer;
+    color: #A9AF7E;
+  }
+  
+  .buyerPageNavigationMessage:hover {
+    color: #FBA403;
+  }
+  
+  .buyerPageNavigationMessage svg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .buyerPageNavigationInner {
+    position: absolute;
+    height: 35.98%;
+    width: 39.98%;
+    top: 3.9%;
+    right: 0;
+    bottom: 60.12%;
+    left: 60.02%;
+    border-radius: 50%;
+    background-color: #fba403;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .buyerPageNavigation {
+      display: none;
+    }
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  

@@ -1,0 +1,361 @@
+.buyerTransactionsCancelledComponentBlankLine {
+    margin: 0;
+    color: #557153;
+  }
+  
+  .buyerTransactionsCancelledComponentMainTextWrapper {
+    align-self: stretch;
+    position: relative;
+    text-transform: uppercase;
+  }
+  
+  .buyerTransactionsCancelledComponentMainText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .buyerTransactionsCancelledComponentTopSection {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.88rem;
+  }
+  
+  .buyerTransactionsCancelledComponentButtonIcon {
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    color: white;
+  }
+  
+  .button {
+    position: relative;
+    font-size: 1.13rem;
+    letter-spacing: 0.46px;
+    font-weight: 600;   
+    color: #fff;
+    text-align: center;
+  }
+  
+  .buyerTransactionsCancelledComponentButton {
+    cursor: pointer;
+    border: 0;
+    padding: 0.75rem 1.13rem;
+    background-color: #27ae60;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.38rem;
+    transition: 0.3s;
+  }
+  
+  .buyerTransactionsCancelledComponentButton:hover {
+    background-color: #598025;
+  }
+  
+  .buyerTransactionsCancelledComponentButtonText {
+    position: relative;
+    font-size: 0.88rem;
+    letter-spacing: 0.46px;
+    font-weight: 600;    
+    color: #fff;
+    text-align: center;
+  }
+  
+  .buyerTransactionsCancelledComponentDetails {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.63rem;
+    align-self: stretch; 
+  }
+  
+  .buyerTransactionsCancelledComponentMiddleSection {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .buyerTransactionsCancelledComponentMiddleSection {
+    flex-direction: row;
+    align-items: flex-end;
+    font-size: 1.63rem;
+    color: #1a202e;   
+  }
+  
+  .buyerTransactionsCancelledComponent,
+  .buyerTransactionsCancelledComponentMainPanel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .buyerTransactionsCancelledComponentMainPanel {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.75rem 3.38rem;
+    gap: 3.19rem;
+    font-size: 1.31rem;
+    color: #151630;
+  }
+  
+  .buyerTransactionsCancelledComponent {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 52.94rem;
+    flex-direction: row;
+    gap: 0.06rem;
+    text-align: left;
+    font-size: 1.13rem;
+    color: #fff;   
+    height:100%;
+    min-height: 100vh;
+  }
+  
+  .buyerTransactionsCancelledComponentFrameParent {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.88rem;
+  }
+  
+  .buyerTransactionsCancelledComponentFrameWrapper {
+    align-self: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .buyerTransactionsCancelledComponentRectangleParent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-decoration: none;
+    flex: 1;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 0.7px solid #dee3eb;
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-direction: column;
+    gap: 0.25rem;
+    cursor: pointer;
+    width: 32%;
+    margin-bottom: 1.25rem;
+    transition: 0.5s;
+    color: inherit;
+    margin-right:1rem;
+  }
+  
+  .buyerTransactionsCancelledComponentRectangleParent:hover {
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
+  }
+  
+  .buyerTransactionsCancelledComponentFrameChild {
+    align-self: stretch;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    height: 15rem;
+    flex-shrink: 0;
+    object-fit: cover;
+  }
+  
+  .buyerTransactionsCancelledComponentFrameGroup {
+    align-self: stretch;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.81rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .buyerTransactionsCancelledComponentFrameContainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .buyerTransactionsCancelledComponentSubText1Wrapper {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  
+  .buyerTransactionsCancelledComponentSubText1 {
+    align-self: stretch;
+    position: relative;
+    letter-spacing: 0.02em;
+    line-height: 2.13rem;
+  }
+  
+  .buyerTransactionsCancelledComponentSubText2Wrapper2 {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 1rem;   
+  }
+  
+  .buyerTransactionsCancelledComponentSubText2 {
+    align-self: stretch;
+    position: relative;
+    letter-spacing: 0.01em;
+    line-height: 1.75rem;
+  }
+  
+  .buyerTransactionsCancelledComponentFrameItem {
+    align-self: stretch;
+    position: relative;
+    border-top: 0.7px solid #ecf0f6;
+    box-sizing: border-box;
+    height: 0.04rem;
+  }
+  
+  .buyerTransactionsCancelledComponentForumNumber {
+    flex-direction: row;
+    padding: 0 0.75rem 0 0;
+    align-items: center;
+    gap: 0.63rem;
+    font-size: 1.06rem;
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .buyerTransactionsCancelledComponentForumContainer {
+    border-radius: 6px;
+    border: 1px solid #bac2d6;
+    display: flex;
+    flex-direction: column;
+    padding: 0.88rem 1.88rem;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .buyerTransactionsCancelledComponentForumContainer:hover {
+    background-color: #E5FCE7;
+  }
+  
+  .buyerTransactionsCancelledComponentForumNumberBox {
+    position: relative;
+    letter-spacing: -0.02em;
+    line-height: 2rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  .buyerTransactionsCancelledComponentCard {
+    background-color: #f7f7f7;
+    border-radius: 5px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    height: 500px;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buyerTransactionsCancelledComponentSubTitle {
+    background-color: #e7e7e7;
+    padding: 10px;
+    margin-right: 8px;
+    margin-left: 30px; 
+    text-align: start;
+    font-size: 1rem;    
+    font-weight: 600;
+  }
+  
+  .buyerTransactionsCancelledComponentShow {
+    text-align: justify;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-right: 8px;
+    margin-left: 40px; 
+    text-align: start;
+  }  
+  
+  .buyerTransactionsCancelledComponentRowSelect {
+    padding: 8px;
+    border: 1px solid #7D8F69;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 0.5rem;
+  }
+  
+  .buyerTransactionsCancelledComponentRowSelect:focus {
+    outline: none;
+    border-color: #557153;
+  }
+  
+  @media screen and (max-width: 1200px) {  
+    .buyerTransactionsCancelledComponentForumContainer {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      box-sizing: border-box;
+    }
+  }
+  
+  @media screen and (max-width: 960px) {
+    .buyerTransactionsCancelledComponentMainText {
+      padding-right: 0;
+      box-sizing: border-box;
+      flex: unset;
+      align-self: stretch;
+    }
+    .buyerTransactionsCancelledComponentTopSection {
+      flex-direction: column;
+    }
+    .buyerTransactionsCancelledComponentButton {
+      margin-right: auto;
+    }
+  
+    .buyerTransactionsCancelledComponentMiddleSection {
+      flex-direction: column;
+    }
+    .buyerTransactionsCancelledComponentFrameParent {
+      flex: unset;
+      align-self: stretch;
+    }
+  }
+  
+  @media screen and (max-width: 420px) {
+    .buyerTransactionsCancelledComponentMainText {
+      width: 100%;
+    }
+    .buyerTransactionsCancelledComponentButton {
+      width: 100% !important;
+    }
+    .buyerTransactionsCancelledComponentMainPanel {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      box-sizing: border-box;
+    }
+  }
+  

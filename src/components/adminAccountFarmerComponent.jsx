@@ -128,13 +128,32 @@ const AdminFarmerTransactions = () => {
               <th>Address</th>
               <th>Birthday</th>
               <th>Age</th>   
-              <th></th>
-              <th></th>
+              <th>Edit</th>
+              <th>Delete</th>
+         
             </tr>
           </thead>
           <tbody>
                       {farmerAccounts.map((user) => (
                         <tr key={user.uid}>
+                           <td>
+                            {user.editing ? (
+                              <input
+                                value={user.fullname}
+                                onChange={(e) =>
+                                  setFarmerAccounts((prevAccounts) =>
+                                    prevAccounts.map((account) =>
+                                      account.uid === user.uid
+                                        ? { ...account, fullname: e.target.value }
+                                        : account
+                                    )
+                                  )
+                                }
+                              />
+                            ) : (
+                              user.fullname
+                            )}
+                          </td>
                           <td>
                             {user.editing ? (
                               <input
@@ -231,15 +250,26 @@ const AdminFarmerTransactions = () => {
                             )}
                           </td>
                           <td>{user.age}</td>
+
                           <td>
                             {user.editing ? (
                               <div>
-                                <button onClick={() => saveChanges(user)}>Save</button>
-                                <button onClick={() => cancelEditing(user)}>Cancel</button>
+                                <button onClick={() => saveChanges(user)}>Save</button>                               
                               </div>
                             ) : (
                               <div>
-                                <FaEdit onClick={() => startEditing(user)} />
+                                <FaEdit onClick={() => startEditing(user)} />                                
+                              </div>
+                            )}
+                          </td>
+                          
+                          <td>
+                            {user.editing ? (
+                              <div>                              
+                                <button onClick={() => cancelEditing(user)}>Cancel</button>
+                              </div>
+                            ) : (
+                              <div>                                
                                 <FaTrash onClick={() => deleteUser(user)} />
                               </div>
                             )}

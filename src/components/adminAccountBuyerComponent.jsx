@@ -127,14 +127,14 @@ const AdminFarmerTransactions = () => {
               <th>Address</th>
               <th>Birthday</th>
               <th>Age</th>      
-              <th></th>       
-              <th></th> 
+              <th>Edit</th>       
+              <th>Delete</th> 
               
             </tr>
           </thead>
           <tbody>
                       {buyerAccounts.map((user) => (
-                        <tr key={user.uid}>
+                        <tr key={user.uid}>                         
                           <td>
                             {user.editing ? (
                               <input
@@ -234,12 +234,21 @@ const AdminFarmerTransactions = () => {
                           <td>
                             {user.editing ? (
                               <div>
-                                <button onClick={() => saveChanges(user)}>Save</button>
-                                <button onClick={() => cancelEditing(user)}>Cancel</button>
+                                <button onClick={() => saveChanges(user)}>Save</button>                               
                               </div>
                             ) : (
                               <div>
-                                <FaEdit onClick={() => startEditing(user)} />
+                                <FaEdit onClick={() => startEditing(user)} />                               
+                              </div>
+                            )}
+                          </td>
+                          <td>
+                            {user.editing ? (
+                              <div>                               
+                                <button onClick={() => cancelEditing(user)}>Cancel</button>
+                              </div>
+                            ) : (
+                              <div>                               
                                 <FaTrash onClick={() => deleteUser(user)} />
                               </div>
                             )}

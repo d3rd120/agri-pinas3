@@ -5,13 +5,15 @@ import {
     getAuth,
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    sendEmailVerification,
 } from "firebase/auth";
 import {
     addDoc,
     collection,
     getFirestore,
-   
+    doc,
+    setDoc,
 } from "firebase/firestore";
 import {
     getStorage,
@@ -45,25 +47,41 @@ const logInWithEmailAndPassword = async (email, password) => {
 };
 
 const registerWithEmailAndPassword = async (fullname, contact, address, birthdate, age, email, role, password) => {
-    try {
-        const res = await createUserWithEmailAndPassword(auth, email, password);
-        const user = res.user;
-        await addDoc(collection(db, "Users"), {
-            uid: user.uid,
-            fullname,
-            contact,
-            address,
-            birthdate,
-            age,
-            email,
-            role,
-            password
-        });
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+
+    // Send a verification email to the registered user
+    await sendEmailVerification(user);
+
+    // Create a user document in Firestore
+    const userDocRef = doc(db, "Users", user.uid);
+    await setDoc(userDocRef, {
+      uid: user.uid,
+      fullname,
+      contact,
+      address,
+      birthdate,
+      age,
+      email,
+      role,
+    });
+
+    alert("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
+  } catch (err) {
+    console.error(err);
+
+    // Display a more specific error message to help identify the issue
+    if (err.code === "auth/email-already-in-use") {
+      alert("Registration failed. The email address is already in use.");
+    } else {
+      alert("Registration failed. Please try again later.");
     }
+  }
 };
+
+
+  
 
 const sendPasswordReset = async (email) => {
     try {
@@ -90,6 +108,18 @@ const uploadImage = async (file) => {
     }
   };
 
+  const storePostInDatabase = async (postDetails) => {
+    try {
+      const postsCollection = collection(db, "CommunityForum");
+      await addDoc(postsCollection, postDetails);
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
+
+
+
 export {
     auth,
     db,
@@ -98,5 +128,6 @@ export {
     sendPasswordReset,
     logout,
     uploadImage,
-    storage
+    storage,
+    storePostInDatabase
 };

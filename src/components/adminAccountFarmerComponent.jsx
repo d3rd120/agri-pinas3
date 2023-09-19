@@ -120,8 +120,7 @@ const AdminFarmerTransactions = () => {
            
         <table className="adminFarmerAccountManagementTable">
           <thead>
-            <tr>
-              <th>User ID</th>
+            <tr>           
               <th>Full Name</th>
               <th>Email</th>
               <th>Contact No.</th>
@@ -135,25 +134,7 @@ const AdminFarmerTransactions = () => {
           </thead>
           <tbody>
                       {farmerAccounts.map((user) => (
-                        <tr key={user.uid}>
-                           <td>
-                            {user.editing ? (
-                              <input
-                                value={user.fullname}
-                                onChange={(e) =>
-                                  setFarmerAccounts((prevAccounts) =>
-                                    prevAccounts.map((account) =>
-                                      account.uid === user.uid
-                                        ? { ...account, fullname: e.target.value }
-                                        : account
-                                    )
-                                  )
-                                }
-                              />
-                            ) : (
-                              user.fullname
-                            )}
-                          </td>
+                        <tr key={user.uid}>                          
                           <td>
                             {user.editing ? (
                               <input

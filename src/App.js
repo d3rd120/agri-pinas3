@@ -10,13 +10,13 @@ import SignupPage from './pages/MainPage/signupPage';
 import BuyerMarketplace from './pages/BuyerPage/buyerMarketplace';
 import BuyerMarketplacePost from './pages/BuyerPage/buyerMarketplacePost';
 import ShoppingCart from './components/shoppingCartComponent';
-import BuyerCommunityForum from './pages/BuyerPage/buyerCommunityForum';
 import BuyerCommunityForumPost from './pages/BuyerPage/buyerCommunityForumPost';
 import BuyerToReceive from './pages/BuyerPage/buyerTransactToReceive';
 import BuyerComplete from './components/buyerTransactionCompleted';
 import BuyerCancelled from './components/buyerTransactionCancelled';
 import BuyerProfile from './pages/BuyerPage/buyerProfile';
 import BuyerAddress from './components/buyerAddressComponent';
+import BuyerCommunityForum from './components/buyerCommunityForumComponent';
 
 
 
@@ -55,15 +55,17 @@ const App = () => {
 
 
           <Route path="/buyermarketplace" element={<BuyerMarketplace />} />
-          <Route path="/buyermarketplacepost" element={<BuyerMarketplacePost />} />
-          <Route path="/buyercommunityforum" element={<BuyerCommunityForum />}  />
+          <Route path="/buyermarketplacepost" element={<BuyerMarketplacePost />} />       
           <Route path="/buyercommunityforumpost" element={<BuyerCommunityForumPost />}  />
           <Route path="/buyertoreceive" element={<BuyerToReceive />}  />
           <Route path="/buyercomplete" element={<BuyerComplete />} />
           <Route path="/buyercancelled" element={<BuyerCancelled />} />         
           <Route path="/shoppingcart" element={<ShoppingCart />} />
           <Route path="/buyerprofile" element={<BuyerProfile />} />
-          <Route path="/buyeraddress" element={<BuyerAddress />} />         
+          <Route path="/buyeraddress" element={<BuyerAddress />} />       
+          <Route path="/buyercommunityforum" element={<BuyerCommunityForum />} />    
+
+          
       
 
           <Route path="/admindashboard" element={<AdminDashboard />} />

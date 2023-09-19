@@ -1,13 +1,11 @@
-
 import "../css/Components/adminCommunityForumComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
-import RiceVector from '../img/riceCardImage.png';
-import CornVector from '../img/cornVector.png';
-import SiliVector from '../img/sili.png';
-import OnionVector from '../img/onionVector.png';
-import SquashVector from '../img/squash.png';
-import TomatoVector from '../img/tomatoVector.png';
-import { FaTrash, FaComments, FaEdit } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from './firebase';
+import {Link} from 'react-router-dom';
+import ProfileVector1 from '../img/profileVector1.png';
+import { FaComments } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -15,6 +13,20 @@ import i18n from '../i18n';
 
 const AdminCommunityForumComponent = () => {
   const { t } = useTranslation();
+  const [posts, setPosts] = useState([]);
+  
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "CommunityForum"), (snapshot) => {
+      const postsData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPosts(postsData);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="adminCommunityForumComponent">
@@ -51,163 +63,51 @@ const AdminCommunityForumComponent = () => {
     
      
 
-        <div className="adminCommunityForumComponentMiddleSection">
-        <div className="adminCommunityForumComponentFrameParent">
-
-
-            <div className="adminCommunityForumComponentFrameWrapper">
-              <a className="adminCommunityForumComponentRectangleParent">
+       <div className="farmerCommunityForumComponentFrameWrapper">
+            {posts.map((post, index) => (
+              <Link
+                className="farmerCommunityForumComponentRectangleParent"
+                to={`/farmercommunityforumpost/${index}`}
+                key={index}
+              >
                 <img
-                  className="adminCommunityForumComponentFrameChild"
+                  className="farmerCommunityForumComponentFrameChild"
                   alt=""
-                  src={OnionVector}
+                  src={post.imageUrl}
                 />
-                <div className="adminCommunityForumComponentFrameGroup">
-                  <div className="adminCommunityForumComponentFrameContainer">
-                    <div className="adminCommunityForumComponentSubText1Wrapper">
-                      <b className="adminCommunityForumComponentSubText1">{t('Text5')}</b>
+                <div className="farmerCommunityForumComponentFrameGroup">
+                  <div className="farmerCommunityForumComponentFrameContainer">
+                    <div className="farmerCommunityForumComponentSubText1Wrapper">
+                      <b className="farmerCommunityForumComponentSubText1">
+                        {post.title}
+                      </b>
                     </div>
-                    <div className="adminCommunityForumComponentSubText2Wrapper2">
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text9')}</b> B001
+                    <div className="farmerCommunityForumComponentSubText2Wrapper2">
+                      <div className="farmerCommunityForumComponentSubText2">
+                        {post.content}
                       </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text10')}</b> Buyer
-                      </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text11')}</b> Jenkins Mesina
-                      </div>                           
                     </div>
                   </div>
-                  <div className="adminCommunityForumComponentFrameItem" />
-                  <div className="adminCommunityForumComponentDetails">      
-                  <button className="adminCommunityForumComponentButton">
-                    <FaEdit className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton13')}</div>
-                  </button>          
-                  <button className="adminCommunityForumComponentButton">
-                    <FaTrash className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton2')}</div>
-                  </button>
-                </div>         
-                </div>
-              </a> 
-
-              <a className="adminCommunityForumComponentRectangleParent">
-                <img
-                  className="adminCommunityForumComponentFrameChild"
-                  alt=""
-                  src={SquashVector}
-                />
-                <div className="adminCommunityForumComponentFrameGroup">
-                  <div className="adminCommunityForumComponentFrameContainer">
-                    <div className="adminCommunityForumComponentSubText1Wrapper">
-                      <b className="adminCommunityForumComponentSubText1">{t('Text6')}</b>
-                    </div>
-                    <div className="adminCommunityForumComponentSubText2Wrapper2">
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text9')}</b> B001
+                  <div className="farmerCommunityForumComponentFrameItem" />
+                  <div className="farmerCommunityForumComponentFrameAuthor">
+                    <img
+                      className="farmerCommunityForumComponentFrameIcon"
+                      alt=""
+                      src={ProfileVector1}
+                    />
+                    <div className="farmerCommunityForumComponentAuthorText">
+                      <div className="farmerCommunityForumComponentAuthorName">
+                      {post.user ? post.user.displayName || 'Anonymous' : 'Anonymous'}
                       </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text10')}</b> Buyer
+                      <div className="farmerCommunityForumComponentPostTime">
+                       {post.timestamp}
                       </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text11')}</b> Jenkins Mesina
-                      </div>                           
                     </div>
                   </div>
-                  <div className="adminCommunityForumComponentFrameItem" />
-                  <div className="adminCommunityForumComponentDetails">      
-                  <button className="adminCommunityForumComponentButton">
-                    <FaEdit className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton13')}</div>
-                  </button>          
-                  <button className="adminCommunityForumComponentButton">
-                    <FaTrash className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton2')}</div>
-                  </button>
-                </div>         
                 </div>
-              </a> 
-
-
-            </div>  
-
-            <div className="adminCommunityForumComponentFrameWrapper">
-              <a className="adminCommunityForumComponentRectangleParent">
-                <img
-                  className="adminCommunityForumComponentFrameChild"
-                  alt=""
-                  src={CornVector}
-                />
-                <div className="adminCommunityForumComponentFrameGroup">
-                  <div className="adminCommunityForumComponentFrameContainer">
-                    <div className="adminCommunityForumComponentSubText1Wrapper">
-                      <b className="adminCommunityForumComponentSubText1">{t('Text7')}</b>
-                    </div>
-                    <div className="adminCommunityForumComponentSubText2Wrapper2">
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text9')}</b> B001
-                      </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text10')}</b> Buyer
-                      </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text11')}</b> Jenkins Mesina
-                      </div>                           
-                    </div>
-                  </div>
-                  <div className="adminCommunityForumComponentFrameItem" />
-                  <div className="adminCommunityForumComponentDetails">      
-                  <button className="adminCommunityForumComponentButton">
-                    <FaEdit className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton13')}</div>
-                  </button>          
-                  <button className="adminCommunityForumComponentButton">
-                    <FaTrash className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton2')}</div>
-                  </button>
-                </div>         
-                </div>
-              </a> 
-
-              <a className="adminCommunityForumComponentRectangleParent">
-                <img
-                  className="adminCommunityForumComponentFrameChild"
-                  alt=""
-                  src={RiceVector}
-                />
-                <div className="adminCommunityForumComponentFrameGroup">
-                  <div className="adminCommunityForumComponentFrameContainer">
-                    <div className="adminCommunityForumComponentSubText1Wrapper">
-                      <b className="adminCommunityForumComponentSubText1">{t('Text8')}</b>
-                    </div>
-                    <div className="adminCommunityForumComponentSubText2Wrapper2">
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text9')}</b> B001
-                      </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text10')}</b> Buyer
-                      </div>
-                      <div className="adminCommunityForumComponentSubText2">
-                       <b>{t('Text11')}</b> Jenkins Mesina
-                      </div>                           
-                    </div>
-                  </div>
-                  <div className="adminCommunityForumComponentFrameItem" />
-                  <div className="adminCommunityForumComponentDetails">      
-                  <button className="adminCommunityForumComponentButton">
-                    <FaEdit className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton13')}</div>
-                  </button>          
-                  <button className="adminCommunityForumComponentButton">
-                    <FaTrash className="adminCommunityForumComponentButtonIcon" />
-                    <div className="adminCommunityForumComponentButtonText">{t('farmerPageButton2')}</div>
-                  </button>
-                </div>         
-                </div>
-              </a> 
-            </div>                
+              </Link>
+            ))}
+          </div>
 
             
          
@@ -234,8 +134,6 @@ const AdminCommunityForumComponent = () => {
           </div>
           </div> 
         </div>
-      </div>
-    </div>
     </I18nextProvider>
 
   );

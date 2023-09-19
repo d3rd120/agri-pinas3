@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import "../css/Components/signupComponent.css";
 import { auth, registerWithEmailAndPassword } from "./firebase";
+import { sendEmailVerification } from 'firebase/auth';
 import Logo from '../img/agriPinasLogo2.png';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -23,10 +24,28 @@ const Signup = () => {
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const register = () => {
-    if (!fullname) alert("Please enter name");
-    registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
-    navigate("/login");
+  const register = async () => {
+    if (!fullname) {
+      alert("Please enter name");
+      return;
+    }
+
+    try {
+      await registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
+      const user = auth.currentUser;
+
+      if (user) {
+        // Send a verification email to the registered user
+        await sendEmailVerification(user);
+
+        alert("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
+      }
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      alert("Registration failed. Please try again.");
+    }
   };
 
   const calculateAge = (event) => {

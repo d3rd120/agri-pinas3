@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Components/loginComponent.css';
 import Logo from '../img/agriPinasLogo2.png';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword,sendEmailVerification  } from 'firebase/auth';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { auth } from "../components/firebase";
 import { I18nextProvider } from 'react-i18next';
@@ -16,6 +16,7 @@ const LoginPage = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [fullname, setFullName] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [emailVerified, setEmailVerified] = React.useState(false);
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -68,12 +69,26 @@ const LoginPage = () => {
       setPassword('');
       setLoggedIn(true);
       const userUid = user.uid;
-      sessionStorage.setItem('userUid', userUid);
+      
+      // Check if the user's email is verified
+      if (user.emailVerified) {
+        setEmailVerified(true);
+        sessionStorage.setItem('userUid', userUid);
+      } else {
+        setEmailVerified(false);
+        console.error('Email not verified. Please verify your email address.');
+        
+        // Send a new verification email
+        sendEmailVerification(user).then(() => {
+          console.log('Email verification sent.');
+        }).catch((error) => {
+          console.error('Error sending email verification:', error);
+        });
+      }
     } catch (error) {
       console.error('Error logging in:', error.message);
     }
   };
-
 
   useEffect(() => {
     if (loggedIn) {
@@ -86,7 +101,15 @@ const LoginPage = () => {
         console.error('Invalid user UID:', userUid);
       }
     }
-  }, [loggedIn]);
+
+   
+    if (loggedIn && emailVerified) {
+      
+      navigate('/dashboard');
+    } else if (loggedIn && !emailVerified) {
+    
+    }
+  }, [loggedIn, emailVerified, navigate]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -96,48 +119,48 @@ const LoginPage = () => {
 
 
   return (
-    <I18nextProvider i18n={i18n}>   
-    <div className="loginComponent">
-      <div className="loginComponentWrapper">
-        <div className="loginComponentForm">
-          <div className="loginComponentFormText">
-            <img className="loginComponentLogo" alt="" src={Logo} />
-            <div className="loginComponentMainText">{t('loginComponentText1')}</div>
-          </div>
-          <div className="loginComponentFormFields">
-            <input
-              className="loginComponentInput"
-              id="loginComponentEmail"
-              type="text"
-              value={email}
-              onChange={handleEmailChange}
-              placeholder="Email Address"
-            />
-            <input
-              className="loginComponentInput"
-              id="loginComponentPassword"
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="Password"
-              onKeyPress={handleKeyPress}
-            />
-          </div>
-          <Link className="logInPageSubText2" to = '/reset'>
-          {t('loginComponentText2')}
-          </Link>
-          <button className="loginComponentButton" onClick={handleSubmit}>
-            <div className="loginComponentButtonText">Login</div>
-          </button>
-          <div className="loginComponentSubTextContainter">
-            <span>{t('loginComponentText3')}</span>
-            <Link className="loginComponentSignUpLink" to="/signup">
-            {t('loginComponentText4')}
+    <I18nextProvider i18n={i18n}>
+      <div className="loginComponent">
+        <div className="loginComponentWrapper">
+          <div className="loginComponentForm">
+            <div className="loginComponentFormText">
+              <img className="loginComponentLogo" alt="" src={Logo} />
+              <div className="loginComponentMainText">{t('loginComponentText1')}</div>
+            </div>
+            <div className="loginComponentFormFields">
+              <input
+                className="loginComponentInput"
+                id="loginComponentEmail"
+                type="text"
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="Email Address"
+              />
+              <input
+                className="loginComponentInput"
+                id="loginComponentPassword"
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="Password"
+                onKeyPress={handleKeyPress}
+              />
+            </div>
+            <Link className="logInPageSubText2" to='/reset'>
+              {t('loginComponentText2')}
             </Link>
+            <button className="loginComponentButton" onClick={handleSubmit}>
+              <div className="loginComponentButtonText">Login</div>
+            </button>
+            <div className="loginComponentSubTextContainter">
+              <span>{t('loginComponentText3')}</span>
+              <Link className="loginComponentSignUpLink" to="/signup">
+                {t('loginComponentText4')}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </I18nextProvider>
   );
 };

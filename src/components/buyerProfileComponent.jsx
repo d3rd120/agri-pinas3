@@ -15,15 +15,18 @@ const BuyerProfile = () => {
   const [contact, setContact] = useState('');
   const [email, setEmail] = useState(' ');
   const [birthdate, setbirthdate] = useState('');
+  const [buyerRole, setBuyerRole] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-const handleUserInfoChange = (userInfo) => {
+  const handleUserInfoChange = (userInfo) => {
     setfullname(userInfo.fullname || '');
     setContact(userInfo.contact || '');
     setEmail(userInfo.email || '');
     setbirthdate(userInfo.birthdate || '');
+    setBuyerRole(userInfo.role || '');
   };
-useEffect(() => {
+
+  useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
@@ -36,7 +39,7 @@ useEffect(() => {
               const userData = querySnapshot.docs[0].data();
               handleUserInfoChange(userData);
             } else {
-              handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '' });
+              handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '' });
             }
           })
           .catch((error) => {
@@ -44,14 +47,12 @@ useEffect(() => {
           });
       } else {
         setIsLoggedIn(false);
-        handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '' });
+        handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '' });
       }
     });
   
     return () => unsubscribe();
   }, []);
-
-
 
   const formatDateOfBirth = (date) => {
     if (date instanceof Date && !isNaN(date)) {
@@ -62,43 +63,43 @@ useEffect(() => {
 
   return (
     <I18nextProvider i18n={i18n}> 
-    <div className="farmerProfileComponent">
-      <BuyerProfileNav
-        onUserInfoChange={handleUserInfoChange}
-        name={fullname}
-        phoneNumber={contact}
-        email={email}
-        dateOfBirth={birthdate}
-      />     
-      <div className="farmerProfileComponentMainPanel">
-        <BuyerTopNav /> 
-        <div className="farmerProfileComponentTopSection">
-          <div className="farmerProfileComponentMainText1">
-            <b className="farmerProfileComponentMainText2">
-              <p className="farmerProfileComponentBlankLine">{t('farmerProfileText16')}</p>
-            </b>
+      <div className="farmerProfileComponent">
+        <BuyerProfileNav
+          onUserInfoChange={handleUserInfoChange}
+          name={fullname}
+          phoneNumber={contact}
+          email={email}
+          dateOfBirth={birthdate}
+        />     
+        <div className="farmerProfileComponentMainPanel">
+          <BuyerTopNav /> 
+          <div className="farmerProfileComponentTopSection">
+            <div className="farmerProfileComponentMainText1">
+              <b className="farmerProfileComponentMainText2">
+                <p className="farmerProfileComponentBlankLine">{t('farmerProfileText16')}</p>
+              </b>
+            </div>
           </div>
-        </div>
-        <div style={{ marginTop: "-40px" }}>
-          <div class="farmercourseProfile">
-            <div class="course-preview1">
-              <div class="farmerProfileComponentInfo">{t('farmerProfileText17')}</div>
-              <div class="farmerProfileComponentFullName">{t('farmerProfileText18')}</div>
-              <div class="farmerProfileComponentName">{fullname}</div>
-              <div class="farmerProfileComponentRole">{t('farmerProfileText19')}</div>
-              <img src={ProfileVector1} class="farmerselectImageIcon" />
-              <div class="farmerProfileComponentRole2">{t('farmerProfileText20')}</div>
-              <div class="farmerProfileComponentEmail1">{t('farmerProfileText21')}</div>
-              <div class="farmerProfileComponentEmail2">{email}</div>
-              <div class="farmerProfileComponentPhoneNumber">{t('farmerProfileText23')}</div>
-              <div class="farmerProfileComponentNumber">{contact}</div>
-              <div class="farmerProfileComponentBdayDate">{t('farmerProfileText22')}</div>
-              <div class="farmerProfileComponentBirthdate">{formatDateOfBirth(new Date(birthdate))}</div>
+          <div style={{ marginTop: "-40px" }}>
+            <div class="farmercourseProfile">
+              <div class="course-preview1">
+                <div class="farmerProfileComponentInfo">{t('farmerProfileText17')}</div>
+                <div class="farmerProfileComponentFullName">{t('farmerProfileText18')}</div>
+                <div class="farmerProfileComponentName">{fullname}</div>
+                <div class="farmerProfileComponentRole">{t('farmerProfileText19')}</div>
+                <img src={ProfileVector1} class="farmerselectImageIcon" />
+                <div class="farmerProfileComponentRole2">{buyerRole}</div>
+                <div class="farmerProfileComponentEmail1">{t('farmerProfileText21')}</div>
+                <div class="farmerProfileComponentEmail2">{email}</div>
+                <div class="farmerProfileComponentPhoneNumber">{t('farmerProfileText23')}</div>
+                <div class="farmerProfileComponentNumber">{contact}</div>
+                <div class="farmerProfileComponentBdayDate">{t('farmerProfileText22')}</div>
+                <div class="farmerProfileComponentBirthdate">{formatDateOfBirth(new Date(birthdate))}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </I18nextProvider>
   );
 };

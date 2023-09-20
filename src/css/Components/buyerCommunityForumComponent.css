@@ -1,4 +1,4 @@
-.farmerCommunityForumComponentPopupWindow {
+.buyerCommunityForumComponentPopupWindow {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,36 +9,32 @@
   align-items: center;
   justify-content: center;
   z-index: 9999; /* Set a higher z-index value */
- 
 }
 
-.farmerCommunityForumComponentPopupContent {
+.buyerCommunityForumComponentPopupContent {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
   max-width: 100%;
   text-align: center;
-
 }
 
-.farmerCommunityForumComponentCloseButton {
-  cursor: pointer;   
+.buyerCommunityForumComponentCloseButton {
+  cursor: pointer;
   text-align: right;
   display: flex;
   justify-content: flex-end;
 }
 
-
-
-.farmerCommunityForumComponentBlankLine {
+.buyerCommunityForumComponentBlankLine {
   margin: 0;
 }
-.farmerCommunityForumComponentMainText2 {
+.buyerCommunityForumComponentMainText2 {
   align-self: stretch;
   position: relative;
   text-transform: uppercase;
 }
-.farmerCommunityForumComponentMainText1 {
+.buyerCommunityForumComponentMainText1 {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -46,7 +42,7 @@
   justify-content: center;
   color: #557153;
 }
-.farmerCommunityForumComponentTopSection{
+.buyerCommunityForumComponentTopSection {
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -54,14 +50,14 @@
   justify-content: flex-start;
   gap: 1.88rem;
 }
-.farmerCommunityForumComponentButtonIcon1 {
+.buyerCommunityForumComponentButtonIcon1 {
   position: relative;
   width: 1rem;
   height: 1rem;
   margin-right: 0.5rem;
   color: #fff;
 }
-.farmerCommunityForumComponentButtonText1 {
+.buyerCommunityForumComponentButtonText1 {
   position: relative;
   font-size: 1rem;
   letter-spacing: 0.46px;
@@ -69,7 +65,7 @@
   color: #fff;
   text-align: center;
 }
-.farmerCommunityForumComponentButton1{
+.buyerCommunityForumComponentButton1 {
   cursor: pointer;
   border: 0;
   padding: 0.75rem 1.13rem;
@@ -83,109 +79,109 @@
   gap: 0.38rem;
   transition: 0.5s;
 }
-.farmerCommunityForumComponentButton1:hover {
+.buyerCommunityForumComponentButton1:hover {
   background-color: #598025;
 }
-.farmerCommunityForumComponentFrameChild,
-.farmerCommunityForumComponentSubText1 {
+.buyerCommunityForumComponentFrameChild,
+.buyerCommunityForumComponentSubText1 {
   align-self: stretch;
   position: relative;
 }
-.farmerCommunityForumComponentFrameChild{
+.buyerCommunityForumComponentFrameChild {
   max-width: 100%;
   overflow: hidden;
   height: 15rem;
   flex-shrink: 0;
   object-fit: cover;
 }
-.farmerCommunityForumComponentSubText1 {
+.buyerCommunityForumComponentSubText1 {
   letter-spacing: 0.02em;
   line-height: 2.13rem;
 }
-.farmerCommunityForumComponentSubText1Wrapper {
+.buyerCommunityForumComponentSubText1Wrapper {
   align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
 }
-.farmerCommunityForumComponentSubText2{
+.buyerCommunityForumComponentSubText2 {
   align-self: stretch;
   position: relative;
   letter-spacing: 0.01em;
   line-height: 1.75rem;
 }
-.farmerCommunityForumComponentFrameContainer,
-.farmerCommunityForumComponentSubText2Wrapper2 {
+.buyerCommunityForumComponentFrameContainer,
+.buyerCommunityForumComponentSubText2Wrapper2 {
   align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
 }
-.farmerCommunityForumComponentSubText2Wrapper2 {
+.buyerCommunityForumComponentSubText2Wrapper2 {
   font-size: 1rem;
 }
-.farmerCommunityForumComponentFrameContainer {
+.buyerCommunityForumComponentFrameContainer {
   gap: 0.5rem;
 }
-.farmerCommunityForumComponentFrameItem {
+.buyerCommunityForumComponentFrameItem {
   align-self: stretch;
   position: relative;
   border-top: 0.7px solid #ecf0f6;
   box-sizing: border-box;
   height: 0.04rem;
 }
-.farmerCommunityForumComponentFrameIcon {
+.buyerCommunityForumComponentFrameIcon {
   position: relative;
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
   object-fit: cover;
 }
-.farmerCommunityForumComponentAuthorName,
-.farmerCommunityForumComponentPostTime {
+.buyerCommunityForumComponentAuthorName,
+.buyerCommunityForumComponentPostTime {
   position: relative;
   display: inline-block;
   width: 9.09rem;
 }
-.farmerCommunityForumComponentAuthorName {
+.buyerCommunityForumComponentAuthorName {
   letter-spacing: -0.04em;
   font-weight: 600;
 }
-.farmerCommunityForumComponentPostTime {
+.buyerCommunityForumComponentPostTime {
   font-size: 0.88rem;
   color: #96a2be;
 }
-.farmerCommunityForumComponentFrameAuthor,
-.farmerCommunityForumComponentAuthorText {
+.buyerCommunityForumComponentFrameAuthor,
+.buyerCommunityForumComponentAuthorText {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 0.13rem;
 }
-.farmerCommunityForumComponentFrameAuthor {
+.buyerCommunityForumComponentFrameAuthor {
   flex-direction: row;
   align-items: center;
   gap: 0.63rem;
   font-size: 1.06rem;
   color: #495367;
 }
-.farmerCommunityForumComponentFrameGroup {
+.buyerCommunityForumComponentFrameGroup {
   align-self: stretch;
   flex-direction: column;
   padding: 1rem;
   gap: 0.81rem;
 }
-.farmerCommunityForumComponentFrameGroup,
-.farmerCommunityForumComponentFrameWrapper,
-.farmerCommunityForumComponentRectangleParent {
+.buyerCommunityForumComponentFrameGroup,
+.buyerCommunityForumComponentFrameWrapper,
+.buyerCommunityForumComponentRectangleParent {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
-.farmerCommunityForumComponentRectangleParent {
+.buyerCommunityForumComponentRectangleParent {
   text-decoration: none;
   flex: 1;
   border-radius: 10px;
@@ -200,26 +196,26 @@
   margin-bottom: 1.25rem;
   transition: 0.5s;
   color: inherit;
-  margin-right:1rem;
+  margin-right: 1rem;
 }
-.farmerCommunityForumComponentRectangleParent:hover {
+.buyerCommunityForumComponentRectangleParent:hover {
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
 }
-.farmerCommunityForumComponentFrameWrapper {
+.buyerCommunityForumComponentFrameWrapper {
   align-self: stretch;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.farmerCommunityForumComponentForumNumberBox {
+.buyerCommunityForumComponentForumNumberBox {
   position: relative;
   letter-spacing: -0.02em;
   line-height: 2rem;
   text-transform: uppercase;
   font-weight: 600;
 }
-.farmerCommunityForumComponentForumContainer,
-.farmerCommunityForumComponentForumWrapper1,
-.farmerCommunityForumComponentForumWrapper2 {
+.buyerCommunityForumComponentForumContainer,
+.buyerCommunityForumComponentForumWrapper1,
+.buyerCommunityForumComponentForumWrapper2 {
   border-radius: 6px;
   border: 1px solid #bac2d6;
   display: flex;
@@ -229,11 +225,11 @@
   justify-content: center;
 }
 
-.farmerCommunityForumComponentForumContainer,
-.farmerCommunityForumComponentForumWrapper2 {
+.buyerCommunityForumComponentForumContainer,
+.buyerCommunityForumComponentForumWrapper2 {
   background-color: #fff;
 }
-.farmerCommunityForumComponentForumNumber {
+.buyerCommunityForumComponentForumNumber {
   flex-direction: row;
   padding: 0 0.75rem 0 0;
   align-items: center;
@@ -241,41 +237,41 @@
   font-size: 1.06rem;
 }
 
-.farmerCommunityForumComponentForumContainer {
+.buyerCommunityForumComponentForumContainer {
   cursor: pointer;
   transition: 0.5s;
 }
 
-.farmerCommunityForumComponentForumContainer:hover {
-  background-color : #E5FCE7;
+.buyerCommunityForumComponentForumContainer:hover {
+  background-color: #E5FCE7;
 }
 
-.farmerCommunityForumComponentForumNumber,
-.farmerCommunityForumComponentFrameParent,
-.farmerCommunityForumComponentMiddleSection {
+.buyerCommunityForumComponentForumNumber,
+.buyerCommunityForumComponentFrameParent,
+.buyerCommunityForumComponentMiddleSection {
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
 }
-.farmerCommunityForumComponentFrameParent {
+.buyerCommunityForumComponentFrameParent {
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.88rem;
 }
-.farmerCommunityForumComponentMiddleSection {
+.buyerCommunityForumComponentMiddleSection {
   flex-direction: row;
   align-items: flex-end;
   font-size: 1.63rem;
   color: #1a202e;
 }
-.farmerCommunityForumComponent,
-.farmerCommunityForumComponentMainPanel {
+.buyerCommunityForumComponent,
+.buyerCommunityForumComponentMainPanel {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
-.farmerCommunityForumComponentMainPanel {
+.buyerCommunityForumComponentMainPanel {
   align-self: stretch;
   flex: 1;
   flex-direction: column;
@@ -284,7 +280,7 @@
   font-size: 1.31rem;
   color: #151630;
 }
-.farmerCommunityForumComponent {
+.buyerCommunityForumComponent {
   position: relative;
   background-color: #fff;
   width: 100%;
@@ -299,43 +295,42 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 @media screen and (max-width: 1200px) {
-  
-  .farmerCommunityForumComponentForumContainer,
-  .farmerCommunityForumComponentForumWrapper1 {
+  .buyerCommunityForumComponentForumContainer,
+  .buyerCommunityForumComponentForumWrapper1 {
     padding-left: 1rem;
     padding-right: 1rem;
     box-sizing: border-box;
   }
 }
 @media screen and (max-width: 960px) {
-  .farmerCommunityForumComponentMainText1 {
+  .buyerCommunityForumComponentMainText1 {
     padding-right: 0;
     box-sizing: border-box;
     flex: unset;
     align-self: stretch;
   }
-  .farmerCommunityForumComponentTopSection {
+  .buyerCommunityForumComponentTopSection {
     flex-direction: column;
   }
-  .farmerCommunityForumComponentButton{
+  .buyerCommunityForumComponentButton {
     margin-right: auto;
   }
-  .farmerCommunityForumComponentFrameParent {
+  .buyerCommunityForumComponentFrameParent {
     flex: unset;
     align-self: stretch;
   }
-  .farmerCommunityForumComponentMiddleSection {
+  .buyerCommunityForumComponentMiddleSection {
     flex-direction: column;
   }
 }
 @media screen and (max-width: 420px) {
-  .farmerCommunityForumComponentMainText1 {
+  .buyerCommunityForumComponentMainText1 {
     width: 100%;
   }
-  .farmerCommunityForumComponentButton {
+  .buyerCommunityForumComponentButton {
     width: 100% !important;
   }
-  .farmerCommunityForumComponentMainPanel {
+  .buyerCommunityForumComponentMainPanel {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
     box-sizing: border-box;

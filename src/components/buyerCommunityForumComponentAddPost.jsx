@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/Components/farmerCommunityForumComponentAddPost.css';
+import '../css/Components/buyerCommunityForumComponentAddPost.css';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -56,18 +56,18 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <div className="farmerCommunityForumAddPostComponent">
-        <div className="farmerCommunityForumAddPostComponentMainText">
+      <div className="buyerCommunityForumAddPostComponent">
+        <div className="buyerCommunityForumAddPostComponentMainText">
           {t('farmerCommunityAddPostText1')}
         </div>
-        <div className="farmerCommunityForumAddPostComponentFrameParent">
-          <div className="farmerCommunityForumAddPostComponentFrameGroup">
-            <div className="farmerCommunityForumAddPostComponentInputParent">
-              <div className="farmerCommunityForumAddPostComponentTitle">
+        <div className="buyerCommunityForumAddPostComponentFrameParent">
+          <div className="buyerCommunityForumAddPostComponentFrameGroup">
+            <div className="buyerCommunityForumAddPostComponentInputParent">
+              <div className="buyerCommunityForumAddPostComponentTitle">
                 {t('farmerCommunityAddPostText2')}
               </div>
               <input
-                className="farmerCommunityForumAddPostComponentInput1"
+                className="buyerCommunityForumAddPostComponentInput1"
                 type="text"
                 name="title"
                 placeholder={t('farmerCommunityAddPostText3')}
@@ -75,39 +75,39 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
                 value={postDetails.title}
               />
             </div>
-            <div className="farmerCommunityForumAddPostComponentInputParent">
-              <div className="farmerCommunityForumAddPostComponentTitle">
+            <div className="buyerCommunityForumAddPostComponentInputParent">
+              <div className="buyerCommunityForumAddPostComponentTitle">
                 {t('farmerCommunityAddPostText4')}
               </div>
               <input
-                className="farmerCommunityForumAddPostComponentInput3"
+                className="buyerCommunityForumAddPostComponentInput3"
                 type="file"
-            name="image"
-            accept="image/*" // Accept only image files
-            onChange={handleFileChange}
+                name="image"
+                accept="image/*" // Accept only image files
+                onChange={handleFileChange}
               />
             </div>
-            <div className="farmerCommunityForumAddPostComponentTitle">
+            <div className="buyerCommunityForumAddPostComponentTitle">
               {t('farmerCommunityAddPostText5')}
             </div>
             <textarea
-              className="farmerCommunityForumAddPostComponentInput4"
+              className="buyerCommunityForumAddPostComponentInput4"
               name="content"
               placeholder={t('farmerCommunityAddPostText6')}
               onChange={handleInputChange}
               value={postDetails.content}
             />
-            <button className="farmerCommunityForumAddPostComponentButton" onClick={handlePost}>
-              <div className="farmerCommunityForumAddPostComponentButtonText">
+            <button className="buyerCommunityForumAddPostComponentButton" onClick={handlePost}>
+              <div className="buyerCommunityForumAddPostComponentButtonText">
                 {t('farmerPageButton8')}
               </div>
             </button>
-            <div className="farmerCommunityForumAddPostComponentFormChild" />
+            <div className="buyerCommunityForumAddPostComponentFormChild" />
           </div>
         </div>
       </div>
     </I18nextProvider>
   );
-};
+};  
 
 export default FarmerCommunityForumAddPostComponent;

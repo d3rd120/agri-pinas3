@@ -1,4 +1,4 @@
-import '../css/Components/farmerCommunityForumComponentFullPost.css';
+import '../css/Components/buyerCommunityForumComponentFullPost.css';
 import BuyerNavigation from './buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import CornVector from '../img/cornVector.png';
@@ -12,71 +12,73 @@ import i18n from '../i18n';
 
 const FarmerMarketplace = () => {
   const { t } = useTranslation();
-  return (
-    <I18nextProvider i18n={i18n}> 
-    <div className="farmerCommunityForumComponentFullPost">
-        <BuyerNavigation />      
-      <div className="farmerCommunityForumComponentFullPostMainPanel">
+
+
+ return (
+  <I18nextProvider i18n={i18n}> 
+    <div className="buyerCommunityForumComponentFullPost">
+      <BuyerNavigation />      
+      <div className="buyerCommunityForumComponentFullPostMainPanel">
         <BuyerTopNav />
-        <div className="farmerCommunityForumComponentFullPostTopSection">
-          <div className="farmerCommunityForumComponentFullPostMainTextContainer">
-            <b className="farmerCommunityForumComponentFullPostMainText1">              
-              <p className="farmerCommunityForumComponentFullPostBlankLine">{t('farmerCommunityText1')}</p>
+        <div className="buyerCommunityForumComponentFullPostTopSection">
+          <div className="buyerCommunityForumComponentFullPostMainTextContainer">
+            <b className="buyerCommunityForumComponentFullPostMainText1">              
+              <p className="buyerCommunityForumComponentFullPostBlankLine">{t('buyerCommunityText1')}</p>
             </b>
           </div>
         </div>
-        <div className="farmerCommunityForumComponentFullPostMiddleSection">
-          <div className="farmerCommunityForumComponentFullPostCardsContainer">
-            <div className="farmerCommunityForumComponentFullPostCard1">
+        <div className="buyerCommunityForumComponentFullPostMiddleSection">
+          <div className="buyerCommunityForumComponentFullPostCardsContainer">
+            <div className="buyerCommunityForumComponentFullPostCard1">
               <img
-                className="farmerCommunityForumComponentFullPostCard1Image"
+                className="buyerCommunityForumComponentFullPostCard1Image"
                 alt=""
                 src={OnionVector}
               />
             </div>
-            <div className="farmerCommunityForumComponentFullPostSmallCards">
-              <div className="farmerCommunityForumComponentFullPostSmallCardsDescription">
-                <div className="farmerCommunityForumComponentFullPostSmallCardsContent">
-                  <div className="farmerCommunityForumComponentFullPostSmallCardsHeading">
-                    <div className="farmerCommunityForumComponentFullPostSmallCardsDetails">
-                      <b className="farmerCommunityForumComponentFullPostSmallCardsMainText">{t('farmerCommunityPostText1')}</b>
-                      <b className="farmerCommunityForumComponentFullPostSmallCardsDescription1">{t('farmerCommunityPostText2')} Jenkins Mesina</b>
+            <div className="buyerCommunityForumComponentFullPostSmallCards">
+              <div className="buyerCommunityForumComponentFullPostSmallCardsDescription">
+                <div className="buyerCommunityForumComponentFullPostSmallCardsContent">
+                  <div className="buyerCommunityForumComponentFullPostSmallCardsHeading">
+                    <div className="buyerCommunityForumComponentFullPostSmallCardsDetails">
+                      <b className="buyerCommunityForumComponentFullPostSmallCardsMainText">{t('buyerCommunityPostText1')}</b>
+                      <b className="buyerCommunityForumComponentFullPostSmallCardsDescription1">{t('buyerCommunityPostText2')} Jenkins Mesina</b>
                     </div>
-                    <div className="farmerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
-                      <div className="farmerCommunityForumComponentFullPostSmallCardsFullDescription">
-                      {t('farmerCommunityPostText3')}
+                    <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
+                      <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
+                        {t('buyerCommunityPostText3')}
                       </div>
                     </div>
-                    <b className="farmerCommunityForumComponentFullPostSmallCardsDescription2">{t('farmerCommunityPostText4')}</b>
-                    <button className="farmerCommunityForumComponentFullPostButton">
-                        <FaThumbsUp className="farmerCommunityForumComponentFullPostButtonIcon" />
-                        <div className="farmerCommunityForumComponentFullPostButtonText">{t('farmerPageButton9')}</div>
+                    <b className="buyerCommunityForumComponentFullPostSmallCardsDescription2">{t('buyerCommunityPostText4')}</b>
+                    <button className="buyerCommunityForumComponentFullPostButton">
+                      <FaThumbsUp className="buyerCommunityForumComponentFullPostButtonIcon" />
+                      <div className="buyerCommunityForumComponentFullPostButtonText">{t('buyerPageButton9')}</div>
                     </button>
                   </div>
                   <input
-                    className="farmerCommunityForumComponentFullPostCommentInput"
+                    className="buyerCommunityForumComponentFullPostCommentInput"
                     type="text"
-                    placeholder={t('farmerCommunityPostText5')}
+                    placeholder={t('buyerCommunityPostText5')}
                   />
-                  <div className="farmerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
-                    <div className="farmerCommunityForumComponentFullPostSmallCardsFullDescription">
-                      <p className="farmerCommunityForumComponentFullPostBlankLine">
-                        <b>{t('farmerCommunityPostText6')}</b>
+                  <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
+                    <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
+                      <p className="buyerCommunityForumComponentFullPostBlankLine">
+                        <b>{t('buyerCommunityPostText6')}</b>
                       </p>
-                      <p className="farmerCommunityForumComponentFullPostBlankLine">
+                      <p className="buyerCommunityForumComponentFullPostBlankLine">
                         <b>&nbsp;</b>
                       </p>
-                      <p className="farmerCommunityForumComponentFullPostBlankLine">
+                      <p className="buyerCommunityForumComponentFullPostBlankLine">
                         <b>{`Ryan Edward Amador: `}</b>
-                        <span>{t('farmerCommunityPostText7')}</span>
+                        <span>{t('buyerCommunityPostText7')}</span>
                       </p>
-                      <p className="farmerCommunityForumComponentFullPostBlankLine">
+                      <p className="buyerCommunityForumComponentFullPostBlankLine">
                         <b>&nbsp;</b>
                       </p>
-                      <p className="farmerCommunityForumComponentFullPostBlankLine">
+                      <p className="buyerCommunityForumComponentFullPostBlankLine">
                         <b>{`Marievic Anes: `}</b>
                         <span>
-                        {t('farmerCommunityPostText8')}
+                          {t('buyerCommunityPostText8')}
                         </span>
                       </p>
                     </div>
@@ -86,49 +88,49 @@ const FarmerMarketplace = () => {
             </div>
           </div>
         </div>
-        <div className="farmerCommunityForumComponentFullPostNewCard">
-          <div className="farmerCommunityForumComponentFullPostNewCardMainText">{t('farmerCommunityPostText9')}</div>
-          <div className="farmerCommunityForumComponentFullPostNewCardText">
-            <button className="farmerCommunityForumComponentFullPostNewCardButton">
+        <div className="buyerCommunityForumComponentFullPostNewCard">
+          <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('buyerCommunityPostText9')}</div>
+          <div className="buyerCommunityForumComponentFullPostNewCardText">
+            <button className="buyerCommunityForumComponentFullPostNewCardButton">
               <img
-                className="farmerCommunityForumComponentFullPostNewCardImage"
+                className="buyerCommunityForumComponentFullPostNewCardImage"
                 alt=""
                 src={CornVector}
               />
-              <div className="farmerCommunityForumComponentFullPostNewCardDetails">
-                <div className="farmerCommunityForumComponentFullPostNewCardInner">
-                  <div className="farmerCommunityForumComponentFullPostNewCardTitleWrapper">
-                    <div className="farmerCommunityForumComponentFullPostNewCardTitle">{t('farmerCommunityText4')}</div>
+              <div className="buyerCommunityForumComponentFullPostNewCardDetails">
+                <div className="buyerCommunityForumComponentFullPostNewCardInner">
+                  <div className="buyerCommunityForumComponentFullPostNewCardTitleWrapper">
+                    <div className="buyerCommunityForumComponentFullPostNewCardTitle">{t('buyerCommunityText4')}</div>
                   </div>
                 </div>
               </div>
             </button>
 
-             <button className="farmerCommunityForumComponentFullPostNewCardButton">
+            <button className="buyerCommunityForumComponentFullPostNewCardButton">
               <img
-                className="farmerCommunityForumComponentFullPostNewCardImage"
+                className="buyerCommunityForumComponentFullPostNewCardImage"
                 alt=""
                 src={RiceVector}
               />
-              <div className="farmerCommunityForumComponentFullPostNewCardDetails">
-                <div className="farmerCommunityForumComponentFullPostNewCardInner">
-                  <div className="farmerCommunityForumComponentFullPostNewCardTitleWrapper">
-                    <div className="farmerCommunityForumComponentFullPostNewCardTitle">{t('farmerCommunityText6')}</div>
+              <div className="buyerCommunityForumComponentFullPostNewCardDetails">
+                <div className="buyerCommunityForumComponentFullPostNewCardInner">
+                  <div className="buyerCommunityForumComponentFullPostNewCardTitleWrapper">
+                    <div className="buyerCommunityForumComponentFullPostNewCardTitle">{t('buyerCommunityText6')}</div>
                   </div>
                 </div>
               </div>
             </button>             
 
-            <button className="farmerCommunityForumComponentFullPostNewCardButton">
+            <button className="buyerCommunityForumComponentFullPostNewCardButton">
               <img
-                className="farmerCommunityForumComponentFullPostNewCardImage"
+                className="buyerCommunityForumComponentFullPostNewCardImage"
                 alt=""
                 src={SquashVector}
               />
-              <div className="farmerCommunityForumComponentFullPostNewCardDetails">
-                <div className="farmerCommunityForumComponentFullPostNewCardInner">
-                  <div className="farmerCommunityForumComponentFullPostNewCardTitleWrapper">
-                    <div className="farmerCommunityForumComponentFullPostNewCardTitle">{t('farmerCommunityText8')}</div>
+              <div className="buyerCommunityForumComponentFullPostNewCardDetails">
+                <div className="buyerCommunityForumComponentFullPostNewCardInner">
+                  <div className="buyerCommunityForumComponentFullPostNewCardTitleWrapper">
+                    <div className="buyerCommunityForumComponentFullPostNewCardTitle">{t('buyerCommunityText8')}</div>
                   </div>
                 </div>
               </div>
@@ -138,8 +140,9 @@ const FarmerMarketplace = () => {
         </div>
       </div>
     </div>
-    </I18nextProvider>
-  );
+  </I18nextProvider>
+);
+
 };
 
 export default FarmerMarketplace;

@@ -1,0 +1,371 @@
+.buyerCommunityForumComponentFullPostBlankLine {
+  margin: 0;
+}
+.buyerCommunityForumComponentFullPostMainText1 {
+  align-self: stretch;
+  position: relative;
+  text-transform: uppercase;
+}
+.buyerCommunityForumComponentFullPostMainTextContainer{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.buyerCommunityForumComponentFullPostTopSection{
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.88rem;
+}
+.buyerCommunityForumComponentFullPostCard1Image {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  border-radius: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.buyerCommunityForumComponentFullPostCard1 {
+  flex: 1;
+  border-radius: 10.52px;
+  height: 34.94rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.56rem;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.buyerCommunityForumComponentFullPostSmallCardsMainText,
+.buyerCommunityForumComponentFullPostSmallCardsDescription1 {
+  align-self: stretch;
+  position: relative;
+  line-height: 2.73rem;
+}
+.buyerCommunityForumComponentFullPostSmallCardsDescription1 {
+  font-size: 0.88rem;
+  line-height: 1.23rem;  
+}
+.buyerCommunityForumComponentFullPostSmallCardsDetails {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 2rem; 
+}
+.buyerCommunityForumComponentFullPostSmallCardsFullDescription {
+  flex: 1;
+  position: relative;
+  line-height: 1.23rem;
+}
+.buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.buyerCommunityForumComponentFullPostSmallCardsDescription2 {
+  align-self: stretch;
+  position: relative;
+  line-height: 1.23rem;
+}
+.buyerCommunityForumComponentFullPostButtonIcon {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  color: white;
+}
+.buyerCommunityForumComponentFullPostButtonText {
+  position: relative;
+  font-size: 0.88rem;
+  letter-spacing: 0.46px;
+  font-weight: 600; 
+  color: #fff;
+  text-align: center;
+}
+.buyerCommunityForumComponentFullPostButton{
+  cursor: pointer;
+  border: 0;
+  padding: 0.75rem 1.13rem;
+  background-color: #27ae60;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  transition: 0.3s;
+}
+.buyerCommunityForumComponentFullPostButton:hover {
+  background-color: #598025;
+}
+.buyerCommunityForumComponentFullPostSmallCardsHeading{
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.94rem;
+}
+.buyerCommunityForumComponentFullPostSmallCardsContent,
+.buyerCommunityForumComponentFullPostSmallCardsDescription,
+.buyerCommunityForumComponentFullPostSmallCardsHeading,
+.buyerCommunityForumComponentFullPostCommentInput {
+  align-self: stretch;
+  display: flex;
+}
+.buyerCommunityForumComponentFullPostCommentInput {
+  border: 1px solid #dee3eb;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  background-color: #fff;
+  box-sizing: border-box;
+  height: 1.94rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-direction: row;
+  padding: 0.63rem 1.13rem;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 1.88rem;
+  outline: 0;
+}
+.buyerCommunityForumComponentFullPostSmallCardsContent,
+.buyerCommunityForumComponentFullPostSmallCardsDescription {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.buyerCommunityForumComponentFullPostSmallCardsDescription {
+  border-radius: 10.52px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+.buyerCommunityForumComponentFullPostCardsContainer,
+.buyerCommunityForumComponentFullPostSmallCards {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+.buyerCommunityForumComponentFullPostSmallCards {
+  height: 34.94rem;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.buyerCommunityForumComponentFullPostCardsContainer {
+  background-color: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  flex-direction: row;
+  padding: 0.38rem 3rem 3.06rem 0;
+  justify-content: center;
+  gap: 1.25rem;
+}
+.buyerCommunityForumComponentFullPostMiddleSection {
+  align-self: stretch;
+  height: 39.44rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  font-size: 0.88rem;
+  color: #434343; 
+}
+.buyerCommunityForumComponentFullPostNewCardMainText {
+  position: relative;
+  line-height: 220.52%;
+  font-weight: 600;
+}
+.buyerCommunityForumComponentFullPostNewCardImage {
+  align-self: stretch;
+  position: relative;
+  border-radius: 10px 10px 0 0;
+  max-width: 100%;
+  overflow: hidden;
+  height: 15.13rem;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.buyerCommunityForumComponentFullPostNewCardTitle {
+  align-self: stretch;
+  position: relative;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+  font-weight: 500; 
+  color: #000;
+  text-align: left;
+}
+.buyerCommunityForumComponentFullPostNewCardTitleWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.buyerCommunityForumComponentFullPostNewCardDetails,
+.buyerCommunityForumComponentFullPostNewCardInner {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.buyerCommunityForumComponentFullPostNewCardDetails {
+  flex: 1;
+  border-radius: 0 0 10px 10px;
+  background-color: #fff;
+  flex-direction: column;
+  padding: 1.25rem 1rem;
+  justify-content: center;
+}
+.holiday-details-child,
+.buyerCommunityForumComponentFullPostNewCardButton{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;   
+}
+
+.buyerCommunityForumComponentFullPostNewCardButton:hover {
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+}
+
+.buyerCommunityForumComponentFullPostNewCardButton{
+  cursor: pointer;
+  border: 1px solid #ececec;
+  padding: 0;
+  background-color: transparent;
+  flex: 1;
+  border-radius: 10px;
+  
+  box-sizing: border-box;
+  height: 22.44rem;
+  flex-direction: column;
+  transition:0.5s;
+}
+.holiday-details-child {
+  align-self: stretch;
+  flex-direction: row;
+}
+.buyerCommunityForumComponentFullPostNewCardText,
+.buyerCommunityForumComponentFullPostNewCard {
+  align-self: stretch;
+  gap: 0.63rem;
+}
+.buyerCommunityForumComponentFullPostNewCardText {
+  display: grid;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.buyerCommunityForumComponentFullPostNewCard {
+  flex: 1;
+  flex-direction: column;
+  padding: 0.63rem 5.13rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #000;
+}
+.buyerCommunityForumComponentFullPost,
+.buyerCommunityForumComponentFullPostMainPanel,
+.buyerCommunityForumComponentFullPostNewCard {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.buyerCommunityForumComponentFullPostMainPanel {
+  align-self: stretch;
+  flex: 1;
+  flex-direction: column;
+  padding: 2.75rem 3.38rem;
+  gap: 3.19rem;
+  font-size: 1.31rem;
+  color: #557153;
+}
+.buyerCommunityForumComponentFullPost {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 83.5rem;
+  flex-direction: row;
+  gap: 0.06rem;
+  text-align: left;
+  font-size: 1.13rem;
+  color: #fff;
+}
+
+@media screen and (max-width: 1366px) {
+  .buyerCommunityForumComponentFullPostMiddleSection {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1200px) {   
+  .buyerCommunityForumComponentFullPostCard1 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .buyerCommunityForumComponentFullPostMainTextContainer{
+    padding-right: 0;
+    box-sizing: border-box;
+    flex: unset;
+    align-self: stretch;
+  }
+  .buyerCommunityForumComponentFullPostTopSection{
+    flex-direction: column;
+  }
+  .buyerCommunityForumComponentFullPostCard1 {
+    flex: unset;
+    align-self: stretch;
+  }
+  .buyerCommunityForumComponentFullPostButton {
+    margin-right: auto;
+  }
+  .buyerCommunityForumComponentFullPostSmallCardsDescription {
+    flex-direction: column;
+  }
+  .buyerCommunityForumComponentFullPostCardsContainer,
+  .buyerCommunityForumComponentFullPostSmallCards {
+    flex: unset;
+    align-self: stretch;
+  }
+  .buyerCommunityForumComponentFullPostCardsContainer,
+  .buyerCommunityForumComponentFullPostMiddleSection {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .buyerCommunityForumComponentFullPostMainTextContainer {
+    width: 100%;
+  }
+  .buyerCommunityForumComponentFullPostCard1Image {
+    height: auto !important;
+  }
+  .buyerCommunityForumComponentFullPostButton,
+  .buyerCommunityForumComponentFullPostCard1Image {
+    width: 100% !important;
+  }
+  .buyerCommunityForumComponentFullPostNewCardInner {
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .buyerCommunityForumComponentFullPostMainPanel {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    box-sizing: border-box;
+  }
+}

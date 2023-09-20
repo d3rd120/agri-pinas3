@@ -1,4 +1,4 @@
-import "../css/Components/farmerCommunityForumComponent.css";
+import "../css/Components/buyerCommunityForumComponent.css";
 import BuyerNavigation from './buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import ProfileVector1 from '../img/profileVector1.png';
@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 
 
-const FarmerCommunityForumComponent = () => {
+const BuyerCommunityForumComponent = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -77,38 +77,38 @@ const FarmerCommunityForumComponent = () => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <div className="farmerCommunityForumComponent">
+      <div className="buyerCommunityForumComponent">
         <BuyerNavigation />
-        <div className="farmerCommunityForumComponentMainPanel">
+        <div className="buyerCommunityForumComponentMainPanel">
           <BuyerTopNav />
-          <div className="farmerCommunityForumComponentTopSection">
-            <div className="farmerCommunityForumComponentMainText1">
-              <b className="farmerCommunityForumComponentMainText2">
-                <p className="farmerCommunityForumComponentBlankLine">
+          <div className="buyerCommunityForumComponentTopSection">
+            <div className="buyerCommunityForumComponentMainText1">
+              <b className="buyerCommunityForumComponentMainText2">
+                <p className="buyerCommunityForumComponentBlankLine">
                   {t("farmerCommunityText1")}
                 </p>
               </b>
             </div>
           </div>
-
+  
           <button
-            className="farmerCommunityForumComponentButton1"
+            className="buyerCommunityForumComponentButton1"
             onClick={handleButtonClick}
           >
-            <FaEdit className="farmerCommunityForumComponentButtonIcon1" />
-            <div className="farmerCommunityForumComponentButtonText1">
+            <FaEdit className="buyerCommunityForumComponentButtonIcon1" />
+            <div className="buyerCommunityForumComponentButtonText1">
               {t("farmerPageButton7")}
             </div>
           </button>
-
+  
           {showPopup && (
             <div
-              id="farmerCommunityForumComponentPopupWindow"
-              className="farmerCommunityForumComponentPopupWindow"
+              id="buyerCommunityForumComponentPopupWindow"
+              className="buyerCommunityForumComponentPopupWindow"
             >
-              <div className="farmerCommunityForumComponentPopupContent">
+              <div className="buyerCommunityForumComponentPopupContent">
                 <span
-                  className="farmerCommunityForumComponentCloseButton"
+                  className="buyerCommunityForumComponentCloseButton"
                   onClick={closePopup}
                 >
                   <FaTimes />
@@ -117,45 +117,45 @@ const FarmerCommunityForumComponent = () => {
               </div>
             </div>
           )}
-
-          <div className="farmerCommunityForumComponentFrameWrapper">
+  
+          <div className="buyerCommunityForumComponentFrameWrapper">
             {posts.map((post, index) => (
               <Link
-                className="farmerCommunityForumComponentRectangleParent"
-                to={`/farmercommunityforumpost/${index}`}
+                className="buyerCommunityForumComponentRectangleParent"
+                to={`/buyercommunityforumpost/${index}`}
                 key={index}
               >
                 <img
-                  className="farmerCommunityForumComponentFrameChild"
+                  className="buyerCommunityForumComponentFrameChild"
                   alt=""
                   src={post.image}
                 />
-                <div className="farmerCommunityForumComponentFrameGroup">
-                  <div className="farmerCommunityForumComponentFrameContainer">
-                    <div className="farmerCommunityForumComponentSubText1Wrapper">
-                      <b className="farmerCommunityForumComponentSubText1">
+                <div className="buyerCommunityForumComponentFrameGroup">
+                  <div className="buyerCommunityForumComponentFrameContainer">
+                    <div className="buyerCommunityForumComponentSubText1Wrapper">
+                      <b className="buyerCommunityForumComponentSubText1">
                         {post.title}
                       </b>
                     </div>
-                    <div className="farmerCommunityForumComponentSubText2Wrapper2">
-                      <div className="farmerCommunityForumComponentSubText2">
+                    <div className="buyerCommunityForumComponentSubText2Wrapper2">
+                      <div className="buyerCommunityForumComponentSubText2">
                         {post.content}
                       </div>
                     </div>
                   </div>
-                  <div className="farmerCommunityForumComponentFrameItem" />
-                  <div className="farmerCommunityForumComponentFrameAuthor">
+                  <div className="buyerCommunityForumComponentFrameItem" />
+                  <div className="buyerCommunityForumComponentFrameAuthor">
                     <img
-                      className="farmerCommunityForumComponentFrameIcon"
+                      className="buyerCommunityForumComponentFrameIcon"
                       alt=""
                       src={ProfileVector1}
                     />
-                    <div className="farmerCommunityForumComponentAuthorText">
-                      <div className="farmerCommunityForumComponentAuthorName">
-                      {post.user ? post.user.displayName || 'Anonymous' : 'Anonymous'}
+                    <div className="buyerCommunityForumComponentAuthorText">
+                      <div className="buyerCommunityForumComponentAuthorName">
+                        {post.user ? post.user.displayName || 'Anonymous' : 'Anonymous'}
                       </div>
-                      <div className="farmerCommunityForumComponentPostTime">
-                       {post.timestamp}
+                      <div className="buyerCommunityForumComponentPostTime">
+                        {post.timestamp}
                       </div>
                     </div>
                   </div>
@@ -163,32 +163,31 @@ const FarmerCommunityForumComponent = () => {
               </Link>
             ))}
           </div>
-
-
-            <div className="farmerCommunityForumComponentForumNumber">
-              <div className="farmerCommunityForumComponentForumContainer">
-                <div className="farmerCommunityForumComponentForumNumberBox">1</div>
-              </div>
-              <div className="farmerCommunityForumComponentForumContainer">
-                <div className="farmerCommunityForumComponentForumNumberBox">2</div>
-              </div>
-              <div className="farmerCommunityForumComponentForumContainer">
-                <div className="farmerCommunityForumComponentForumNumberBox">3</div>
-              </div>
-              <div className="farmerCommunityForumComponentForumContainer">
-                <div className="farmerCommunityForumComponentForumNumberBox">4</div>
-              </div>
-              <div className="farmerCommunityForumComponentForumContainer">
-                <div className="farmerCommunityForumComponentForumNumberBox">5</div>
-              </div>
-              <div className="farmerCommunityForumComponentForumContainer">
-                <div className="farmerCommunityForumComponentForumNumberBox">6</div>
-              </div>
+  
+          <div className="buyerCommunityForumComponentForumNumber">
+            <div className="buyerCommunityForumComponentForumContainer">
+              <div className="buyerCommunityForumComponentForumNumberBox">1</div>
+            </div>
+            <div className="buyerCommunityForumComponentForumContainer">
+              <div className="buyerCommunityForumComponentForumNumberBox">2</div>
+            </div>
+            <div className="buyerCommunityForumComponentForumContainer">
+              <div className="buyerCommunityForumComponentForumNumberBox">3</div>
+            </div>
+            <div className="buyerCommunityForumComponentForumContainer">
+              <div className="buyerCommunityForumComponentForumNumberBox">4</div>
+            </div>
+            <div className="buyerCommunityForumComponentForumContainer">
+              <div className="buyerCommunityForumComponentForumNumberBox">5</div>
+            </div>
+            <div className="buyerCommunityForumComponentForumContainer">
+              <div className="buyerCommunityForumComponentForumNumberBox">6</div>
             </div>
           </div>
         </div>
+      </div>
     </I18nextProvider>
   );
-};
+};  
 
-export default FarmerCommunityForumComponent;
+export default BuyerCommunityForumComponent;

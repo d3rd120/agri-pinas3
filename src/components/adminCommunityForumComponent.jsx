@@ -63,51 +63,52 @@ const AdminCommunityForumComponent = () => {
     
      
 
-       <div className="farmerCommunityForumComponentFrameWrapper">
-            {posts.map((post, index) => (
-              <Link
-                className="farmerCommunityForumComponentRectangleParent"
-                to={`/farmercommunityforumpost/${index}`}
-                key={index}
-              >
-                <img
-                  className="farmerCommunityForumComponentFrameChild"
-                  alt=""
-                  src={post.imageUrl}
-                />
-                <div className="farmerCommunityForumComponentFrameGroup">
-                  <div className="farmerCommunityForumComponentFrameContainer">
-                    <div className="farmerCommunityForumComponentSubText1Wrapper">
-                      <b className="farmerCommunityForumComponentSubText1">
-                        {post.title}
-                      </b>
-                    </div>
-                    <div className="farmerCommunityForumComponentSubText2Wrapper2">
-                      <div className="farmerCommunityForumComponentSubText2">
-                        {post.content}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="farmerCommunityForumComponentFrameItem" />
-                  <div className="farmerCommunityForumComponentFrameAuthor">
-                    <img
-                      className="farmerCommunityForumComponentFrameIcon"
-                      alt=""
-                      src={ProfileVector1}
-                    />
-                    <div className="farmerCommunityForumComponentAuthorText">
-                      <div className="farmerCommunityForumComponentAuthorName">
-                      {post.user ? post.user.displayName || 'Anonymous' : 'Anonymous'}
-                      </div>
-                      <div className="farmerCommunityForumComponentPostTime">
-                       {post.timestamp}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+            <div className="adminCommunityForumComponentFrameWrapper">
+  {posts.map((post, index) => (
+    <Link
+      className="adminCommunityForumComponentRectangleParent"
+      to={`/admincommunityforumpost/${index}`}
+      key={index}
+    >
+      <img
+        className="adminCommunityForumComponentFrameChild"
+        alt=""
+        src={post.imageUrl}
+      />
+      <div className="adminCommunityForumComponentFrameGroup">
+        <div className="adminCommunityForumComponentFrameContainer">
+          <div className="adminCommunityForumComponentSubText1Wrapper">
+            <b className="adminCommunityForumComponentSubText1">
+              {post.title}
+            </b>
           </div>
+          <div className="adminCommunityForumComponentSubText2Wrapper2">
+            <div className="adminCommunityForumComponentSubText2">
+              {post.content}
+            </div>
+          </div>
+        </div>
+        <div className="adminCommunityForumComponentFrameItem" />
+        <div className="adminCommunityForumComponentFrameAuthor">
+          <img
+            className="adminCommunityForumComponentFrameIcon"
+            alt=""
+            src={ProfileVector1}
+          />
+          <div className="adminCommunityForumComponentAuthorText">
+            <div className="adminCommunityForumComponentAuthorName">
+              {post.user ? post.user.displayName || 'Anonymous' : 'Anonymous'}
+            </div>
+            <div className="adminCommunityForumComponentPostTime">
+              {post.timestamp}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
 
             
          

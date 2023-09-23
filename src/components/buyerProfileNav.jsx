@@ -174,8 +174,7 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
           <FaSignOutAlt className="buyerNavigationLinksIconLogout" />
         </NavLink>
 
-        <div className="buyerNavigationLink3">
-          <img src={profile2} alt="Account Icon" className="accountIcon" /> 
+        <div className="buyerNavigationLink3">        
           <div className="buyerNavigationLinks1">{fullname}</div>
           <div className="buyerNavigationLinks2" onClick={handleEditProfileClick}>{t('farmerProfileText1')}</div>
           <FaEdit className="buyerNavigationLinksIcon1" onClick={handleEditProfileClick} />

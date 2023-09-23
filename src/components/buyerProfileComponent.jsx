@@ -87,7 +87,7 @@ const BuyerProfile = () => {
                 <div class="farmerProfileComponentFullName">{t('farmerProfileText18')}</div>
                 <div class="farmerProfileComponentName">{fullname}</div>
                 <div class="farmerProfileComponentRole">{t('farmerProfileText19')}</div>
-                <img src={ProfileVector1} class="farmerselectImageIcon" />
+                <img class="farmerselectImageIcon" />
                 <div class="farmerProfileComponentRole2">{buyerRole}</div>
                 <div class="farmerProfileComponentEmail1">{t('farmerProfileText21')}</div>
                 <div class="farmerProfileComponentEmail2">{email}</div>

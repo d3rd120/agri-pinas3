@@ -108,16 +108,7 @@ const BuyerTopNav = () => {
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="buyerTopNavContainer">
-      <div className="searchBar" style={{ width: '300px' }}>
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={handleSearch}
-          style={{ width: '100%' }}
-        />
-        <FaSearch className="searchIcon" />
-      </div>
+     
 
       <div
         className="buyerComponentEllipseParent2"
@@ -137,6 +128,16 @@ const BuyerTopNav = () => {
           className={`buyerComponentGroupInner2${showNotifications ? ' active' : ''}`}
           onClick={handleBellClick}
         />
+        <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>          
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearch}
+          style={{ width: '250px' }}          
+        />   
+       </div>
+        
       </div>
 
       {showNotifications && (

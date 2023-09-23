@@ -2,7 +2,6 @@
 .buyerComponentGroupInner2 {
   position: absolute;
   max-width: 100%;
-  overflow: hidden;
   max-height: 100%;
 }
 .buyerComponentGroupChild2 {
@@ -34,7 +33,7 @@
   color: #557153;
   height: 74.07%;
   width: 24%;
-  top: 12.96%;
+  top: 5%;
   right: 40rem;
   bottom: 12.96%;
   left: -1.5rem;
@@ -44,7 +43,7 @@
   top: 2rem;
   right: 2rem;
   width: 6.25rem;
-  height: 2.25rem;
+ 
   color: #557153;
   cursor: pointer;
   z-index: 9999; 

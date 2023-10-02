@@ -149,12 +149,12 @@ const BuyerAddress = () => {
     <I18nextProvider i18n={i18n}> 
     <div className="buyerCommunityForumComponentFullPost">
       <BuyerProfileNav />
-      <div className="farmerMarketplaceComponentMainPanel">
+      <div className="buyerMarketplaceComponentMainPanel">
         <BuyerTopNav />
-        <div className="farmerCommunityForumComponentTopSection">
-          <div className="farmerCommunityForumComponentMainText1">
-            <b className="farmerCommunityForumComponentMainText2">
-              <p className="farmerCommunityForumComponentBlankLine">{t('farmerProfileText24')}</p>
+        <div className="buyerCommunityForumComponentTopSection">
+          <div className="buyerCommunityForumComponentMainText1">
+            <b className="buyerCommunityForumComponentMainText2">
+              <p className="buyerCommunityForumComponentBlankLine">{t('farmerProfileText24')}</p>
             </b>
           </div>
         </div>

@@ -1,17 +1,27 @@
 import "../css/Components/adminDashboardComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
 import Banner from '../img/bannerSample.png';
-import { FaEdit, FaTrash, FaFolderOpen } from 'react-icons/fa';
+import AdminDashboardComponentUpdate from '../components/adminDashboardComponentUpdate';
+import React, { useState } from 'react';
+import { FaEdit, FaTrash, FaFolderOpen, FaTimes } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 
 
 
-
-
 const AdminDashboard = () => {
   const { t } = useTranslation();
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
 
 
 
@@ -34,10 +44,33 @@ const AdminDashboard = () => {
               <div className="adminDashboardComponentMainText2">
               {t('adminPageDashboardText2')}
               </div>
-              <button className="adminDashboardComponentButton">
-                        <FaEdit className="adminDashboardComponentButtonIcon" />
-                        <div className="adminDashboardComponentButtonText">{t('farmerPageButton13')}</div>
-                      </button>                     
+
+              <button
+                className="buyerCommunityForumComponentButton1"
+                onClick={handleButtonClick}
+              >
+                <FaEdit className="buyerCommunityForumComponentButtonIcon1" />
+                <div className="buyerCommunityForumComponentButtonText1">
+                  {t("I-update")}
+                </div>
+          </button>     
+
+            {showPopup && (
+            <div
+              id="buyerCommunityForumComponentPopupWindow"
+              className="buyerCommunityForumComponentPopupWindow"
+            >
+              <div className="buyerCommunityForumComponentPopupContent">
+                <span
+                  className="buyerCommunityForumComponentCloseButton"
+                  onClick={closePopup}
+                >
+                  <FaTimes />
+                </span>
+                <AdminDashboardComponentUpdate/>
+              </div>
+            </div>
+          )}    
               <div className="adminDashboardComponentCard">           
               <img className="farmerDashboardIcon" alt="" src={Banner} />
               </div>             

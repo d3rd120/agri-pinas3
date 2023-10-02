@@ -1,0 +1,68 @@
+.adminTransactionsComponentDeleteProductMainText {
+  align-self: stretch;
+  position: relative;
+  line-height: 2.13rem;
+  font-weight: 600;
+}
+.adminTransactionsComponentDeleteProductSubText,
+.adminTransactionsComponentDeleteProductButtonText {
+  position: relative;
+}
+.adminTransactionsComponentDeleteProductSubText {
+  align-self: stretch;
+  font-size: 1.13rem;
+  color: #636363;
+}
+.adminTransactionsComponentDeleteProductButtonText {
+  font-size: 1rem;
+  line-height: 150%;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+.adminTransactionsComponentDeleteProductButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  max-width: 15rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+.adminTransactionsComponentDeleteProductButton {
+  cursor: pointer;
+  border: 0;
+  padding: 0.5rem;
+  background-color: #27ae60;
+  border-radius: 8px;
+  width: calc(50% - 0.5rem);
+  overflow: hidden;
+  flex-direction: row;
+  transition: 0.5s;
+}
+.adminTransactionsComponentDeleteProductButton:hover {
+  background-color: #598025;
+}
+.adminTransactionsComponentDeleteProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 12px;
+  background-color: #fff;
+  width: 100%;
+  height: 12.44rem;
+  padding: 1.75rem 1.88rem;
+  gap: 1.06rem;
+  text-align: center;
+  font-size: 1.38rem;
+  color: #557153;
+}
+
+@media screen and (max-width: 960px) {
+  .adminTransactionsComponentDeleteProductMainText {
+    font-size: 1.13rem;
+  }
+  .adminTransactionsComponentDeleteProductSubText {
+    font-size: 0.88rem;
+  }
+}

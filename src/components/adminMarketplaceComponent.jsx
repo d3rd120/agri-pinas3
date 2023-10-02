@@ -1,12 +1,11 @@
 import "../css/Components/adminMarketplaceComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
+import AdminMarketplaceUpdateComponent from '../components/adminMarketplaceUpdateComponent';
+import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDeleteComponent';
 import RiceVector from '../img/riceCardImage.png';
-import CornVector from '../img/cornVector.png';
 import ProfileVector2 from '../img/profileVector2.png';
-import OnionVector from '../img/onionVector.png';
-import SiliVector from '../img/sili.png';
 import SquashVector from '../img/squash.png';
-import { FaTrash, FaStore, FaEdit, FaPlus, FaTimes } from 'react-icons/fa';
+import { FaTrash, FaStore, FaEdit, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
@@ -19,8 +18,27 @@ import i18n from '../i18n';
 
 const AdminMarketplaceComponent = () => {
   const { t } = useTranslation();
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup1, setShowPopup1] = useState(false);
+  const [showPopup2, setShowPopup2] = useState(false);
   const [products, setProducts] = useState([]);
+  
+  const handleButtonClick1 = () => {
+    setShowPopup1(true);
+  };
+
+  const closePopup1 = () => {
+    setShowPopup1(false);
+  };
+
+  const handleButtonClick2 = () => {
+    setShowPopup2(true);
+  };
+
+  const closePopup2 = () => {
+    setShowPopup2(false);
+  };
+
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "Products"), (snapshot) => {
@@ -47,7 +65,44 @@ const AdminMarketplaceComponent = () => {
               <p className="adminMarketplaceComponentBlankLine">{t('farmerPageNavgationText2')}</p>
             </b>
           </div>
-        </div>    
+        </div>  
+          
+       
+            {showPopup1 && (
+            <div
+              id="buyerCommunityForumComponentPopupWindow"
+              className="buyerCommunityForumComponentPopupWindow"
+            >
+              <div className="buyerCommunityForumComponentPopupContent">
+                <span
+                  className="buyerCommunityForumComponentCloseButton"
+                  onClick={closePopup1}
+                >
+                  <FaTimes />
+                </span>
+                <AdminMarketplaceUpdateComponent/>
+              </div>
+            </div>
+          )}    
+
+            {showPopup2 && (
+            <div
+              id="buyerCommunityForumComponentPopupWindow"
+              className="buyerCommunityForumComponentPopupWindow"
+            >
+              <div className="buyerCommunityForumComponentPopupContent">
+                <span
+                  className="buyerCommunityForumComponentCloseButton"
+                  onClick={closePopup2}
+                >
+                  <FaTimes />
+                </span>
+                <AdminMarketplaceDeleteComponent/>
+              </div>
+            </div>
+          )}    
+    
+        
     
         
         <div className="adminMarketplaceComponentCard">
@@ -73,7 +128,7 @@ const AdminMarketplaceComponent = () => {
             <div className="adminMarketplaceComponentFrameParent">
 
 
-            {products.map((product) => (
+            {/* {products.map((product) => (
                   <NavLink
                     key={product.id}
                     className="farmerMarketplaceComponentRectangleParent"
@@ -121,98 +176,8 @@ const AdminMarketplaceComponent = () => {
                       </div>
                     </div>
                   </NavLink>
-                ))}
-
-              <div className="adminMarketplaceComponentFrameWrapper">
-                <a className="adminMarketplaceComponentRectangleParent">
-                  <img
-                    className="adminMarketplaceComponentFrameChild"
-                    alt=""
-                    src={OnionVector}
-                  />
-                  <div className="adminMarketplaceComponentFrameGroup">
-                    <div className="adminMarketplaceComponentFrameContainer">
-                      <div className="adminMarketplaceComponentSubText1Wrapper">
-                        <b className="adminMarketplaceComponentSubText1">{t('farmerPageProductText2')}</b>
-                      </div>
-                      <div className="adminMarketplaceComponentSubText2Wrapper2">                        
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageCategory')}</b> Vegetable
-                        </div> 
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPagePackaging')}</b> Sack
-                        </div>                        
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPagePrice')}</b> Php 1,000
-                        </div>    
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageKilogram')}</b> 5 kgs
-                        </div>    
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageDescription')}</b>  An onion is a round vegetable with a brown skin that grows underground. It has many white layers on its inside which have a strong.
-                        </div>    
-                      </div>
-                    </div>
-                    <div className="adminMarketplaceComponentFrameItem" />
-                    <div className="adminMarketplaceComponentDetails">      
-                    <button className="adminMarketplaceComponentButton">
-                        <FaEdit className="adminMarketplaceComponentButtonIcon" />
-                        <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton13')}</div>
-                      </button>          
-                      <button className="adminMarketplaceComponentButton">
-                        <FaTrash className="adminMarketplaceComponentButtonIcon" />
-                        <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton2')}</div>
-                      </button>
-                    </div>         
-                  </div>
-                </a> 
-
-                <a className="adminMarketplaceComponentRectangleParent">
-                  <img
-                    className="adminMarketplaceComponentFrameChild"
-                    alt=""
-                    src={SiliVector}
-                  />
-                  <div className="adminMarketplaceComponentFrameGroup">
-                    <div className="adminMarketplaceComponentFrameContainer">
-                      <div className="adminMarketplaceComponentSubText1Wrapper">
-                        <b className="adminMarketplaceComponentSubText1">{t('farmerPageProductText5')}</b>
-                      </div>
-                      <div className="adminMarketplaceComponentSubText2Wrapper2">                        
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageCategory')}</b> Vegetable
-                        </div> 
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPagePackaging')}</b> Sack
-                        </div>                        
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPagePrice')}</b> Php 1,000
-                        </div>    
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageKilogram')}</b> 5 kgs
-                        </div>    
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageDescription')}</b>  An onion is a round vegetable with a brown skin that grows underground. It has many white layers on its inside which have a strong.
-                        </div>    
-                      </div>
-                    </div>
-                    <div className="adminMarketplaceComponentFrameItem" />
-                    <div className="adminMarketplaceComponentDetails">      
-                    <button className="adminMarketplaceComponentButton">
-                        <FaEdit className="adminMarketplaceComponentButtonIcon" />
-                        <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton13')}</div>
-                      </button>          
-                      <button className="adminMarketplaceComponentButton">
-                        <FaTrash className="adminMarketplaceComponentButtonIcon" />
-                        <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton2')}</div>
-                      </button>
-                    </div>        
-                  </div>
-                </a> 
-
-
-              </div>  
-
+                ))} */}
+            
 
             
 
@@ -248,11 +213,13 @@ const AdminMarketplaceComponent = () => {
                     </div>
                     <div className="adminMarketplaceComponentFrameItem" />
                     <div className="adminMarketplaceComponentDetails">      
-                    <button className="adminMarketplaceComponentButton">
+                    <button className="adminMarketplaceComponentButton"
+                            onClick={handleButtonClick1}>
                         <FaEdit className="adminMarketplaceComponentButtonIcon" />
                         <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton13')}</div>
                       </button>          
-                      <button className="adminMarketplaceComponentButton">
+                      <button className="adminMarketplaceComponentButton"
+                              onClick={handleButtonClick2}>
                         <FaTrash className="adminMarketplaceComponentButtonIcon" />
                         <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton2')}</div>
                       </button>
@@ -291,11 +258,13 @@ const AdminMarketplaceComponent = () => {
                     </div>
                     <div className="adminMarketplaceComponentFrameItem" />
                     <div className="adminMarketplaceComponentDetails">      
-                    <button className="adminMarketplaceComponentButton">
+                    <button className="adminMarketplaceComponentButton"
+                            onClick={handleButtonClick1}>
                         <FaEdit className="adminMarketplaceComponentButtonIcon" />
                         <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton13')}</div>
                       </button>          
-                      <button className="adminMarketplaceComponentButton">
+                      <button className="adminMarketplaceComponentButton"
+                              onClick={handleButtonClick2}>
                         <FaTrash className="adminMarketplaceComponentButtonIcon" />
                         <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton2')}</div>
                       </button>
@@ -304,9 +273,6 @@ const AdminMarketplaceComponent = () => {
                 </a> 
                 
               </div> 
-
-
-
 
 
           

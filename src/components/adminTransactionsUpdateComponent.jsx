@@ -28,56 +28,56 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
           <div className="adminTransactionsEditProductComponentFrameGroup">
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText2')}
+                {t('ID ng User')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText3')}
+                placeholder={t('Ilagay ang ID ng User')}
               />
             </div>
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText6')}
+                {t('ID ng Item')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText7')}
+                placeholder={t('Ilagay ang ID ng Item')}
                 value={editedCategory}
                 onChange={(e) => setEditedCategory(e.target.value)}
               />
             </div>
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText10')}
+                {t('Pangalan ng Bumili')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText11')}
+                placeholder={t('Ilagay ang Pangalan ng Bumili')}
                 value={editedPackaging}
                 onChange={(e) => setEditedPackaging(e.target.value)}
               />
             </div>
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText2')}
+                {t('Petsa ng Pag-Order')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText3')}
+                placeholder={t('Ilagay ang Petsa ng Pag-Order')}
               />
             </div>
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText2')}
+                {t('Presyo kada Yunit')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText3')}
+                placeholder={t('Ilagay ang Presyo kada Yunit')}
               />
             </div>
           </div>
@@ -86,46 +86,46 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
           <div className="adminTransactionsEditProductComponentFrameGroup">
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText4')}
+                {t('Dami ng Pag-order')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput2"
                 type="text"
-                placeholder={t('farmerPageEditText5')}
+                placeholder={t('Ilagay ang Dami ng Pag-order')}
                 value={editedPrice}
                 onChange={(e) => setEditedPrice(e.target.value)}
               />
             </div>
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText8')}
+                {t('Kabuuang Halaga')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput2"
                 type="text"
-                placeholder={t('farmerPageEditText9')}
+                placeholder={t('Ilagay ang Kabuuang Halaga')}
                 value={editedKilogram}
                 onChange={(e) => setEditedKilogram(e.target.value)}
               />
             </div>          
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText2')}
+                {t('Pangalan ng Magsasaka')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText3')}
+                placeholder={t('Ilagay ang Pangalan ng Magsasaka')}
               />
             </div>
             <div className="adminTransactionsEditProductComponentInputParent">
               <div className="adminTransactionsEditProductComponentTitle">
-                {t('farmerPageEditText2')}
+                {t('Kalagayan')}
               </div>
               <input
                 className="adminTransactionsEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText3')}
+                placeholder={t('Pending')}
               />
             </div>
           </div>

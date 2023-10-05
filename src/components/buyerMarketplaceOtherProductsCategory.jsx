@@ -20,7 +20,7 @@ import BuyerTopNav from '../components/buyerTopNav';
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -31,18 +31,41 @@ const BuyerMarketplace = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "Products"), (snapshot) => {
-      const productsData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setProducts(productsData);
-    });
+  const fetchProducts = async () => {
+    try {
+      const productsCollection = collection(db, 'Marketplace');
+      const querySnapshot = await getDocs(productsCollection);
   
-    return () => unsubscribe();
+      if (querySnapshot.empty) {
+        console.warn('No products found.');
+        return;
+      }
+  
+      const productsData = querySnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+  
+      // Filter products based on the "Other" category (case-insensitive)
+      const otherProducts = productsData.filter((product) =>
+        product.category.toLowerCase() === 'other'
+      );
+  
+      console.log('Fetched products:', otherProducts);
+      setProducts(otherProducts); // Fix here: setProducts instead of fruitsProducts
+      console.log('Products in state:', otherProducts); // Add this line
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchProducts();
   }, []);
-
+  
 
 
 

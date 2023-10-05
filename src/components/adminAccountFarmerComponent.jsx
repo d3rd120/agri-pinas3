@@ -4,7 +4,15 @@ import { FaPeopleArrows, FaTrash, FaEdit } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  updateDoc,
+  doc,
+  deleteDoc,
+  setDoc, // Import setDoc from Firebase
+  getDoc, // Import getDoc from Firebase
+} from 'firebase/firestore';
 import { db } from './firebase';
 import i18n from '../i18n';
 
@@ -21,11 +29,11 @@ const AdminFarmerTransactions = () => {
         const user = doc.data();
         users.push(user);
       });
-
+  
       const filteredFarmerAccounts = users.filter((user) => user.role === 'Farmer');
       setFarmerAccounts(filteredFarmerAccounts);
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -50,17 +58,41 @@ const AdminFarmerTransactions = () => {
     setFarmerAccounts(updatedAccounts);
   };
 
+  const handleSaveUserData = async (user, userRef) => {
+    const userId = user.uid;
+  
+    try {
+      // Check if the user document exists
+      const userDoc = await getDoc(userRef);
+  
+      if (userDoc.exists()) {
+        // User document exists, proceed with the update
+        const userData = {
+          fullname: user.fullname,
+          contact: user.contact,
+          email: user.email,
+          birthdate: user.birthdate,
+        };
+  
+        // Update the user document with the new data, using { merge: true } to update only the specified fields
+        await setDoc(userRef, userData, { merge: true });
+  
+        console.log('User data updated successfully!');
+      } else {
+        // Handle the case where the user document does not exist
+        console.error('User document does not exist. Cannot update.');
+  
+        // Depending on your application's logic, you can choose to display an error message or take other actions here.
+      } 
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  };
+
   const saveChanges = async (user) => {
     const userRef = doc(db, 'Users', user.uid);
     try {
-      await updateDoc(userRef, {
-        fullname: user.fullname,
-        email: user.email,
-        contact: user.contact,
-        address: user.address,
-        birthdate: user.birthdate,
-        age: calculateAge(user.birthdate),
-      });
+      await handleSaveUserData(user, userRef);
       const updatedAccounts = farmerAccounts.map((account) =>
         account.uid === user.uid ? { ...account, editing: false } : account
       );

@@ -2,7 +2,7 @@ import '../css/Components/adminAccountBuyerComponent.css';
 import AdminNavigation from './adminPageNavigation';
 import { FaPeopleArrows, FaEdit, FaTrash } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { doc as firestoreDoc, getDoc, setDoc, collection, onSnapshot, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -50,17 +50,42 @@ const AdminFarmerTransactions = () => {
     setBuyerAccounts(updatedAccounts);
   };
 
-  const saveChanges = async (user) => {
-    const userRef = doc(db, 'Users', user.uid);
+  const handleSaveUserData = async (user, userRef) => {
+    const userId = user.uid;
+  
     try {
-      await updateDoc(userRef, {
-        fullname: user.fullname,
-        email: user.email,
-        contact: user.contact,
-        address: user.address,
-        birthdate: user.birthdate,
-        age: calculateAge(user.birthdate),
-      });
+      // Check if the user document exists
+      const userDoc = await getDoc(userRef);
+  
+      if (userDoc.exists()) {
+        // User document exists, proceed with the update
+        const userData = {
+          fullname: user.fullname,
+          contact: user.contact,
+          email: user.email,
+          birthdate: user.birthdate,
+        };
+  
+        // Update the user document with the new data
+        await setDoc(userRef, userData, { merge: true });
+  
+        console.log('User data updated successfully!');
+      } else {
+        // Handle the case where the user document does not exist
+        console.error('User document does not exist. Cannot update.');
+  
+        // Depending on your application's logic, you can choose to display an error message or take other actions here.
+      }
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  };
+  
+
+  const saveChanges = async (user) => {
+    const userRef = firestoreDoc(db, 'Users', user.uid);
+    try {
+      await handleSaveUserData(user, userRef);
       const updatedAccounts = buyerAccounts.map((account) =>
         account.uid === user.uid ? { ...account, editing: false } : account
       );
@@ -71,7 +96,7 @@ const AdminFarmerTransactions = () => {
   };
 
   const deleteUser = async (user) => {
-    const userRef = doc(db, 'Users', user.uid);
+    const userRef = firestoreDoc(db, 'Users', user.uid);
     try {
       await deleteDoc(userRef);
       const updatedAccounts = buyerAccounts.filter((account) => account.uid !== user.uid);
@@ -80,6 +105,7 @@ const AdminFarmerTransactions = () => {
       console.error('Error deleting user:', error);
     }
   };
+
 
   // Filter buyerAccounts based on searchQuery
   const filteredBuyerAccounts = buyerAccounts.filter((user) => {

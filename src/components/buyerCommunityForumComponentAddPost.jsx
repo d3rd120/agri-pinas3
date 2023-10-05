@@ -3,9 +3,9 @@ import '../css/Components/buyerCommunityForumComponentAddPost.css';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import { uploadImage } from './firebase';
+import { uploadImage, storage } from './firebase';
 
-const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
+const FarmerCommunityForumAddPostComponent = ({ addPost, folderName }) => {
   const { t } = useTranslation();
   const [postDetails, setPostDetails] = useState({
     title: '',
@@ -25,8 +25,6 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
 
   const handlePost = async () => {
     try {
-      
-  
       const newPost = {
         title: postDetails.title,
         content: postDetails.content,
@@ -34,10 +32,10 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   
       // Upload the image and get the download URL
       if (postDetails.file) {
-        const imageUrl = await uploadImage(postDetails.file);
+        const imageUrl = await uploadImage(postDetails.file, 'images'); // Specify 'images' folder
         newPost.image = imageUrl;
       }
-
+  
       // Call the addPost function with the new post data
       addPost(newPost);
   
@@ -52,7 +50,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
       alert(`Error uploading image or storing post: ${error.message}`);
     }
   };
-
+  
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -108,6 +106,6 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
       </div>
     </I18nextProvider>
   );
-};  
+};
 
 export default FarmerCommunityForumAddPostComponent;

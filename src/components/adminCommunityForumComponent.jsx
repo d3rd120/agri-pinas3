@@ -30,12 +30,18 @@ const AdminCommunityForumComponent = () => {
 
   // Create a new array to store displayed posts based on selectedOption
   const displayedPosts = posts
-    .filter((post) => post.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    .filter((post) => {
+      const postTitleIncludesQuery = post.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const userNameIncludesQuery = (post.user ? post.user.displayName || 'Anonymous' : 'Anonymous')
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      return postTitleIncludesQuery || userNameIncludesQuery;
+    })
     .slice(0, parseInt(selectedOption, 10));
 
   return (
     <I18nextProvider i18n={i18n}>
-      
       <div className="adminCommunityForumComponent">
         <AdminNavigation />
         <div className="adminCommunityForumComponentMainPanel">

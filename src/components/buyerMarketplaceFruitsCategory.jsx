@@ -20,7 +20,7 @@ import BuyerTopNav from '../components/buyerTopNav';
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -31,19 +31,40 @@ const BuyerMarketplace = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
 
+  const fetchProducts = async () => {
+    try {
+      const productsCollection = collection(db, 'Marketplace');
+      const querySnapshot = await getDocs(productsCollection);
+
+      if (querySnapshot.empty) {
+        console.warn('No products found.');
+        return;
+      }
+
+      const productsData = querySnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+
+      // Filter products based on the "Fruits" category (case-insensitive)
+      const fruitsProducts = productsData.filter((product) =>
+        product.category.toLowerCase() === 'fruits'
+      );
+
+      console.log('Fetched products:', fruitsProducts);
+      setProducts(fruitsProducts);
+      console.log('Products in state:', fruitsProducts); // Add this line
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "Products"), (snapshot) => {
-      const productsData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setProducts(productsData);
-    });
-  
-    return () => unsubscribe();
+    fetchProducts();
   }, []);
-
-
 
 
 
@@ -63,58 +84,50 @@ const BuyerMarketplace = () => {
           </div>
         </div>
             
-
-                    {products.map((product) => (
-             <NavLink
-             key={product.id}
-             className="buyerMarketplaceComponentRectangleParent"
-             to="/buyermarketplacepost"
-             activeClassName="active"
-           >
-             <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-             <div className="buyerMarketplaceComponentFrameGroup">
-               <div className="buyerMarketplaceComponentFrameContainer">
-                 <div className="buyerMarketplaceComponentCardWrapper">
-                   <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
-                 </div>
-                 <div className="buyerMarketplaceComponentCategoryWrapper">
-                   <div className="buyerMarketplaceComponentCategoryContainer">
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Category: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Packaging: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">Price: </b>
-                       <span>{product.price}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Kilogram per unit: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">Description: </b>
-                       <span>{product.description}</span>
-                     </p>
-                   </div>
-                 </div>
-               </div>
-               <div className="buyerMarketplaceComponentFrameItem" />
-               <div className="buyerMarketplaceComponentAuthor">
-                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                 <div className="buyerMarketplaceComponentAuthorText">
-                   <div className="buyerMarketplaceComponentAuthorName">Marievic Anes</div>
-                   <div className="buyerMarketplaceComponentSubName">Buyer</div>
-                 </div>
-               </div>
-             </div>
-           </NavLink>
-           
-            ))}
-
+        {products.map((product) => (
+  <div key={product.id} className="buyerMarketplaceComponentRectangleParent">
+    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
+    <div className="buyerMarketplaceComponentFrameGroup">
+      <div className="buyerMarketplaceComponentFrameContainer">
+        <div className="buyerMarketplaceComponentCardWrapper">
+          <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
+        </div>
+        <div className="buyerMarketplaceComponentCategoryWrapper">
+          <div className="buyerMarketplaceComponentCategoryContainer">
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b>Category: </b>
+              <span className="buyerMarketplaceComponentCategory">{product.category}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b>Packaging: </b>
+              <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b className="buyerMarketplaceComponentCategory">Price: </b>
+              <span>{product.price}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b>Kilogram per unit: </b>
+              <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b className="buyerMarketplaceComponentCategory">Description: </b>
+              <span>{product.description}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="buyerMarketplaceComponentFrameItem" />
+      <div className="buyerMarketplaceComponentAuthor">
+        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+        <div className="buyerMarketplaceComponentAuthorText">
+          <div className="buyerMarketplaceComponentAuthorName">Marievic Anes</div>
+          <div className="buyerMarketplaceComponentSubName">Buyer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+))}
 
 
 

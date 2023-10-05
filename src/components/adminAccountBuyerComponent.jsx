@@ -1,6 +1,6 @@
 import '../css/Components/adminAccountBuyerComponent.css';
 import AdminNavigation from './adminPageNavigation';
-import { FaPeopleArrows, FaEdit, FaTrash} from 'react-icons/fa';
+import { FaPeopleArrows, FaEdit, FaTrash } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase';
@@ -8,11 +8,11 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 
-
 const AdminFarmerTransactions = () => {
   const { t } = useTranslation();
   const [buyerAccounts, setBuyerAccounts] = useState([]);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedOption, setSelectedOption] = useState(5); // Default selected option
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -21,14 +21,14 @@ const AdminFarmerTransactions = () => {
         const user = doc.data();
         users.push(user);
       });
-  
+
       const filteredBuyerAccounts = users.filter((user) => user.role === 'Buyer');
       setBuyerAccounts(filteredBuyerAccounts);
     });
-  
+
     return () => unsubscribe();
   }, []);
-  
+
   const calculateAge = (birthdate) => {
     const birthdateParts = birthdate.split('-');
     const birthYear = parseInt(birthdateParts[0]);
@@ -80,211 +80,225 @@ const AdminFarmerTransactions = () => {
       console.error('Error deleting user:', error);
     }
   };
-  
+
+  // Filter buyerAccounts based on searchQuery
+  const filteredBuyerAccounts = buyerAccounts.filter((user) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      user.fullname.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query) ||
+      user.contact.toLowerCase().includes(query) ||
+      user.address.toLowerCase().includes(query) ||
+      user.birthdate.toLowerCase().includes(query) ||
+      user.age.toString().includes(query)
+    );
+  });
+
   return (
-    <I18nextProvider i18n={i18n}> 
-    <div className="adminAccountBuyerComponent">
-      <AdminNavigation />
-      <div className="adminAccountBuyerComponentMainPanel">
-        <div className="adminAccountBuyerComponentTopSection">
-          <div className="adminAccountBuyerComponentMainText">
-            <b className="adminAccountBuyerComponentMainTextContainer">              
-              <p className="adminAccountBuyerComponentBlankLine">&nbsp;</p>
-              <p className="adminAccountBuyerComponentBlankLine">{t('Text32')}</p>
-            </b>
+    <I18nextProvider i18n={i18n}>
+      <div className="adminAccountBuyerComponent">
+        <AdminNavigation />
+        <div className="adminAccountBuyerComponentMainPanel">
+          <div className="adminAccountBuyerComponentTopSection">
+            <div className="adminAccountBuyerComponentMainText">
+              <b className="adminAccountBuyerComponentMainTextContainer">
+                <p className="adminAccountBuyerComponentBlankLine">&nbsp;</p>
+                <p className="adminAccountBuyerComponentBlankLine">{t('Text32')}</p>
+              </b>
+            </div>
+          </div>
+
+          <div className="adminBuyerAccountManagementCard">
+            <div className="adminBuyerAccountManagementSubTitle">
+              <FaPeopleArrows /> {t('Text34')}
+            </div>
+            <br />
+
+            <div className="adminCommunityForumComponentShow">
+              {t('Text3')}
+
+              <select
+                className="adminCommunityForumComponentRowSelect"
+                value={selectedOption}
+                onChange={(e) => setSelectedOption(e.target.value)}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+
+              <input
+                className="adminCommunityForumComponentRowSelect"
+                type="text"
+                placeholder={t('Text4')}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <br />
+
+            <table className="adminBuyerAccountManagementTable">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Contact No.</th>
+                  <th>Address</th>
+                  <th>Birthday</th>
+                  <th>Age</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredBuyerAccounts.slice(0, parseInt(selectedOption)).map((user) => (
+                  <tr key={user.uid}>
+                    <td>
+                      {user.editing ? (
+                        <input
+                          value={user.fullname}
+                          onChange={(e) =>
+                            setBuyerAccounts((prevAccounts) =>
+                              prevAccounts.map((account) =>
+                                account.uid === user.uid
+                                  ? { ...account, fullname: e.target.value }
+                                  : account
+                              )
+                            )
+                          }
+                        />
+                      ) : (
+                        user.fullname
+                      )}
+                    </td>
+                    <td>
+                      {user.editing ? (
+                        <input
+                          value={user.email}
+                          onChange={(e) =>
+                            setBuyerAccounts((prevAccounts) =>
+                              prevAccounts.map((account) =>
+                                account.uid === user.uid
+                                  ? { ...account, email: e.target.value }
+                                  : account
+                              )
+                            )
+                          }
+                        />
+                      ) : (
+                        user.email
+                      )}
+                    </td>
+                    <td>
+                      {user.editing ? (
+                        <input
+                          value={user.contact}
+                          onChange={(e) =>
+                            setBuyerAccounts((prevAccounts) =>
+                              prevAccounts.map((account) =>
+                                account.uid === user.uid
+                                  ? { ...account, contact: e.target.value }
+                                  : account
+                              )
+                            )
+                          }
+                        />
+                      ) : (
+                        user.contact
+                      )}
+                    </td>
+                    <td>
+                      {user.editing ? (
+                        <input
+                          value={user.address}
+                          onChange={(e) =>
+                            setBuyerAccounts((prevAccounts) =>
+                              prevAccounts.map((account) =>
+                                account.uid === user.uid
+                                  ? { ...account, address: e.target.value }
+                                  : account
+                              )
+                            )
+                          }
+                        />
+                      ) : (
+                        user.address
+                      )}
+                    </td>
+                    <td>
+                      {user.editing ? (
+                        <input
+                          type="date"
+                          value={user.birthdate}
+                          onChange={(e) =>
+                            setBuyerAccounts((prevAccounts) =>
+                              prevAccounts.map((account) =>
+                                account.uid === user.uid
+                                  ? {
+                                      ...account,
+                                      birthdate: e.target.value,
+                                      age: calculateAge(e.target.value),
+                                    }
+                                  : account
+                              )
+                            )
+                          }
+                        />
+                      ) : (
+                        user.birthdate
+                      )}
+                    </td>
+                    <td>{user.age}</td>
+                    <td>
+                      {user.editing ? (
+                        <div>
+                          <button onClick={() => saveChanges(user)}>Save</button>
+                        </div>
+                      ) : (
+                        <div>
+                          <FaEdit onClick={() => startEditing(user)} />
+                        </div>
+                      )}
+                    </td>
+                    <td>
+                      {user.editing ? (
+                        <div>
+                          <button onClick={() => cancelEditing(user)}>Cancel</button>
+                        </div>
+                      ) : (
+                        <div>
+                          <FaTrash onClick={() => deleteUser(user)} />
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="adminAccountBuyerComponentCategories">
+            <div className="adminAccountBuyerComponentPaginationContainer">
+              <div className="adminAccountBuyerComponentPaginationNumber">1</div>
+            </div>
+            <div className="adminAccountBuyerComponentPaginationContainer">
+              <div className="adminAccountBuyerComponentPaginationNumber">2</div>
+            </div>
+            <div className="adminAccountBuyerComponentPaginationContainer">
+              <div className="adminAccountBuyerComponentPaginationNumber">3</div>
+            </div>
+            <div className="adminAccountBuyerComponentPaginationContainer">
+              <div className="adminAccountBuyerComponentPaginationNumber">4</div>
+            </div>
+            <div className="adminAccountBuyerComponentPaginationContainer">
+              <div className="adminAccountBuyerComponentPaginationNumber">5</div>
+            </div>
+            <div className="adminAccountBuyerComponentPaginationContainer">
+              <div className="adminAccountBuyerComponentPaginationNumber">6</div>
+            </div>
           </div>
         </div>
-
-     
-        <div className="adminAccountBuyerComponentMiddleSection">            
-        <div className="adminBuyerAccountManagementPageLayout1">    
-            <div className="adminBuyerAccountManagementPageLayout2">
-        <div className="adminBuyerAccountManagementCard">
-            <div className="adminBuyerAccountManagementSubTitle"><FaPeopleArrows /> {t('Text34')}
-            </div>
-            <br></br>
-           <div className = "adminBuyerAccountManagementShow">{t('Text3')}   
-           <select className="adminBuyerAccountManagementRowSelect" onchange="updateRows(this.value)">
-                   <option value="5">5</option>
-                   <option value="10">10</option>
-                   <option value="15">15</option>
-                   <option value="20">20</option>
-            </select>
-            <input 
-            className="adminBuyerAccountManagementRowSelect"
-            type = "text"
-            placeholder = "Search">                    
-            </input>
-            </div> 
-            <br></br>
-           
-            <table className="adminBuyerAccountManagementTable">
-          <thead>
-            <tr>  
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Contact No.</th>
-              <th>Address</th>
-              <th>Birthday</th>
-              <th>Age</th>      
-              <th>Edit</th>       
-              <th>Delete</th> 
-              
-            </tr>
-          </thead>
-          <tbody>
-                      {buyerAccounts.map((user) => (
-                        <tr key={user.uid}>                         
-                          <td>
-                            {user.editing ? (
-                              <input
-                                value={user.fullname}
-                                onChange={(e) =>
-                                  setBuyerAccounts((prevAccounts) =>
-                                    prevAccounts.map((account) =>
-                                      account.uid === user.uid
-                                        ? { ...account, fullname: e.target.value }
-                                        : account
-                                    )
-                                  )
-                                }
-                              />
-                            ) : (
-                              user.fullname
-                            )}
-                          </td>
-                          <td>
-                            {user.editing ? (
-                              <input
-                                value={user.email}
-                                onChange={(e) =>
-                                  setBuyerAccounts((prevAccounts) =>
-                                    prevAccounts.map((account) =>
-                                      account.uid === user.uid
-                                        ? { ...account, email: e.target.value }
-                                        : account
-                                    )
-                                  )
-                                }
-                              />
-                            ) : (
-                              user.email
-                            )}
-                          </td>
-                          <td>
-                            {user.editing ? (
-                              <input
-                                value={user.contact}
-                                onChange={(e) =>
-                                  setBuyerAccounts((prevAccounts) =>
-                                    prevAccounts.map((account) =>
-                                      account.uid === user.uid
-                                        ? { ...account, contact: e.target.value }
-                                        : account
-                                    )
-                                  )
-                                }
-                              />
-                            ) : (
-                              user.contact
-                            )}
-                          </td>
-                          <td>
-                            {user.editing ? (
-                              <input
-                                value={user.address}
-                                onChange={(e) =>
-                                  setBuyerAccounts((prevAccounts) =>
-                                    prevAccounts.map((account) =>
-                                      account.uid === user.uid
-                                        ? { ...account, address: e.target.value }
-                                        : account
-                                    )
-                                  )
-                                }
-                              />
-                            ) : (
-                              user.address
-                            )}
-                          </td>
-                          <td>
-                            {user.editing ? (
-                              <input
-                                type="date"
-                                value={user.birthdate}
-                                onChange={(e) =>
-                                  setBuyerAccounts((prevAccounts) =>
-                                    prevAccounts.map((account) =>
-                                      account.uid === user.uid
-                                        ? {
-                                            ...account,
-                                            birthdate: e.target.value,
-                                            age: calculateAge(e.target.value),
-                                          }
-                                        : account
-                                    )
-                                  )
-                                }
-                              />
-                            ) : (
-                              user.birthdate
-                            )}
-                          </td>
-                          <td>{user.age}</td>
-                          <td>
-                            {user.editing ? (
-                              <div>
-                                <button onClick={() => saveChanges(user)}>Save</button>                               
-                              </div>
-                            ) : (
-                              <div>
-                                <FaEdit onClick={() => startEditing(user)} />                               
-                              </div>
-                            )}
-                          </td>
-                          <td>
-                            {user.editing ? (
-                              <div>                               
-                                <button onClick={() => cancelEditing(user)}>Cancel</button>
-                              </div>
-                            ) : (
-                              <div>                               
-                                <FaTrash onClick={() => deleteUser(user)} />
-                              </div>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-          </tbody>
-        </table>
-
-       
-        </div>
-        </div>
-        <div className="adminAccountBuyerComponentCategories">
-              <div className="adminAccountBuyerComponentPaginationContainer">
-                <div className="adminAccountBuyerComponentPaginationNumber">1</div>
-              </div>
-              <div className="adminAccountBuyerComponentPaginationContainer">
-                <div className="adminAccountBuyerComponentPaginationNumber">2</div>
-              </div>
-              <div className="adminAccountBuyerComponentPaginationContainer">
-                <div className="adminAccountBuyerComponentPaginationNumber">3</div>
-              </div>
-              <div className="adminAccountBuyerComponentPaginationContainer">
-                <div className="adminAccountBuyerComponentPaginationNumber">4</div>
-              </div>
-              <div className="adminAccountBuyerComponentPaginationContainer">
-                <div className="adminAccountBuyerComponentPaginationNumber">5</div>
-              </div>
-              <div className="adminAccountBuyerComponentPaginationContainer">
-                <div className="adminAccountBuyerComponentPaginationNumber">6</div>
-              </div>
-            </div>
       </div>
-        </div>
-      </div>
-    </div>
     </I18nextProvider>
   );
 };

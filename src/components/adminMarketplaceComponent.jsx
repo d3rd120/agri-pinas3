@@ -3,11 +3,9 @@ import AdminNavigation from '../components/adminPageNavigation';
 import AdminMarketplaceUpdateComponent from '../components/adminMarketplaceUpdateComponent';
 import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDeleteComponent';
 import RiceVector from '../img/riceCardImage.png';
-import ProfileVector2 from '../img/profileVector2.png';
 import SquashVector from '../img/squash.png';
 import { FaTrash, FaStore, FaEdit, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
@@ -21,6 +19,7 @@ const AdminMarketplaceComponent = () => {
   const [showPopup1, setShowPopup1] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
   const [products, setProducts] = useState([]);
+  const [searchText, setSearchText] = useState('');
   
   const handleButtonClick1 = () => {
     setShowPopup1(true);
@@ -38,7 +37,10 @@ const AdminMarketplaceComponent = () => {
     setShowPopup2(false);
   };
 
-
+// Filter products based on searchText
+    const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchText.toLowerCase())
+    );
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "Products"), (snapshot) => {
@@ -109,23 +111,83 @@ const AdminMarketplaceComponent = () => {
           <div className="adminMarketplaceComponentSubTitle"><FaStore /> {t('farmerTransactionsText18')}
           </div>
           <br></br>
-          <div className="adminMarketplaceComponentShow">{t('farmerTransactionsText3')}   
-            <select className="adminMarketplaceComponentRowSelect" onchange="updateRows(this.value)">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-            </select>
-            <input 
+          <div className="adminMarketplaceComponentShow">
+          {t('farmerTransactionsText3')}
+          <select
             className="adminMarketplaceComponentRowSelect"
-            type = "text"
-            placeholder = {t('farmerTransactionsText4')}>                    
-            </input>
-          </div> 
-          <br></br>     
-    
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          <input
+            className="adminMarketplaceComponentRowSelect"
+            type="text"
+            placeholder={t('farmerTransactionsText4')}
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          
+        </div>
+        <br></br>
           <div className="adminMarketplaceComponentMiddleSection">
             <div className="adminMarketplaceComponentFrameParent">
+
+
+
+
+            <div className="adminMarketplaceComponentFrameWrapper">
+            {filteredProducts.map((product) => (
+              <a className="adminMarketplaceComponentRectangleParent" key={product.id}>
+                <img
+                  className="adminMarketplaceComponentFrameChild"
+                  alt=""
+                  src={product.image}
+                />
+                <div className="adminMarketplaceComponentFrameGroup">
+                  <div className="adminMarketplaceComponentFrameContainer">
+                    <div className="adminMarketplaceComponentSubText1Wrapper">
+                      <b className="adminMarketplaceComponentSubText1">{product.productName}</b>
+                    </div>
+                    <div className="adminMarketplaceComponentSubText2Wrapper2">
+                      <div className="adminMarketplaceComponentSubText2">
+                        <b>{t('farmerPageCategory')}</b> {product.category}
+                      </div>
+                      <div className="adminMarketplaceComponentSubText2">
+                        <b>{t('farmerPagePackaging')}</b> {product.packaging}
+                      </div>
+                      <div className="adminMarketplaceComponentSubText2">
+                        <b>{t('farmerPagePrice')}</b> {product.price}
+                      </div>
+                      <div className="adminMarketplaceComponentSubText2">
+                        <b>{t('farmerPageKilogram')}</b> {product.kilogramPerUnit}
+                      </div>
+                      <div className="adminMarketplaceComponentSubText2">
+                        <b>{t('farmerPageDescription')}</b> {product.description}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="adminMarketplaceComponentFrameItem" />
+                  <div className="adminMarketplaceComponentDetails">
+                    <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
+                      <FaEdit className="adminMarketplaceComponentButtonIcon" />
+                      <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton13')}</div>
+                    </button>
+                    <button className="adminMarketplaceComponentButton" onClick={handleButtonClick2}>
+                      <FaTrash className="adminMarketplaceComponentButtonIcon" />
+                      <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton2')}</div>
+                    </button>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
 
 
             {/* {products.map((product) => (
@@ -176,12 +238,11 @@ const AdminMarketplaceComponent = () => {
                       </div>
                     </div>
                   </NavLink>
-                ))} */}
-            
+                ))} */}           
 
             
 
-              <div className="adminMarketplaceComponentFrameWrapper">
+              {/* <div className="adminMarketplaceComponentFrameWrapper">
                 <a className="adminMarketplaceComponentRectangleParent">
                   <img
                     className="adminMarketplaceComponentFrameChild"
@@ -272,7 +333,8 @@ const AdminMarketplaceComponent = () => {
                   </div>
                 </a> 
                 
-              </div> 
+              </div>  */}
+
 
 
           

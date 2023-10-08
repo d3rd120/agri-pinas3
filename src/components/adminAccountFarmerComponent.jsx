@@ -21,6 +21,7 @@ const AdminFarmerTransactions = () => {
   const [farmerAccounts, setFarmerAccounts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [rowsToShow, setRowsToShow] = useState(5); // Default to 5 rows
+  const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -29,11 +30,11 @@ const AdminFarmerTransactions = () => {
         const user = doc.data();
         users.push(user);
       });
-  
+
       const filteredFarmerAccounts = users.filter((user) => user.role === 'Farmer');
       setFarmerAccounts(filteredFarmerAccounts);
     });
-  
+
     return () => unsubscribe();
   }, []);
 
@@ -60,11 +61,11 @@ const AdminFarmerTransactions = () => {
 
   const handleSaveUserData = async (user, userRef) => {
     const userId = user.uid;
-  
+
     try {
       // Check if the user document exists
       const userDoc = await getDoc(userRef);
-  
+
       if (userDoc.exists()) {
         // User document exists, proceed with the update
         const userData = {
@@ -73,17 +74,17 @@ const AdminFarmerTransactions = () => {
           email: user.email,
           birthdate: user.birthdate,
         };
-  
+
         // Update the user document with the new data, using { merge: true } to update only the specified fields
         await setDoc(userRef, userData, { merge: true });
-  
+
         console.log('User data updated successfully!');
       } else {
         // Handle the case where the user document does not exist
         console.error('User document does not exist. Cannot update.');
-  
+
         // Depending on your application's logic, you can choose to display an error message or take other actions here.
-      } 
+      }
     } catch (error) {
       console.error('Error updating user data:', error);
     }
@@ -115,21 +116,24 @@ const AdminFarmerTransactions = () => {
 
   const filteredFarmerAccounts = farmerAccounts
     .filter((user) => {
-      // Convert all user properties to lowercase for case-insensitive search
+      // Convert only string user properties to lowercase for case-insensitive search
       const searchableProperties = [
         'fullname',
         'email',
         'contact',
         'address',
         'birthdate',
-        'age', // You can add more properties here
       ];
 
-      return searchableProperties.some((property) =>
-        user[property].toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      return searchableProperties.some((property) => {
+        const value = user[property];
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(searchQuery.toLowerCase());
+        }
+        return false;
+      });
     })
-    .slice(0, rowsToShow);
+    .slice((currentPage - 1) * rowsToShow, currentPage * rowsToShow);
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -154,7 +158,6 @@ const AdminFarmerTransactions = () => {
             <div className="adminCommunityForumComponentShow">
               {t('Text3')}
 
-              
               <select
                 className="adminCommunityForumComponentRowSelect"
                 value={rowsToShow}
@@ -316,29 +319,25 @@ const AdminFarmerTransactions = () => {
             </table>
           </div>
 
-
           <div className="adminCommunityForumComponentForumNumber">
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">1</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">2</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">3</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">4</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">5</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">6</div>
-            </div>
+            {Array.from(
+              { length: Math.ceil(filteredFarmerAccounts.length / rowsToShow) },
+              (_, index) => (
+                <div
+                  className={`adminCommunityForumComponentForumContainer ${
+                    index + 1 === currentPage ? 'active' : ''
+                  }`}
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="adminCommunityForumComponentForumNumberBox">
+                    {index + 1}
+                  </div>
+                </div>
+              )
+            )}
           </div>
-
-
         </div>
       </div>
     </I18nextProvider>

@@ -2,17 +2,25 @@ import '../css/Components/adminAccountBuyerComponent.css';
 import AdminNavigation from './adminPageNavigation';
 import { FaPeopleArrows, FaEdit, FaTrash } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
-import { doc as firestoreDoc, getDoc, setDoc, collection, onSnapshot, deleteDoc } from 'firebase/firestore';
+import {
+  doc as firestoreDoc,
+  getDoc,
+  setDoc,
+  collection,
+  onSnapshot,
+  deleteDoc,
+} from 'firebase/firestore';
 import { db } from './firebase';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 
-const AdminFarmerTransactions = () => {
+const AdminBuyerTransactions = () => {
   const { t } = useTranslation();
   const [buyerAccounts, setBuyerAccounts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState(5); // Default selected option
+  const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -52,11 +60,11 @@ const AdminFarmerTransactions = () => {
 
   const handleSaveUserData = async (user, userRef) => {
     const userId = user.uid;
-  
+
     try {
       // Check if the user document exists
       const userDoc = await getDoc(userRef);
-  
+
       if (userDoc.exists()) {
         // User document exists, proceed with the update
         const userData = {
@@ -65,22 +73,21 @@ const AdminFarmerTransactions = () => {
           email: user.email,
           birthdate: user.birthdate,
         };
-  
+
         // Update the user document with the new data
         await setDoc(userRef, userData, { merge: true });
-  
+
         console.log('User data updated successfully!');
       } else {
         // Handle the case where the user document does not exist
         console.error('User document does not exist. Cannot update.');
-  
+
         // Depending on your application's logic, you can choose to display an error message or take other actions here.
       }
     } catch (error) {
       console.error('Error updating user data:', error);
     }
   };
-  
 
   const saveChanges = async (user) => {
     const userRef = firestoreDoc(db, 'Users', user.uid);
@@ -106,7 +113,6 @@ const AdminFarmerTransactions = () => {
     }
   };
 
-
   // Filter buyerAccounts based on searchQuery
   const filteredBuyerAccounts = buyerAccounts.filter((user) => {
     const query = searchQuery.toLowerCase();
@@ -119,6 +125,18 @@ const AdminFarmerTransactions = () => {
       user.age.toString().includes(query)
     );
   });
+
+  // Calculate the total number of pages based on the selected option (rows per page)
+  const totalPages = Math.ceil(filteredBuyerAccounts.length / selectedOption);
+
+  // Calculate the index of the last item in the current page
+  const lastIndex = currentPage * selectedOption;
+
+  // Calculate the index of the first item in the current page
+  const firstIndex = lastIndex - selectedOption;
+
+  // Get the current page's data
+  const currentData = filteredBuyerAccounts.slice(firstIndex, lastIndex);
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -146,7 +164,7 @@ const AdminFarmerTransactions = () => {
               <select
                 className="adminCommunityForumComponentRowSelect"
                 value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
+                onChange={(e) => setSelectedOption(parseInt(e.target.value))}
               >
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -178,7 +196,7 @@ const AdminFarmerTransactions = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredBuyerAccounts.slice(0, parseInt(selectedOption)).map((user) => (
+                {currentData.map((user) => (
                   <tr key={user.uid}>
                     <td>
                       {user.editing ? (
@@ -304,24 +322,20 @@ const AdminFarmerTransactions = () => {
             </table>
           </div>
           <div className="adminAccountBuyerComponentCategories">
-            <div className="adminAccountBuyerComponentPaginationContainer">
-              <div className="adminAccountBuyerComponentPaginationNumber">1</div>
-            </div>
-            <div className="adminAccountBuyerComponentPaginationContainer">
-              <div className="adminAccountBuyerComponentPaginationNumber">2</div>
-            </div>
-            <div className="adminAccountBuyerComponentPaginationContainer">
-              <div className="adminAccountBuyerComponentPaginationNumber">3</div>
-            </div>
-            <div className="adminAccountBuyerComponentPaginationContainer">
-              <div className="adminAccountBuyerComponentPaginationNumber">4</div>
-            </div>
-            <div className="adminAccountBuyerComponentPaginationContainer">
-              <div className="adminAccountBuyerComponentPaginationNumber">5</div>
-            </div>
-            <div className="adminAccountBuyerComponentPaginationContainer">
-              <div className="adminAccountBuyerComponentPaginationNumber">6</div>
-            </div>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <div
+                className={`adminAccountBuyerComponentPaginationContainer ${
+                  index + 1 === currentPage ? 'active' : ''
+                }`}
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="adminAccountBuyerComponentPaginationNumber">
+                  {index + 1}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -329,4 +343,4 @@ const AdminFarmerTransactions = () => {
   );
 };
 
-export default AdminFarmerTransactions;
+export default AdminBuyerTransactions;

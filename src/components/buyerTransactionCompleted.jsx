@@ -23,17 +23,17 @@ const { t } = useTranslation();
         <div className="buyerTransactionsCompletedComponentTopSection">
           <div className="buyerTransactionsCompletedComponentMainText">
             <b className="buyerTransactionsCompletedComponentMainTextWrapper">   
-              <p className="buyerTransactionsCompletedComponentBlankLine">{t('buyerTransactionText1')}</p>
+              <p className="buyerTransactionsCompletedComponentBlankLine">{t('text90')}</p>
             </b>
           </div>
         </div>
         <BuyerTransactionNav />
 
         <div className="buyerTransactionCard">
-            <div className="buyerTransactionSubTitle"><FaFolderOpen /> {t('buyerTransactionText2')}
+            <div className="buyerTransactionSubTitle"><FaFolderOpen /> {t('text91')}
             </div>
             <br></br>
-           <div className = "buyerTransactionsCompletedComponentShow">{t('buyerTransactionText3')}   
+           <div className = "buyerTransactionsCompletedComponentShow">{t('text92')}   
            <select className="buyerTransactionsCompletedComponentRowSelect" onchange="updateRows(this.value)">
                    <option value="5">5</option>
                    <option value="10">10</option>
@@ -53,34 +53,34 @@ const { t } = useTranslation();
                   <img
                     className="adminFarmerTransactionsPendingComponentFrameChild"
                     alt=""
-                    src={RiceVector}
+                    src={sili}
                   />
                   <div className="adminFarmerTransactionsPendingComponentFrameGroup">
                     <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                       <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">{t('Text19')}</b>
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">Sili</b>
                       </div>
                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Date: ')}</b> July 2, 2023
+                          <b>{t('text93')}</b> July 2, 2023
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Farmer's Name: </b> Jenkins Mesina
+                          <b>{t('text94')} </b> Jenkins Mesina
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Category: </b> Fruit
+                          <b>{t('text95')} </b> Fruit
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Packaging: ')}</b> Sack
+                          <b>{t('text96')}</b> Sack
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Quantity: </b> 2
+                          <b>{t('text97')} </b> 2
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Overall Price</b> 10,000
+                          <b>{t('text98')}</b> 10,000
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Status: </b> Received
+                          <b>{t('text99')} </b> Received
                         </div>
                       </div>
                     </div>                                    
@@ -95,29 +95,29 @@ const { t } = useTranslation();
                   <div className="adminFarmerTransactionsPendingComponentFrameGroup">
                     <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                       <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">{t('Text19')}</b>
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">Rice</b>
                       </div>
                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Date: ')}</b> July 2, 2023
+                          <b>{t('text93')}</b> July 2, 2023
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Farmer's Name: </b> Jenkins Mesina
+                          <b>{t('text94')}</b> Jenkins Mesina
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Category: </b> Fruit
+                          <b>{t('text95')}</b> Fruit
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Packaging: ')}</b> Sack
+                          <b>{t('text96')}</b> Sack
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Quantity: </b> 2
+                          <b>{t('text97')}</b> 2
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Overall Price</b> 10,000
+                          <b>{t('text98')}</b> 10,000
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Status: </b> Received
+                          <b>{t('text99')}</b> Received
                         </div>
                       </div>
                     </div>                                    

@@ -23,6 +23,8 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
   const [email, setEmail] = useState('');
   const [birthdate, setbirthdate] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
 
   const handleEditProfileClick = () => {
     setOpen(true);
@@ -38,8 +40,20 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
   
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setSelectedImage(file);
+  
+    if (file) {
+      setSelectedImage(file);
+  
+      // Set image preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
+  
+  
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
@@ -69,7 +83,6 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
           birthdate: birthdate ? birthdate.toISOString() : null,
         };
   
-        
         if (selectedImage) {
           const imageRef = ref(storage, `images/${userId}/${selectedImage.name}`);
           await uploadBytes(imageRef, selectedImage);
@@ -82,12 +95,11 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
   
         console.log('User data updated successfully!');
   
-        
         onUserInfoChange(userData);
   
         handleClose();
       } else {
-        console.error('User document does not exist. Cannot update.'); 
+        console.error('User document does not exist. Cannot update.');
         // Handle the case where the user document does not exist (e.g., show an error message)
       }
     } catch (error) {
@@ -95,9 +107,6 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
     }
   };
   
-  
-  
- 
   const handleClose = () => {
     setOpen(false);
   };
@@ -195,26 +204,24 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
           <h2>{t('farmerProfileText6')}</h2>
           <br />
           <div className="buyerNavEditProductComponentInputParent">
-          <div className="buyerNavEditProductComponentTitle1">
-            {selectedImage ? (
-              <img
-                src={URL.createObjectURL(selectedImage)}
-                className="accountIcon1"
-                alt="Uploaded Profile"
+              <div className="buyerNavEditProductComponentTitle1">
+                {imagePreview && (
+                  <img
+                    src={imagePreview}
+                    className="accountIcon1"
+                    alt="Uploaded Profile"
+                  />
+                )}
+                {t('farmerProfileText7')}
+              </div>
+              <input
+                type="file"
+                placeholder="Select your image"
+                accept="image/*"
+                required
+                onChange={handleImageChange}
               />
-            ) : (
-              <img src={profile2} className="accountIcon1" alt="Default Profile" />
-            )}
-            {t('farmerProfileText7')}
-          </div>
-          <input
-            type="file"
-            placeholder="Select your image"
-            accept="image/*"
-            required
-            onChange={handleImageChange}
-          />
-      </div>
+            </div>
 
           <div className="buyerNavEditProductComponentInputParent">
             <div className="buyerNavEditProductComponentTitle1">{t('farmerProfileText8')}</div>

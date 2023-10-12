@@ -2,16 +2,7 @@ import "../css/BuyerPage/buyermarketplaceComponent.css"
 import BuyerNavigation from '../components/buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import CornVector from '../img/cornVector.png';
-import tomatoVector from '../img/tomatoVector.png';
 import okra from '../img/okra.png';
-import pakwan from '../img/pakwan.png';
-import pechay from '../img/pechay.png';
-import calamansi from '../img/calamansi.png';
-import sili from '../img/sili.png';
-import sitaw from '../img/sitaw.png';
-import squash from '../img/squash.png';
-import talong from '../img/talong.png';
-import RiceVector from '../img/riceCardImage.png';
 import ProfileVector2 from '../img/profileVector2.png';
 import ProfileVector1 from '../img/profileVector1.png';
 import {Link} from 'react-router-dom';
@@ -54,9 +45,7 @@ const BuyerMarketplace = () => {
         product.category.toLowerCase() === 'other'
       );
   
-      console.log('Fetched products:', otherProducts);
       setProducts(otherProducts); // Fix here: setProducts instead of fruitsProducts
-      console.log('Products in state:', otherProducts); // Add this line
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
@@ -66,10 +55,6 @@ const BuyerMarketplace = () => {
     fetchProducts();
   }, []);
   
-
-
-
-
 
   return (
     <I18nextProvider i18n={i18n}> 
@@ -129,18 +114,13 @@ const BuyerMarketplace = () => {
                <div className="buyerMarketplaceComponentAuthor">
                  <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
                  <div className="buyerMarketplaceComponentAuthorText">
-                   <div className="buyerMarketplaceComponentAuthorName">Marievic Anes</div>
-                   <div className="buyerMarketplaceComponentSubName">Buyer</div>
+                 <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
+                   <div className="buyerMarketplaceComponentSubName">{product.role}</div>
                  </div>
                </div>
              </div>
            </NavLink>
-           
             ))}
-
-
-
-
 
 
         <div className="buyerMarketplaceComponentMiddleSection">

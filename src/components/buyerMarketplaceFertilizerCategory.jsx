@@ -26,12 +26,12 @@ const BuyerMarketplace = () => {
     try {
       const productsCollection = collection(db, 'Marketplace');
       const querySnapshot = await getDocs(productsCollection);
-
+  
       if (querySnapshot.empty) {
         console.warn('No products found.');
         return;
       }
-
+  
       const productsData = querySnapshot.docs.map((doc) => {
         const product = doc.data();
         return {
@@ -39,23 +39,15 @@ const BuyerMarketplace = () => {
           ...product,
         };
       });
-
-      // Filter products based on the "Fruits" category (case-insensitive)
-      const fertilizerProducts = productsData.filter((product) =>
-        product.category.toLowerCase() === 'fertilizer'
-      );
-
-      console.log('Fetched products:', fertilizerProducts);
-      setProducts(fertilizerProducts);
-      console.log('Products in state:', fertilizerProducts); // Add this line
+  
+      console.log('Fetched products:', productsData);
+      setProducts(productsData);
+      console.log('Products in state:', products); // Add this line
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
   };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  
 
 
   return (

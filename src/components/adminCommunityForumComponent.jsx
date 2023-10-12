@@ -50,6 +50,39 @@ const AdminCommunityForumComponent = () => {
     }
   };
 
+  const fetchUserDisplayName = async (uid) => {
+    try {
+      const userDocRef = doc(db, 'Users', uid);
+      const userDocSnapshot = await getDoc(userDocRef);
+      const userData = userDocSnapshot.data();
+      const displayName = userData ? userData.fullname : 'Anonymous';
+
+      return displayName;
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return 'Anonymous';
+    }
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const postsCollection = collection(db, 'CommunityForum');
+      const snapshot = await getDocs(postsCollection);
+      const fetchedPosts = [];
+
+      for (const doc of snapshot.docs) {
+        const post = doc.data();
+        const userDisplayName = await fetchUserDisplayName(post.user.uid);
+        post.user.displayName = userDisplayName;
+        fetchedPosts.push(post);
+      }
+
+      setPosts(fetchedPosts);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "CommunityForum"), () => {
       fetchPosts();
@@ -181,6 +214,7 @@ const AdminCommunityForumComponent = () => {
                 ))}
               </div>
             </div>
+
 
             <div className="adminCommunityForumComponentForumNumber">
               {Array.from({ length: Math.ceil(filteredPosts.length / displayCount) }, (_, index) => (

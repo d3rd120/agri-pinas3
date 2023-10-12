@@ -160,6 +160,7 @@ const AdminMarketplaceComponent = () => {
             <div className="adminMarketplaceComponentShow">
               {t('farmerTransactionsText3')}
 
+
               <select
                 className="adminMarketplaceComponentRowSelect"
                 value={displayCount}
@@ -171,6 +172,7 @@ const AdminMarketplaceComponent = () => {
                   </option>
                 ))}
               </select>
+
 
               <input
                 className="adminMarketplaceComponentRowSelect"

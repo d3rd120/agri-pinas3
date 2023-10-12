@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../css/BuyerPage/buyermarketplace.css"
 import BuyerNavigation from "./buyerNavigation";
 import OnionVector from '../img/onionVector.png';
-import CornVector from '../img/cornVector.png';
+import ProfileVector2 from '../img/profileVector2.png';
 import TomatoVector from '../img/tomatoVector.png';
 import talong from '../img/talong.png';
 import { FaCartArrowDown, FaCartPlus, FaCommentDots, FaComments, FaEdit, FaTrash } from 'react-icons/fa';
@@ -15,11 +15,13 @@ import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { db} from './firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 const CustomHeaderTitle = styled.div`
   background-color: #557153;
   color: white;
- 
+  
 `;
 
 const BuyerMarketplace = () => {
@@ -37,6 +39,10 @@ const BuyerMarketplace = () => {
 
   const [showChatBot, setShowChatBot] = useState(false);
   const [minimizedChatBot, setMinimizedChatBot] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
 
   const handleChatButtonClick = () => {
     setShowChatBot(!showChatBot);
@@ -66,92 +72,172 @@ const BuyerMarketplace = () => {
     }, 2000);
   };
 
+  const handleProductClick = (product) => {
+    console.log('Product clicked:', product);
+    setSelectedCategory(product.category.toLowerCase());
+    setSelectedProduct(product);
+  };
   
+  const fetchProducts = async () => {
+    try {
+      const productsCollection = collection(db, 'Marketplace');
+      const querySnapshot = await getDocs(productsCollection);
+  
+      if (querySnapshot.empty) {
+        console.warn('No products found.');
+        return;
+      }
+  
+      const productsData = querySnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+  
+      // Filter products based on the selected category
+      const filteredProducts = selectedCategory
+        ? productsData.filter((product) => product.category.toLowerCase() === selectedCategory)
+        : productsData;
+  
+      // Choose the first product in the filtered list (you may adjust this logic)
+      const firstProduct = filteredProducts[0];
+  
+      // Set the selected product
+      setSelectedProduct(firstProduct);
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+  };
+  
+
+  useEffect(() => {
+    // Fetch products initially when the component loads
+    fetchProducts();
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    // Fetch products initially when the component loads
+    fetchProducts();
+  }, []);
+  
+  
+
+
   return (
-    <I18nextProvider i18n={i18n}> 
-    <div className="buyerMarketplaceComponentPost">
-      <BuyerNavigation />
-      <div className="buyerMarketplaceComponentMainPanel">
-        <BuyerTopNav />
-        <div className="buyerCommunityForumComponentTopSection">
-        <div className="buyerCommunityForumComponentMainText1">
-          <b className="buyerCommunityForumComponentMainText2">             
-            <p className="buyerCommunityForumComponentBlankLine">{t('buyerPageNavigationText1')}</p>
-          </b>
-        </div>
-      </div>
-        <div className="buyerMarketplaceComponentPostMiddleSection">
-          <div className="buyerMarketplaceComponentPostCardsContainer">
-            <div className="buyerMarketplaceComponentPostCard1">
-              <img
-                className="buyerMarketplaceComponentPostCard1Image"
-                alt=""
-                src={CornVector}
-              />
+    <>
+    <I18nextProvider i18n={i18n}>
+      <div className="buyerMarketplaceComponentPost">
+        <BuyerNavigation />
+        <div className="buyerMarketplaceComponentMainPanel">
+          <BuyerTopNav />
+          <div className="buyerCommunityForumComponentTopSection">
+            <div className="buyerCommunityForumComponentMainText1">
+              <b className="buyerCommunityForumComponentMainText2">
+                <p className="buyerCommunityForumComponentBlankLine">{t('buyerPageNavigationText1')}</p>
+              </b>
             </div>
-            <div className="buyerMarketplaceComponentPostSmallCards">
-              <div className="buyerMarketplaceComponentPostSmallCardsDescription">
-                <div className="buyerMarketplaceComponentPostSmallCardsContent">
-                  <div className="buyerMarketplaceComponentPostSmallCardsHeading">
-                    <div className="buyerMarketplaceComponentPostSmallCardsDetails">
-                      <b className="buyerMarketplaceComponentPostSmallCardsProductName">Corn</b>
-                      <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('buyerPageUserRole2')} Jenkins Mesina</b>
-                    </div>
-                    
-                    <div className="buyerMarketplaceComponentPostSmallCardsDescriptionWrapper">
-                      <div className="buyerMarketplaceComponentPostSmallCardsFullDescription">
-                        <p className="buyerMarketplaceComponentPostBlankLine">
-                          <b>{t('buyerPageCategory')} </b>
-                          <span className="buyerMarketplaceComponentPostBlankLine">Vegetable</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentPostBlankLine">
-                          <b>{t('buyerPagePackaging')} </b>
-                          <span className="buyerMarketplaceComponentPostCategory">Sack</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentPostBlankLine">
-                          <b className="buyerMarketplaceComponentPostCategory">{t('buyerPagePrice')} </b>
-                          <span>Php 3,000</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentPostBlankLine">
-                          <b>{t('buyerPageKilogram')} </b>
-                          <span className="buyerMarketplaceComponentPostCategory">50 kgs</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentPostBlankLine">
-                          <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageDescription')} </b>
-                          <span>
-                          {t('buyerPageDescriptionText2')}
-                          </span>
-                        </p>
+          </div>
+          <div className="buyerMarketplaceComponentPostMiddleSection">
+            <div className="buyerMarketplaceComponentPostCardsContainer">
+              <div key={selectedProduct?.id} className="buyerMarketplaceComponentPostCard1">
+                <img
+                  className="buyerMarketplaceComponentPostCard1Image"
+                  alt=""
+                  src={selectedProduct?.image} />
+                <div className="buyerMarketplaceComponentPostSmallCards">
+                  <div className="buyerMarketplaceComponentPostSmallCardsDescription">
+                    <div className="buyerMarketplaceComponentPostSmallCardsContent">
+                      <div className="buyerMarketplaceComponentPostSmallCardsHeading">
+                        <div className="buyerMarketplaceComponentPostSmallCardsDetails">
+                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.productName}</b>
+                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('buyerPageUserRole2')} {selectedProduct?.farmer}</b>
+                        </div>
+                        <div className="buyerMarketplaceComponentPostSmallCardsDescriptionWrapper">
+                          <div className="buyerMarketplaceComponentPostSmallCardsFullDescription">
+                            <p className="buyerMarketplaceComponentPostBlankLine">
+                              <b>{t('buyerPageCategory')} </b>
+                              <span className="buyerMarketplaceComponentPostBlankLine">{selectedProduct?.category}</span>
+                            </p>
+                            <p className="buyerMarketplaceComponentPostBlankLine">
+                              <b>{t('buyerPagePackaging')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.packaging}</span>
+                            </p>
+                            {selectedProduct?.category.toLowerCase() === 'vegetable' && (
+                              <>
+                                <p className="buyerMarketplaceComponentPostBlankLine">
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPagePrice')} </b>
+                                  <span>{selectedProduct?.price}</span>
+                                </p>
+                                <p className="buyerMarketplaceComponentPostBlankLine">
+                                  <b>{t('buyerPageKilogram')} </b>
+                                  <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.kilogram}</span>
+                                </p>
+                              </>
+                            )}
+                            {selectedProduct?.category.toLowerCase() === 'fruits' && (
+                              <>
+                                <p className="buyerMarketplaceComponentPostBlankLine">
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageFruitsCategoryDetail')} </b>
+
+                                </p>
+                              </>
+                            )}
+                            {selectedProduct?.category.toLowerCase() === 'fertilizer' && (
+                              <>
+                                <p className="buyerMarketplaceComponentPostBlankLine">
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageFertilizerCategoryDetail')} </b>
+
+                                </p>
+                              </>
+                            )}
+                            {selectedProduct?.category.toLowerCase() === 'other' && (
+                              <>
+                                <p className="buyerMarketplaceComponentPostBlankLine">
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageOtherCategoryDetail')} </b>
+
+                                </p>
+                              </>
+                            )}
+                            <p className="buyerMarketplaceComponentPostBlankLine">
+                              <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageDescription')} </b>
+                              <span>{selectedProduct?.description}</span>
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="buyerMarketplaceComponentPostButtonContainer">
-  <div className="buyerMarketplaceComponentPostButtonRow">
-    <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleChatButtonClick}>
-      <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
-      <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton14')}</div>
-    </button>
-    <div id="popupMessage" className="popupMessage">
-      <span className="popupText">{t('buyerPagePopup')}</span>
-    </div>
-    <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleAddToCart}>
-      <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
-      <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton15')}</div>
-    </button>
-    <a href="/shoppingcart" style={{ textDecoration: 'none' }}>
-      <button className="buyerMarketplaceComponentPostButton1">
-        <div className="buyerMarketplaceComponentPostButtonText1">{t('farmerPageButton16')}</div>
-      </button>
-    </a>
-  </div>
-</div>
-
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+    <div className="buyerMarketplaceComponentPostButtonContainer">
+        <div className="buyerMarketplaceComponentPostButtonRow">
+          <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleChatButtonClick}>
+            <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
+            <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton14')}</div>
+          </button>
+          <div id="popupMessage" className="popupMessage">
+            <span className="popupText">{t('buyerPagePopup')}</span>
+          </div>
+          <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleAddToCart}>
+            <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
+            <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton15')}</div>
+          </button>
+          <a href="/shoppingcart" style={{ textDecoration: 'none' }}>
+            <button className="buyerMarketplaceComponentPostButton1">
+              <div className="buyerMarketplaceComponentPostButtonText1">{t('farmerPageButton16')}</div>
+            </button>
+          </a>
+        </div>
+      </div>
+
+
         <div className="buyerMarketplaceComponentPostButtonNew">
           <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('buyerPageDescriptionText3')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
@@ -201,12 +287,7 @@ const BuyerMarketplace = () => {
               </div>
             </Link>
           </div>
-
-          
-
-
-        </div>
-      </div>
+    </div>
       {showChatBot && !minimizedChatBot && (
             <div className="chatbot-container">
               <ThemeProvider theme={theme}>
@@ -249,8 +330,8 @@ const BuyerMarketplace = () => {
               </button>
             </div>
           )}
-    </div>
     </I18nextProvider>
+    </>
   );
 };
 

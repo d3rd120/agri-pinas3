@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaUsers, FaGlobe, FaHome, FaWallet, FaStore, FaUserCircle, FaBell, FaAngleDown } from 'react-icons/fa';
+import { FaUsers, FaGlobe, FaHome, FaWallet, FaStore, FaBook, FaAngleDown } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import '../css/Components/adminPageNavigation.css';
 import Logo from '../img/agriPinasLogo.png';
@@ -30,6 +30,7 @@ const AdminNavigation = () => {
         <div className="adminPageNavigationMainText">AgriPinas</div>
       </div>
       <div className="adminPageNavigationGroupParent">
+
         <NavLink
           className="adminPageNavigationLink1"
           to="/admincommunityforum"
@@ -38,6 +39,16 @@ const AdminNavigation = () => {
           <div className="adminPageNavigationLinks">{t('farmerPageNavgationText3')}</div>
           <FaUsers className="adminPageNavigationLinksIcon" />
         </NavLink>
+
+
+        <NavLink
+          className="adminPageNavigationLink6"
+          to="/adminlogreport"
+          activeClassName="active"
+        >
+          <div className="adminPageNavigationLinks">{t('Log Reports')}</div>
+          <FaBook className="adminPageNavigationLinksIcon" />
+        </NavLink>  
 
         <div
           className={`adminPageNavigationLink2 ${

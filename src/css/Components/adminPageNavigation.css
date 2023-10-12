@@ -52,6 +52,17 @@
     height: 1.38rem;
     color: inherit;
   }
+
+  
+  .adminPageNavigationLink6{
+    text-decoration: none;
+    position: absolute;
+    bottom: -3.6rem;
+    left: 0.05rem;
+    width: 9.14rem;
+    height: 1.38rem;
+    color: inherit;
+  }
   
 
   .adminPageNavigationLinks {
@@ -123,7 +134,7 @@
   }
 
   .adminPageNavigationProfileParent {
-    top: 32rem; 
+    top: 36rem; 
     position: sticky;
     text-decoration: none;
     color:white;

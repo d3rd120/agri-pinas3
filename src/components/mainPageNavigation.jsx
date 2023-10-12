@@ -49,15 +49,15 @@ const MainPageNavigation = () => {
           </div>
           <div className="mainNavigationRightLinks">
             <div className="mainNavigationMenu">           
-              <Link className="mainNavigationLink" to = '/login'>{t('mainPageNavigationComponentText2')}</Link>            
-              <a className="mainNavigationLink">{t('mainPageNavigationComponentText3')}</a>  
-              <a className="mainNavigationLink">{t('mainPageNavigationComponentText4')}</a>           
+              <Link className="mainNavigationLink" to = '/login'>{t('text1')}</Link>            
+              <a className="mainNavigationLink">{t('text2')}</a>  
+              <a className="mainNavigationLink">{t('text3')}</a>           
               <div
                 className="mainNavigationLink"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                <a className="mainNavigationLinkText">{t('mainPageNavigationComponentText5')}</a>                
+                <a className="mainNavigationLinkText">{t('text4')}</a>                
                 {dropdownOpen && (
                   <div className="dropdown-content">
                     <button onClick={() => changeLanguage('en')}>English</button>

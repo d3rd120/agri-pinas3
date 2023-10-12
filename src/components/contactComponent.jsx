@@ -10,45 +10,45 @@ const ContactComponent = () => {
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="contactComponentForm">
-      <div className="contactComponentMainText">{t('contactComponentText1')}</div>
+      <div className="contactComponentMainText">{t('text11')}</div>
       <div className="contactComponentFrameParent">
         <div className="contactComponentFrameGroup">
           <div className="contactComponentNameParent">
-            <div className="contactComponentInputText">{t('contactComponentText2')}</div>
+            <div className="contactComponentInputText">{t('text12')}</div>
             <input
               className="contactComponentEmail" id = "contactComponentName"
               type="text"
-              placeholder={t('contactComponentText3')}
+              placeholder={t('text13')}
             />
           </div>
           <div className="contactComponentNameParent">
-            <div className="contactComponentInputText">{t('contactComponentText4')}</div>
+            <div className="contactComponentInputText">{t('text14')}</div>
             <input
               className="contactComponentEmail1" id = "contactComponentEmail"
               type="text"
-              placeholder={t('contactComponentText5')}
+              placeholder={t('text15')}
             />
           </div>
           <div className="contactComponentNameParent">
             <div className="contactComponentInputText">
-              <span>{t('contactComponentText6')}</span>             
+              <span>{t('text16')}</span>             
             </div>
             <input 
             className="contactComponentEmail1" id = "contactComponentPhoneNumber"
             type="text"
-            placeholder = {t('contactComponentText7')}
+            placeholder = {t('text17')}
             />
           </div>
         </div>
         <div className="contactComponentMessageParent">
-          <div className="contactComponentInputText">{t('contactComponentText8')}</div>
+          <div className="contactComponentInputText">{t('text18')}</div>
           <textarea 
           className="contactComponentEmail3" id = "contactComponentMessage"
-          placeholder={t('contactComponentText9')} />
+          placeholder={t('text19')} />
         </div>
       </div>
       <button className="contactComponentButton">
-        <b className="contactComponentSendMessage">{t('contactComponentText10')}</b>
+        <b className="contactComponentSendMessage">{t('text20')}</b>
       </button>
     </div>
     </I18nextProvider>

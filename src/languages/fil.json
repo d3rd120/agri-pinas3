@@ -1,4 +1,82 @@
 {
+
+  "text1": "Login",
+  "text2": "About",
+  "text3": "Contact",
+  "text4": "Language",
+  
+  "text5": "Grown with care, Traded with trust",
+  "text6": "Available na ang",
+  "text7": "AgriPinas Mobile App",
+
+  "text8": "Tungkol sa Agripinas",
+  "text9": "Ang AgriPinas ay isang mapagbago at makabagong mobile at web application na dinisenyo upang baguhin ang industriya ng agrikultura, partikular na naglalayong tulungan ang mga magsasaka sa Cabiao, Nueva Ecija, Pilipinas.",
+  "text10": "Ang rehiyon na kilala bilang Granaryo ng Palay ng Pilipinas ay hinaharap ang mga hamong tulad ng mababang kita at kakulangan ng suporta mula sa pamahalaan.",  
+
+  
+  "text11": "Contact us",
+  "text12": "Name",
+  "text13": "Enter your name",
+  "text14": "Email Address",
+  "text15": "Enter your email address",
+  "text16": "Phone Number",
+  "text17": "Enter your phone number",
+  "text18": "Message",
+  "text19": "Enter your message",
+  "text20": "Send Message",
+
+  
+  "text21": "Login",
+  "text22": "Email Address",
+  "text23": "Password",
+  "text24": "Reset password",
+  "text25": "Login",
+  "text26": "Don't have an account?",
+  "text27": " Signup",
+
+  "text28": "Register",
+  "text29": "Full Name",
+  "text30": "Contact Number",
+  "text31": "Address",
+  "text32": "Age",
+  "text33": "Email Address",
+  "text34": "Choose a Role",
+  "text35": "Farmer",
+  "text36": "Buyer",
+  "text37": "Password",
+  "text38": "Confirm Password",
+  "text39": "Register",
+  "text40": "Already have an account?",
+  "text41": " Login",
+
+  "text42": "Enter your email to reset your password",
+  "text43": "Email Address",
+  "text44": "Send Code",
+  "text45": "Don't have an account?",
+  "text46": " Register",
+
+  "text47": "Marketplace",
+  "text48": "Cart",
+  "text49": "Transactions",
+  "text50": "Community",
+
+   
+  "text51": "Marketplace",
+  "text52": "Vegetables",
+  "text53": "Fruits",
+  "text54": "Fertilizer",
+  "text55": "Others",
+
+  "text56": "Category",
+  "text57": "Package",
+  "text58": "Price",
+  "text59": "Kilogram per unit",
+  "text60": "Description",
+
+  
+
+
+  
     "homeComponentText1": "Sariwang Galing sa Bukid.",
     "homeComponentText2": "Tulungan natin sila!",
     "homeComponentText3": "Link sa pagitan ng magsasaka at mga mamimili",

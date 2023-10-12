@@ -16,6 +16,7 @@ import BuyerComplete from './components/buyerTransactionCompleted';
 import BuyerCancelled from './components/buyerTransactionCancelled';
 import BuyerProfile from './pages/BuyerPage/buyerProfile';
 import BuyerAddress from './components/buyerAddressComponent';
+import BuyerCheckout from './components/buyerCheckout';
 import BuyerCommunityForum from './components/buyerCommunityForumComponent';
 import BuyerMarketplaceVegetableCategory from './pages/BuyerPage/buyerMarketplaceVegetableCategory';
 import BuyerMarketplaceFruitsCategory from './pages/BuyerPage/buyerMarketplaceFruitsCategory';
@@ -72,7 +73,10 @@ const App = () => {
           <Route path="/buyervegetablecategory" element={<BuyerMarketplaceVegetableCategory />} />   
           <Route path="/buyerfruitscategory" element={<BuyerMarketplaceFruitsCategory />} />   
           <Route path="/buyerfertilizercategory" element={<BuyerMarketplaceFertilizerCategory />} />   
-          <Route path="/buyerotherproductscategory" element={<BuyerMarketplaceOtherProductsCategory />} />         
+          <Route path="/buyerotherproductscategory" element={<BuyerMarketplaceOtherProductsCategory />} /> 
+          <Route path="/checkout" element={<BuyerCheckout />} /> 
+               
+        
       
 
           <Route path="/admindashboard" element={<AdminDashboard />} />

@@ -776,8 +776,9 @@
 }
 .ordercheckoutButton2 {
   background-color: #27ae60;
-  height: 40px;
-  width: 120px;
+  text-decoration: none;
+  color: white; 
+  width: 150px;
   display: flex;
   font-weight: 600;
   justify-content: center;
@@ -785,9 +786,9 @@
   text-align: center;
   border-radius: 10px;
   padding: 10px;
- font-size: large;
+  font-size: large;
   cursor: pointer;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+
 }
 .ordercheckoutButton2:hover {
   background-color: #598025;
@@ -937,9 +938,9 @@
     background-color: #fff;
     border-radius: 4px;
     padding: 20px;
-    height: 200px;
+    height: 250px;
     width: 450px;
-   
+      
   }
   
   .modalContent {
@@ -1043,3 +1044,108 @@
     margin-left: 28px;
     font-size: 15px;
   }
+  
+  .cart {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .cart-container {
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  button {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  button:hover {
+    background-color: #598025;
+  }
+  
+  span {
+    margin: 0 10px;
+  }
+  
+  .total {
+    text-align: right;
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .product-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .product-info img {
+    width: 150px; /* Adjust the image size as needed */
+    margin-right: 10px;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    gap: 10px; /* Adjust the gap as needed to control the spacing between buttons */
+    margin-top: 20px; /* Adjust the margin as needed */
+  }
+
+  /* payment-details.css */
+.payment-details {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  width: 100%; 
+}
+
+.payment-details h2 {
+  font-size: 1.2em;
+  margin: 0 0 10px;
+}
+
+.payment-details div {
+  margin: 5px 0;
+}
+
+.payment-details strong {
+  font-weight: bold;
+}
+
+
+  

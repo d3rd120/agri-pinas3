@@ -2,9 +2,7 @@ import BuyerTransactionNav from '../components/buyerTransactionNav';
 import "../css/BuyerPage/buyerTransactionsCancelledComponent.css";
 import BuyerNavigation from '../components/buyerNavigation';
 import BuyerTopNav from '../components/buyerTopNav';
-import ProfileVector1 from '../img/profileVector1.png';
-import ProfileVector2 from '../img/profileVector2.png';
-import OnionVector from '../img/onionVector.png';
+
 import pakwan from '../img/pakwan.png';
 import {FaEdit, FaTrash,FaFolderOpen} from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
@@ -47,276 +45,84 @@ const BuyerTransanctionCancelled = () => {
 
         <div className="buyerTransactionMiddleSection">
         <div className="buyerTransactionFrameParent">
-
-        <div class="courses-container"style={{ marginTop: "-10px" }}>
-  <div class="course">
-    <div class="course-preview">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th class="total-price-header">{t('buyerTransactionText11')}</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </div>
-</div>
-<div class="courses-container" style={{ marginTop: "-50px" }}>
-  <div class="course1">
-    <div class="course-preview">
-      <table class="table">
-        <thead>
-          <tr>
-            <div class="inputContainer">
-              <div class="image-container">
-                <div className="buyerMarketplaceComponentAuthor">
-                  <img className="cartAvatarIcon" alt="" src={ProfileVector2} />
-                  <div className="buyerMarketplaceComponentAuthorText">
-                    <div className="buyerMarketplaceComponentAuthorName">Daniella Tungol</div>
-                    
-                    <div className="buyerMarketplaceComponentSubName">{t('buyerTransactionText6')}</div>
+        <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
+                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
+                  <img
+                    className="adminFarmerTransactionsPendingComponentFrameChild"
+                    alt=""
+                    src={pakwan}
+                  />
+                  <div className="adminFarmerTransactionsPendingComponentFrameGroup">
+                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">{t('Text19')}</b>
+                      </div>
+                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Date: ')}</b> July 2, 2023
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Farmer's Name: </b> Jenkins Mesina
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Category: </b> Fruit
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Packaging: ')}</b> Sack
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Quantity: </b> 2
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Overall Price</b> 10,000
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Status: </b> Cancelled
+                        </div>
+                      </div>
+                    </div>                                    
                   </div>
-                </div>
-                <img src={pakwan} alt="Corn" className="img-container" />
-              </div>
-              
-              <div className="cartPostSmallCardsFullDescription">
-              <div className="buyerMarketplaceComponentCardWrapper">
-                      <b className="cartCardText">{t('buyerTransactionText12')}</b>
-                    </div>
-  <div className="cartPostBlankLine">
-    <b>{`Category: Packaging:`}</b>
-    <span className="cartPostCategory">Fruit Sack</span>
-   
-  </div>
-</div>
-            </div>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-          <th class="unit-price-header">₱5,000.00</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th> 
-            <th class="unit-price-header">Qty: 2</th> 
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th> 
-            <th class="total-price-header">₱10,000.00</th>
-            
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="courses-container"style={{ marginTop: "1px" }}>
-  <div class="course">
-    <div class="course-preview">
-      <table class="table">
-      <thead>
-          <tr>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th class="total-price-header">Cancelled</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </div>
-</div>
-<div class="courses-container" style={{ marginTop: "-50px" }}>
-  <div class="course1">
-    <div class="course-preview">
-      <table class="table">
-        <thead>
-          <tr>
-            <div class="inputContainer">
-              <div class="image-container">
-                <div className="buyerMarketplaceComponentAuthor">
-                  <img className="cartAvatarIcon" alt="" src={ProfileVector1} />
-                  <div className="buyerMarketplaceComponentAuthorText">
-                    <div className="buyerMarketplaceComponentAuthorName">Romeo London</div>
-                    
-                    <div className="buyerMarketplaceComponentSubName">{t('buyerTransactionText6')}</div>
+                </a>             
+                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
+                  <img
+                    className="adminFarmerTransactionsPendingComponentFrameChild"
+                    alt=""
+                    src={pakwan}
+                  />
+                  <div className="adminFarmerTransactionsPendingComponentFrameGroup">
+                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">{t('Text19')}</b>
+                      </div>
+                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Date: ')}</b> July 2, 2023
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Farmer's Name: </b> Jenkins Mesina
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Category: </b> Fruit
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Packaging: ')}</b> Sack
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Quantity: </b> 2
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Overall Price</b> 10,000
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>Status: </b> Cancelled
+                        </div>
+                      </div>
+                    </div>                                    
                   </div>
-                </div>
-                <img src={OnionVector} alt="Corn" className="img-container" />
-              </div>
-              
-              <div className="cartPostSmallCardsFullDescription">
-              <div className="buyerMarketplaceComponentCardWrapper">
-                      <b className="cartCardText">{t('buyerTransactionText13')}</b>
-                    </div>
-  <div className="cartPostBlankLine">
-    <b>{`Category: Packaging:`}</b>
-    <span className="cartPostCategory">Vegetable Sack</span>
-   
-  </div>
-</div>
-            </div>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-          <th class="unit-price-header">₱3,000.00</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th> 
-            <th class="unit-price-header">Qty: 2</th> 
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th>
-            <th>&nbsp;</th> 
-            <th class="total-price-header">₱6,000.00</th>
-            
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </div>
-</div>
+                </a>             
+              </div>     
+
+
     
             <div className="buyerTransactionForumNumber">
               <div className="buyerTransactionForumContainer">

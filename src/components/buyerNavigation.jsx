@@ -25,7 +25,7 @@ const BuyerNavigation = () => {
             to="/buyertoreceive"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('buyerPageNavigationText3')}</div>
+            <div className="buyerPageNavigationLinks">{t('text49')}</div>
             <FaWallet className="buyerPageNavigationLinksIcon" />
           </NavLink>
   
@@ -34,7 +34,7 @@ const BuyerNavigation = () => {
             to="/buyercommunityforum"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('buyerPageNavigationText4')}</div>
+            <div className="buyerPageNavigationLinks">{t('text50')}</div>
             <FaUsers className="buyerPageNavigationLinksIcon" />
           </NavLink>
   
@@ -43,7 +43,7 @@ const BuyerNavigation = () => {
             to="/buyermarketplace"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('buyerPageNavigationText1')}</div>
+            <div className="buyerPageNavigationLinks">{t('text47')}</div>
             <FaShoppingBag className="buyerPageNavigationLinksIcon" />
           </NavLink>
   
@@ -52,7 +52,7 @@ const BuyerNavigation = () => {
             to="/shoppingcart"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('buyerPageNavigationText2')}</div>
+            <div className="buyerPageNavigationLinks">{t('text48')}</div>
             <FaCartPlus className="buyerPageNavigationLinksIcon" />
           </NavLink>
         </div>

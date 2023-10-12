@@ -125,7 +125,7 @@ const LoginPage = () => {
           <div className="loginComponentForm">
             <div className="loginComponentFormText">
               <img className="loginComponentLogo" alt="" src={Logo} />
-              <div className="loginComponentMainText">{t('loginComponentText1')}</div>
+              <div className="loginComponentMainText">{t('text21')}</div>
             </div>
             <div className="loginComponentFormFields">
               <input
@@ -134,7 +134,7 @@ const LoginPage = () => {
                 type="text"
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Email Address"
+                placeholder={t('text22')}
               />
               <input
                 className="loginComponentInput"
@@ -142,20 +142,20 @@ const LoginPage = () => {
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
-                placeholder="Password"
+                placeholder={t('text23')}
                 onKeyPress={handleKeyPress}
               />
             </div>
             <Link className="logInPageSubText2" to='/reset'>
-              {t('loginComponentText2')}
+              {t('text24')}
             </Link>
             <button className="loginComponentButton" onClick={handleSubmit}>
-              <div className="loginComponentButtonText">Login</div>
+              <div className="loginComponentButtonText">{t('text25')}</div>
             </button>
             <div className="loginComponentSubTextContainter">
-              <span>{t('loginComponentText3')}</span>
+              <span>{t('text26')}</span>
               <Link className="loginComponentSignUpLink" to="/signup">
-                {t('loginComponentText4')}
+                {t('text27')}
               </Link>
             </div>
           </div>

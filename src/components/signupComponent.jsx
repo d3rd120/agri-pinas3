@@ -133,34 +133,34 @@ const Signup = () => {
         <div className="signupComponentForm">
           <div className="signupComponentFormText">
             <img className="signUpComponentLogo" alt="" src={Logo} />
-            <div className="signupComponentMainText">{t('registerComponentText1')}</div>
+            <div className="signupComponentMainText">{t('text28')}</div>
           </div>
           <div className="signupComponentFormFields">
             <input className="signupComponentFormInput" id="signupComponentFullName" type="text" value={fullname}
-              onChange={(e) => setFullName(e.target.value)} placeholder={t('registerComponentText2')} required />
-            <input className="signupComponentFormInput" id="signupComponentContactNumber" type="text" placeholder={t('registerComponentText3')} value={contact}
+              onChange={(e) => setFullName(e.target.value)} placeholder={t('text29')} required />
+            <input className="signupComponentFormInput" id="signupComponentContactNumber" type="text" placeholder={t('text30')} value={contact}
               onChange={(e) => setContact(e.target.value)} required />
-            <input className="signupComponentFormInput" id="signupComponentAddress" type="text" placeholder={t('registerComponentText4')} value={address}
+            <input className="signupComponentFormInput" id="signupComponentAddress" type="text" placeholder={t('text31')} value={address}
               onChange={(e) => setAddress(e.target.value)} required />
             <input className="signupComponentFormInput" id="signupComponentBirthday" type="date" placeholder="Birthday" onInput={calculateAge} value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)} required />
-            <input className="signupComponentFormInput" id="signupComponentAge" type="text" placeholder={t('registerComponentText5')} value={age}
+            <input className="signupComponentFormInput" id="signupComponentAge" type="text" placeholder={t('text32')} value={age}
               onChange={(e) => setAge(e.target.value)} readOnly />
-            <input className="signupComponentFormInput" id={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder={t('registerComponentText6')} required />
+            <input className="signupComponentFormInput" id={email} type="email" onChange={(e) => setEmail(e.target.value)} placeholder={t('text33')} required />
             <select className="signupComponentFormInput" id="signupComponentRole" value={role} onChange={(e) => setRole(e.target.value)} required>
-              <option value="" disabled>{t('registerComponentText7')}</option>
-              <option value="Farmer">Farmer</option>
-              <option value="Buyer">Buyer</option>
+              <option value="" disabled>{t('text34')}</option>
+              <option value="Farmer">{t('text35')}</option>
+              <option value="Buyer">{t('text36')}</option>
             </select>
-            <input className="signupComponentFormInput" id={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={t('registerComponentText8')} required />
-            <input className="signupComponentFormInput" id={confirmpassword} type="password" onChange={(e) => setConfirmPassword(e.target.value)} placeholder={t('registerComponentText9')} required />
+            <input className="signupComponentFormInput" id={password} type="password" onChange={(e) => setPassword(e.target.value)} placeholder={t('text37')} required />
+            <input className="signupComponentFormInput" id={confirmpassword} type="password" onChange={(e) => setConfirmPassword(e.target.value)} placeholder={t('text38')} required />
           </div>
           <button ref={registerButtonRef} className="signupComponentButton" onClick={register}>
-            <div className="signupComponentButtonText">Register</div>
+            <div className="signupComponentButtonText">{t('text39')}</div>
           </button>
           <div className="signupComponentSubTextContainer">
-            <span>{t('registerComponentText10')}</span>
-            <Link className="signupComponentLoginLink" to='/login'>Login</Link>
+            <span>{t('text40')}</span>
+            <Link className="signupComponentLoginLink" to='/login'>{t('text41')}</Link>
           </div>
         </div>
       </div>

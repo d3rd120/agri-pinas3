@@ -7,7 +7,7 @@ import SquashVector from '../img/squash.png';
 import { FaTrash, FaStore, FaEdit, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -37,21 +37,34 @@ const AdminMarketplaceComponent = () => {
     setShowPopup2(false);
   };
 
-// Filter products based on searchText
-    const filteredProducts = products.filter((product) =>
-    product.productName.toLowerCase().includes(searchText.toLowerCase())
-    );
+  const fetchProducts = async () => {
+    try {
+      const productsCollection = collection(db, 'Marketplace');
+      const querySnapshot = await getDocs(productsCollection);
+
+      if (querySnapshot.empty) {
+        console.warn('No products found.');
+        return;
+      }
+
+      const productsData = querySnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+
+      console.log('Fetched products:', productsData);
+      setProducts(productsData);
+      console.log('Products in state:', productsData);
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+  };
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "Products"), (snapshot) => {
-      const productsData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setProducts(productsData);
-    });
-  
-    return () => unsubscribe();
+    fetchProducts();
   }, []);
 
 
@@ -143,8 +156,8 @@ const AdminMarketplaceComponent = () => {
 
 
             <div className="adminMarketplaceComponentFrameWrapper">
-            {filteredProducts.map((product) => (
-              <a className="adminMarketplaceComponentRectangleParent" key={product.id}>
+          {products.map((product) => (
+            <a className="adminMarketplaceComponentRectangleParent" key={product.id}>
                 <img
                   className="adminMarketplaceComponentFrameChild"
                   alt=""

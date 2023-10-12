@@ -17,6 +17,7 @@ const BuyerProfile = () => {
   const [birthdate, setbirthdate] = useState('');
   const [buyerRole, setBuyerRole] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleUserInfoChange = (userInfo) => {
     setfullname(userInfo.fullname || '');
@@ -24,7 +25,9 @@ const BuyerProfile = () => {
     setEmail(userInfo.email || '');
     setbirthdate(userInfo.birthdate || '');
     setBuyerRole(userInfo.role || '');
+    setImagePreview(userInfo.profileImageUrl || null);
   };
+  
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -64,13 +67,14 @@ const BuyerProfile = () => {
   return (
     <I18nextProvider i18n={i18n}> 
       <div className="farmerProfileComponent">
-        <BuyerProfileNav
-          onUserInfoChange={handleUserInfoChange}
-          name={fullname}
-          phoneNumber={contact}
-          email={email}
-          dateOfBirth={birthdate}
-        />     
+      <BuyerProfileNav
+        onUserInfoChange={handleUserInfoChange}
+        name={fullname}
+        phoneNumber={contact}
+        email={email}
+        dateOfBirth={birthdate}
+        profileImageUrl={imagePreview}
+      />
         <div className="farmerProfileComponentMainPanel">
           <BuyerTopNav /> 
           <div className="farmerProfileComponentTopSection">
@@ -87,7 +91,7 @@ const BuyerProfile = () => {
                 <div class="farmerProfileComponentFullName">{t('farmerProfileText18')}</div>
                 <div class="farmerProfileComponentName">{fullname}</div>
                 <div class="farmerProfileComponentRole">{t('farmerProfileText19')}</div>
-                <img class="farmerselectImageIcon" />
+                <img class="farmerselectImageIcon" alt="" src={imagePreview} /> 
                 <div class="farmerProfileComponentRole2">{buyerRole}</div>
                 <div class="farmerProfileComponentEmail1">{t('farmerProfileText21')}</div>
                 <div class="farmerProfileComponentEmail2">{email}</div>

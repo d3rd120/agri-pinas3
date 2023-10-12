@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom';
 import BuyerTopNav from '../components/buyerTopNav';
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { db } from './firebase';
+import { db} from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -21,44 +21,46 @@ const BuyerMarketplace = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
 
+  // Fetch products and user information
   const fetchProducts = async () => {
     try {
       const productsCollection = collection(db, 'Marketplace');
       const querySnapshot = await getDocs(productsCollection);
-  
+
       if (querySnapshot.empty) {
         console.warn('No products found.');
         return;
       }
-  
+
       const productsData = querySnapshot.docs.map((doc) => {
         const product = doc.data();
         return {
           id: doc.id,
           ...product,
         };
-      });
-  
-      // Filter products based on the "Vegetables" category (case-insensitive)
-      const vegetablesProducts = productsData.filter((product) =>
-        product.category.toLowerCase() === 'vegetables'
+      })
+
+
+      // Filter products based on the corrected category ('vegetable')
+      const vegetablesProducts = productsData.filter(
+        (product) => product.category.toLowerCase() === 'vegetable'
       );
-  
-      console.log('Fetched products:', vegetablesProducts);
+
       setProducts(vegetablesProducts);
-      console.log('Products in state:', vegetablesProducts); // Add this line
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
   };
-  
+
   useEffect(() => {
     fetchProducts();
   }, []);
 
-
-
-
+  const handleProductClick = (product) => {
+    // Handle the click event for the product
+    console.log('Product clicked:', product);
+    // Add your logic here
+  };
 
   return (
     <I18nextProvider i18n={i18n}> 
@@ -76,13 +78,14 @@ const BuyerMarketplace = () => {
         </div>
             
 
-                    {products.map((product) => (
-             <NavLink
-             key={product.id}
-             className="buyerMarketplaceComponentRectangleParent"
-             to="/buyermarketplacepost"
-             activeClassName="active"
-           >
+        {products.map((product) => (
+          <NavLink
+            key={product.id}
+            className="buyerMarketplaceComponentRectangleParent"
+            to="/buyermarketplacepost"
+            activeClassName="active"
+            onClick={() => handleProductClick(product)}
+          >
              <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
              <div className="buyerMarketplaceComponentFrameGroup">
                <div className="buyerMarketplaceComponentFrameContainer">
@@ -118,13 +121,12 @@ const BuyerMarketplace = () => {
                <div className="buyerMarketplaceComponentAuthor">
                  <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
                  <div className="buyerMarketplaceComponentAuthorText">
-                   <div className="buyerMarketplaceComponentAuthorName">Marievic Anes</div>
-                   <div className="buyerMarketplaceComponentSubName">Buyer</div>
+                 <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
+                <div className="buyerMarketplaceComponentSubName">{product.role}</div>
                  </div>
                </div>
              </div>
            </NavLink>
-           
             ))}
 
 

@@ -8,7 +8,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { auth, db } from './firebase';
-import { collection, where, getDocs, query } from 'firebase/firestore';
+import { updateDoc, doc, getDoc, collection, query, where, getDocs} from 'firebase/firestore';
 
 const BuyerAddress = () => {
   const { t } = useTranslation();
@@ -28,82 +28,122 @@ const BuyerAddress = () => {
   const [openEditModal3, setOpenEditModal3] = useState(false);
   const [userData, setUserData] = useState(null);
 
-  const handleAddAddress = () => {
-    setOpenEditModal3(true);
-  };
+ // Function to handle adding a new address
+ const handleAddAddress = () => {
+  setOpenEditModal3(true);
+};
 
-  const handleOpenEditModal3 = () => {
-    setOpenEditModal3(true);
-  };
+// Function to open the third modal
+const handleOpenEditModal3 = () => {
+  setOpenEditModal3(true);
+};
 
-  const handleModalConfirm = () => {
-    setShowModal(false);
-  };
+// Function to handle confirming the modal
+const handleModalConfirm = () => {
+  setShowModal(false);
+};
 
-  const handleModalCancel = () => {
-    setShowModal(false);
-  };
+// Function to handle cancelling the modal
+const handleModalCancel = () => {
+  setShowModal(false);
+};
 
-  const handleDeleteAddress = () => {
-    setShowModal(true);
-  };
+// Function to handle deleting an address
+const handleDeleteAddress = () => {
+  setShowModal(true);
+};
 
-  const handleOpenEditModal1 = () => {
-    setOpenEditModal1(true);
-  };
+// Function to open the first modal
+const handleOpenEditModal1 = () => {
+  setOpenEditModal1(true);
+};
 
-  const handleOpenEditModal2 = () => {
-    setOpenEditModal2(true);
-  };
+// Function to open the second modal
+const handleOpenEditModal2 = () => {
+  setOpenEditModal2(true);
+};
 
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    const numericValue = value.replace(/\D/g, '');
-    setContact(numericValue);
-  };
+// Function to handle phone number change
+const handlePhoneNumberChange = (e) => {
+  const value = e.target.value;
+  const numericValue = value.replace(/\D/g, '');
+  setContact(numericValue);
+};
 
-  const handleSave = () => {
-    let hasError = false;
+// Function to handle saving the changes
+const handleSave = async () => {
+  let hasError = false;
 
-    if (!fullname) {
-      hasError = true;
-      setNameError(true);
-    } else {
-      setNameError(false);
+  if (!fullname) {
+    hasError = true;
+    setNameError(true);
+  } else {
+    setNameError(false);
+  }
+
+  if (!contact) {
+    hasError = true;
+    setPhoneNumberError(true);
+  } else {
+    setPhoneNumberError(false);
+  }
+
+  if (!barangay) {
+    hasError = true;
+    setBarangayError(true);
+  } else {
+    setBarangayError(false);
+  }
+
+  if (!address) {
+    hasError = true;
+    setAddressError(true);
+  } else {
+    setAddressError(false);
+  }
+
+  if (hasError) {
+    return;
+  }
+
+  const user = auth.currentUser;
+  
+  if (user) {
+    const userRef = doc(db, 'Users', user.uid);
+
+    try {
+      // Fetch the existing user data
+      const userDoc = await getDoc(userRef);
+      const userData = userDoc.data();
+
+      // Update user data
+      const updatedUserData = {
+        ...userData,
+        fullname,
+        contact,
+        barangay,
+        address,
+      };
+
+      console.log('Updating user data:', updatedUserData);
+
+      // Update the document in Firebase
+      await updateDoc(userRef, updatedUserData);
+
+      // Update local state after Firebase update
+      setFullname(updatedUserData.fullname || '');
+      setContact(updatedUserData.contact || '');
+      setBarangay(updatedUserData.barangay || '');
+      setAddress(updatedUserData.address || '');
+
+      console.log('User data updated successfully.');
+    } catch (error) {
+      console.error('Error updating user data:', error);
     }
+  }
 
-    if (!contact) {
-      hasError = true;
-      setPhoneNumberError(true);
-    } else {
-      setPhoneNumberError(false);
-    }
-
-    if (!barangay) {
-      hasError = true;
-      setBarangayError(true);
-    } else {
-      setBarangayError(false);
-    }
-
-    if (!address) {
-      hasError = true;
-      setAddressError(true);
-    } else {
-      setAddressError(false);
-    }
-
-    if (hasError) {
-      return;
-    }
-
-    setFullname('');
-    setContact('');
-    setBarangay('');
-    setAddress('');
-
-    handleClose();
-  };
+  handleClose();
+};
 
   const handleClose = () => {
     setFullname('');
@@ -128,10 +168,12 @@ const BuyerAddress = () => {
               setFullname(userData.fullname || '');
               setAddress(userData.address || '');
               setContact(userData.contact || '');
+              setBarangay(userData.barangay || '');
             } else {
               setFullname('');
               setAddress('');
               setContact('');
+              setBarangay('');
             }
           })
           .catch((error) => {
@@ -235,7 +277,7 @@ const BuyerAddress = () => {
             <div class="course-preview1">
             <div class="nameAddress1">{fullname} </div>
               <div class="numberAddress"> | {contact}</div>
-              <div class="locAddress1">Timog Ave.</div>
+              <div class="locAddress1">{barangay}</div>
               <div class="locAddress2">{address}</div>
               <div class="defaultAddress1">Default</div>
               <FaEdit className="EditIconAddress" onClick={handleOpenEditModal1} />

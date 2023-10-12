@@ -1,7 +1,7 @@
 import "../css/Components/adminCommunityForumComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { onSnapshot, collection, getDoc, doc, getDocs  } from 'firebase/firestore';
 import { db } from './firebase';
 import { Link } from 'react-router-dom';
 import ProfileVector1 from '../img/profileVector1.png';
@@ -16,13 +16,42 @@ const AdminCommunityForumComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState("5");
 
+  const fetchUserDisplayName = async (uid) => {
+    try {
+      const userDocRef = doc(db, 'Users', uid);
+      const userDocSnapshot = await getDoc(userDocRef);
+      const userData = userDocSnapshot.data();
+      const displayName = userData ? userData.fullname : 'Anonymous';
+
+      return displayName;
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      return 'Anonymous';
+    }
+  };
+
+  const fetchPosts = async () => {
+    try {
+      const postsCollection = collection(db, 'CommunityForum');
+      const snapshot = await getDocs(postsCollection);
+      const fetchedPosts = [];
+
+      for (const doc of snapshot.docs) {
+        const post = doc.data();
+        const userDisplayName = await fetchUserDisplayName(post.user.uid);
+        post.user.displayName = userDisplayName;
+        fetchedPosts.push(post);
+      }
+
+      setPosts(fetchedPosts);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "CommunityForum"), (snapshot) => {
-      const postsData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPosts(postsData);
+    const unsubscribe = onSnapshot(collection(db, "CommunityForum"), () => {
+      fetchPosts();
     });
 
     return () => unsubscribe();
@@ -79,52 +108,53 @@ const AdminCommunityForumComponent = () => {
             </div>
             <br></br>
 
-            <div className="adminCommunityForumComponentFrameWrapper">
-              {/* Use the displayedPosts array for mapping */}
-              {displayedPosts.map((post, index) => (
+            <div className="buyerCommunityForumComponentFrameWrapper">
+          {posts.map((post, index) => (
                 <Link
-                  className="adminCommunityForumComponentRectangleParent"
-                  to={`/admincommunityforumpost/${post.id}`}
+                  className="buyerCommunityForumComponentRectangleParent"
+                  to={`/buyercommunityforumpost/${index}`}
                   key={index}
                 >
                   <img
-                    className="adminCommunityForumComponentFrameChild"
+                    className="buyerCommunityForumComponentFrameChild"
                     alt=""
-                    src={post.imageUrl}
+                    src={post.image}
                   />
-                  <div className="adminCommunityForumComponentFrameGroup">
-                    <div className="adminCommunityForumComponentFrameContainer">
-                      <div className="adminCommunityForumComponentSubText1Wrapper">
-                        <b className="adminCommunityForumComponentSubText1">
+                  <div className="buyerCommunityForumComponentFrameGroup">
+                    <div className="buyerCommunityForumComponentFrameContainer">
+                      <div className="buyerCommunityForumComponentSubText1Wrapper">
+                        <b className="buyerCommunityForumComponentSubText1">
                           {post.title}
                         </b>
                       </div>
-                      <div className="adminCommunityForumComponentSubText2Wrapper2">
-                        <div className="adminCommunityForumComponentSubText2">
+                      <div className="buyerCommunityForumComponentSubText2Wrapper2">
+                        <div className="buyerCommunityForumComponentSubText2">
                           {post.content}
                         </div>
                       </div>
                     </div>
-                    <div className="adminCommunityForumComponentFrameItem" />
-                    <div className="adminCommunityForumComponentFrameAuthor">
-                      <img
-                        className="adminCommunityForumComponentFrameIcon"
-                        alt=""
-                        src={ProfileVector1}
-                      />
-                      <div className="adminCommunityForumComponentAuthorText">
-                        <div className="adminCommunityForumComponentAuthorName">
-                          {post.user ? post.user.displayName || 'Anonymous' : 'Anonymous'}
-                        </div>
-                        <div className="adminCommunityForumComponentPostTime">
-                          {post.timestamp}
+                    <div className="buyerCommunityForumComponentFrameItem" />
+                    {post.user && post.user.displayName && (
+                      <div className="buyerCommunityForumComponentFrameAuthor">
+                        <img
+                          className="buyerCommunityForumComponentFrameIcon"
+                          alt=""
+                          src={ProfileVector1}
+                        />
+                        <div className="buyerCommunityForumComponentAuthorText">
+                          <div className="buyerCommunityForumComponentAuthorName">
+                            {post.user.displayName}
+                          </div>
+                          <div className="buyerCommunityForumComponentPostTime">
+                            {post.timestamp}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </Link>
               ))}
-            </div>
+          </div>
 
             <div className="adminCommunityForumComponentForumNumber">
               <div className="adminCommunityForumComponentForumContainer">

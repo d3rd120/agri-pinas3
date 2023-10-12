@@ -17,6 +17,8 @@ const BuyerCommunityForumComponent = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
 
   const handleButtonClick = () => {
     setShowPopup(true);
@@ -26,7 +28,7 @@ const BuyerCommunityForumComponent = () => {
     setShowPopup(false);
   };
 
- const fetchUserDisplayName = async (uid) => {
+  const fetchUserDisplayName = async (uid) => {
     try {
       const userDocRef = doc(db, 'Users', uid);
       const userDocSnapshot = await getDoc(userDocRef);
@@ -53,7 +55,6 @@ const BuyerCommunityForumComponent = () => {
         fetchedPosts.push(post);
       }
 
-
       setPosts(fetchedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -63,10 +64,10 @@ const BuyerCommunityForumComponent = () => {
   const createPost = async (newPost) => {
     try {
       const currentUser = auth.currentUser;
-      
+
       const now = new Date();
       const formattedDateTime = now.toLocaleString(); // Format both date and time
-  
+
       const postWithUserInfo = {
         ...newPost,
         user: {
@@ -76,7 +77,7 @@ const BuyerCommunityForumComponent = () => {
         },
         timestamp: formattedDateTime, // Use the formatted date and time
       };
-  
+
       // Save the post to Firestore
       const postsCollection = collection(db, 'CommunityForum');
       await addDoc(postsCollection, postWithUserInfo);
@@ -85,9 +86,6 @@ const BuyerCommunityForumComponent = () => {
       alert(error.message);
     }
   };
-  
-  
-  
 
   const addPost = (newPost) => {
     // Call createPost to add the post to Firestore
@@ -101,6 +99,23 @@ const BuyerCommunityForumComponent = () => {
     // Fetch posts from Firestore when the component mounts
     fetchPosts();
   }, []);
+
+  const chunkArray = (array, chunkSize) => {
+    const chunkedArray = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      chunkedArray.push(array.slice(i, i + chunkSize));
+    }
+    return chunkedArray;
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const chunkedPosts = chunkArray(currentPosts, 3); // Chunk the current page's posts
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -148,8 +163,9 @@ const BuyerCommunityForumComponent = () => {
             </div>
           )}
 
-          <div className="buyerCommunityForumComponentFrameWrapper">
-          {posts.map((post, index) => (
+          {chunkedPosts.map((chunk, chunkIndex) => (
+            <div className="buyerCommunityForumComponentFrameWrapper" key={chunkIndex}>
+              {chunk.map((post, index) => (
                 <Link
                   className="buyerCommunityForumComponentRectangleParent"
                   to={`/buyercommunityforumpost/${index}`}
@@ -194,39 +210,21 @@ const BuyerCommunityForumComponent = () => {
                   </div>
                 </Link>
               ))}
-          </div>
+            </div>
+          ))}
 
           <div className="buyerCommunityForumComponentForumNumber">
-            <div className="buyerCommunityForumComponentForumContainer">
-              <div className="buyerCommunityForumComponentForumNumberBox">
-                1
+            {Array.from({ length: Math.ceil(posts.length / postsPerPage) }).map((_, index) => (
+              <div
+                className={`buyerCommunityForumComponentForumContainer ${currentPage === index + 1 ? 'active' : ''}`}
+                key={index}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                <div className="buyerCommunityForumComponentForumNumberBox">
+                  {index + 1}
+                </div>
               </div>
-            </div>
-            <div className="buyerCommunityForumComponentForumContainer">
-              <div className="buyerCommunityForumComponentForumNumberBox">
-                2
-              </div>
-            </div>
-            <div className="buyerCommunityForumComponentForumContainer">
-              <div className="buyerCommunityForumComponentForumNumberBox">
-                3
-              </div>
-            </div>
-            <div className="buyerCommunityForumComponentForumContainer">
-              <div className="buyerCommunityForumComponentForumNumberBox">
-                4
-              </div>
-            </div>
-            <div className="buyerCommunityForumComponentForumContainer">
-              <div className="buyerCommunityForumComponentForumNumberBox">
-                5
-              </div>
-            </div>
-            <div className="buyerCommunityForumComponentForumContainer">
-              <div className="buyerCommunityForumComponentForumNumberBox">
-                6
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

@@ -17,14 +17,14 @@ const HomeComponent = () => {
         <div className="banner-text">
           <div className="banner-titles">
             <div className="grown-with-care">
-              grown with care, traded with trust
+            {t('text5')}
             </div>
             <div className="introducing-the-agripinas-container">
               <p className="introducing-the">
-                <b>Available na ang</b>
+                <b>{t('text6')}</b>
               </p>
               <p className="agripinas-mobile-app">
-                <i className="agripinas-mobile-app1">AgriPinas Mobile App</i>
+                <i className="agripinas-mobile-app1">{t('text7')}</i>
               </p>
             </div>
           </div>

@@ -33,12 +33,12 @@ const AboutComponent = () => {
         </div>
       </div>
       <div className="aboutComponentAgriPinas">
-        <b className="aboutComponentAgriPinasText">{t('aboutComponentText1')}</b>
+        <b className="aboutComponentAgriPinasText">{t('text8')}</b>
         <div className="aboutComponentText">
-          <p className="aboutComponentParagraph">{t('aboutComponentText2')}</p>
+          <p className="aboutComponentParagraph">{t('text9')}</p>
           <p className="aboutComponentParagraph">&nbsp;</p>
           <p className="aboutComponentParagraph">
-          {t('aboutComponentText3')}
+          {t('text10')}
           </p>
         </div>       
       </div>

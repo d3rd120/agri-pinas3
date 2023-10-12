@@ -14,7 +14,7 @@ const AdminCommunityForumComponent = () => {
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [displayCount, setDisplayCount] = useState(5); // Default display count
+  const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
 
   const fetchUserDisplayName = async (uid) => {
@@ -112,8 +112,7 @@ const AdminCommunityForumComponent = () => {
 
               <select className="adminCommunityForumComponentRowSelect" 
                       value={displayCount}
-                      onChange={handleDisplayCountChange}>
-                   <option value="5">5</option>
+                      onChange={handleDisplayCountChange}>                
                    <option value="10">10</option>
                    <option value="15">15</option>
                    <option value="20">20</option>
@@ -130,6 +129,8 @@ const AdminCommunityForumComponent = () => {
             <br />
 
             <div className="adminMarketplaceComponentMiddleSection">
+
+
               <div className="adminMarketplaceComponentFrameParent">             
                 {chunkArray(
                   filteredPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
@@ -196,6 +197,7 @@ const AdminCommunityForumComponent = () => {
                 </div>
               ))}
             </div>
+
           </div>
         </div>
       </div>

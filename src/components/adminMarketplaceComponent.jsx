@@ -16,7 +16,7 @@ const AdminMarketplaceComponent = () => {
   const [showPopup2, setShowPopup2] = useState(false);
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [displayCount, setDisplayCount] = useState(5); // Default display count
+  const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
 
   // Define an array of row options

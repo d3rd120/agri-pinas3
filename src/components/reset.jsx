@@ -19,20 +19,20 @@ function Reset() {
     <I18nextProvider i18n={i18n}> 
     <div className="reset">
       <div className="reset__container">      
-        <p className = "resetContainerText">{t('resetComponentText1')}</p>
+        <p className = "resetContainerText">{t('text42')}</p>
         <input
           type="text"
           className="reset__textBox"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email Address"
+          placeholder={t('text43')}
         />
         <button className="reset__btn" onClick={() => sendPasswordReset(email)}>
-        {t('resetComponentText3')}
+        {t('text44')}
         </button>
 
         <div>
-          {t('resetComponentText2')} <Link className = "resetComponentSignupText" to="/signup">{t('resetComponentText4')}</Link>
+          {t('text45')} <Link className = "resetComponentSignupText" to="/signup">{t('text46')}</Link>
         </div>
       </div>
     </div>

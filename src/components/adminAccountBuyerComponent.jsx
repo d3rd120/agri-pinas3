@@ -19,7 +19,7 @@ const AdminBuyerTransactions = () => {
   const { t } = useTranslation();
   const [buyerAccounts, setBuyerAccounts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedOption, setSelectedOption] = useState(5); // Default selected option
+  const [selectedOption, setSelectedOption] = useState(10); // Default selected option
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
 
   useEffect(() => {

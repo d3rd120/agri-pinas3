@@ -22,40 +22,40 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
     <I18nextProvider i18n={i18n}> 
       <div className="adminMarketplaceEditProductComponent">
         <div className="adminMarketplaceEditProductComponentMainText">
-          {t('farmerPageEditText1')}
+          {t('text157')}
         </div>
         <div className="adminMarketplaceEditProductComponentFrameParent">
           <div className="adminMarketplaceEditProductComponentFrameGroup">
             <div className="adminMarketplaceEditProductComponentInputParent">
               <div className="adminMarketplaceEditProductComponentTitle">
-                {t('farmerPageEditText2')}
+                {t('text158')}
               </div>
               <input
                 className="adminMarketplaceEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText3')}
+                placeholder={t('text159')}
               />
             </div>
             <div className="adminMarketplaceEditProductComponentInputParent">
               <div className="adminMarketplaceEditProductComponentTitle">
-                {t('farmerPageEditText6')}
+                {t('text160')}
               </div>
               <input
                 className="adminMarketplaceEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText7')}
+                placeholder={t('text161')}
                 value={editedCategory}
                 onChange={(e) => setEditedCategory(e.target.value)}
               />
             </div>
             <div className="adminMarketplaceEditProductComponentInputParent">
               <div className="adminMarketplaceEditProductComponentTitle">
-                {t('farmerPageEditText10')}
+                {t('text162')}
               </div>
               <input
                 className="adminMarketplaceEditProductComponentInput1"
                 type="text"
-                placeholder={t('farmerPageEditText11')}
+                placeholder={t('text163')}
                 value={editedPackaging}
                 onChange={(e) => setEditedPackaging(e.target.value)}
               />
@@ -64,31 +64,31 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
           <div className="adminMarketplaceEditProductComponentFrameGroup">
             <div className="adminMarketplaceEditProductComponentInputParent">
               <div className="adminMarketplaceEditProductComponentTitle">
-                {t('farmerPageEditText4')}
+                {t('text166')}
               </div>
               <input
                 className="adminMarketplaceEditProductComponentInput2"
                 type="text"
-                placeholder={t('farmerPageEditText5')}
+                placeholder={t('text167')}
                 value={editedPrice}
                 onChange={(e) => setEditedPrice(e.target.value)}
               />
             </div>
             <div className="adminMarketplaceEditProductComponentInputParent">
               <div className="adminMarketplaceEditProductComponentTitle">
-                {t('farmerPageEditText8')}
+                {t('text168')}
               </div>
               <input
                 className="adminMarketplaceEditProductComponentInput2"
                 type="text"
-                placeholder={t('farmerPageEditText9')}
+                placeholder={t('text169')}
                 value={editedKilogram}
                 onChange={(e) => setEditedKilogram(e.target.value)}
               />
             </div>
             <div className="adminMarketplaceEditProductComponentInputParent">
               <div className="adminMarketplaceEditProductComponentTitle">
-                {t('farmerPageEditText12')}
+                {t('text170')}
               </div>
               <input
                 className="adminMarketplaceEditProductComponentInput3"
@@ -99,11 +99,11 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
           </div>
         </div>
         <div className="adminMarketplaceEditProductComponentTitle">
-          {t('farmerPageEditText13')}
+          {t('text164')}
         </div>
         <textarea
           className="adminMarketplaceEditProductComponentInput4"
-          placeholder={t('farmerPageEditText14')}
+          placeholder={t('text165')}
           value={editedDescription}
           onChange={(e) => setEditedDescription(e.target.value)}
         />
@@ -113,7 +113,7 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
             onClick={handleSaveClick}
           >
             <div className="adminMarketplaceEditProductComponentButtonText">
-              {t('farmerPageButton3')}
+              {t('text171')}
             </div>
           </button>
           <button
@@ -121,7 +121,7 @@ const FarmerMarketplaceEditProductComponent = ({ closePopup1, handleSave }) => {
             onClick={closePopup1}
           >
             <div className="adminMarketplaceEditProductComponentButtonText">
-              {t('farmerPageButton4')}
+              {t('text172')}
             </div>
           </button>
         </div>

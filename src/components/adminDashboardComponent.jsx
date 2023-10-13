@@ -35,14 +35,14 @@ const AdminDashboard = () => {
             <div className="adminDashboardComponentMainText1">
               <b className="adminDashboardComponentMainText1Container">   
                 <p className="adminDashboardComponentBlankLine">&nbsp;</p>                      
-                <p className="adminDashboardComponentBlankLine">{t('adminPageDashboardText1')}</p>
+                <p className="adminDashboardComponentBlankLine">{t('text142')}</p>
               </b>
             </div>
           </div>
           <div className="adminDashboardComponentMiddleSection">
             <div className="adminDashboardComponentOverview">
               <div className="adminDashboardComponentMainText2">
-              {t('adminPageDashboardText2')}
+              {t('text143')}
               </div>
 
               <button
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
               >
                 <FaEdit className="buyerCommunityForumComponentButtonIcon1" />
                 <div className="buyerCommunityForumComponentButtonText1">
-                  {t("I-update")}
+                  {t('text144')}
                 </div>
           </button>     
 

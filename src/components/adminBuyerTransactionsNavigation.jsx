@@ -10,9 +10,9 @@ const FarmerTransactionsNavigation = () => {
         <I18nextProvider i18n={i18n}> 
             <div className="adminBuyerTransactionsNavigation">
                 <div className="adminBuyerTransactionsNavigationParent">
-                    <NavLink activeClassName="active" className="adminBuyerTransactionsNavigationText" exact to='/adminbuyerpendingtransactions'>{t('Text12')}</NavLink>
-                    <NavLink activeClassName="active" className="adminBuyerTransactionsNavigationText" exact to='/adminbuyercancelledtransactions'>{t('Text13')}</NavLink>
-                    <NavLink activeClassName="active" className="adminBuyerTransactionsNavigationText" exact to='/adminbuyercompletedtransactions'>{t('Text14')}</NavLink>
+                    <NavLink activeClassName="active" className="adminBuyerTransactionsNavigationText" exact to='/adminbuyerpendingtransactions'>{t('text184')}</NavLink>
+                    <NavLink activeClassName="active" className="adminBuyerTransactionsNavigationText" exact to='/adminbuyercancelledtransactions'>{t('text185')}</NavLink>
+                    <NavLink activeClassName="active" className="adminBuyerTransactionsNavigationText" exact to='/adminbuyercompletedtransactions'>{t('text186')}</NavLink>
                 </div>
             </div>
             </I18nextProvider>

@@ -20,7 +20,7 @@ const AdminFarmerTransactionsCompletedComponent = () => {
           <div className="adminFarmerTransactionsCompletedComponentMainText">
             <b className="adminFarmerTransactionsCompletedComponentMainTextWrapper">
               <p className="adminFarmerTransactionsCompletedComponentBlankLine">&nbsp;</p>
-              <p className="adminFarmerTransactionsCompletedComponentBlankLine">{t('Text15')}</p>
+              <p className="adminFarmerTransactionsCompletedComponentBlankLine">{t('text183')}</p>
             </b>
           </div>
         </div>
@@ -28,11 +28,11 @@ const AdminFarmerTransactionsCompletedComponent = () => {
 
         <div className="adminFarmerTransactionsCompletedComponentCard">
           <div className="adminFarmerTransactionsCompletedComponentSubTitle">
-            <FaFolderOpen /> {t('Text16')}
+            <FaFolderOpen /> {t('text187')}
           </div>
           <br></br>
           <div className="adminFarmerTransactionsCompletedComponentShow">
-          {t('Text17')}
+          {t('text188')}
             <select className="adminFarmerTransactionsCompletedComponentRowSelect" onChange="updateRows(this.value)">
               <option value="5">5</option>
               <option value="10">10</option>
@@ -42,7 +42,7 @@ const AdminFarmerTransactionsCompletedComponent = () => {
             <input 
             className="adminFarmerTransactionsCompletedComponentRowSelect"
             type = "text"
-            placeholder = {t('Text18')}>                    
+            placeholder = {t('text189')}>                    
             </input>
           </div>
           <br></br>
@@ -65,82 +65,40 @@ const AdminFarmerTransactionsCompletedComponent = () => {
                       </div>
                       <div className="adminFarmerTransactionsCompletedComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText7')}</b> B001
+                          <b>{t('text190')}</b> B001
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText8')}</b> N001
+                          <b>{t('text191')}</b> N001
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText9')}</b> Ryan Edward Amador
+                          <b>{t('text192')}</b> Ryan Edward Amador
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText10')}</b> 02 / 01 / 2023
+                          <b>{t('text193')}</b> 02 / 01 / 2023
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText11')}</b> 400
+                          <b>{t('text194')}</b> 400
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText12')}</b> 2
+                          <b>{t('text195')}</b> 2
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText13')}</b> 800
+                          <b>{t('text196')}</b> 800
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('Text22')}</b> Arriane Gatpo
+                          <b>{t('text197')}</b> Arriane Gatpo
                         </div>
                         <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('Text23')}</b> Completed
+                          <b>{t('text198')}</b> Completed
                         </div>
                       </div>
                     </div>
                  
                   </div>
-                </a>
+                </a>          
+                
 
-                <a className="adminFarmerTransactionsCompletedComponentRectangleParent">
-                  <img
-                    className="adminFarmerTransactionsCompletedComponentFrameChild"
-                    alt=""
-                    src={OnionVector}
-                  />
-                  <div className="adminFarmerTransactionsCompletedComponentFrameGroup">
-                    <div className="adminFarmerTransactionsCompletedComponentFrameContainer">
-                      <div className="adminFarmerTransactionsCompletedComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsCompletedComponentSubText1">{t('Text25')}</b>
-                      </div>
-                      <div className="adminFarmerTransactionsCompletedComponentSubText2Wrapper2">
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText7')}</b> B001
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText8')}</b> N001
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText9')}</b> Ryan Edward Amador
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText10')}</b> 02 / 01 / 2023
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText11')}</b> 400
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText12')}</b> 2
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('farmerTransactionsText13')}</b> 800
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('Text22')}</b> Arriane Gatpo
-                        </div>
-                        <div className="adminFarmerTransactionsCompletedComponentSubText2">
-                          <b>{t('Text23')}</b> Completed
-                        </div>
-                      </div>
-                    </div>
-                  
-                  </div>
-                </a>
+                
 
               </div>
 

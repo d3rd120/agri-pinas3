@@ -168,7 +168,8 @@ const BuyerCommunityForumComponent = () => {
               {chunk.map((post, index) => (
                 <Link
                   className="buyerCommunityForumComponentRectangleParent"
-                  to={`/buyercommunityforumpost/${index}`}
+                  to = {'/buyercommunityforumpost'}
+                  // to={`/buyercommunityforumpost/${index}`}
                   key={index}
                 >
                   <img

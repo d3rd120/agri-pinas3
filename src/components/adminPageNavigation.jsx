@@ -36,7 +36,7 @@ const AdminNavigation = () => {
           to="/admincommunityforum"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('farmerPageNavgationText3')}</div>
+          <div className="adminPageNavigationLinks">{t('text133')}</div>
           <FaUsers className="adminPageNavigationLinksIcon" />
         </NavLink>
 
@@ -46,7 +46,7 @@ const AdminNavigation = () => {
           to="/adminlogreport"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('Log Reports')}</div>
+          <div className="adminPageNavigationLinks">{t('text140')}</div>
           <FaBook className="adminPageNavigationLinksIcon" />
         </NavLink>  
 
@@ -57,7 +57,7 @@ const AdminNavigation = () => {
           onMouseEnter={toggleDropdown2}
           onMouseLeave={toggleDropdown2}
         >
-          <div className="adminPageNavigationLinks">{t('farmerPageNavgationText5')}&nbsp;<FaAngleDown /></div>
+          <div className="adminPageNavigationLinks">{t('text134')}&nbsp;<FaAngleDown /></div>
           <FaGlobe className="adminPageNavigationLinksIcon" />
           {showDropdown2 && (
             <div className="dropdown">
@@ -65,13 +65,13 @@ const AdminNavigation = () => {
                 to="/adminfarmerpendingtransactions"
                 activeClassName="active"
               >
-                Farmer
+                {t('text135')}
               </NavLink>
               <NavLink
                 to="/adminbuyerpendingtransactions"
                 activeClassName="active"
               >
-                Buyer
+                {t('text136')}
               </NavLink>
             </div>
           )}
@@ -82,7 +82,7 @@ const AdminNavigation = () => {
           to="/admindashboard"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('farmerPageNavgationText1')}</div>
+          <div className="adminPageNavigationLinks">{t('text131')}</div>
           <FaHome className="adminPageNavigationLinksIcon" />
         </NavLink>
 
@@ -91,7 +91,7 @@ const AdminNavigation = () => {
           to="/adminmarketplace"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('farmerPageNavgationText2')}</div>
+          <div className="adminPageNavigationLinks">{t('text132')}</div>
           <FaWallet className="adminPageNavigationLinksIcon" />
         </NavLink>
         <div
@@ -101,7 +101,7 @@ const AdminNavigation = () => {
           onMouseEnter={toggleDropdown5}
           onMouseLeave={toggleDropdown5}
         >
-          <div className="adminPageNavigationLinks">{t('farmerPageNavgationText6')}&nbsp;<FaAngleDown /></div>
+          <div className="adminPageNavigationLinks">{t('text137')}&nbsp;<FaAngleDown /></div>
           <FaStore className="adminPageNavigationLinksIcon" />
           {showDropdown5 && (
             <div className="dropdown">
@@ -109,20 +109,20 @@ const AdminNavigation = () => {
                 to="/adminaccountfarmer"
                 activeClassName="active"
               >
-                Farmer
+                {t('text138')}
               </NavLink>
               <NavLink
                 to="/adminaccountbuyer"
                 activeClassName="active"
               >
-                Buyer
+                {t('text139')}
               </NavLink>
             </div>
           )}
         </div>
       </div>
       <NavLink className="adminPageNavigationProfileParent" to = '/login'>       
-            Log Out           
+      {t('text141')}          
       </NavLink>
     </div>
     </I18nextProvider>

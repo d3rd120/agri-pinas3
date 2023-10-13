@@ -11,16 +11,16 @@ const FarmerMarketplaceComponenteDeleteProduct = ({ closePopup }) => {
   return (
     <I18nextProvider i18n={i18n}> 
       <div className="adminMarketplaceComponenteDeleteProduct">
-        <div className="adminMarketplaceComponentDeleteProductMainText">{t('farmerPageDeleteText1')}</div>
+        <div className="adminMarketplaceComponentDeleteProductMainText">{t('text173')}</div>
         <div className="adminMarketplaceComponentDeleteProductSubText">
-          {t('farmerPageDeleteText2')}
+          {t('text174')}
         </div>
         <div className="adminMarketplaceComponentDeleteProductButtonContainer">
           <button className="adminMarketplaceComponentDeleteProductButton">
-            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('farmerPageButton5')}</div>
+            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('text175')}</div>
           </button>
           <button className="adminMarketplaceComponentDeleteProductButton" onClick={closePopup}>
-            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('farmerPageButton6')}</div>
+            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('text176')}</div>
           </button>
         </div>
       </div>

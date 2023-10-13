@@ -132,16 +132,16 @@ const AdminCommunityForumComponent = () => {
             <div className="adminCommunityForumComponentMainText">
               <b className="adminCommunityForumComponentMainTextWrapper">
                 <p className="adminCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="adminCommunityForumComponentBlankLine">{t('Text1')}</p>
+                <p className="adminCommunityForumComponentBlankLine">{t('text179')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminCommunityForumComponentCard">
-            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('Text2')}</div>
+            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('text180')}</div>
             <br />
             <div className="adminCommunityForumComponentShow">
-              {t('Text3')}
+              {t('text181')}
 
               <select className="adminCommunityForumComponentRowSelect" 
                       value={displayCount}
@@ -154,7 +154,7 @@ const AdminCommunityForumComponent = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('Text4')}
+                placeholder={t('text182')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />

@@ -22,7 +22,7 @@ const BuyerTransanctionPending = () => {
         <div className="buyerTransactionTopSection">
           <div className="buyerTransactionMainText">
             <b className="buyerTransactionMainTextWrapper">       
-              <p className="buyerTransactionBlankLine">{t('buyerTransactionText1')}</p>
+              <p className="buyerTransactionBlankLine">{t('text90')}</p>
             </b>
           </div>
         </div>    
@@ -30,10 +30,10 @@ const BuyerTransanctionPending = () => {
 
         
         <div className="buyerTransactionCard">
-            <div className="buyerTransactionSubTitle"><FaFolderOpen />{t('buyerTransactionText2')}
+            <div className="buyerTransactionSubTitle"><FaFolderOpen /> {t('text91')}
             </div>
             <br></br>
-           <div className = "buyerTransactionShow"> {t('buyerTransactionText3')}  
+           <div className = "buyerTransactionShow"> {t('text92')}  
            <select className="buyerTransactionRowSelect" onchange="updateRows(this.value)">
                    <option value="5">5</option>
                    <option value="10">10</option>
@@ -58,29 +58,29 @@ const BuyerTransanctionPending = () => {
                   <div className="adminFarmerTransactionsPendingComponentFrameGroup">
                     <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                       <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">{t('Text19')}</b>
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">Corn</b>
                       </div>
                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Date: ')}</b> July 2, 2023
+                          <b>{t('text93')}</b> July 2, 2023
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Farmer's Name: </b> Jenkins Mesina
+                          <b>{t('text94')} </b> Jenkins Mesina
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Category: </b> Fruit
+                          <b>{t('text95')} </b> Fruit
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Packaging: ')}</b> Sack
+                          <b>{t('text96')}</b> Sack
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Quantity: </b> 2
+                          <b>{t('text97')} </b> 2
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Overall Price</b> 10,000
+                          <b>{t('text98')}</b> 10,000
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Status: </b> To Receive
+                          <b>{t('text99')}</b> To Receive
                         </div>
                       </div>
                     </div>                                    
@@ -90,39 +90,39 @@ const BuyerTransanctionPending = () => {
                   <img
                     className="adminFarmerTransactionsPendingComponentFrameChild"
                     alt=""
-                    src={CornVector}
+                    src={okra}
                   />
                   <div className="adminFarmerTransactionsPendingComponentFrameGroup">
                     <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                       <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">{t('Text19')}</b>
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">Okra</b>
                       </div>
                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Date: ')}</b> July 2, 2023
+                          <b>{t('text93')}</b> July 2, 2023
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Farmer's Name: </b> Jenkins Mesina
+                          <b>{t('text94')}</b> Jenkins Mesina
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Category: </b> Fruit
+                          <b>{t('text95')}</b> Fruit
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Packaging: ')}</b> Sack
+                          <b>{t('text96')}</b> Sack
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Quantity: </b> 2
+                          <b>{t('text97')} </b> 2
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Overall Price</b> 10,000
+                          <b>{t('text98')}</b> 10,000
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>Status: </b> To Receive
+                          <b>{t('text99')}</b> To Receive
                         </div>
                       </div>
                     </div>                                    
                   </div>
-                </a>             
+                </a>                
               </div>     
 
 

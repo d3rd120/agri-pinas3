@@ -56,26 +56,26 @@ const FarmerCommunityForumAddPostComponent = ({ addPost, folderName }) => {
     <I18nextProvider i18n={i18n}>
       <div className="buyerCommunityForumAddPostComponent">
         <div className="buyerCommunityForumAddPostComponentMainText">
-          {t('farmerCommunityAddPostText1')}
+          {t('text113')}
         </div>
         <div className="buyerCommunityForumAddPostComponentFrameParent">
           <div className="buyerCommunityForumAddPostComponentFrameGroup">
             <div className="buyerCommunityForumAddPostComponentInputParent">
               <div className="buyerCommunityForumAddPostComponentTitle">
-                {t('farmerCommunityAddPostText2')}
+                {t('text114')}
               </div>
               <input
                 className="buyerCommunityForumAddPostComponentInput1"
                 type="text"
                 name="title"
-                placeholder={t('farmerCommunityAddPostText3')}
+                placeholder={t('text115')}
                 onChange={handleInputChange}
                 value={postDetails.title}
               />
             </div>
             <div className="buyerCommunityForumAddPostComponentInputParent">
               <div className="buyerCommunityForumAddPostComponentTitle">
-                {t('farmerCommunityAddPostText4')}
+                {t('text116')}
               </div>
               <input
                 className="buyerCommunityForumAddPostComponentInput3"
@@ -86,18 +86,18 @@ const FarmerCommunityForumAddPostComponent = ({ addPost, folderName }) => {
               />
             </div>
             <div className="buyerCommunityForumAddPostComponentTitle">
-              {t('farmerCommunityAddPostText5')}
+              {t('text117')}
             </div>
             <textarea
               className="buyerCommunityForumAddPostComponentInput4"
               name="content"
-              placeholder={t('farmerCommunityAddPostText6')}
+              placeholder={t('text118')}
               onChange={handleInputChange}
               value={postDetails.content}
             />
             <button className="buyerCommunityForumAddPostComponentButton" onClick={handlePost}>
               <div className="buyerCommunityForumAddPostComponentButtonText">
-                {t('farmerPageButton8')}
+                {t('text119')}
               </div>
             </button>
             <div className="buyerCommunityForumAddPostComponentFormChild" />

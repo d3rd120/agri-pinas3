@@ -17,38 +17,38 @@ const AdminCommunityForumComponent = () => {
   const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
 
-  const fetchUserDisplayName = async (uid) => {
-    try {
-      const userDocRef = doc(db, 'Users', uid);
-      const userDocSnapshot = await getDoc(userDocRef);
-      const userData = userDocSnapshot.data();
-      const displayName = userData ? userData.fullname : 'Anonymous';
+  // const fetchUserDisplayName = async (uid) => {
+  //   try {
+  //     const userDocRef = doc(db, 'Users', uid);
+  //     const userDocSnapshot = await getDoc(userDocRef);
+  //     const userData = userDocSnapshot.data();
+  //     const displayName = userData ? userData.fullname : 'Anonymous';
 
-      return displayName;
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      return 'Anonymous';
-    }
-  };
+  //     return displayName;
+  //   } catch (error) {
+  //     console.error('Error fetching user data:', error);
+  //     return 'Anonymous';
+  //   }
+  // };
 
-  const fetchPosts = async () => {
-    try {
-      const postsCollection = collection(db, 'CommunityForum');
-      const snapshot = await getDocs(postsCollection);
-      const fetchedPosts = [];
+  // const fetchPosts = async () => {
+  //   try {
+  //     const postsCollection = collection(db, 'CommunityForum');
+  //     const snapshot = await getDocs(postsCollection);
+  //     const fetchedPosts = [];
 
-      for (const doc of snapshot.docs) {
-        const post = doc.data();
-        const userDisplayName = await fetchUserDisplayName(post.user.uid);
-        post.user.displayName = userDisplayName;
-        fetchedPosts.push(post);
-      }
+  //     for (const doc of snapshot.docs) {
+  //       const post = doc.data();
+  //       const userDisplayName = await fetchUserDisplayName(post.user.uid);
+  //       post.user.displayName = userDisplayName;
+  //       fetchedPosts.push(post);
+  //     }
 
-      setPosts(fetchedPosts);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
-  };
+  //     setPosts(fetchedPosts);
+  //   } catch (error) {
+  //     console.error('Error fetching posts:', error);
+  //   }
+  // };
 
   const fetchUserDisplayName = async (uid) => {
     try {
@@ -132,16 +132,16 @@ const AdminCommunityForumComponent = () => {
             <div className="adminCommunityForumComponentMainText">
               <b className="adminCommunityForumComponentMainTextWrapper">
                 <p className="adminCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="adminCommunityForumComponentBlankLine">{t('Text1')}</p>
+                <p className="adminCommunityForumComponentBlankLine">{t('text179')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminCommunityForumComponentCard">
-            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('Text2')}</div>
+            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('text180')}</div>
             <br />
             <div className="adminCommunityForumComponentShow">
-              {t('Text3')}
+              {t('text181')}
 
               <select className="adminCommunityForumComponentRowSelect" 
                       value={displayCount}
@@ -154,7 +154,7 @@ const AdminCommunityForumComponent = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('Text4')}
+                placeholder={t('text182')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />

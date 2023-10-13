@@ -127,7 +127,7 @@ const BuyerCommunityForumComponent = () => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
-                  {t('farmerCommunityText1')}
+                  {t('text111')}
                 </p>
               </b>
             </div>
@@ -139,7 +139,7 @@ const BuyerCommunityForumComponent = () => {
           >
             <FaEdit className="buyerCommunityForumComponentButtonIcon1" />
             <div className="buyerCommunityForumComponentButtonText1">
-              {t('farmerPageButton7')}
+              {t('text112')}
             </div>
           </button>
 
@@ -168,7 +168,8 @@ const BuyerCommunityForumComponent = () => {
               {chunk.map((post, index) => (
                 <Link
                   className="buyerCommunityForumComponentRectangleParent"
-                  to={`/buyercommunityforumpost/${index}`}
+                  to = {'/buyercommunityforumpost'}
+                  // to={`/buyercommunityforumpost/${index}`}
                   key={index}
                 >
                   <img

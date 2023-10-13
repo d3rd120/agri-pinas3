@@ -147,19 +147,19 @@ const AdminBuyerTransactions = () => {
             <div className="adminAccountBuyerComponentMainText">
               <b className="adminAccountBuyerComponentMainTextContainer">
                 <p className="adminAccountBuyerComponentBlankLine">&nbsp;</p>
-                <p className="adminAccountBuyerComponentBlankLine">{t('Text32')}</p>
+                <p className="adminAccountBuyerComponentBlankLine">{t('text227')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminBuyerAccountManagementCard">
             <div className="adminBuyerAccountManagementSubTitle">
-              <FaPeopleArrows /> {t('Text34')}
+              <FaPeopleArrows /> {t('text229')}
             </div>
             <br />
 
             <div className="adminCommunityForumComponentShow">
-              {t('Text3')}
+              {t('text230')}
 
               <select
                 className="adminCommunityForumComponentRowSelect"
@@ -175,7 +175,7 @@ const AdminBuyerTransactions = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('Text4')}
+                placeholder={t('text231')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -185,14 +185,14 @@ const AdminBuyerTransactions = () => {
             <table className="adminBuyerAccountManagementTable">
               <thead>
                 <tr>
-                  <th>Full Name</th>
-                  <th>Email</th>
-                  <th>Contact No.</th>
-                  <th>Address</th>
-                  <th>Birthday</th>
-                  <th>Age</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>{t('text232')}</th>
+                  <th>{t('text233')}</th>
+                  <th>{t('text234')}</th>
+                  <th>{t('text235')}</th>
+                  <th>{t('text236')}</th>
+                  <th>{t('text237')}</th>
+                  <th>{t('text238')}</th>
+                  <th>{t('text239')}</th>
                 </tr>
               </thead>
               <tbody>

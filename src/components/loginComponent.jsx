@@ -154,9 +154,7 @@ const LoginPage = () => {
             </button>
             <div className="loginComponentSubTextContainter">
               <span>{t('text26')}</span>
-              <Link className="loginComponentSignUpLink" to="/signup">
-                {t('text27')}
-              </Link>
+              <Link className="loginComponentSignUpLink" to="/signup">{t('text27')}</Link>
             </div>
           </div>
         </div>

@@ -144,19 +144,19 @@ const AdminFarmerTransactions = () => {
             <div className="adminAccountFarmerComponentMainText">
               <b className="adminAccountFarmerComponentMainTextContainer">
                 <p className="adminAccountFarmerComponentBlankLine">&nbsp;</p>
-                <p className="adminAccountFarmerComponentBlankLine">{t('Text32')}</p>
+                <p className="adminAccountFarmerComponentBlankLine">{t('text227')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminFarmerAccountManagementCard">
             <div className="adminFarmerAccountManagementSubTitle">
-              <FaPeopleArrows /> {t('Text33')}
+              <FaPeopleArrows /> {t('text228')}
             </div>
             <br></br>
 
             <div className="adminCommunityForumComponentShow">
-              {t('Text3')}
+              {t('text230')}
 
               <select
                 className="adminCommunityForumComponentRowSelect"
@@ -172,7 +172,7 @@ const AdminFarmerTransactions = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('Text4')}
+                placeholder={t('text231')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -182,14 +182,14 @@ const AdminFarmerTransactions = () => {
             <table className="adminFarmerAccountManagementTable">
               <thead>
                 <tr>
-                  <th>Full Name</th>
-                  <th>Email</th>
-                  <th>Contact No.</th>
-                  <th>Address</th>
-                  <th>Birthday</th>
-                  <th>Age</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>{t('text232')}</th>
+                  <th>{t('text233')}</th>
+                  <th>{t('text234')}</th>
+                  <th>{t('text235')}</th>
+                  <th>{t('text236')}</th>
+                  <th>{t('text237')}</th>
+                  <th>{t('text238')}</th>
+                  <th>{t('text239')}</th>
                 </tr>
               </thead>
               <tbody>

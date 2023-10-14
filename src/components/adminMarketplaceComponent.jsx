@@ -112,7 +112,7 @@ const AdminMarketplaceComponent = () => {
               <b className="adminMarketplaceComponentMainTextWrapper">
                 <p className="adminMarketplaceComponentBlankLine">&nbsp;</p>
                 <p className="adminMarketplaceComponentBlankLine">
-                  {t('farmerPageNavgationText2')}
+                  {t('text148')}
                 </p>
               </b>
             </div>
@@ -154,11 +154,11 @@ const AdminMarketplaceComponent = () => {
 
           <div className="adminMarketplaceComponentCard">
             <div className="adminMarketplaceComponentSubTitle">
-              <FaStore /> {t('farmerTransactionsText18')}
+              <FaStore /> {t('text149')}
             </div>
             <br />
             <div className="adminMarketplaceComponentShow">
-              {t('farmerTransactionsText3')}
+              {t('text150')}
 
 
               <select
@@ -177,7 +177,7 @@ const AdminMarketplaceComponent = () => {
               <input
                 className="adminMarketplaceComponentRowSelect"
                 type="text"
-                placeholder={t('farmerTransactionsText4')}
+                placeholder={t('text151')}
                 value={searchText}
                 onChange={(e) => {
                   setSearchText(e.target.value);
@@ -207,19 +207,19 @@ const AdminMarketplaceComponent = () => {
                             </div>
                             <div className="adminMarketplaceComponentSubText2Wrapper2">
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('farmerPageCategory')}</b> {product.category}
+                                <b>{t('text152')}</b> {product.category}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('farmerPagePackaging')}</b> {product.packaging}
+                                <b>{t('text153')}</b> {product.packaging}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('farmerPagePrice')}</b> {product.price}
+                                <b>{t('text154')}</b> {product.price}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('farmerPageKilogram')}</b> {product.kilogramPerUnit}
+                                <b>{t('text155')}</b> {product.kilogramPerUnit}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('farmerPageDescription')}</b> {product.description}
+                                <b>{t('text156')}</b> {product.description}
                               </div>
                             </div>
                           </div>
@@ -227,11 +227,11 @@ const AdminMarketplaceComponent = () => {
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
                               <FaEdit className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton13')}</div>
+                              <div className="adminMarketplaceComponentButtonText">{t('text177')}</div>
                             </button>
                             <button className="adminMarketplaceComponentButton" onClick={handleButtonClick2}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('farmerPageButton2')}</div>
+                              <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
                             </button>
                           </div>
                         </div>

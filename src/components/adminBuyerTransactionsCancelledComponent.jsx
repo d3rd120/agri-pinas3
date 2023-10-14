@@ -21,7 +21,7 @@ const AdminBuyerTransactionsCancelledComponent = () => {
           <div className="adminBuyerTransactionsCancelledComponentMainText">
             <b className="adminBuyerTransactionsCancelledComponentMainTextWrapper">
               <p className="adminBuyerTransactionsCancelledComponentBlankLine">&nbsp;</p>
-              <p className="adminBuyerTransactionsCancelledComponentBlankLine">{t('Text15')}</p>
+              <p className="adminBuyerTransactionsCancelledComponentBlankLine">{t('text183')}</p>
             </b>
           </div>
         </div>
@@ -29,11 +29,11 @@ const AdminBuyerTransactionsCancelledComponent = () => {
 
         <div className="adminBuyerTransactionsCancelledComponentCard">
           <div className="adminBuyerTransactionsCancelledComponentSubTitle">
-            <FaFolderOpen /> {t('Text28')}
+            <FaFolderOpen /> {t('text187')}
           </div>
           <br></br>
           <div className="adminBuyerTransactionsCancelledComponentShow">
-          {t('Text17')}
+          {t('text188')}
             <select className="adminBuyerTransactionsCancelledComponentRowSelect" onchange="updateRows(this.value)">
               <option value="5">5</option>
               <option value="10">10</option>
@@ -43,7 +43,7 @@ const AdminBuyerTransactionsCancelledComponent = () => {
             <input 
             className="adminBuyerTransactionsCancelledComponentRowSelect"
             type = "text"
-            placeholder =   {t('Text18')}>                    
+            placeholder =   {t('text189')}>                    
             </input>
           </div>
           <br></br>
@@ -66,83 +66,37 @@ const AdminBuyerTransactionsCancelledComponent = () => {
                       </div>
                       <div className="adminBuyerTransactionsCancelledComponentSubText2Wrapper2">
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText7')}</b> B001
+                          <b>{t('text190')}</b> B001
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText8')}</b> N001
+                          <b>{t('text191')}</b> N001
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText9')}</b> Ryan Edward Amador
+                          <b>{t('text192')}</b> Ryan Edward Amador
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText10')}</b> 02 / 01 / 2023
+                          <b>{t('text193')}</b> 02 / 01 / 2023
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText11')}</b> 400
+                          <b>{t('text194')}</b> 400
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText12')}</b> 2
+                          <b>{t('text195')}</b> 2
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText13')}</b> 800
+                          <b>{t('text196')}</b> 800
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('Text22')}</b> Arriane Gatpo
+                          <b>{t('text197')}</b> Arriane Gatpo
                         </div>
                         <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('Text23')}</b> Cancelled
+                          <b>{t('text198')}</b> Cancelled
                         </div>
                       </div>
                     </div>
                     
                   </div>
-                </a>
-
-                <a className="adminBuyerTransactionsCancelledComponentRectangleParent">
-                  <img
-                    className="adminBuyerTransactionsCancelledComponentFrameChild"
-                    alt=""
-                    src={SquashVector}
-                  />
-                  <div className="adminBuyerTransactionsCancelledComponentFrameGroup">
-                    <div className="adminBuyerTransactionsCancelledComponentFrameContainer">
-                      <div className="adminBuyerTransactionsCancelledComponentSubText1Wrapper">
-                        <b className="adminBuyerTransactionsCancelledComponentSubText1">  {t('Text31')}</b>
-                      </div>
-                      <div className="adminBuyerTransactionsCancelledComponentSubText2Wrapper2">
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText7')}</b> B001
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText8')}</b> N001
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText9')}</b> Ryan Edward Amador
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText10')}</b> 02 / 01 / 2023
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText11')}</b> 400
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText12')}</b> 2
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('farmerTransactionsText13')}</b> 800
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('Text22')}</b> Arriane Gatpo
-                        </div>
-                        <div className="adminBuyerTransactionsCancelledComponentSubText2">
-                          <b>{t('Text23')}</b> Cancelled
-                        </div>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </a>
-
+                </a>             
 
               </div>
 

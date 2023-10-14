@@ -13,13 +13,13 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
     <I18nextProvider i18n={i18n}>
       <div className="adminCommunityForumAddPostComponent">
         <div className="adminCommunityForumAddPostComponentMainText">
-          {t('Maglagay ng Anunsyo')}
+          {t('text145')}
         </div>
         <div className="adminCommunityForumAddPostComponentFrameParent">
           <div className="adminCommunityForumAddPostComponentFrameGroup">
             <div className="adminCommunityForumAddPostComponentInputParent">
               <div className="adminCommunityForumAddPostComponentTitle">
-                {t('I-upload ang iyong Pubmat')}
+                {t('text146')}
               </div>
               <input
                 className="adminCommunityForumAddPostComponentInput3"
@@ -30,7 +30,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
             </div>
             <button className="adminCommunityForumAddPostComponentButton">
               <div className="adminCommunityForumAddPostComponentButtonText">
-                {t('I-update')}
+                {t('text147')}
               </div>
             </button>
             <div className="adminCommunityForumAddPostComponentFormChild" />

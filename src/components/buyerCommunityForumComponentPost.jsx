@@ -42,28 +42,28 @@ const FarmerMarketplace = () => {
                   <div className="buyerCommunityForumComponentFullPostSmallCardsHeading">
                     <div className="buyerCommunityForumComponentFullPostSmallCardsDetails">
                       <b className="buyerCommunityForumComponentFullPostSmallCardsMainText">{t('farmerCommunityPostText1')}</b>
-                      <b className="buyerCommunityForumComponentFullPostSmallCardsDescription1">{t('farmerCommunityPostText2')} Jenkins Mesina</b>
+                      <b className="buyerCommunityForumComponentFullPostSmallCardsDescription1">Jenkins Mesina</b>
                     </div>
                     <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                       <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                         {t('farmerCommunityPostText3')}
                       </div>
                     </div>
-                    <b className="buyerCommunityForumComponentFullPostSmallCardsDescription2">{t('farmerCommunityPostText4')}</b>
+                    <b className="buyerCommunityForumComponentFullPostSmallCardsDescription2">24 {t('text126')}</b>
                     <button className="buyerCommunityForumComponentFullPostButton">
                       <FaThumbsUp className="buyerCommunityForumComponentFullPostButtonIcon" />
-                      <div className="buyerCommunityForumComponentFullPostButtonText">{t('farmerPageButton9')}</div>
+                      <div className="buyerCommunityForumComponentFullPostButtonText">{t('text127')}</div>
                     </button>
                   </div>
                   <input
                     className="buyerCommunityForumComponentFullPostCommentInput"
                     type="text"
-                    placeholder={t('farmerCommunityPostText5')}
+                    placeholder={t('text128')}
                   />
                   <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                     <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                       <p className="buyerCommunityForumComponentFullPostBlankLine">
-                        <b>{t('farmerCommunityPostText6')}</b>
+                        <b>{t('text129')}</b>
                       </p>
                       <p className="buyerCommunityForumComponentFullPostBlankLine">
                         <b>&nbsp;</b>
@@ -89,7 +89,7 @@ const FarmerMarketplace = () => {
           </div>
         </div>
         <div className="buyerCommunityForumComponentFullPostNewCard">
-          <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('farmerCommunityPostText9')}</div>
+          <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('text130')}</div>
           <div className="buyerCommunityForumComponentFullPostNewCardText">
             <button className="buyerCommunityForumComponentFullPostNewCardButton">
               <img

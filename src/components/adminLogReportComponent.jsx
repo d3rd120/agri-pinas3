@@ -1,6 +1,6 @@
 import '../css/Components/adminLogReportComponent.css';
 import AdminNavigation from '../components/adminPageNavigation';
-import { FaPeopleArrows, FaTrash, FaEdit } from 'react-icons/fa';
+import { FaPeopleArrows, FaTrash, FaEdit, FaBook } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
@@ -18,19 +18,19 @@ const { t } = useTranslation();
             <div className="adminAccountFarmerComponentMainText">
               <b className="adminAccountFarmerComponentMainTextContainer">
                 <p className="adminAccountFarmerComponentBlankLine">&nbsp;</p>
-                <p className="adminAccountFarmerComponentBlankLine">{t('Text32')}</p>
+                <p className="adminAccountFarmerComponentBlankLine">{t('text240')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminFarmerAccountManagementCard">
             <div className="adminFarmerAccountManagementSubTitle">
-              <FaPeopleArrows /> {t('Text33')}
+              <FaBook /> {t('text241')}
             </div>
             <br></br>
 
             <div className="adminCommunityForumComponentShow">
-              {t('Text3')}
+              {t('text242')}
               
               <select
                 className="adminCommunityForumComponentRowSelect"               
@@ -43,7 +43,8 @@ const { t } = useTranslation();
 
               <input
                 className="adminCommunityForumComponentRowSelect"
-                type="text"              
+                type="text"  
+                placeholder = {t('text243')}            
               />
             </div>
             <br></br>
@@ -51,21 +52,21 @@ const { t } = useTranslation();
             <table className="adminFarmerAccountManagementTable">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Issue Description</th>
-              <th>Reported by</th>          
-              <th>Action Taken</th>
-              <th>Status</th>           
-              <th>Edit</th>             
+              <th>{t('text244')}</th>
+              <th>{t('text245')}</th>
+              <th>{t('text246')}</th>          
+              <th>{t('text247')}</th>
+              <th>{t('text248')}</th>           
+              <th>{t('text249')}</th>             
             </tr>
           </thead>
           <tbody>
           <tr> 
-                 <td>F001</td>
-                 <td>Ryan Edward Amador</td>
-                 <td>ryan@gmail.com</td>               
-                 <td>Antipolo</td>                 
-                 <td>23</td>       
+                 <td>10/10/2023</td>
+                 <td>Inaccurate Delivered Products</td>
+                 <td>Arrianne Clarisse Gatpo</td>               
+                 <td>Taking it to the Advisor</td>                 
+                 <td>Pending</td>       
                  <td> <FaEdit /> </td>                            
            </tr>       
              

@@ -126,11 +126,11 @@ const ShoppingCart = () => {
                           <span>{item.product}</span>
                         </div>
                       </td>
-                      <td>${item.price.toFixed(2)}</td>
+                      <td>₱{item.price.toFixed(2)}</td>
                       <td>                        
                         <span>{item.quantity}</span>                        
                       </td>
-                      <td>${calculateSubtotal(item.price, item.quantity)}</td>                   
+                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>                   
                     </tr>
                   ))}                  
                 </tbody>
@@ -144,10 +144,10 @@ const ShoppingCart = () => {
               <strong>{t('text82')}</strong> {t('text83')}
             </div>
             <div>
-              <strong>{t('text84')}</strong> $20.00
+              <strong>{t('text84')}</strong> ₱20.00
             </div>
             <div>
-              <strong>{t('text85')}</strong> $20.00
+              <strong>{t('text85')}</strong> ₱20.00
             </div>
             <div className="buttonWrapper">
                 <Link to="/checkout" className="ordercheckoutButton2">

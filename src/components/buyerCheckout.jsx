@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../css/BuyerPage/buynow.css"
 import BuyerNavigation from '../components/buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import RiceVector from '../img/riceCardImage.png';
 import { Link } from 'react-router-dom';
-import { FaTrash } from 'react-icons/fa';
+import { FaSadCry, FaTrash } from 'react-icons/fa';
 import BuyerTopNav from '../components/buyerTopNav';
+import { db, auth } from './firebase';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -13,32 +15,91 @@ import i18n from '../i18n';
 const ShoppingCart = () => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
-  const [itemToRemove, setItemToRemove] = useState(null); // Added state for the item to remove
+  const [itemToRemove, setItemToRemove] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [fullname, setfullname] = useState('');
+  const [contact, setContact] = useState('');
+  const [address, setAddress] = useState('');
+  const [barangay, setBarangay] = useState('');
+  
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userRef = collection(db, "Users");
+        const userQuery = query(userRef, where("uid", "==", user.uid));
+  
+        try {
+          const querySnapshot = await getDocs(userQuery);
+  
+          if (!querySnapshot.empty) {
+            const userData = querySnapshot.docs[0].data();
+            setfullname(userData.fullname || '');
+            setContact(userData.contact || '');
+            setAddress(userData.address || ''); 
+            setBarangay(userData.barangay || '');
+          } else {
+            setfullname('');
+            setContact('');
+            setAddress('');
+            setBarangay('');
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      } else {
+        setfullname('');
+        setContact('');
+        setAddress('');
+        setBarangay('');
+      }
+    });
+  
+    return () => unsubscribe();
+  }, []);
+  
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userCartRef = doc(db, 'UserCarts', user.uid);
+          const userCartSnapshot = await getDoc(userCartRef);
+          const userCartData = userCartSnapshot.data();
+
+          if (userCartData && userCartData.cart) {
+            setCart(userCartData.cart);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching cart data:', error);
+      }
+    };
+
+    fetchCartData();
+  }, []);
+
+  const fetchCartData = async () => {
+    const updatedCart = await Promise.all(
+      cart.map(async (item) => {
+        // Check if product data has already been fetched
+        if (!item.productData) {
+          const productData = await fetchCartData(item.productId);
+          return productData ? { ...item, productData } : null;
+        } else {
+          return item;
+        }
+      })
+    );
+  
+    setCart(updatedCart.filter((item) => item !== null));
+  };
+  
 
   const removeItem = (itemId) => {
-    // Use the filter method to create a new cart without the item to be removed
     const updatedCart = cart.filter((item) => item.id !== itemId);
     setCart(updatedCart);
   };
-
-  const initialCart = [
-    {
-      id: 1,
-      product: 'Product 1',
-      price: 10.00,
-      quantity: 1,
-      image: RiceVector
-    },
-    {
-      id: 2,
-      product: 'Product 2',
-      price: 15.00,
-      quantity: 1,
-      image: OnionVector
-    },
-  ];
-
-  const [cart, setCart] = useState(initialCart);
 
   const updateQuantity = (id, newQuantity) => {
     setCart((prevCart) =>
@@ -49,9 +110,10 @@ const ShoppingCart = () => {
   };
 
   const calculateSubtotal = (price, quantity) => {
-    return (price * quantity).toFixed(2);
+    const totalPrice = price && typeof price === 'number' ? price : 0;
+    return (totalPrice * quantity).toFixed(2);
   };
-
+  
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
@@ -59,7 +121,7 @@ const ShoppingCart = () => {
   const handleModalConfirm = () => {
     if (itemToRemove) {
       removeItem(itemToRemove);
-      setItemToRemove(null); // Reset the itemToRemove state
+      setItemToRemove(null);
     }
     setShowModal(false);
   };
@@ -87,13 +149,13 @@ const ShoppingCart = () => {
             
             <h2>{t('text75')}</h2>
             <div>
-              Romeo London III | 09214674223             
+              {fullname} | {contact}             
             </div>
             <div>
-              551 F Jhocson St.
+             {barangay}
             </div>
             <div>
-              Sampaloc, Manila, 1008 Metro Manila
+             {address}
             </div>  
             &nbsp;    
             <Link to="/checkout" className="ordercheckoutButton2">
@@ -122,15 +184,15 @@ const ShoppingCart = () => {
                     <tr key={item.id}>
                       <td>
                         <div className="product-info">
-                          <img src={item.image} alt={item.product} />
-                          <span>{item.product}</span>
+                        <img src={item.image} alt={item.cropName} />
+                      <span>{item.cropName}</span>
                         </div>
                       </td>
-                      <td>₱{item.price.toFixed(2)}</td>
+                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
                       <td>                        
                         <span>{item.quantity}</span>                        
                       </td>
-                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>                   
+                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>                
                     </tr>
                   ))}                  
                 </tbody>
@@ -144,10 +206,10 @@ const ShoppingCart = () => {
               <strong>{t('text82')}</strong> {t('text83')}
             </div>
             <div>
-              <strong>{t('text84')}</strong> ₱20.00
+              <strong>{t('text84')}</strong> $20.00
             </div>
             <div>
-              <strong>{t('text85')}</strong> ₱20.00
+              <strong>{t('text85')}</strong> $20.00
             </div>
             <div className="buttonWrapper">
                 <Link to="/checkout" className="ordercheckoutButton2">

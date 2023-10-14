@@ -16,6 +16,7 @@ import BuyerComplete from './components/buyerTransactionCompleted';
 import BuyerCancelled from './components/buyerTransactionCancelled';
 import BuyerProfile from './pages/BuyerPage/buyerProfile';
 import BuyerAddress from './components/buyerAddressComponent';
+import BuyerCheckout from './components/buyerCheckout';
 import BuyerCommunityForum from './components/buyerCommunityForumComponent';
 import BuyerMarketplaceVegetableCategory from './pages/BuyerPage/buyerMarketplaceVegetableCategory';
 import BuyerMarketplaceFruitsCategory from './pages/BuyerPage/buyerMarketplaceFruitsCategory';
@@ -33,6 +34,7 @@ import AdminFarmerTransactions from './pages/AdminPage/adminFarmerTransactions';
 import AdminAccountBuyer from './pages/AdminPage/adminAccountBuyer';
 import AdminAccountFarmer from './pages/AdminPage/adminAccountFarmer';
 import AdminMarketplace from './pages/AdminPage/adminMarketplace';
+import AdminLogReport from './pages/AdminPage/adminLogReport';
 import AdminBuyerPendingTransactions from './pages/AdminPage/adminBuyerPendingTransactions';
 import AdminBuyerCompletedTransactions from './pages/AdminPage/adminBuyerCompletedTransactions';
 import AdminBuyerCancelledTransactions from './pages/AdminPage/adminBuyerCancelledTransactions';
@@ -45,129 +47,59 @@ import AdminFarmerCancelledTransactions from './pages/AdminPage/adminFarmerCance
 import Reset from './components/reset';
 import PrivateRoutes from './Util/PrivateRoutes';
 import PublicRoutes from './Util/PublicRoutes';
-import { AuthProvider } from './components/AuthContext';
 
 
 const App = () => {
-    return ( <
-        >
-        <
-        BrowserRouter >
-        <
-        AuthProvider >
-        <
-        Routes >
-        <
-        Route path = "/"
-        element = { < MainPage / > }
-        /> <
-        Route path = "/login"
-        element = { < LoginPage / > }
-        /> <
-        Route path = "/signup"
-        element = { < SignupPage / > }
-        /> <
-        Route path = "/reset"
-        element = { < Reset / > }
-        />
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/reset" element={<Reset />} />
 
 
-        <
-        Route path = "/buyermarketplace"
-        element = { < BuyerMarketplace / > }
-        /> <
-        Route path = "/buyermarketplacepost"
-        element = { < BuyerMarketplacePost / > }
-        />        <
-        Route path = "/buyercommunityforumpost"
-        element = { < BuyerCommunityForumPost / > }
-        /> <
-        Route path = "/buyertoreceive"
-        element = { < BuyerToReceive / > }
-        /> <
-        Route path = "/buyercomplete"
-        element = { < BuyerComplete / > }
-        /> <
-        Route path = "/buyercancelled"
-        element = { < BuyerCancelled / > }
-        />          <
-        Route path = "/shoppingcart"
-        element = { < ShoppingCart / > }
-        /> <
-        Route path = "/buyerprofile"
-        element = { < BuyerProfile / > }
-        /> <
-        Route path = "/buyeraddress"
-        element = { < BuyerAddress / > }
-        />        <
-        Route path = "/buyercommunityforum"
-        element = { < BuyerCommunityForum / > }
-        />     <
-        Route path = "/buyervegetablecategory"
-        element = { < BuyerMarketplaceVegetableCategory / > }
-        />    <
-        Route path = "/buyerfruitscategory"
-        element = { < BuyerMarketplaceFruitsCategory / > }
-        />    <
-        Route path = "/buyerfertilizercategory"
-        element = { < BuyerMarketplaceFertilizerCategory / > }
-        />    <
-        Route path = "/buyerotherproductscategory"
-        element = { < BuyerMarketplaceOtherProductsCategory / > }
-        />         
+          <Route path="/buyermarketplace" element={<BuyerMarketplace />} />
+          <Route path="/buyermarketplacepost" element={<BuyerMarketplacePost />} />       
+          <Route path="/buyercommunityforumpost" element={<BuyerCommunityForumPost />}  />
+          <Route path="/buyertoreceive" element={<BuyerToReceive />}  />
+          <Route path="/buyercomplete" element={<BuyerComplete />} />
+          <Route path="/buyercancelled" element={<BuyerCancelled />} />         
+          <Route path="/shoppingcart" element={<ShoppingCart />} />
+          <Route path="/buyerprofile" element={<BuyerProfile />} />
+          <Route path="/buyeraddress" element={<BuyerAddress />} />       
+          <Route path="/buyercommunityforum" element={<BuyerCommunityForum />} />    
+          <Route path="/buyervegetablecategory" element={<BuyerMarketplaceVegetableCategory />} />   
+          <Route path="/buyerfruitscategory" element={<BuyerMarketplaceFruitsCategory />} />   
+          <Route path="/buyerfertilizercategory" element={<BuyerMarketplaceFertilizerCategory />} />   
+          <Route path="/buyerotherproductscategory" element={<BuyerMarketplaceOtherProductsCategory />} /> 
+          <Route path="/checkout" element={<BuyerCheckout />} /> 
+               
+        
+      
 
-
-        <
-        Route path = "/admindashboard"
-        element = { < AdminDashboard / > }
-        /> <
-        Route path = "/admincommunityforum"
-        element = { < AdminCommunityForum / > }
-        /> <
-        Route path = "/adminbuyertransactions"
-        element = { < AdminBuyerTransactions / > }
-        /> <
-        Route path = "/adminfarmertransactions"
-        element = { < AdminFarmerTransactions / > }
-        /> <
-        Route path = "/adminaccountbuyer"
-        element = { < AdminAccountBuyer / > }
-        /> <
-        Route path = "/adminaccountfarmer"
-        element = { < AdminAccountFarmer / > }
-        /> <
-        Route path = "/adminmarketplace"
-        element = { < AdminMarketplace / > }
-        /> <
-        Route path = "/adminbuyerpendingtransactions"
-        element = { < AdminBuyerPendingTransactions / > }
-        /> <
-        Route path = "/adminbuyercompletedtransactions"
-        element = { < AdminBuyerCompletedTransactions / > }
-        /> <
-        Route path = "/adminbuyercancelledtransactions"
-        element = { < AdminBuyerCancelledTransactions / > }
-        />   <
-        Route path = "/adminfarmerpendingtransactions"
-        element = { < AdminFarmerPendingTransactions / > }
-        />   <
-        Route path = "/adminfarmercompletedtransactions"
-        element = { < AdminFarmerCompletedTransactions / > }
-        />   <
-        Route path = "/adminfarmercancelledtransactions"
-        element = { < AdminFarmerCancelledTransactions / > }
-        />  
-
-        <
-        Route element = { < PublicRoutes / > }
-        /> <
-        Route element = { < PrivateRoutes / > }
-        /> <
-        /Routes> <
-        /AuthProvider> <
-        /BrowserRouter> <
-        />
-    );
+          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route path="/admincommunityforum" element={<AdminCommunityForum />} />
+          <Route path="/adminbuyertransactions" element={<AdminBuyerTransactions />}  />
+          <Route path="/adminfarmertransactions" element={<AdminFarmerTransactions />} />
+          <Route path="/adminaccountbuyer" element={<AdminAccountBuyer />} />
+          <Route path="/adminaccountfarmer" element={<AdminAccountFarmer />}/>
+          <Route path="/adminmarketplace" element={<AdminMarketplace />}/>
+          <Route path="/adminlogreport" element={<AdminLogReport />}/>          
+          <Route path="/adminbuyerpendingtransactions" element={<AdminBuyerPendingTransactions />}/>
+          <Route path="/adminbuyercompletedtransactions" element={<AdminBuyerCompletedTransactions />}/>
+          <Route path="/adminbuyercancelledtransactions" element={<AdminBuyerCancelledTransactions />}/>  
+          <Route path="/adminfarmerpendingtransactions" element={<AdminFarmerPendingTransactions />}/>  
+          <Route path="/adminfarmercompletedtransactions" element={<AdminFarmerCompletedTransactions />}/>  
+          <Route path="/adminfarmercancelledtransactions" element={<AdminFarmerCancelledTransactions />}/>  
+                   
+          <Route element={<PublicRoutes />} />
+          <Route element={<PrivateRoutes />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 };
 
 export default App;

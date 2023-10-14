@@ -121,7 +121,7 @@ const ShoppingCart = (props) => {
                     </div>
                   </td>
                   <td>{item.price}</td>
-                  <td>{item.quantity}</td>
+                  
                   <td>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}

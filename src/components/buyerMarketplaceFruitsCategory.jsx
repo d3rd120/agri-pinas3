@@ -85,66 +85,7 @@ const BuyerMarketplace = () => {
           </div>
         </div>
             
-<<<<<<< dev-dy3nkinss
-        {products.map((product) => (
-       <NavLink
-       key={product.id}
-       className="buyerMarketplaceComponentRectangleParent"
-       to="/buyermarketplacepost"
-       activeClassName="active"
-       onClick={() => handleProductClick(product.id)}
-     >
-    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-    <div className="buyerMarketplaceComponentFrameGroup">
-      <div className="buyerMarketplaceComponentFrameContainer">
-        <div className="buyerMarketplaceComponentCardWrapper">
-          <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
-        </div>
-        <div className="buyerMarketplaceComponentCategoryWrapper">
-          <div className="buyerMarketplaceComponentCategoryContainer">
-            <p className="buyerMarketplaceComponentBlankLine">
-              <b>Category: </b>
-              <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-            </p>
-            <p className="buyerMarketplaceComponentBlankLine">
-              <b>Packaging: </b>
-              <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
-            </p>
-            <p className="buyerMarketplaceComponentBlankLine">
-              <b className="buyerMarketplaceComponentCategory">Price: </b>
-              <span>{product.price}</span>
-            </p>
-            <p className="buyerMarketplaceComponentBlankLine">
-              <b>Kilogram per unit: </b>
-              <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
-            </p>
-            <p className="buyerMarketplaceComponentBlankLine">
-              <b className="buyerMarketplaceComponentCategory">Description: </b>
-              <span>{product.description}</span>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="buyerMarketplaceComponentFrameItem" />
-      <div className="buyerMarketplaceComponentAuthor">
-        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-        <div className="buyerMarketplaceComponentAuthorText">
-          <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
-          <div className="buyerMarketplaceComponentSubName">Buyer</div>
-        </div>
-      </div>
-    </div>
-  </NavLink>
-))}
-
-=======
-     
->>>>>>> main
-
-
-
-
-        <div className="buyerMarketplaceComponentMiddleSection">
+          <div className="buyerMarketplaceComponentMiddleSection">
           <div className="buyerMarketplaceComponentFrameParent">
             <div className="buyerMarketplaceComponentFrameWrapper">
             {products.map((product) => (

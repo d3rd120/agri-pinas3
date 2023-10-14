@@ -194,7 +194,7 @@ const fetchProducts = async () => {
           <div className="buyerCommunityForumComponentTopSection">
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
-                <p className="buyerCommunityForumComponentBlankLine">{t('text100')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('buyerPageNavigationText1')}</p>
               </b>
             </div>
           </div>
@@ -202,60 +202,62 @@ const fetchProducts = async () => {
 
           <div className="buyerMarketplaceComponentPostMiddleSection">
             <div className="buyerMarketplaceComponentPostCardsContainer">
-
-              <div key={selectedProduct?.id} className="buyerMarketplaceComponentPostCard1">
-                <img
-                  className="buyerMarketplaceComponentPostCard1Image"
-                  alt=""
-                  src={selectedProduct?.image}
+            <div key={selectedProduct?.id} className="buyerMarketplaceComponentPostCard1">
+               <img
+              className="buyerMarketplaceComponentPostCard1Image"
+              alt=""
+              src={selectedProduct?.image}
                   />
                   </div>
+
 
                 <div className="buyerMarketplaceComponentPostSmallCards">
                   <div className="buyerMarketplaceComponentPostSmallCardsDescription">
                     <div className="buyerMarketplaceComponentPostSmallCardsContent">
                       <div className="buyerMarketplaceComponentPostSmallCardsHeading">
                         <div className="buyerMarketplaceComponentPostSmallCardsDetails">
-
                           <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.cropName}</b>
-                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{selectedProduct?.farmer}</b>
-
+                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('buyerPageUserRole2')} {selectedProduct?.farmer}</b>
                         </div>
                         
                         <div className="buyerMarketplaceComponentPostSmallCardsDescriptionWrapper">
                           <div className="buyerMarketplaceComponentPostSmallCardsFullDescription">
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('text101')} </b>
+                              <b>{t('buyerPageCategory')} </b>
                               <span className="buyerMarketplaceComponentPostBlankLine">{selectedProduct?.category}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-
                               <b>{t('buyerPagePackaging')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.unit}</span>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('Location')} </b>
+                              <b>{t('Price: ')}</b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.price}</span>
+                            </p>
+                            <p className="buyerMarketplaceComponentPostBlankLine">
+                              <b>{t('Location: ')} </b>
                               <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.location}</span>
-
+                            </p>
+                            <p className="buyerMarketplaceComponentPostBlankLine">
+                              <b>{t('Unit: ')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.unit}</span>
                             </p>
                             {selectedProduct?.category.toLowerCase() === 'vegetable' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
-                                  <b className="buyerMarketplaceComponentPostCategory">{t('text103')} </b>
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPagePrice')} </b>
                                   <span>{selectedProduct?.price}</span>
                                 </p>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
-
-                                  <b>{t('text104')} </b>
+                                  <b>{t('buyerPageKilogram')} </b>
                                   <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
-
                                 </p>
                               </>
                             )}
                             {selectedProduct?.category.toLowerCase() === 'fruits' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
-                                  <b className="buyerMarketplaceComponentPostCategory"> </b>
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageFruitsCategoryDetail')} </b>
 
                                 </p>
                               </>
@@ -263,7 +265,7 @@ const fetchProducts = async () => {
                             {selectedProduct?.category.toLowerCase() === 'fertilizer' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
-                                  <b className="buyerMarketplaceComponentPostCategory"> </b>
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageFertilizerCategoryDetail')} </b>
 
                                 </p>
                               </>
@@ -271,56 +273,50 @@ const fetchProducts = async () => {
                             {selectedProduct?.category.toLowerCase() === 'other' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
-                                  <b className="buyerMarketplaceComponentPostCategory"> </b>
+                                  <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageOtherCategoryDetail')} </b>
 
                                 </p>
                               </>
                             )}
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b className="buyerMarketplaceComponentPostCategory">{t('text105')} </b>
-                              <span>
-                                {selectedProduct?.description}
-                              </span>
+                              <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageDescription')} </b>
+                              <span>{selectedProduct?.description}</span>
                             </p>
                           </div>
                         </div>
-                    
-               
-           
-
+                      
     <div className="buyerMarketplaceComponentPostButtonContainer">
         <div className="buyerMarketplaceComponentPostButtonRow">
           <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleChatButtonClick}>
             <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
-            <div className="buyerMarketplaceComponentPostButtonText">{t('text106')}</div>
+            <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton14')}</div>
           </button>
           <div id="popupMessage" className="popupMessage">
-            <span className="popupText">{t('text110')}</span>
+            <span className="popupText">{t('buyerPagePopup')}</span>
           </div>
           <Link to="/shoppingcart" onClick={() => handleAddToCart(selectedProduct)}>
           <button className="buyerMarketplaceComponentPostButton outlinedButton">
             <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
-            <div className="buyerMarketplaceComponentPostButtonText">{t('text107')}</div>
+            <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton15')}</div>
           </button>
-
-
-          <a href="/shoppingcart" style={{ textDecoration: 'none' }}>
-
+        </Link>
+            <Link to="/shoppingcart">
             <button className="buyerMarketplaceComponentPostButton1">
-              <div className="buyerMarketplaceComponentPostButtonText1">{t('text108')}</div>
+              <div className="buyerMarketplaceComponentPostButtonText1">{t('farmerPageButton16')}</div>
             </button>
-
-          </a>
-                     </div>
-                   </div>
+            </Link>
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+       
 
-        </div>
-      </div>
-          
+
+
         <div className="buyerMarketplaceComponentPostButtonNew">
           <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('buyerPageDescriptionText3')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
@@ -369,11 +365,10 @@ const fetchProducts = async () => {
                 </div>
               </div>
             </Link>
-                </div>
-            </div>
-        </div>
-      </div>
-
+          </div>
+    </div>
+    </div>
+         </div>
 
       {showChatBot && !minimizedChatBot && (
             <div className="chatbot-container">

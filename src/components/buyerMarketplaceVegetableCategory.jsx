@@ -20,6 +20,8 @@ const BuyerMarketplace = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
+  const [lastClickedProductId, setLastClickedProductId] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Fetch products and user information
   const fetchProducts = async () => {
@@ -38,12 +40,11 @@ const BuyerMarketplace = () => {
           id: doc.id,
           ...product,
         };
-      })
-
+      });
 
       // Filter products based on the corrected category ('vegetable')
       const vegetablesProducts = productsData.filter(
-        (product) => product.category.toLowerCase() === 'vegetable'
+        (product) => product.category.toLowerCase() === 'vegetables'
       );
 
       setProducts(vegetablesProducts);
@@ -56,10 +57,18 @@ const BuyerMarketplace = () => {
     fetchProducts();
   }, []);
 
-  const handleProductClick = (product) => {
-    // Handle the click event for the product
-    console.log('Product clicked:', product);
-    // Add your logic here
+  const handleProductClick = (productId) => {
+    try {
+      // Set the last clicked product ID
+      setLastClickedProductId(productId);
+
+      // Fetch the detailed product information based on the product ID
+      // You may want to use this information to display the detailed view in BuyerMarketplacePost
+      const clickedProduct = products.find((product) => product.id === productId);
+      setSelectedProduct(clickedProduct);
+    } catch (error) {
+      console.error('Error handling product click:', error);
+    }
   };
 
   return (
@@ -84,13 +93,13 @@ const BuyerMarketplace = () => {
             className="buyerMarketplaceComponentRectangleParent"
             to="/buyermarketplacepost"
             activeClassName="active"
-            onClick={() => handleProductClick(product)}
-          >
+            onClick={() => handleProductClick(product.id)}
+             >
              <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
              <div className="buyerMarketplaceComponentFrameGroup">
                <div className="buyerMarketplaceComponentFrameContainer">
                  <div className="buyerMarketplaceComponentCardWrapper">
-                   <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
+                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
                  </div>
                  <div className="buyerMarketplaceComponentCategoryWrapper">
                    <div className="buyerMarketplaceComponentCategoryContainer">
@@ -99,16 +108,20 @@ const BuyerMarketplace = () => {
                        <span className="buyerMarketplaceComponentCategory">{product.category}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Packaging: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
+                       <b>Quantity: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
                        <b className="buyerMarketplaceComponentCategory">Price: </b>
                        <span>{product.price}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Kilogram per unit: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
+                       <b>Location: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>Unit: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
                        <b className="buyerMarketplaceComponentCategory">Description: </b>
@@ -122,7 +135,6 @@ const BuyerMarketplace = () => {
                  <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
                  <div className="buyerMarketplaceComponentAuthorText">
                  <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
-                <div className="buyerMarketplaceComponentSubName">{product.role}</div>
                  </div>
                </div>
              </div>

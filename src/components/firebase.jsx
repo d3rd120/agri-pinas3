@@ -14,6 +14,8 @@ import {
     getFirestore,
     doc,
     setDoc,
+    getDoc,
+
 } from "firebase/firestore";
 import {
     getStorage,
@@ -117,7 +119,44 @@ const uploadImage = async (file) => {
       alert(err.message);
     }
   };
-
+  const Cart = async (product) => {
+    try {
+      // Check if the user is authenticated
+      const user = auth.currentUser;
+      if (!user) {
+        // You might want to handle this differently based on your application's requirements
+        alert("Please log in to add items to your cart.");
+        return;
+      }
+  
+      // Create a reference to the user's cart in the Firestore database
+      const userCartRef = doc(db, 'Carts', user.uid);
+  
+      // Get the current cart data
+      const userCartSnapshot = await getDoc(userCartRef);
+      const currentCart = userCartSnapshot.exists() ? userCartSnapshot.data().cart : [];
+  
+      // Check if the product is already in the cart
+      const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);
+  
+      if (existingItemIndex !== -1) {
+        // If the product is already in the cart, update the quantity
+        currentCart[existingItemIndex].quantity += 1;
+      } else {
+        // If the product is not in the cart, add it
+        currentCart.push({ ...product, quantity: 1 });
+      }
+  
+      // Update the cart in the database
+      await setDoc(userCartRef, { cart: currentCart });
+  
+      // Notify the user that the item has been added to the cart
+      alert(`${product.cropName} added to your cart!`);
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred while adding the item to your cart. Please try again.");
+    }
+  };
 
 
 export {
@@ -129,5 +168,6 @@ export {
     logout,
     uploadImage,
     storage,
-    storePostInDatabase
+    storePostInDatabase,
+    Cart
 };

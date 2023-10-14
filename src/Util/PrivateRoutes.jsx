@@ -1,10 +1,9 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Route } from 'react-router-dom';
 import { getToken } from './Common';
- 
 
-const PrivateRoutes = () => {
-  return getToken() ? <Outlet /> : <Navigate to="/login" />
-}
- 
+const PrivateRoutes = ({ component: Component, ...rest }) => {
+  return getToken() ? <Route {...rest} element={<Component />} /> : <Navigate to="/login" />;
+};
+
 export default PrivateRoutes;

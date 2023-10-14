@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../css/BuyerPage/buynow.css"
 import BuyerNavigation from '../components/buyerNavigation';
 import OnionVector from '../img/onionVector.png';
@@ -10,36 +10,44 @@ import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { db, auth } from './firebase';
+import {
+  doc,
+  getDoc,
 
-const ShoppingCart = () => {
+} from "firebase/firestore"; 
+
+const ShoppingCart = (props) => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
-  const [itemToRemove, setItemToRemove] = useState(null); // Added state for the item to remove
+  const [itemToRemove, setItemToRemove] = useState(null);
+  const [cart, setCart] = useState([]);
 
-  const removeItem = (itemId) => {
-    // Use the filter method to create a new cart without the item to be removed
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userCartRef = doc(db, 'UserCarts', user.uid);
+          const userCartSnapshot = await getDoc(userCartRef);
+          const userCartData = userCartSnapshot.data();
+
+          if (userCartData && userCartData.cart) {
+            setCart(userCartData.cart);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching cart data:', error);
+      }
+    };
+
+    fetchCartData();
+  }, []);
+
+ const removeItem = (itemId) => {
     const updatedCart = cart.filter((item) => item.id !== itemId);
     setCart(updatedCart);
   };
-
-  const initialCart = [
-    {
-      id: 1,
-      product: 'Product 1',
-      price: 10.00,
-      quantity: 1,
-      image: RiceVector
-    },
-    {
-      id: 2,
-      product: 'Product 2',
-      price: 15.00,
-      quantity: 1,
-      image: OnionVector
-    },
-  ];
-
-  const [cart, setCart] = useState(initialCart);
 
   const updateQuantity = (id, newQuantity) => {
     setCart((prevCart) =>
@@ -50,9 +58,15 @@ const ShoppingCart = () => {
   };
 
   const calculateSubtotal = (price, quantity) => {
-    return (price * quantity).toFixed(2);
+    const numericPrice = Number(price);
+  
+    if (isNaN(numericPrice)) {
+      console.error(`Invalid price: ${price}`);
+      return "N/A"; // or any default value you prefer
+    }
+  
+    return (numericPrice * quantity).toFixed(2);
   };
-
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
   };
@@ -60,7 +74,7 @@ const ShoppingCart = () => {
   const handleModalConfirm = () => {
     if (itemToRemove) {
       removeItem(itemToRemove);
-      setItemToRemove(null); // Reset the itemToRemove state
+      setItemToRemove(null);
     }
     setShowModal(false);
   };
@@ -96,39 +110,40 @@ const ShoppingCart = () => {
                     <th>{t('text66')}</th>
                   </tr>
                 </thead>
+                
                 <tbody>
-                  {cart.map((item) => (
-                    <tr key={item.id}>
-                      <td>
-                        <div className="product-info">
-                          <img src={item.image} alt={item.product} />
-                          <span>{item.product}</span>
-                        </div>
-                      </td>
-                      <td>${item.price.toFixed(2)}</td>
-                      <td>
-                        <button
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          disabled={item.quantity === 1}
-                        >
-                          -
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
-                      </td>
-                      <td>${calculateSubtotal(item.price, item.quantity)}</td>
-                      <td>
-                        <button onClick={() => {
-                          setItemToRemove(item.id);
-                          setShowModal(true);
-                        }}>
-                          <FaTrash />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                  
-                </tbody>
+                {cart.map((item) => (
+                <tr key={item.id}>
+                  <td>
+                    <div className="product-info">
+                      <img src={item.image} alt={item.cropName} />
+                      <span>{item.cropName}</span>
+                    </div>
+                  </td>
+                  <td>{item.price}</td>
+                  <td>{item.quantity}</td>
+                  <td>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      disabled={item.quantity === 1}
+                    >
+                      -
+                    </button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                  </td>
+                  <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
+                  <td>
+                    <button onClick={() => {
+                      setItemToRemove(item.id);
+                      setShowModal(true);
+                    }}>
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
               </table>
 
               <div className="total">{t('text67')}{calculateTotal()}</div>

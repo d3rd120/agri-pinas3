@@ -69,26 +69,40 @@ const LoginPage = () => {
       setPassword('');
       setLoggedIn(true);
       const userUid = user.uid;
-      
-      // Check if the user's email is verified
-      if (user.emailVerified) {
-        setEmailVerified(true);
-        sessionStorage.setItem('userUid', userUid);
+  
+      // Check if the user's role is not Admin
+      const db = getFirestore();
+      const usersCollection = collection(db, 'Users');
+      const q = query(usersCollection, where('uid', '==', userUid));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        const docSnapshot = querySnapshot.docs[0];
+        const userData = docSnapshot.data();
+  
+        if (userData.role !== 'Admin') {
+          // Check if the user's email is verified
+          if (user.emailVerified) {
+            setEmailVerified(true);
+            sessionStorage.setItem('userUid', userUid);
+          } else {
+            setEmailVerified(false);
+            console.error('Email not verified. Please verify your email address.');
+            // You can handle the email verification flow here if needed
+          }
+        } else {
+          // Admin user, proceed without email verification
+          setEmailVerified(true);
+          sessionStorage.setItem('userUid', userUid);
+        }
       } else {
-        setEmailVerified(false);
-        console.error('Email not verified. Please verify your email address.');
-        
-        // Send a new verification email
-        sendEmailVerification(user).then(() => {
-          console.log('Email verification sent.');
-        }).catch((error) => {
-          console.error('Error sending email verification:', error);
-        });
+        console.error('User data not found for UID:', userUid);
       }
     } catch (error) {
       console.error('Error logging in:', error.message);
     }
   };
+  
 
   useEffect(() => {
     if (loggedIn) {

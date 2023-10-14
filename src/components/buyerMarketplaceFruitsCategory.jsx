@@ -21,6 +21,7 @@ const BuyerMarketplace = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
+  const [lastClickedProductId, setLastClickedProductId] = useState(null);
 
   const fetchProducts = async () => {
     try {
@@ -38,14 +39,13 @@ const BuyerMarketplace = () => {
           id: doc.id,
           ...product,
         };
-      })
+      });
 
       // Filter products based on the "Fruits" category (case-insensitive)
       const fruitsProducts = productsData.filter(
-      (product) => product.category.toLowerCase() === 'fruits'
+        (product) => product.category.toLowerCase() === 'fruits'
       );
 
-     
       setProducts(fruitsProducts);
     } catch (error) {
       console.error('Error retrieving products:', error);
@@ -55,11 +55,18 @@ const BuyerMarketplace = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+  
 
-  const handleProductClick = (product) => {
-    // Handle the click event for the product
-    console.log('Product clicked:', product);
-    // Add your logic here
+  const handleProductClick = (productId) => {
+    try {
+      // Set the last clicked product ID
+      setLastClickedProductId(productId);
+      console.log('Last Clicked', productId)
+      // Fetch the detailed product information based on the product ID
+      // You may want to use this information to display the detailed view in BuyerMarketplacePost
+    } catch (error) {
+      console.error('Error handling product click:', error);
+    }
   };
 
 
@@ -78,7 +85,61 @@ const BuyerMarketplace = () => {
           </div>
         </div>
             
+<<<<<<< dev-dy3nkinss
+        {products.map((product) => (
+       <NavLink
+       key={product.id}
+       className="buyerMarketplaceComponentRectangleParent"
+       to="/buyermarketplacepost"
+       activeClassName="active"
+       onClick={() => handleProductClick(product.id)}
+     >
+    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
+    <div className="buyerMarketplaceComponentFrameGroup">
+      <div className="buyerMarketplaceComponentFrameContainer">
+        <div className="buyerMarketplaceComponentCardWrapper">
+          <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
+        </div>
+        <div className="buyerMarketplaceComponentCategoryWrapper">
+          <div className="buyerMarketplaceComponentCategoryContainer">
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b>Category: </b>
+              <span className="buyerMarketplaceComponentCategory">{product.category}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b>Packaging: </b>
+              <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b className="buyerMarketplaceComponentCategory">Price: </b>
+              <span>{product.price}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b>Kilogram per unit: </b>
+              <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
+            </p>
+            <p className="buyerMarketplaceComponentBlankLine">
+              <b className="buyerMarketplaceComponentCategory">Description: </b>
+              <span>{product.description}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="buyerMarketplaceComponentFrameItem" />
+      <div className="buyerMarketplaceComponentAuthor">
+        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+        <div className="buyerMarketplaceComponentAuthorText">
+          <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
+          <div className="buyerMarketplaceComponentSubName">Buyer</div>
+        </div>
+      </div>
+    </div>
+  </NavLink>
+))}
+
+=======
      
+>>>>>>> main
 
 
 

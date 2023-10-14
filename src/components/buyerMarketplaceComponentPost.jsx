@@ -15,8 +15,8 @@ import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import { db} from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { db, auth } from './firebase';
+import { collection, getDocs, setDoc, getDoc, doc } from 'firebase/firestore';
 
 const CustomHeaderTitle = styled.div`
   background-color: #557153;
@@ -42,7 +42,9 @@ const BuyerMarketplace = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-
+  const [productsData, setProductsData] = useState([]);
+  const [lastClickedProductId, setLastClickedProductId] = useState(null);
+  const [cart, setCart] = useState([]); 
 
   const handleChatButtonClick = () => {
     setShowChatBot(!showChatBot);
@@ -63,65 +65,122 @@ const BuyerMarketplace = () => {
     setMinimizedChatBot(false);
   };
 
-  const handleAddToCart = () => {
-    var popupMessage = document.getElementById("popupMessage");
-    popupMessage.style.display = "block";
-
-    setTimeout(function () {
-      popupMessage.style.display = "none";
-    }, 2000);
-  };
-
-  const handleProductClick = (product) => {
-    console.log('Product clicked:', product);
-    setSelectedCategory(product.category.toLowerCase());
-    setSelectedProduct(product);
-  };
-  
-  const fetchProducts = async () => {
+  const handleAddToCart = async (product) => {
     try {
-      const productsCollection = collection(db, 'Marketplace');
-      const querySnapshot = await getDocs(productsCollection);
-  
-      if (querySnapshot.empty) {
-        console.warn('No products found.');
+      if (!product) {
+        console.error("Selected product is null. Check the value of selectedProduct.");
         return;
       }
   
-      const productsData = querySnapshot.docs.map((doc) => {
-        const product = doc.data();
-        return {
-          id: doc.id,
-          ...product,
-        };
-      });
+      const user = auth.currentUser;
+      if (!user) {
+        // Handle the case where the user is not logged in
+        alert("Please log in to add items to your cart.");
+        return;
+      }
   
-      // Filter products based on the selected category
-      const filteredProducts = selectedCategory
-        ? productsData.filter((product) => product.category.toLowerCase() === selectedCategory)
-        : productsData;
+      // Create a reference to the user's cart in the Firestore database
+      const userCartRef = doc(db, 'UserCarts', user.uid);
   
-      // Choose the first product in the filtered list (you may adjust this logic)
-      const firstProduct = filteredProducts[0];
+      // Get the current cart data
+      const userCartSnapshot = await getDoc(userCartRef);
+      const currentCart = userCartSnapshot.exists() ? userCartSnapshot.data().cart : [];
   
-      // Set the selected product
-      setSelectedProduct(firstProduct);
-    } catch (error) {
-      console.error('Error retrieving products:', error);
+      // Check if the product is already in the cart
+      const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);
+  
+      if (existingItemIndex !== -1) {
+        // If the product is already in the cart, update the quantity
+        currentCart[existingItemIndex].quantity += 1;
+      } else {
+        // If the product is not in the cart, add it
+        currentCart.push({ ...product, quantity: 1 });
+      }
+  
+      // Update the cart in the database
+      await setDoc(userCartRef, { cart: currentCart });
+  
+      // Notify the user that the item has been added to the cart
+      alert(`${product.cropName} added to your cart!`);
+    } catch (err) {
+      console.error(err);
+      alert("An error occurred while adding the item to your cart. Please try again.");
     }
   };
   
-
-  useEffect(() => {
-    // Fetch products initially when the component loads
-    fetchProducts();
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    // Fetch products initially when the component loads
-    fetchProducts();
-  }, []);
   
+const handleProductClick = (productId) => {
+  try {
+    // Find the product based on productId
+    const clickedProduct = productsData.find((product) => product.id === productId);
+
+    if (clickedProduct) {
+      console.log('Product clicked:', clickedProduct);
+      setSelectedCategory(clickedProduct.category.toLowerCase());
+      setSelectedProduct(clickedProduct);
+    } else {
+      console.warn(`Product with ID ${productId} not found.`);
+      setSelectedProduct(null); // Set selectedProduct to null if product not found
+    }
+  } catch (error) {
+    console.error('Error handling product click:', error);
+  }
+};
+
+  
+const fetchProducts = async () => {
+  try {
+    const productsCollection = collection(db, 'Marketplace');
+    const querySnapshot = await getDocs(productsCollection);
+
+    if (querySnapshot.empty) {
+      console.warn('No products found.');
+      return;
+    }
+
+    const productsData = querySnapshot.docs.map((doc) => {
+      const product = doc.data();
+      return {
+        id: doc.id,
+        ...product,
+      };
+    });
+
+    // Filter products based on the selected category
+    const filteredProducts = selectedCategory
+      ? productsData.filter((product) => product.category.toLowerCase() === selectedCategory)
+      : productsData;
+
+    // Set the selected product based on the last clicked product ID
+    const selectedProductFromClick = filteredProducts.find((product) => product.id === lastClickedProductId);
+
+    // If a product was clicked, set it as the selected product
+    if (selectedProductFromClick) {
+      setSelectedProduct(selectedProductFromClick);
+    } else {
+      // If no product was clicked, find the clinic product
+      const clickProduct = filteredProducts.find((product) => product.clickProduct);
+
+      // Set the clinic product as the selected product
+      if (clickProduct) {
+        setSelectedProduct(clickProduct);
+      } else {
+        // If no clinic product is found, select the first product in the filtered list
+        const firstProduct = filteredProducts[0];
+        setSelectedProduct(firstProduct);
+      }
+    }
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+  }
+};
+
+
+  
+  useEffect(() => {
+    // Fetch products initially when the component loads
+    fetchProducts();
+  }, [selectedCategory, selectedProduct]); // Update the dependency array to include selectedProduct
   
 
 
@@ -143,6 +202,7 @@ const BuyerMarketplace = () => {
 
           <div className="buyerMarketplaceComponentPostMiddleSection">
             <div className="buyerMarketplaceComponentPostCardsContainer">
+
               <div key={selectedProduct?.id} className="buyerMarketplaceComponentPostCard1">
                 <img
                   className="buyerMarketplaceComponentPostCard1Image"
@@ -156,8 +216,10 @@ const BuyerMarketplace = () => {
                     <div className="buyerMarketplaceComponentPostSmallCardsContent">
                       <div className="buyerMarketplaceComponentPostSmallCardsHeading">
                         <div className="buyerMarketplaceComponentPostSmallCardsDetails">
-                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.productName}</b>
+
+                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.cropName}</b>
                           <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{selectedProduct?.farmer}</b>
+
                         </div>
                         
                         <div className="buyerMarketplaceComponentPostSmallCardsDescriptionWrapper">
@@ -167,8 +229,14 @@ const BuyerMarketplace = () => {
                               <span className="buyerMarketplaceComponentPostBlankLine">{selectedProduct?.category}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('text102')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.packaging}</span>
+
+                              <b>{t('buyerPagePackaging')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.unit}</span>
+                            </p>
+                            <p className="buyerMarketplaceComponentPostBlankLine">
+                              <b>{t('Location')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.location}</span>
+
                             </p>
                             {selectedProduct?.category.toLowerCase() === 'vegetable' && (
                               <>
@@ -177,8 +245,10 @@ const BuyerMarketplace = () => {
                                   <span>{selectedProduct?.price}</span>
                                 </p>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
+
                                   <b>{t('text104')} </b>
-                                  <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.kilogram}</span>
+                                  <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
+
                                 </p>
                               </>
                             )}
@@ -227,15 +297,19 @@ const BuyerMarketplace = () => {
           <div id="popupMessage" className="popupMessage">
             <span className="popupText">{t('text110')}</span>
           </div>
-          <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleAddToCart}>
+          <Link to="/shoppingcart" onClick={() => handleAddToCart(selectedProduct)}>
+          <button className="buyerMarketplaceComponentPostButton outlinedButton">
             <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
             <div className="buyerMarketplaceComponentPostButtonText">{t('text107')}</div>
           </button>
 
+
           <a href="/shoppingcart" style={{ textDecoration: 'none' }}>
+
             <button className="buyerMarketplaceComponentPostButton1">
               <div className="buyerMarketplaceComponentPostButtonText1">{t('text108')}</div>
             </button>
+
           </a>
                      </div>
                    </div>
@@ -243,6 +317,7 @@ const BuyerMarketplace = () => {
               </div>
             </div>
           </div>
+
         </div>
       </div>
           

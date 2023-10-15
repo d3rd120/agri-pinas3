@@ -159,6 +159,8 @@ const uploadImage = async (file) => {
   };
 
 
+
+
 export {
     auth,
     db,
@@ -169,5 +171,5 @@ export {
     uploadImage,
     storage,
     storePostInDatabase,
-    Cart
+    Cart,
 };

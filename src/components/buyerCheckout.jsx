@@ -4,10 +4,11 @@ import BuyerNavigation from '../components/buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import RiceVector from '../img/riceCardImage.png';
 import { Link } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
 import { FaSadCry, FaTrash } from 'react-icons/fa';
 import BuyerTopNav from '../components/buyerTopNav';
-import { db, auth } from './firebase';
-import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { db, auth, storeTransaction } from './firebase';
+import { doc, getDoc, collection, query, where, getDocs, addDoc, setDoc, serverTimestamp} from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -129,7 +130,65 @@ const ShoppingCart = () => {
   const handleModalCancel = () => {
     setShowModal(false);
   };
-
+  
+ 
+  const placeOrder = async () => {
+    try {
+      console.log('Start placing order...');
+  
+      const user = auth.currentUser;
+  
+      if (!user) {
+        console.log('User is not authenticated.');
+        alert('Please log in to place an order.');
+        return;
+      }
+  
+      const userCartRef = doc(db, 'UserCarts', user.uid);
+      const userCartSnapshot = await getDoc(userCartRef);
+      const currentCart = userCartSnapshot.data()?.cart || [];
+  
+      if (currentCart.length === 0) {
+        console.log('Cart is empty.');
+        alert('Your cart is empty. Add items before placing an order.');
+        return;
+      }
+  
+      console.log('Current Cart:', currentCart);
+  
+      // Create a new order document
+      const orderRef = await addDoc(collection(db, 'Transaction'), {
+        userId: user.uid,
+        cart: currentCart,
+        timestamp: serverTimestamp(),
+      });
+  
+      console.log('Order document added with ID:', orderRef.id);
+  
+      // Clear the cart
+      await setDoc(userCartRef, { cart: [] });
+  
+      console.log('Order placed successfully!');
+      alert('Order placed successfully!');
+    } catch (error) {
+      console.error('Error placing order:', error);
+  
+      if (error instanceof FirebaseError) {
+        console.error('Firebase Error Code:', error.code);
+        console.error('Firebase Error Message:', error.message);
+      }
+  
+      alert('Error placing order. Please try again.');
+    }
+  };
+  
+  
+  
+  
+  
+  
+  
+  
   return (
     <I18nextProvider i18n={i18n}>
       <div className="buyerMarketplaceComponent">
@@ -212,11 +271,11 @@ const ShoppingCart = () => {
               <strong>{t('text85')}</strong> $20.00
             </div>
             <div className="buttonWrapper">
-                <Link to="/checkout" className="ordercheckoutButton2">
+              <button className="ordercheckoutButton2" onClick={placeOrder}>
                 {t('text86')}
-                </Link>            
-              </div>
-          </div>
+              </button>
+            </div>
+            </div>
 
              
 

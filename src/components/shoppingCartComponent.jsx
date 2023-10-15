@@ -14,7 +14,7 @@ import { db, auth } from './firebase';
 import {
   doc,
   getDoc,
-
+  updateDoc
 } from "firebase/firestore"; 
 
 const ShoppingCart = (props) => {
@@ -44,31 +44,75 @@ const ShoppingCart = (props) => {
     fetchCartData();
   }, []);
 
- const removeItem = (itemId) => {
-    const updatedCart = cart.filter((item) => item.id !== itemId);
-    setCart(updatedCart);
+  const updateQuantity = async (id, newQuantity) => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const userCartRef = doc(db, 'UserCarts', user.uid);
+        const userCartSnapshot = await getDoc(userCartRef);
+        const userCartData = userCartSnapshot.data();
+  
+        if (userCartData && userCartData.cart) {
+          const updatedCart = userCartData.cart.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item
+          );
+  
+          // Update the entire cart in Firebase
+          await updateDoc(userCartRef, { cart: updatedCart });
+  
+          // Update the quantity in the local state
+          setCart(updatedCart);
+        }
+      }
+    } catch (error) {
+      console.error('Error updating quantity in Firestore:', error);
+    }
   };
 
-  const updateQuantity = (id, newQuantity) => {
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
+  const removeItem = async (itemId) => {
+    // Remove the item from the local state
+    const updatedCart = cart.filter((item) => item.id !== itemId);
+    setCart(updatedCart);
+
+    // Remove the item from the Firestore database
+    const user = auth.currentUser;
+    if (user) {
+      const userCartRef = doc(db, 'UserCarts', user.uid);
+
+      try {
+        const userCartSnapshot = await getDoc(userCartRef);
+        const userCartData = userCartSnapshot.data();
+
+        if (userCartData && userCartData.cart) {
+          const updatedFirestoreCart = userCartData.cart.filter(
+            (item) => item.id !== itemId
+          );
+
+          // Update the cart in Firestore without the removed item
+          await updateDoc(userCartRef, { cart: updatedFirestoreCart });
+        }
+      } catch (error) {
+        console.error('Error updating cart in Firestore:', error);
+      }
+    }
   };
 
   const calculateSubtotal = (price, quantity) => {
     const numericPrice = Number(price);
-  
+
     if (isNaN(numericPrice)) {
       console.error(`Invalid price: ${price}`);
-      return "N/A"; // or any default value you prefer
+      return 'N/A';
     }
-  
+
     return (numericPrice * quantity).toFixed(2);
   };
+
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    ).toFixed(2);
   };
 
   const handleModalConfirm = () => {

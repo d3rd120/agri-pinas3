@@ -165,7 +165,7 @@ const fetchProducts = async () => {
       if (clickProduct) {
         setSelectedProduct(clickProduct);
       } else {
-        // If no clinic product is found, select the first product in the filtered list
+    
         const firstProduct = filteredProducts[0];
         setSelectedProduct(firstProduct);
       }
@@ -300,7 +300,7 @@ const fetchProducts = async () => {
             <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton15')}</div>
           </button>
         </Link>
-            <Link to="/shoppingcart">
+            <Link to="/checkout"onClick={() => handleAddToCart(selectedProduct)}>
             <button className="buyerMarketplaceComponentPostButton1">
               <div className="buyerMarketplaceComponentPostButtonText1">{t('farmerPageButton16')}</div>
             </button>

@@ -4,19 +4,20 @@ import AdminTransactionsUpdateComponent from '../components/adminTransactionsUpd
 import AdminTransactionsDeleteComponent from '../components/adminTransactionsDeleteComponent';
 import AdminNavigation from '../components/adminPageNavigation';
 import SitawVector from '../img/sitaw.png';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaFolderOpen, FaTimes } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
 
 const AdminBuyerTransactionsPendingComponent = () => {
   
   const { t } = useTranslation();
   const [showPopup1, setShowPopup1] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
-  
+  const [orders, setOrders] = useState([]);
 
   const handleButtonClick1 = () => {
     setShowPopup1(true);
@@ -34,8 +35,21 @@ const AdminBuyerTransactionsPendingComponent = () => {
     setShowPopup2(false);
   };
 
- 
-
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const ordersCollection = collection(db, 'Transaction');
+        const ordersSnapshot = await getDocs(ordersCollection);
+        const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
+        setOrders(ordersData);
+        console.log('orders',ordersData); // Log orders data to console
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+  
+    fetchOrders();
+  }, []);
 
 
 
@@ -115,49 +129,50 @@ const AdminBuyerTransactionsPendingComponent = () => {
             <div className="adminBuyerTransactionsPendingComponentFrameParent">
 
 
-              <div className="adminBuyerTransactionsPendingComponentFrameWrapper">               
-
-                <a className="adminBuyerTransactionsPendingComponentRectangleParent">
-                  <img
-                    className="adminBuyerTransactionsPendingComponentFrameChild"
-                    alt=""
-                    src={SitawVector}
-                  />
-                  <div className="adminBuyerTransactionsPendingComponentFrameGroup">
-                    <div className="adminBuyerTransactionsPendingComponentFrameContainer">
-                      <div className="adminBuyerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminBuyerTransactionsPendingComponentSubText1">{t('Text27')}</b>
-                      </div>
-                      <div className="adminBuyerTransactionsPendingComponentSubText2Wrapper2">
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text190')}</b> B001
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text191')}</b> N001
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text192')}</b> Ryan Edward Amador
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text193')}:</b> 02 / 01 / 2023
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text194')}</b> 400
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text195')}</b> 2
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text196')}</b> 800
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text197')}</b> Arriane Gatpo
-                        </div>
-                        <div className="adminBuyerTransactionsPendingComponentSubText2">
-                          <b>{t('text198')}</b> Pending
-                        </div>                     
-                      </div>
+            <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
+      <div className="buyerTransactionFrameParent">
+        {orders.map((order, index) => (
+          <div key={index} className="adminFarmerTransactionsPendingComponentRectangleParent">
+            {order.cart.map((item, itemIndex) => (
+              <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
+                <img
+                  className="adminFarmerTransactionsPendingComponentFrameChild"
+                  alt=""
+                  src={item.image}
+                />
+                <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                  <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                    <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                    <b>{t('text93')}</b> {new Date(order.timestamp.seconds * 1000).toLocaleString()}
                     </div>
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                      <b>{t('text94')}</b> {item.farmer}
+                    </div>
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                      <b>{t('text95')}</b> {item.category}
+                    </div>
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                      <b>{t('text96')}</b> {item.unit}
+                    </div>
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                      <b>{t('text97')} </b> {item.quantity}
+                    </div>
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                      <b>{t('text98')}</b> {item.price}
+                    </div>
+                    <div className="adminFarmerTransactionsPendingComponentSubText2">
+                      <b>{t('text99')}</b> {item.status}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+
                     <div className="adminBuyerTransactionsPendingComponentFrameItem" />
                     <div className="adminBuyerTransactionsPendingComponentDetails">
                     <button className="adminBuyerTransactionsPendingComponentButton"
@@ -173,7 +188,7 @@ const AdminBuyerTransactionsPendingComponent = () => {
                       </button>
                     </div>
                   </div>
-                </a>              
+                     
 
 
               </div>

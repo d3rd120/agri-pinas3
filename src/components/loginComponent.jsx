@@ -1,22 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Components/loginComponent.css';
 import Logo from '../img/agriPinasLogo2.png';
-import { signInWithEmailAndPassword,sendEmailVerification  } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import { auth } from "../components/firebase";
+import { auth } from '../components/firebase';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
+import Popup from '../components/validationPopup.jsx';
 import i18n from '../i18n';
 
 const LoginPage = () => {
   const { t } = useTranslation();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [fullname, setFullName] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
-  const [emailVerified, setEmailVerified] = React.useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [fullname, setFullName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [popupMessage, setPopupMessage] = useState(''); // State for popup message
+  const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
+  
+
+
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -60,6 +67,7 @@ const LoginPage = () => {
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -69,17 +77,17 @@ const LoginPage = () => {
       setPassword('');
       setLoggedIn(true);
       const userUid = user.uid;
-  
+
       // Check if the user's role is not Admin
       const db = getFirestore();
       const usersCollection = collection(db, 'Users');
       const q = query(usersCollection, where('uid', '==', userUid));
       const querySnapshot = await getDocs(q);
-  
+
       if (!querySnapshot.empty) {
         const docSnapshot = querySnapshot.docs[0];
         const userData = docSnapshot.data();
-  
+
         if (userData.role !== 'Admin') {
           // Check if the user's email is verified
           if (user.emailVerified) {
@@ -87,7 +95,8 @@ const LoginPage = () => {
             sessionStorage.setItem('userUid', userUid);
           } else {
             setEmailVerified(false);
-            console.error('Email not verified. Please verify your email address.');
+            setPopupMessage('Email not verified. Please verify your email address.');
+            setPopupVisible(true);
             // You can handle the email verification flow here if needed
           }
         } else {
@@ -96,13 +105,14 @@ const LoginPage = () => {
           sessionStorage.setItem('userUid', userUid);
         }
       } else {
-        console.error('User data not found for UID:', userUid);
+        setPopupMessage(`User data not found for UID: ${userUid}`);
+        setPopupVisible(true);
       }
     } catch (error) {
-      console.error('Error logging in:', error.message);
+      setPopupMessage('Invalid email or password.');
+      setPopupVisible(true);
     }
   };
-  
 
   useEffect(() => {
     if (loggedIn) {
@@ -110,20 +120,15 @@ const LoginPage = () => {
       console.log('Retrieved user UID:', userUid);
       if (userUid) {
         setLoading(true);
-        fetchUserData(userUid);
+        setTimeout(() => {
+          fetchUserData(userUid);
+        }, 1500); // Delay of 3 seconds (3000 milliseconds)
       } else {
         console.error('Invalid user UID:', userUid);
       }
     }
-
-   
-    if (loggedIn && emailVerified) {
-      
-      navigate('/dashboard');
-    } else if (loggedIn && !emailVerified) {
-    
-    }
   }, [loggedIn, emailVerified, navigate]);
+  
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
@@ -159,19 +164,30 @@ const LoginPage = () => {
                 placeholder={t('text23')}
                 onKeyPress={handleKeyPress}
               />
+              {passwordError && <p className="error-message">{passwordError}</p>}
             </div>
-            <Link className="logInPageSubText2" to='/reset'>
+            <Link className="logInPageSubText2" to="/reset">
               {t('text24')}
             </Link>
             <button className="loginComponentButton" onClick={handleSubmit}>
               <div className="loginComponentButtonText">{t('text25')}</div>
             </button>
             <div className="loginComponentSubTextContainter">
-              <span>{t('text26')} <Link className="loginComponentSignUpLink" to="/signup">{t('text27')}</Link></span>       
+              <span>
+                {t('text26')}{' '}
+                <Link className="loginComponentSignUpLink" to="/signup">
+                  {t('text27')}
+                </Link>
+              </span>
             </div>
           </div>
         </div>
       </div>
+      <Popup
+        message={popupMessage}
+        onClose={() => setPopupVisible(false)}
+        isVisible={isPopupVisible}
+      />
     </I18nextProvider>
   );
 };

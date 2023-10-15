@@ -49,6 +49,8 @@ const logInWithEmailAndPassword = async (email, password) => {
 };
 
 const registerWithEmailAndPassword = async (fullname, contact, address, birthdate, age, email, role, password) => {
+
+
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -68,16 +70,11 @@ const registerWithEmailAndPassword = async (fullname, contact, address, birthdat
       email,
       role,
     });
-
-    alert("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
   } catch (err) {
-    console.error(err);
-
-    // Display a more specific error message to help identify the issue
     if (err.code === "auth/email-already-in-use") {
-      alert("Registration failed. The email address is already in use.");
+      throw new Error("auth/email-already-in-use"); // Throw a specific error when email is already in use
     } else {
-      alert("Registration failed. Please try again later.");
+      throw err; // Re-throw the original error for other cases
     }
   }
 };
@@ -86,18 +83,19 @@ const registerWithEmailAndPassword = async (fullname, contact, address, birthdat
   
 
 const sendPasswordReset = async (email) => {
-    try {
-        await sendPasswordResetEmail(auth, email);
-        alert("Password reset link sent!");
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
+  try {
+    await sendPasswordResetEmail(auth, email);    
+  } catch (err) {   
+    console.error(err);
+  }
 };
+
 
 const logout = () => {
     signOut(auth);
 };
+
+
 const uploadImage = async (file) => {
     try {
       const storageRef = ref(storage, file.name);
@@ -119,6 +117,8 @@ const uploadImage = async (file) => {
       alert(err.message);
     }
   };
+
+
   const Cart = async (product) => {
     try {
       // Check if the user is authenticated
@@ -157,9 +157,6 @@ const uploadImage = async (file) => {
       alert("An error occurred while adding the item to your cart. Please try again.");
     }
   };
-
-
-
 
 export {
     auth,

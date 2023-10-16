@@ -226,6 +226,7 @@ const BuyerCommunityForumComponent = () => {
                 </div>
               </div>
             ))}
+            
           </div>
         </div>
       </div>

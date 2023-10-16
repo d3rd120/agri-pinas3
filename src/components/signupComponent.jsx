@@ -93,7 +93,7 @@ const Signup = () => {
 
       setTimeout(() => {
         navigate("/login");
-      }, 4000); // Redirect to the login page after 2 seconds
+      }, 3000); // Redirect to the login page after 2 seconds
 
     } catch (error) {
       // Handle any errors that may occur during registration

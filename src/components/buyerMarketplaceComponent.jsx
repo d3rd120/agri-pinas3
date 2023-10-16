@@ -19,7 +19,8 @@ import i18n from '../i18n';
 
 const FarmerCommunityForumComponent = () => {
   const { t } = useTranslation();
-
+const userUid = sessionStorage.getItem('userUid');
+  const sessionId = sessionStorage.getItem('sessionId');
  
   return (
     <I18nextProvider i18n={i18n}>
@@ -42,7 +43,7 @@ const FarmerCommunityForumComponent = () => {
   
               <div className="buyerCommunityForumComponentFrameWrapper">
   
-                <Link className="buyerCommunityForumComponentRectangleParent" to="/buyervegetablecategory">
+              <Link className="buyerCommunityForumComponentRectangleParent" to={`/buyervegetablecategory/${userUid}/${sessionId}`}>
                   <img
                     className="buyerCommunityForumComponentFrameChild"
                     alt=""
@@ -58,7 +59,7 @@ const FarmerCommunityForumComponent = () => {
                   </div>
                 </Link>
   
-                <Link className="buyerCommunityForumComponentRectangleParent" to="/buyerfruitscategory">
+                <Link className="buyerCommunityForumComponentRectangleParent" to={`/buyerfruitscategory/${userUid}/${sessionId}`}>
                   <img
                     className="buyerCommunityForumComponentFrameChild"
                     alt=""
@@ -72,7 +73,7 @@ const FarmerCommunityForumComponent = () => {
                     </div>                  
                   </div>
                 </Link>
-                <Link className="buyerCommunityForumComponentRectangleParent" to="/buyerfertilizercategory">
+                <Link className="buyerCommunityForumComponentRectangleParent" to={`/buyerfertilizercategory/${userUid}/${sessionId}`}>
                   <img
                     className="buyerCommunityForumComponentFrameChild"
                     alt=""
@@ -88,7 +89,7 @@ const FarmerCommunityForumComponent = () => {
                   </div>
                 </Link>
   
-                <Link className="buyerCommunityForumComponentRectangleParent" to="/buyerotherproductscategory">
+                <Link className="buyerCommunityForumComponentRectangleParent" to={`/buyerotherproductscategory/${userUid}/${sessionId}`}>
                   <img
                     className="buyerCommunityForumComponentFrameChild"
                     alt=""
@@ -107,7 +108,7 @@ const FarmerCommunityForumComponent = () => {
               <div className="buyerMarketplaceComponentFrameWrapper">
             
             
-              <Link className="buyerMarketplaceComponentRectangleParent" to = '/buyermarketplacepost'>
+              <Link className="buyerMarketplaceComponentRectangleParent" to={`/buyermarketplacepost/${userUid}/${sessionId}`}>
                 <img
                   className="buyerMarketplaceComponentFrameChild"
                   alt=""
@@ -155,7 +156,7 @@ const FarmerCommunityForumComponent = () => {
                 </div>
               </Link>   
 
-              <Link className="buyerMarketplaceComponentRectangleParent" to = '/buyermarketplacepost'>
+              <Link className="buyerMarketplaceComponentRectangleParent" to={`/buyermarketplacepost/${userUid}/${sessionId}`}>
                 <img
                   className="buyerMarketplaceComponentFrameChild"
                   alt=""
@@ -203,7 +204,7 @@ const FarmerCommunityForumComponent = () => {
                 </div>
               </Link>   
 
-              <Link className="buyerMarketplaceComponentRectangleParent" to = '/buyermarketplacepost'>
+              <Link className="buyerMarketplaceComponentRectangleParent" to={`/buyermarketplacepost/${userUid}/${sessionId}`}>
                 <img
                   className="buyerMarketplaceComponentFrameChild"
                   alt=""

@@ -18,6 +18,7 @@ const BuyerProfile = () => {
   const [buyerRole, setBuyerRole] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
 
   const handleUserInfoChange = (userInfo) => {
     setfullname(userInfo.fullname || '');
@@ -33,6 +34,7 @@ const BuyerProfile = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
+        setSessionId(user.uid); 
         const userRef = collection(db, "Users");
         const userQuery = query(userRef, where("uid", "==", user.uid));
         
@@ -50,6 +52,7 @@ const BuyerProfile = () => {
           });
       } else {
         setIsLoggedIn(false);
+        setSessionId(null);
         handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '' });
       }
     });

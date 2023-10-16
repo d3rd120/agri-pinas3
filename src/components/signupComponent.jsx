@@ -25,6 +25,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const isMounted = useRef(true);
 
   const register = async () => {
     // Check if all required fields are filled
@@ -60,14 +61,21 @@ const Signup = () => {
     try {
       await registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
       const user = auth.currentUser;
-
-      if (user) {
-        // Send a verification email to the registered user
-        await sendEmailVerification(user);
-
-        setPopupMessage("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
-        setShowPopup(true);
+  
+      if (user && !user.emailVerified) {
+        if (user.emailVerified) {
+          setPopupMessage("User is already verified.");
+          setShowPopup(true);
+        } else {
+          setTimeout(async () => {
+            await sendEmailVerification(user);
+  
+            setPopupMessage("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
+            setShowPopup(true);
+          }, 2000); // Add a delay before sending the verification email
+        }
       }
+  
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -76,6 +84,13 @@ const Signup = () => {
     }
   };
 
+ useEffect(() => {
+    return () => {
+      // Set isMounted to false when component is unmounted
+      isMounted.current = false;
+    };
+  }, []);
+  
   const calculateAge = (event) => {
     const selectedDate = new Date(event.target.value);
     const today = new Date();

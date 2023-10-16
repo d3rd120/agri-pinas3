@@ -153,7 +153,7 @@ const BuyerMarketplace = ({ match = {} }) => {
           <div className="buyerCommunityForumComponentTopSection">
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
-                <p className="buyerCommunityForumComponentBlankLine">{t('buyerPageNavigationText1')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('text100')}</p>
               </b>
             </div>
           </div>
@@ -175,31 +175,35 @@ const BuyerMarketplace = ({ match = {} }) => {
                     <div className="buyerMarketplaceComponentPostSmallCardsContent">
                       <div className="buyerMarketplaceComponentPostSmallCardsHeading">
                         <div className="buyerMarketplaceComponentPostSmallCardsDetails">
-                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{product.cropName}</b>
-                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('buyerPageUserRole2')} {product.fullname}</b>
+
+                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.cropName}</b>
+                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('text101')} {selectedProduct?.farmer}</b>
+
                         </div>
                         
                         <div className="buyerMarketplaceComponentPostSmallCardsDescriptionWrapper">
                           <div className="buyerMarketplaceComponentPostSmallCardsFullDescription">
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('buyerPageCategory')} </b>
-                              <span className="buyerMarketplaceComponentPostBlankLine">{product.category}</span>
+
+                              <b>{t('text102')} </b>
+                              <span className="buyerMarketplaceComponentPostBlankLine">{selectedProduct?.price}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('buyerPagePackaging')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{product.quantity}</span>
+                              <b>{t('text103')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.category}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('Price: ')}</b>
-                              <span className="buyerMarketplaceComponentPostCategory">{product.price}</span>
+                              <b>{t('text104')}</b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('Location: ')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{product.location}</span>
+                              <b>{t('text105')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.unit}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('Unit: ')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{product.unit}</span>
+                              <b>{t('text106')} </b>
+                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.location}</span>
+
                             </p>
                             {product.category.toLowerCase() === 'vegetable' && (
                               <>
@@ -238,8 +242,10 @@ const BuyerMarketplace = ({ match = {} }) => {
                               </>
                             )}
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageDescription')} </b>
-                              <span>{product.description}</span>
+
+                              <b className="buyerMarketplaceComponentPostCategory">{t('text107')} </b>
+                              <span>{selectedProduct?.description}</span>
+
                             </p>
                           </div>
                         </div>
@@ -248,7 +254,7 @@ const BuyerMarketplace = ({ match = {} }) => {
         <div className="buyerMarketplaceComponentPostButtonRow">
           <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleChatButtonClick}>
             <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
-            <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton14')}</div>
+            <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
           </button>
           <div id="popupMessage" className="popupMessage">
             <span className="popupText">{t('buyerPagePopup')}</span>
@@ -256,12 +262,12 @@ const BuyerMarketplace = ({ match = {} }) => {
           <Link to="/shoppingcart" onClick={() => handleAddToCart(selectedProduct)}>
           <button className="buyerMarketplaceComponentPostButton outlinedButton">
             <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
-            <div className="buyerMarketplaceComponentPostButtonText">{t('farmerPageButton15')}</div>
+            <div className="buyerMarketplaceComponentPostButtonText">{t('text109')}</div>
           </button>
         </Link>
             <Link to="/checkout"onClick={() => handleAddToCart(selectedProduct)}>
             <button className="buyerMarketplaceComponentPostButton1">
-              <div className="buyerMarketplaceComponentPostButtonText1">{t('farmerPageButton16')}</div>
+              <div className="buyerMarketplaceComponentPostButtonText1">{t('text110')}</div>
             </button>
             </Link>
                           </div>
@@ -277,7 +283,7 @@ const BuyerMarketplace = ({ match = {} }) => {
 
 
         <div className="buyerMarketplaceComponentPostButtonNew">
-          <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('buyerPageDescriptionText3')}</div>
+          <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('Ttext111')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
             <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost'style={{ textDecoration: 'none' }}>
               <img

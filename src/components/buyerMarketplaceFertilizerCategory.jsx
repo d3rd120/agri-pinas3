@@ -94,49 +94,60 @@ const BuyerMarketplace = () => {
                   <NavLink
                   key={product.id}
                   className="buyerMarketplaceComponentRectangleParent"
-                  to={`/buyermarketplacepost/${product.id}`}
+
+                  to="/buyermarketplacepost"
                   activeClassName="active"
-                  onClick={() => handleProductClick(product.id)}
+                  onClick={() => handleProductClick(product)}
                 >
-                    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-                    <div className="buyerMarketplaceComponentFrameGroup">
-                      <div className="buyerMarketplaceComponentFrameContainer">
-                        <div className="buyerMarketplaceComponentCardWrapper">
-                          <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
-                        </div>
-                        <div className="buyerMarketplaceComponentCategoryWrapper">
-                          <div className="buyerMarketplaceComponentCategoryContainer">
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b>{t('text121')}</b>
-                              <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b>{t('text122')}</b>
-                              <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
-                              <span>{product.price}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b>{t('text124')}</b>
-                              <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
-                              <span>{product.description}</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="buyerMarketplaceComponentFrameItem" />
-                      <div className="buyerMarketplaceComponentAuthor">
-                        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                        <div className="buyerMarketplaceComponentAuthorText">
-                          <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>                          
-                        </div>
-                      </div>
-                    </div>
+                   <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
+             <div className="buyerMarketplaceComponentFrameGroup">
+               <div className="buyerMarketplaceComponentFrameContainer">
+                 <div className="buyerMarketplaceComponentCardWrapper">
+                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
+                 </div>
+                 <div className="buyerMarketplaceComponentCategoryWrapper">
+                   <div className="buyerMarketplaceComponentCategoryContainer">
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>{t('text121')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.price}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+
+                       <b>{t('text122')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
+
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                       <span>{product.quantity}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+
+                       <b>{t('text124')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>{t('text125')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
+                       <span>{product.description}</span>
+                     </p>
+                   </div>
+                 </div>
+               </div>
+
+               
+               <div className="buyerMarketplaceComponentFrameItem" />
+               <div className="buyerMarketplaceComponentAuthor">
+                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                 <div className="buyerMarketplaceComponentAuthorText">
+                 <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
+                 </div>
+               </div>
+             </div>
+
                   </NavLink>
                 ))}          
             

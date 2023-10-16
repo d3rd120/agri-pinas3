@@ -70,58 +70,42 @@ const LoginPage = () => {
       setLoggedIn(true);
       const userUid = user.uid;
   
-      // Check if the user's role is not Admin
-      const db = getFirestore();
-      const usersCollection = collection(db, 'Users');
-      const q = query(usersCollection, where('uid', '==', userUid));
-      const querySnapshot = await getDocs(q);
+      // Generate a session ID
+      const sessionId = generateSessionId(); // Implement a function to generate a session ID
   
-      if (!querySnapshot.empty) {
-        const docSnapshot = querySnapshot.docs[0];
-        const userData = docSnapshot.data();
+      // Store user UID and session ID in session storage
+      sessionStorage.setItem('userUid', userUid);
+      sessionStorage.setItem('sessionId', sessionId);
   
-        if (userData.role !== 'Admin') {
-          // Check if the user's email is verified
-          if (user.emailVerified) {
-            setEmailVerified(true);
-            sessionStorage.setItem('userUid', userUid);
-          } else {
-            setEmailVerified(false);
-            console.error('Email not verified. Please verify your email address.');
-            // You can handle the email verification flow here if needed
-          }
-        } else {
-          // Admin user, proceed without email verification
-          setEmailVerified(true);
-          sessionStorage.setItem('userUid', userUid);
-        }
-      } else {
-        console.error('User data not found for UID:', userUid);
-      }
+      // ... (rest of the code)
     } catch (error) {
       console.error('Error logging in:', error.message);
     }
   };
-  
 
+  const generateSessionId = () => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  };
+
+  
   useEffect(() => {
     if (loggedIn) {
       const userUid = sessionStorage.getItem('userUid');
+      const sessionId = sessionStorage.getItem('sessionId');
       console.log('Retrieved user UID:', userUid);
-      if (userUid) {
+      console.log('Retrieved session ID:', sessionId);
+      if (userUid && sessionId) {
         setLoading(true);
         fetchUserData(userUid);
       } else {
-        console.error('Invalid user UID:', userUid);
+        console.error('Invalid user UID or session ID:', userUid, sessionId);
       }
     }
-
-   
+  
     if (loggedIn && emailVerified) {
-      
       navigate('/dashboard');
     } else if (loggedIn && !emailVerified) {
-    
+      // Handle the case when the email is not verified
     }
   }, [loggedIn, emailVerified, navigate]);
 

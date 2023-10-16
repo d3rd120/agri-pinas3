@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
 import { collection, getDocs, setDoc, getDoc, doc } from 'firebase/firestore';
+import { useParams } from 'react-router-dom';
 
 const CustomHeaderTitle = styled.div`
   background-color: #557153;
@@ -24,7 +25,7 @@ const CustomHeaderTitle = styled.div`
   
 `;
 
-const BuyerMarketplace = () => {
+const BuyerMarketplace = ({ match = {} }) => {
   const { t } = useTranslation();
   const theme = {
     background: 'white',
@@ -39,12 +40,9 @@ const BuyerMarketplace = () => {
 
   const [showChatBot, setShowChatBot] = useState(false);
   const [minimizedChatBot, setMinimizedChatBot] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [productsData, setProductsData] = useState([]);
-  const [lastClickedProductId, setLastClickedProductId] = useState(null);
-  const [cart, setCart] = useState([]); 
+  const { productId } = useParams();
 
   const handleChatButtonClick = () => {
     setShowChatBot(!showChatBot);
@@ -109,79 +107,40 @@ const BuyerMarketplace = () => {
   };
   
   
-const handleProductClick = (productId) => {
-  try {
-    // Find the product based on productId
-    const clickedProduct = productsData.find((product) => product.id === productId);
-
-    if (clickedProduct) {
-      console.log('Product clicked:', clickedProduct);
-      setSelectedCategory(clickedProduct.category.toLowerCase());
-      setSelectedProduct(clickedProduct);
-    } else {
-      console.warn(`Product with ID ${productId} not found.`);
-      setSelectedProduct(null); // Set selectedProduct to null if product not found
-    }
-  } catch (error) {
-    console.error('Error handling product click:', error);
-  }
-};
-
-  
-const fetchProducts = async () => {
-  try {
-    const productsCollection = collection(db, 'Marketplace');
-    const querySnapshot = await getDocs(productsCollection);
-
-    if (querySnapshot.empty) {
-      console.warn('No products found.');
-      return;
-    }
-
-    const productsData = querySnapshot.docs.map((doc) => {
-      const product = doc.data();
-      return {
-        id: doc.id,
-        ...product,
-      };
-    });
-
-    // Filter products based on the selected category
-    const filteredProducts = selectedCategory
-      ? productsData.filter((product) => product.category.toLowerCase() === selectedCategory)
-      : productsData;
-
-    // Set the selected product based on the last clicked product ID
-    const selectedProductFromClick = filteredProducts.find((product) => product.id === lastClickedProductId);
-
-    // If a product was clicked, set it as the selected product
-    if (selectedProductFromClick) {
-      setSelectedProduct(selectedProductFromClick);
-    } else {
-      // If no product was clicked, find the clinic product
-      const clickProduct = filteredProducts.find((product) => product.clickProduct);
-
-      // Set the clinic product as the selected product
-      if (clickProduct) {
-        setSelectedProduct(clickProduct);
-      } else {
-    
-        const firstProduct = filteredProducts[0];
-        setSelectedProduct(firstProduct);
+ useEffect(() => {
+    const fetchProductDetails = async () => {
+      if (!productId) {
+        console.error('Invalid productId');
+        return;
       }
-    }
-  } catch (error) {
-    console.error('Error retrieving products:', error);
+
+      const productRef = doc(db, 'Marketplace', productId);
+
+      try {
+        const productDoc = await getDoc(productRef);
+        if (productDoc.exists()) {
+          const productData = productDoc.data();
+          setProduct(productData);
+          setSelectedProduct(productData); // Set the selectedProduct
+        } else {
+          console.warn('Product not found.');
+        }
+      } catch (error) {
+        console.error('Error retrieving product details:', error);
+      }
+    };
+
+    // Log productId for debugging
+    console.log('productId:', productId);
+
+    // Fetch product details when the component mounts or when productId changes
+    fetchProductDetails();
+  }, [productId]);
+  
+  if (!product) {
+    return <div>Loading...</div>; // You can display a loading state while fetching data
   }
-};
 
-
-  
-  useEffect(() => {
-    // Fetch products initially when the component loads
-    fetchProducts();
-  }, [selectedCategory, selectedProduct]); // Update the dependency array to include selectedProduct
-  
 
 
   return (
@@ -202,11 +161,11 @@ const fetchProducts = async () => {
 
           <div className="buyerMarketplaceComponentPostMiddleSection">
             <div className="buyerMarketplaceComponentPostCardsContainer">
-            <div key={selectedProduct?.id} className="buyerMarketplaceComponentPostCard1">
+            <div key={product.id} className="buyerMarketplaceComponentPostCard1">
                <img
               className="buyerMarketplaceComponentPostCard1Image"
               alt=""
-              src={selectedProduct?.image}
+              src={product.image}
                   />
                   </div>
 
@@ -216,45 +175,45 @@ const fetchProducts = async () => {
                     <div className="buyerMarketplaceComponentPostSmallCardsContent">
                       <div className="buyerMarketplaceComponentPostSmallCardsHeading">
                         <div className="buyerMarketplaceComponentPostSmallCardsDetails">
-                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.cropName}</b>
-                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('buyerPageUserRole2')} {selectedProduct?.farmer}</b>
+                          <b className="buyerMarketplaceComponentPostSmallCardsProductName">{product.cropName}</b>
+                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('buyerPageUserRole2')} {product.fullname}</b>
                         </div>
                         
                         <div className="buyerMarketplaceComponentPostSmallCardsDescriptionWrapper">
                           <div className="buyerMarketplaceComponentPostSmallCardsFullDescription">
                             <p className="buyerMarketplaceComponentPostBlankLine">
                               <b>{t('buyerPageCategory')} </b>
-                              <span className="buyerMarketplaceComponentPostBlankLine">{selectedProduct?.category}</span>
+                              <span className="buyerMarketplaceComponentPostBlankLine">{product.category}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
                               <b>{t('buyerPagePackaging')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
+                              <span className="buyerMarketplaceComponentPostCategory">{product.quantity}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
                               <b>{t('Price: ')}</b>
-                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.price}</span>
+                              <span className="buyerMarketplaceComponentPostCategory">{product.price}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
                               <b>{t('Location: ')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.location}</span>
+                              <span className="buyerMarketplaceComponentPostCategory">{product.location}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
                               <b>{t('Unit: ')} </b>
-                              <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.unit}</span>
+                              <span className="buyerMarketplaceComponentPostCategory">{product.unit}</span>
                             </p>
-                            {selectedProduct?.category.toLowerCase() === 'vegetable' && (
+                            {product.category.toLowerCase() === 'vegetable' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
                                   <b className="buyerMarketplaceComponentPostCategory">{t('buyerPagePrice')} </b>
-                                  <span>{selectedProduct?.price}</span>
+                                  <span>{product.price}</span>
                                 </p>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
                                   <b>{t('buyerPageKilogram')} </b>
-                                  <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
+                                  <span className="buyerMarketplaceComponentPostCategory">{product.quantity}</span>
                                 </p>
                               </>
                             )}
-                            {selectedProduct?.category.toLowerCase() === 'fruits' && (
+                            {product.category.toLowerCase() === 'fruits' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
                                   <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageFruitsCategoryDetail')} </b>
@@ -262,7 +221,7 @@ const fetchProducts = async () => {
                                 </p>
                               </>
                             )}
-                            {selectedProduct?.category.toLowerCase() === 'fertilizer' && (
+                            {product.category.toLowerCase() === 'fertilizer' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
                                   <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageFertilizerCategoryDetail')} </b>
@@ -270,7 +229,7 @@ const fetchProducts = async () => {
                                 </p>
                               </>
                             )}
-                            {selectedProduct?.category.toLowerCase() === 'other' && (
+                            {product.category.toLowerCase() === 'other' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
                                   <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageOtherCategoryDetail')} </b>
@@ -280,7 +239,7 @@ const fetchProducts = async () => {
                             )}
                             <p className="buyerMarketplaceComponentPostBlankLine">
                               <b className="buyerMarketplaceComponentPostCategory">{t('buyerPageDescription')} </b>
-                              <span>{selectedProduct?.description}</span>
+                              <span>{product.description}</span>
                             </p>
                           </div>
                         </div>

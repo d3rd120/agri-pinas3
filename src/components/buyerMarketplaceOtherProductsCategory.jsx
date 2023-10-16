@@ -15,6 +15,7 @@ const BuyerMarketplace = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
+  const [lastClickedProductId, setLastClickedProductId] = useState(null);
 
   const fetchProducts = async () => {
     try {
@@ -49,6 +50,18 @@ const BuyerMarketplace = () => {
     fetchProducts();
   }, []);
   
+  const handleProductClick = (product) => {
+    try {
+      // Set the last clicked product ID
+      setLastClickedProductId(product);
+      console.log('Last Clicked', product)
+      // Fetch the detailed product information based on the product ID
+      // You may want to use this information to display the detailed view in BuyerMarketplacePost
+    } catch (error) {
+      console.error('Error handling product click:', error);
+    }
+  };
+
 
   return (
     <I18nextProvider i18n={i18n}> 
@@ -72,14 +85,14 @@ const BuyerMarketplace = () => {
         <div className="buyerMarketplaceComponentMiddleSection">
           <div className="buyerMarketplaceComponentFrameParent">
             <div className="buyerMarketplaceComponentFrameWrapper">
-
             {products.map((product) => (
-             <NavLink
-             key={product.id}
-             className="buyerMarketplaceComponentRectangleParent"
-             to="/buyermarketplacepost"
-             activeClassName="active"
-           >
+                  <NavLink
+                  key={product.id}
+                  className="buyerMarketplaceComponentRectangleParent"
+                  to={`/buyermarketplacepost/${product.id}`}
+                  activeClassName="active"
+                  onClick={() => handleProductClick(product.id)}
+                >
              <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
              <div className="buyerMarketplaceComponentFrameGroup">
                <div className="buyerMarketplaceComponentFrameContainer">
@@ -115,7 +128,7 @@ const BuyerMarketplace = () => {
                <div className="buyerMarketplaceComponentAuthor">
                  <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
                  <div className="buyerMarketplaceComponentAuthorText">
-                 <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
+                 <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
                    <div className="buyerMarketplaceComponentSubName">{product.role}</div>
                  </div>
                </div>

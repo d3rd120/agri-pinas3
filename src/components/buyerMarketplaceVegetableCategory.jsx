@@ -20,7 +20,6 @@ const BuyerMarketplace = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Fetch products and user information
   const fetchProducts = async () => {
@@ -56,15 +55,13 @@ const BuyerMarketplace = () => {
     fetchProducts();
   }, []);
 
-  const handleProductClick = (productId) => {
+  const handleProductClick = (product) => {
     try {
       // Set the last clicked product ID
-      setLastClickedProductId(productId);
-
+      setLastClickedProductId(product);
+      console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
-      const clickedProduct = products.find((product) => product.id === productId);
-      setSelectedProduct(clickedProduct);
     } catch (error) {
       console.error('Error handling product click:', error);
     }
@@ -94,6 +91,7 @@ const BuyerMarketplace = () => {
               </b>
             </div>
           </div>
+
 
           <div className="buyerMarketplaceComponentMiddleSection">
             <div className="buyerMarketplaceComponentFrameParent">
@@ -155,6 +153,8 @@ const BuyerMarketplace = () => {
                   ))}
                 </div>
               ))}
+
+     
             </div>
           </div>
 

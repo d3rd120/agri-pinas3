@@ -78,6 +78,7 @@ const LoginPage = () => {
       setLoggedIn(true);
       const userUid = user.uid;
 
+
       // Check if the user's role is not Admin
       const db = getFirestore();
       const usersCollection = collection(db, 'Users');
@@ -108,25 +109,35 @@ const LoginPage = () => {
         setPopupMessage(`User data not found for UID: ${userUid}`);
         setPopupVisible(true);
       }
+
     } catch (error) {
       setPopupMessage('Invalid email or password.');
       setPopupVisible(true);
     }
   };
 
+  const generateSessionId = () => {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  };
+
+  
   useEffect(() => {
     if (loggedIn) {
       const userUid = sessionStorage.getItem('userUid');
+      const sessionId = sessionStorage.getItem('sessionId');
       console.log('Retrieved user UID:', userUid);
-      if (userUid) {
+      console.log('Retrieved session ID:', sessionId);
+      if (userUid && sessionId) {
         setLoading(true);
         setTimeout(() => {
           fetchUserData(userUid);
         }, 1500); // Delay of 3 seconds (3000 milliseconds)
       } else {
-        console.error('Invalid user UID:', userUid);
+        console.error('Invalid user UID or session ID:', userUid, sessionId);
       }
     }
+
+
   }, [loggedIn, emailVerified, navigate]);
   
 

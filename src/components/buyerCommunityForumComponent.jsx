@@ -18,6 +18,8 @@ const BuyerCommunityForumComponent = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sessionId, setSessionId] = useState(null);
+
   const postsPerPage = 6;
 
   const handleButtonClick = () => {
@@ -47,27 +49,34 @@ const BuyerCommunityForumComponent = () => {
       const postsCollection = collection(db, 'CommunityForum');
       const snapshot = await getDocs(postsCollection);
       const fetchedPosts = [];
-
+  
       for (const doc of snapshot.docs) {
         const post = doc.data();
-        const userDisplayName = await fetchUserDisplayName(post.user.uid);
-        post.user.displayName = userDisplayName;
+        post.id = doc.id; // Add the id property
+  
+        if (post.user) {
+          const userDisplayName = await fetchUserDisplayName(post.user.uid);
+          post.user.displayName = userDisplayName;
+        }
+  
         fetchedPosts.push(post);
       }
-
+  
       setPosts(fetchedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
   };
+  
+
 
   const createPost = async (newPost) => {
     try {
       const currentUser = auth.currentUser;
-
+  
       const now = new Date();
       const formattedDateTime = now.toLocaleString(); // Format both date and time
-
+  
       const postWithUserInfo = {
         ...newPost,
         user: {
@@ -75,9 +84,10 @@ const BuyerCommunityForumComponent = () => {
           email: currentUser.email,
           uid: currentUser.uid,
         },
+        sessionId: sessionId, // Add session ID
         timestamp: formattedDateTime, // Use the formatted date and time
       };
-
+  
       // Save the post to Firestore
       const postsCollection = collection(db, 'CommunityForum');
       await addDoc(postsCollection, postWithUserInfo);
@@ -86,19 +96,36 @@ const BuyerCommunityForumComponent = () => {
       alert(error.message);
     }
   };
+  
 
   const addPost = (newPost) => {
     // Call createPost to add the post to Firestore
     createPost(newPost);
-
+  
     // Update the local state with the new post
     setPosts([...posts, newPost]);
   };
+  
 
   useEffect(() => {
     // Fetch posts from Firestore when the component mounts
     fetchPosts();
   }, []);
+
+
+
+  useEffect(() => {
+    const handleUserLogin = () => {
+      // Logic to obtain or generate session ID
+      const newSessionId = ('');
+  
+      // Set the session ID in the state
+      setSessionId(newSessionId);
+    };
+  
+    // Call the function when the component mounts or when user logs in
+    handleUserLogin();
+  }, []); // Add dependencies as needed
 
   const chunkArray = (array, chunkSize) => {
     const chunkedArray = [];
@@ -116,6 +143,20 @@ const BuyerCommunityForumComponent = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   const chunkedPosts = chunkArray(currentPosts, 3); // Chunk the current page's posts
+  const [lastClickedProductId, setLastClickedProductId] = useState(null);
+
+  const handleProductClick = (post) => {
+    try {
+      // Set the last clicked product ID
+      setLastClickedProductId(post.id);
+      console.log('Last Clicked', post);
+      // Fetch the detailed product information based on the product ID
+      // You may want to use this information to display the detailed view in BuyerMarketplacePost
+    } catch (error) {
+      console.error('Error handling product click:', error);
+    }
+  };
+  
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -168,9 +209,9 @@ const BuyerCommunityForumComponent = () => {
               {chunk.map((post, index) => (
                 <Link
                   className="buyerCommunityForumComponentRectangleParent"
-                  to = {'/buyercommunityforumpost'}
-                  // to={`/buyercommunityforumpost/${index}`}
-                  key={index}
+                  to={`/buyercommunityforumpost/${post.id}`}
+                  key={index.id}
+                  onClick={() => handleProductClick(post.id)}
                 >
                   <img
                     className="buyerCommunityForumComponentFrameChild"

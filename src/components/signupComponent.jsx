@@ -26,6 +26,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const isMounted = useRef(true);
 
   const register = async () => {
    
@@ -87,6 +88,7 @@ const Signup = () => {
 
     try {
       await registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
+
       // Registration was successful, you can redirect the user or show a success message here
       setPopupMessage("Registration successful! A verification email has been sent to your email address.\nDirecting you to the login...");
       setShowPopup(true);
@@ -94,6 +96,7 @@ const Signup = () => {
       setTimeout(() => {
         navigate("/login");
       }, 3000); // Redirect to the login page after 2 seconds
+
 
     } catch (error) {
       // Handle any errors that may occur during registration
@@ -110,6 +113,13 @@ const Signup = () => {
     }
   };
 
+ useEffect(() => {
+    return () => {
+      // Set isMounted to false when component is unmounted
+      isMounted.current = false;
+    };
+  }, []);
+  
   const calculateAge = (event) => {
     const selectedDate = new Date(event.target.value);
     const today = new Date();

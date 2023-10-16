@@ -51,6 +51,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 const registerWithEmailAndPassword = async (fullname, contact, address, birthdate, age, email, role, password) => {
 
 
+
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -75,9 +76,16 @@ const registerWithEmailAndPassword = async (fullname, contact, address, birthdat
       throw new Error("auth/email-already-in-use"); // Throw a specific error when email is already in use
     } else {
       throw err; // Re-throw the original error for other cases
+
     }
-  }
+  };
+
+  // Initial attempt
+  await attemptRegistration();
 };
+
+
+
 
 
   

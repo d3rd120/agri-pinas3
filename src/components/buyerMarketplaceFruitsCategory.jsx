@@ -57,11 +57,11 @@ const BuyerMarketplace = () => {
   }, []);
   
 
-  const handleProductClick = (productId) => {
+  const handleProductClick = (product) => {
     try {
       // Set the last clicked product ID
-      setLastClickedProductId(productId);
-      console.log('Last Clicked', productId)
+      setLastClickedProductId(product);
+      console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
     } catch (error) {
@@ -92,10 +92,11 @@ const BuyerMarketplace = () => {
                   <NavLink
                   key={product.id}
                   className="buyerMarketplaceComponentRectangleParent"
-                  to="/buyermarketplacepost"
+                  to={`/buyermarketplacepost/${product.id}`}
                   activeClassName="active"
-                  onClick={() => handleProductClick(product)}
+                  onClick={() => handleProductClick(product.id)}
                 >
+
                      <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
              <div className="buyerMarketplaceComponentFrameGroup">
                <div className="buyerMarketplaceComponentFrameContainer">
@@ -136,14 +137,15 @@ const BuyerMarketplace = () => {
                </div>
 
                
-               <div className="buyerMarketplaceComponentFrameItem" />
-               <div className="buyerMarketplaceComponentAuthor">
-                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                 <div className="buyerMarketplaceComponentAuthorText">
-                 <div className="buyerMarketplaceComponentAuthorName">{product.farmer}</div>
-                 </div>
-               </div>
-             </div>
+                 <div className="buyerMarketplaceComponentFrameItem" />
+                      <div className="buyerMarketplaceComponentAuthor">
+                        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                        <div className="buyerMarketplaceComponentAuthorText">
+                          <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>                          
+                        </div>
+                      </div>
+                    </div>
+
                   </NavLink>
                 ))}           
               

@@ -19,7 +19,6 @@ const BuyerMarketplace = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
- 
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
 
   const fetchProducts = async () => {
@@ -95,6 +94,7 @@ const BuyerMarketplace = () => {
                   <NavLink
                   key={product.id}
                   className="buyerMarketplaceComponentRectangleParent"
+
                   to="/buyermarketplacepost"
                   activeClassName="active"
                   onClick={() => handleProductClick(product)}
@@ -147,6 +147,7 @@ const BuyerMarketplace = () => {
                  </div>
                </div>
              </div>
+
                   </NavLink>
                 ))}          
             

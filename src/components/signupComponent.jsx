@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import "../css/Components/signupComponent.css";
-import { auth } from "./firebase";
+import { auth, registerWithEmailAndPassword } from "./firebase";
 import { sendEmailVerification } from 'firebase/auth';
 import Logo from '../img/agriPinasLogo2.png';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
-import Popup from '../components/validationPopup.jsx';
+import Popup from '../components/validationPopup';
 import i18n from '../i18n';
-import { registerWithEmailAndPassword } from "./firebase.jsx";
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -29,89 +28,61 @@ const Signup = () => {
   const isMounted = useRef(true);
 
   const register = async () => {
-   
-    const validFullName = /^[A-Za-z\s.'-]{2,}$/;
-
-    if (!validFullName.test(fullname)) {
-      setPopupMessage("Please enter a valid full name.");
-      setShowPopup(true);
-      return;
-    }
     
- // Check if all required fields are filled
-    if (!fullname || !contact || !address || !birthdate || !age || !email || !role || !password || !confirmpassword) {
-      setPopupMessage("Please fill in all required fields");
-      setShowPopup(true);
-      return;
-    }
-  
-    // Check if password and confirm password match
-    if (password !== confirmpassword) {
-      setPopupMessage("Password and confirm password do not match");
-      setShowPopup(true);
-      return;
-    }
-  
-    // Check if the user is 18 or older
-    if (age < 18) {
-      setPopupMessage("You must be 18 or older to register.");
-      setShowPopup(true);
-      return;
-    }
-  
-    // Validate the Philippine phone number
-    const validPhoneNumber = /^(\+63|0)(9\d{9})$/; // Adjust this regex pattern as needed
-  
-    if (!validPhoneNumber.test(contact)) {
-      setPopupMessage("Please enter a valid Philippine phone number.");
-      setShowPopup(true);
-      return;
-    }
-
-     // Validate the address using a regex pattern
-      const validAddress = /^[A-Za-z0-9\s,.'-]{3,}$/; // Adjust this regex pattern as needed
-
-      if (!validAddress.test(address)) {
-        setPopupMessage("Please enter a valid address.");
-        setShowPopup(true);
-        return;
+    try {
+      // Check if all required fields are filled
+      if (!fullname || !contact || !address || !birthdate || !age || !email || !role || !password || !confirmpassword) {
+        throw new Error("Please fill in all required fields");
       }
   
-    // Validate the password using a regex pattern (e.g., at least 8 characters, containing letters and numbers)
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    
-    if (!passwordPattern.test(password)) {
-      setPopupMessage("Password must contain at least 8 characters with letters and numbers.");
-      setShowPopup(true);
-      return;
-    }
-
-    try {
+      // Check if password and confirm password match
+      if (password !== confirmpassword) {
+        throw new Error("Password and confirm password do not match");
+      }
+  
+      // Check if the user is 18 or older
+      if (age < 18) {
+        throw new Error("You must be 18 or older to register.");
+      }
+  
+      // Validate the Philippine phone number
+      const validPhoneNumber = /^(\+63|0)(9\d{9})$/; // Adjust this regex pattern as needed
+      if (!validPhoneNumber.test(contact)) {
+        throw new Error("Please enter a valid Philippine phone number.");
+      }
+  
       await registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
-
-      // Registration was successful, you can redirect the user or show a success message here
-      setPopupMessage("Registration successful! A verification email has been sent to your email address.\nDirecting you to the login...");
-      setShowPopup(true);
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000); // Redirect to the login page after 2 seconds
-
-
+      const user = auth.currentUser;
+  
+      if (user && !user.emailVerified) {
+        if (user.emailVerified) {
+          setPopupMessage("User is already verified.");
+          setShowPopup(true);
+        } else {
+          setTimeout(async () => {
+            await sendEmailVerification(user);
+    
+            setPopupMessage("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
+            setShowPopup(true);
+          }, 2000); // Add a delay before sending the verification email
+        }
+      }
+  
+      navigate("/login");
     } catch (error) {
-      // Handle any errors that may occur during registration
       console.error(error);
   
-      // Display an error message to the user if needed
-      if (error.message === "auth/email-already-in-use") {
-        setPopupMessage("Registration failed. The email address is already in use.");
-        setShowPopup(true);
+      // Handle specific error cases, including rate limiting
+      if (error.code === "auth/too-many-requests") {
+        setPopupMessage("Too many requests. Please try again later.");
       } else {
-        setPopupMessage("Registration failed. Please try again later.");
-        setShowPopup(true);
+        setPopupMessage(`Registration failed. ${error.message}`);
       }
+  
+      setShowPopup(true);
     }
   };
+  
 
  useEffect(() => {
     return () => {
@@ -249,7 +220,7 @@ const Signup = () => {
                   {t('text34')}
                 </option>
                 <option value="Farmer">{t('text35')}</option>
-                <option value="Buyer">{t('text36')}</option>
+                <option value="Buyer">{t('text36')}</option>                
               </select>
               <input
                 className="signupComponentFormInput"
@@ -272,12 +243,17 @@ const Signup = () => {
               <div className="signupComponentButtonText">{t('text39')}</div>
             </button>
             <div className="signupComponentSubTextContainer">
-              <span>{t('text40')} <Link className="signupComponentLoginLink" to="/login"> {t('text41')} </Link></span>   
+              <span>{t('text40')}</span>
+              <Link className="signupComponentLoginLink" to="/login">
+                {t('text41')}
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      <Popup message={popupMessage} onClose={closePopup} isVisible={showPopup} />
+      {showPopup && (
+        <Popup message={popupMessage} onClose={closePopup} />
+      )}
     </I18nextProvider>
   );
 };

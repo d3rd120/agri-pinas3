@@ -86,61 +86,50 @@ const BuyerMarketplace = () => {
           <div className="buyerMarketplaceComponentFrameParent">
             <div className="buyerMarketplaceComponentFrameWrapper">
             {products.map((product) => (
-
-             <NavLink
-             key={product.id}
-             className="buyerMarketplaceComponentRectangleParent"
-             to="/buyermarketplacepost"
-             activeClassName="active"
-           >
-            <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-
+                  <NavLink
+                  key={product.id}
+                  className="buyerMarketplaceComponentRectangleParent"
+                  to={`/buyermarketplacepost/${product.id}`}
+                  activeClassName="active"
+                  onClick={() => handleProductClick(product.id)}
+                >
+             <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
              <div className="buyerMarketplaceComponentFrameGroup">
                <div className="buyerMarketplaceComponentFrameContainer">
                  <div className="buyerMarketplaceComponentCardWrapper">
-                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
+                   <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
                  </div>
                  <div className="buyerMarketplaceComponentCategoryWrapper">
                    <div className="buyerMarketplaceComponentCategoryContainer">
                      <p className="buyerMarketplaceComponentBlankLine">
                        <b>{t('text121')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.price}</span>
+                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
-
                        <b>{t('text122')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-
+                       <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
                        <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
-                       <span>{product.quantity}</span>
+                       <span>{product.price}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
-
                        <b>{t('text124')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
+                       <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
                      </p>
                      <p className="buyerMarketplaceComponentBlankLine">
-                       <b>{t('text125')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
+                       <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
                        <span>{product.description}</span>
                      </p>
                    </div>
                  </div>
                </div>
-
-               
                <div className="buyerMarketplaceComponentFrameItem" />
                <div className="buyerMarketplaceComponentAuthor">
                  <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
                  <div className="buyerMarketplaceComponentAuthorText">
                  <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
-                  
-
+                   <div className="buyerMarketplaceComponentSubName">{product.role}</div>
                  </div>
                </div>
              </div>

@@ -20,17 +20,23 @@ const AdminCommunityForumComponent = () => {
 
   const fetchUserDisplayName = async (uid) => {
     try {
+      if (!uid || typeof uid !== 'string' || uid.trim() === '') {
+        // If uid is not a non-empty string, return a default value
+        return 'Anonymous';
+      }
+  
       const userDocRef = doc(db, 'Users', uid);
       const userDocSnapshot = await getDoc(userDocRef);
       const userData = userDocSnapshot.data();
       const displayName = userData ? userData.fullname : 'Anonymous';
-
+  
       return displayName;
     } catch (error) {
       console.error('Error fetching user data:', error);
       return 'Anonymous';
     }
   };
+  
 
   const fetchPosts = async () => {
     try {
@@ -40,9 +46,12 @@ const AdminCommunityForumComponent = () => {
 
       for (const doc of snapshot.docs) {
         const post = doc.data();
-        const userDisplayName = await fetchUserDisplayName(post.user.uid);
-        post.user.displayName = userDisplayName;
+        post.user = post.user || {}; // Ensure that post.user is initialized as an object
+
+        const userDisplayName = await fetchUserDisplayName(post.user?.uid);
+        post.user.displayName = userDisplayName || 'Anonymous'; // Set a default value if userDisplayName is falsy
         fetchedPosts.push(post);
+        post.id = doc.id;
       }
 
       setPosts(fetchedPosts);
@@ -50,6 +59,7 @@ const AdminCommunityForumComponent = () => {
       console.error('Error fetching posts:', error);
     }
   };
+  
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "CommunityForum"), () => {

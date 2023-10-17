@@ -61,8 +61,8 @@ const App = () => {
 
 
           <Route path="/buyermarketplace" element={<BuyerMarketplace />} />
-          <Route path="/buyermarketplacepost" element={<BuyerMarketplacePost />} />       
-          <Route path="/buyercommunityforumpost" element={<BuyerCommunityForumPost />}  />
+          <Route path="/buyermarketplacepost/:productId" element={<BuyerMarketplacePost />} />
+          <Route path="/buyercommunityforumpost/:postId" element={<BuyerCommunityForumPost />}  />
           <Route path="/buyertoreceive" element={<BuyerToReceive />}  />
           <Route path="/buyercomplete" element={<BuyerComplete />} />
           <Route path="/buyercancelled" element={<BuyerCancelled />} />         
@@ -70,10 +70,10 @@ const App = () => {
           <Route path="/buyerprofile" element={<BuyerProfile />} />
           <Route path="/buyeraddress" element={<BuyerAddress />} />       
           <Route path="/buyercommunityforum" element={<BuyerCommunityForum />} />    
-          <Route path="/buyervegetablecategory" element={<BuyerMarketplaceVegetableCategory />} />   
-          <Route path="/buyerfruitscategory" element={<BuyerMarketplaceFruitsCategory />} />   
-          <Route path="/buyerfertilizercategory" element={<BuyerMarketplaceFertilizerCategory />} />   
-          <Route path="/buyerotherproductscategory" element={<BuyerMarketplaceOtherProductsCategory />} /> 
+          <Route path="/buyervegetablecategory/:userUid/:sessionId" element={<BuyerMarketplaceVegetableCategory />} />  
+          <Route path="/buyerfruitscategory/:userUid/:sessionId" element={<BuyerMarketplaceFruitsCategory />} />   
+          <Route path="/buyerfertilizercategory/:userUid/:sessionId" element={<BuyerMarketplaceFertilizerCategory />} />   
+          <Route path="/buyerotherproductscategory/:userUid/:sessionId" element={<BuyerMarketplaceOtherProductsCategory />} />
           <Route path="/checkout" element={<BuyerCheckout />} /> 
                
         

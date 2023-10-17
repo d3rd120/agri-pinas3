@@ -40,43 +40,82 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 const logInWithEmailAndPassword = async (email, password) => {
+  let retries = 0;
+
+  const backoff = (retries) => new Promise(resolve => setTimeout(resolve, 2 ** retries * 1000));
+
+  const attemptLogin = async () => {
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-        console.error(err);
-        alert(err.message);
+      console.error(err);
+
+      // Display a more specific error message to help identify the issue
+      if (err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+        alert("Login failed. Invalid email or password.");
+      } else if (err.code === "auth/too-many-requests" && retries < 5) {
+        // Retry with backoff
+        await backoff(retries);
+        retries++;
+        return attemptLogin(); // Retry login
+      } else if (err.code === "auth/user-not-found" && email === "agripinas672@gmail.com") {
+        // Allow login for admin without email verification
+        console.log('Admin login successful without email verification');
+      } else {
+        alert(`Login failed. ${err.message}`);
+      }
     }
+  };
+
+  // Initial attempt
+  await attemptLogin();
 };
 
+
+
 const registerWithEmailAndPassword = async (fullname, contact, address, birthdate, age, email, role, password) => {
+  let retries = 0;
 
+  const backoff = (retries) => new Promise(resolve => setTimeout(resolve, 2 ** retries * 1000));
 
+  const attemptRegistration = async () => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
 
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
+      // Send a verification email to the registered user
+      await sendEmailVerification(user);
 
-    // Send a verification email to the registered user
-    await sendEmailVerification(user);
+      // Create a user document in Firestore
+      const userDocRef = doc(db, "Users", user.uid);
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        fullname,
+        contact,
+        address,
+        birthdate,
+        age,
+        email,
+        role,
+      });
 
-    // Create a user document in Firestore
-    const userDocRef = doc(db, "Users", user.uid);
-    await setDoc(userDocRef, {
-      uid: user.uid,
-      fullname,
-      contact,
-      address,
-      birthdate,
-      age,
-      email,
-      role,
-    });
-  } catch (err) {
-    if (err.code === "auth/email-already-in-use") {
-      throw new Error("auth/email-already-in-use"); // Throw a specific error when email is already in use
-    } else {
-      throw err; // Re-throw the original error for other cases
+      alert("Registration successful! A verification email has been sent to your email address. Please verify your email to log in.");
+    } catch (err) {
+      console.error(err);
 
+      // Display a more specific error message to help identify the issue
+      if (err.code === "auth/email-already-in-use") {
+        alert("Registration failed. The email address is already in use.");
+      } else if (err.code === "auth/weak-password") {
+        alert("Registration failed. The password is too weak.");
+      } else if (err.code === "auth/too-many-requests" && retries < 5) {
+        // Retry with backoff
+        await backoff(retries);
+        retries++;
+        return attemptRegistration(); // Retry registration
+      } else {
+        alert(`Registration failed. ${err.message}`);
+      }
     }
   };
 
@@ -88,22 +127,22 @@ const registerWithEmailAndPassword = async (fullname, contact, address, birthdat
 
 
 
+
   
 
 const sendPasswordReset = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);    
-  } catch (err) {   
-    console.error(err);
-  }
+    try {
+        await sendPasswordResetEmail(auth, email);
+        alert("Password reset link sent!");
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
 };
-
 
 const logout = () => {
     signOut(auth);
 };
-
-
 const uploadImage = async (file) => {
     try {
       const storageRef = ref(storage, file.name);
@@ -125,8 +164,6 @@ const uploadImage = async (file) => {
       alert(err.message);
     }
   };
-
-
   const Cart = async (product) => {
     try {
       // Check if the user is authenticated
@@ -165,6 +202,9 @@ const uploadImage = async (file) => {
       alert("An error occurred while adding the item to your cart. Please try again.");
     }
   };
+
+
+
 
 export {
     auth,

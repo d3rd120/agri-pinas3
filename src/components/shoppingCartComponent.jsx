@@ -3,8 +3,8 @@ import "../css/BuyerPage/buynow.css"
 import BuyerNavigation from '../components/buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import RiceVector from '../img/riceCardImage.png';
-import TomatoVector from '../img/tomatoVector.png';
-import { Link } from 'react-router-dom';
+import ProfileVector2 from '../img/profileVector2.png';
+import { Link, NavLink } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
@@ -14,7 +14,10 @@ import { db, auth } from './firebase';
 import {
   doc,
   getDoc,
-  updateDoc
+  updateDoc,
+  collection,
+  getDocs,
+  setDoc
 } from "firebase/firestore"; 
 
 const ShoppingCart = (props) => {
@@ -22,6 +25,10 @@ const ShoppingCart = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
   const [cart, setCart] = useState([]);
+  const userUid = sessionStorage.getItem('userUid');
+  const sessionId = sessionStorage.getItem('sessionId');
+  const [products, setProducts] = useState([]);
+  const [lastClickedProductId, setLastClickedProductId] = useState(null);
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -31,8 +38,9 @@ const ShoppingCart = (props) => {
           const userCartRef = doc(db, 'UserCarts', user.uid);
           const userCartSnapshot = await getDoc(userCartRef);
           const userCartData = userCartSnapshot.data();
-
+  
           if (userCartData && userCartData.cart) {
+           
             setCart(userCartData.cart);
           }
         }
@@ -40,9 +48,10 @@ const ShoppingCart = (props) => {
         console.error('Error fetching cart data:', error);
       }
     };
-
+  
     fetchCartData();
   }, []);
+  
 
   const updateQuantity = async (id, newQuantity) => {
     try {
@@ -53,49 +62,76 @@ const ShoppingCart = (props) => {
         const userCartData = userCartSnapshot.data();
   
         if (userCartData && userCartData.cart) {
-          const updatedCart = userCartData.cart.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item
+          const existingItemIndex = userCartData.cart.findIndex(
+            (item) => item.id === id
           );
   
-          // Update the entire cart in Firebase
-          await updateDoc(userCartRef, { cart: updatedCart });
+          if (existingItemIndex !== -1) {
+          
+            const updatedCart = [...userCartData.cart];
+            updatedCart[existingItemIndex].quantity = newQuantity;
   
-          // Update the quantity in the local state
-          setCart(updatedCart);
+       
+            await updateDoc(userCartRef, { cart: updatedCart });
+  
+          
+            setCart(updatedCart);
+          } else {
+         
+            const newItem = userCartData.cart.find((item) => item.id === id);
+            newItem.quantity = newQuantity;
+  
+            const updatedCart = [...userCartData.cart, newItem];
+  
+           
+            await updateDoc(userCartRef, { cart: updatedCart });
+  
+           
+            setCart(updatedCart);
+          }
         }
       }
     } catch (error) {
       console.error('Error updating quantity in Firestore:', error);
     }
   };
+  
 
-  const removeItem = async (itemId) => {
-    // Remove the item from the local state
-    const updatedCart = cart.filter((item) => item.id !== itemId);
-    setCart(updatedCart);
-
-    // Remove the item from the Firestore database
+  const deleteProductFromCart = async (productId) => {
+    console.log('deleteProductFromCart called with productId:', productId);
+  
     const user = auth.currentUser;
-    if (user) {
-      const userCartRef = doc(db, 'UserCarts', user.uid);
-
-      try {
+  
+    try {
+      if (user) {
+        const userCartRef = doc(db, 'UserCarts', user.uid);
+        console.log('userCartRef:', userCartRef);
+  
+        
         const userCartSnapshot = await getDoc(userCartRef);
         const userCartData = userCartSnapshot.data();
-
+  
+  
         if (userCartData && userCartData.cart) {
-          const updatedFirestoreCart = userCartData.cart.filter(
-            (item) => item.id !== itemId
-          );
-
-          // Update the cart in Firestore without the removed item
-          await updateDoc(userCartRef, { cart: updatedFirestoreCart });
+          const updatedFirestoreCart = userCartData.cart.filter((item) => item.productId !== productId);
+          await setDoc(userCartRef, { cart: updatedFirestoreCart }, { merge: true });
+          setCart(updatedFirestoreCart);
+        } else {
+          console.warn('No cart data found in Firestore.');
         }
-      } catch (error) {
-        console.error('Error updating cart in Firestore:', error);
+      } else {
+        console.error('User not authenticated. Item removal aborted.');
       }
+    } catch (error) {
+      console.error('Error removing item from cart:', error.message || error);
     }
   };
+  
+  
+  
+  
+  
+  
 
   const calculateSubtotal = (price, quantity) => {
     const numericPrice = Number(price);
@@ -117,7 +153,7 @@ const ShoppingCart = (props) => {
 
   const handleModalConfirm = () => {
     if (itemToRemove) {
-      removeItem(itemToRemove);
+      deleteProductFromCart(itemToRemove);
       setItemToRemove(null);
     }
     setShowModal(false);
@@ -125,6 +161,48 @@ const ShoppingCart = (props) => {
 
   const handleModalCancel = () => {
     setShowModal(false);
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const productsCollection = collection(db, 'Marketplace');
+      const querySnapshot = await getDocs(productsCollection);
+  
+      if (querySnapshot.empty) {
+        console.warn('No products found.');
+        return;
+      }
+  
+      const productsData = querySnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+  
+      // Use the first three products directly
+      setProducts(productsData.slice(0, 3));
+  
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleProductClick = (product) => {
+    try {
+      // Set the last clicked product ID
+      setLastClickedProductId(product.id);
+      console.log('Last Clicked', product)
+      // Fetch the detailed product information based on the product ID
+      // You may want to use this information to display the detailed view in BuyerMarketplacePost
+    } catch (error) {
+      console.error('Error handling product click:', error);
+    }
   };
 
   return (
@@ -179,7 +257,7 @@ const ShoppingCart = (props) => {
                   <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
                   <td>
                     <button onClick={() => {
-                      setItemToRemove(item.id);
+                      setItemToRemove(item.productId);
                       setShowModal(true);
                     }}>
                       <FaTrash />
@@ -222,54 +300,33 @@ const ShoppingCart = (props) => {
           )}
 
 
-    <div className="buyerMarketplaceComponentPostButtonNew">
+      <div className="buyerMarketplaceComponentPostButtonNew">
           <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('text73')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
-            <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost'style={{ textDecoration: 'none' }}>
-              <img
-                className="buyerMarketplaceComponentPostButtonNewCard1Image" 
-                alt=""
-                src={TomatoVector}
-              />
-              <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
-                <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
-                  <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{t('buyerCartText12')}</div>
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">₱5,000</div>
+          {products.map((product) => (
+              <Link
+                key={product.id}
+                className="buyerMarketplaceComponentPostButtonNewCard1"
+                to={`/buyermarketplacepost/${product.id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <img
+                  className="buyerMarketplaceComponentPostButtonNewCard1Image"
+                  alt=""
+                  src={product.image}
+                />
+                <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
+                  <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
+                    <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
+                      <div className="buyerMarketplaceComponentPostButtonNewCard1Title">
+                        {product.cropName}
+                      </div>                  
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-            <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost' style={{ textDecoration: 'none' }}>
-              <img
-                className="buyerMarketplaceComponentPostButtonNewCard1Image"
-                alt=""
-                src={OnionVector}
-              />
-              <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
-                <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
-                  <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{t('buyerCartText13')}</div>
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">₱3,000</div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-            <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost' style={{ textDecoration: 'none' }}>
-              <img
-                className="buyerMarketplaceComponentPostButtonNewCard1Image"
-                alt=""
-                src={RiceVector}
-              />
-              <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
-                <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
-                  <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{t('buyerCartText14')}</div>
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">₱2,000</div>
-                  </div>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            ))}
+              
           </div>
         </div>
 

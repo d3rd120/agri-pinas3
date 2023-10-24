@@ -59,7 +59,7 @@ const BuyerMarketplace = () => {
   const handleProductClick = (product) => {
     try {
       // Set the last clicked product ID
-      setLastClickedProductId(product);
+      setLastClickedProductId(product.id);
       console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
@@ -93,7 +93,7 @@ const BuyerMarketplace = () => {
                   className="buyerMarketplaceComponentRectangleParent"
                   to={`/buyermarketplacepost/${product.id}`}
                   activeClassName="active"
-                  onClick={() => handleProductClick(product.id)}
+                  onClick={() => handleProductClick(product)}
                 >
              <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
              <div className="buyerMarketplaceComponentFrameGroup">

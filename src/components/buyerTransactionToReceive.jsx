@@ -68,9 +68,9 @@ const BuyerTransanctionPending = () => {
      
 
             <div className="buyerTransactionMiddleSection">
-  <div className="buyerTransactionFrameParent">
-    <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
-      <div className="buyerTransactionFrameParent">
+        <div className="buyerTransactionFrameParent">
+
+        <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
         {orders.map((order, index) => (
           <div key={index} className="adminFarmerTransactionsPendingComponentRectangleParent">
             {order.cart.map((item, itemIndex) => (
@@ -112,46 +112,6 @@ const BuyerTransanctionPending = () => {
             ))}
           </div>
         ))}
-      </div>
-   
-
-                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
-                  <img
-                    className="adminFarmerTransactionsPendingComponentFrameChild"
-                    alt=""
-                    src={okra}
-                  />
-                  <div className="adminFarmerTransactionsPendingComponentFrameGroup">
-                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">Okra</b>
-                      </div>
-                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text93')}</b> July 2, 2023
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text94')}</b> Jenkins Mesina
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text95')}</b> Fruit
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text96')}</b> Sack
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text97')} </b> 2
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text98')}</b> 10,000
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text99')}</b> To Receive
-                        </div>
-                      </div>
-                    </div>                                    
-                  </div>
-                </a>                
               </div>     
 
 

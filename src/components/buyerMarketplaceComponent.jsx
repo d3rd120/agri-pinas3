@@ -4,7 +4,7 @@ import VegetableVector from '../img/vegetableVector.jpg';
 import OtherProductsVector from '../img/otherProductsVector.jpg';
 import FruitsVector from '../img/fruitsVector.jpg';
 import FertilizerVector from '../img/fertilizerVector.jpeg';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import React from 'react';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
@@ -15,13 +15,60 @@ import okra from '../img/okra.png';
 import ProfileVector2 from '../img/profileVector2.png';
 import ProfileVector1 from '../img/profileVector1.png';
 import i18n from '../i18n';
+import  { useState, useEffect } from 'react';
+import { db } from './firebase';
+import { getDocs, collection } from 'firebase/firestore';
 
 
 const FarmerCommunityForumComponent = () => {
-  const { t } = useTranslation();
+const { t } = useTranslation();
 const userUid = sessionStorage.getItem('userUid');
-  const sessionId = sessionStorage.getItem('sessionId');
- 
+const sessionId = sessionStorage.getItem('sessionId');
+const [products, setProducts] = useState([]);
+const [lastClickedProductId, setLastClickedProductId] = useState(null);
+
+  const fetchProducts = async () => {
+    try {
+      const productsCollection = collection(db, 'Marketplace');
+      const querySnapshot = await getDocs(productsCollection);
+  
+      if (querySnapshot.empty) {
+        console.warn('No products found.');
+        return;
+      }
+  
+      const productsData = querySnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+  
+      // Use the first three products directly
+      setProducts(productsData.slice(0, 3));
+  
+    } catch (error) {
+      console.error('Error retrieving products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleProductClick = (product) => {
+    try {
+      // Set the last clicked product ID
+      setLastClickedProductId(product.id);
+      console.log('Last Clicked', product)
+      // Fetch the detailed product information based on the product ID
+      // You may want to use this information to display the detailed view in BuyerMarketplacePost
+    } catch (error) {
+      console.error('Error handling product click:', error);
+    }
+  };
+
   return (
     <I18nextProvider i18n={i18n}>
       <div className="buyerCommunityForumComponent">
@@ -106,157 +153,65 @@ const userUid = sessionStorage.getItem('userUid');
               </div>
 
               <div className="buyerMarketplaceComponentFrameWrapper">
-            
-            
-              <Link className="buyerMarketplaceComponentRectangleParent" to={`/buyermarketplacepost/${userUid}/${sessionId}`}>
-                <img
-                  className="buyerMarketplaceComponentFrameChild"
-                  alt=""
-                  src={CornVector}
-                />
-                <div className="buyerMarketplaceComponentFrameGroup">
-                  <div className="buyerMarketplaceComponentFrameContainer">
-                    <div className="buyerMarketplaceComponentCardWrapper">
-                      <b className="buyerMarketplaceComponentCardText">Corn</b>
-                    </div>
-                    <div className="buyerMarketplaceComponentCategoryWrapper">
-                      <div className="buyerMarketplaceComponentCategoryContainer">
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text56')}</b>
-                          <span className="buyerMarketplaceComponentCategory">{t('buyerPageCategoryText1')}</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text57')}</b>
-                          <span className="buyerMarketplaceComponentCategory">{t('buyerPagePackagingText1')}</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b className="buyerMarketplaceComponentCategory">{t('text58')}</b>
-                          <span>Php 3,000</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text59')}</b>
-                          <span className="buyerMarketplaceComponentCategory">50 kgs</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b className="buyerMarketplaceComponentCategory">{t('text60')}</b>
-                          <span>
-                          {t('buyerPageDescriptionText1')}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="buyerMarketplaceComponentFrameItem" />
-                  <div className="buyerMarketplaceComponentAuthor">
-                    <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                    <div className="buyerMarketplaceComponentAuthorText">
-                      <div className="buyerMarketplaceComponentAuthorName">Daniella Tungol</div>                     
-                    </div>
-                  </div>
-                </div>
-              </Link>   
+              {products.map((product) => (
+                  <NavLink
+                          key={product.id}
+                  className="buyerMarketplaceComponentRectangleParent"
+                  to={`/buyermarketplacepost/${product.id}`}
+                  onClick={() => handleProductClick(product)}
+                        >
+                    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
+             <div className="buyerMarketplaceComponentFrameGroup">
+               <div className="buyerMarketplaceComponentFrameContainer">
+                 <div className="buyerMarketplaceComponentCardWrapper">
+                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
+                 </div>
+                 <div className="buyerMarketplaceComponentCategoryWrapper">
+                   <div className="buyerMarketplaceComponentCategoryContainer">
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>{t('text121')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
 
-              <Link className="buyerMarketplaceComponentRectangleParent" to={`/buyermarketplacepost/${userUid}/${sessionId}`}>
-                <img
-                  className="buyerMarketplaceComponentFrameChild"
-                  alt=""
-                  src={OnionVector}
-                />
-                <div className="buyerMarketplaceComponentFrameGroup">
-                  <div className="buyerMarketplaceComponentFrameContainer">
-                    <div className="buyerMarketplaceComponentCardWrapper">
-                      <b className="buyerMarketplaceComponentCardText">Onion</b>
-                    </div>
-                    <div className="buyerMarketplaceComponentCategoryWrapper">
-                      <div className="buyerMarketplaceComponentCategoryContainer">
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text56')}</b>
-                          <span className="buyerMarketplaceComponentCategory">{t('buyerPageCategoryText1')}</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text57')}</b>
-                          <span className="buyerMarketplaceComponentCategory">{t('buyerPagePackagingText1')}</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b className="buyerMarketplaceComponentCategory">{t('text58')}</b>
-                          <span>Php 3,000</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text59')}</b>
-                          <span className="buyerMarketplaceComponentCategory">50 kgs</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b className="buyerMarketplaceComponentCategory">{t('text60')}</b>
-                          <span>
-                          {t('buyerPageDescriptionText1')}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="buyerMarketplaceComponentFrameItem" />
-                  <div className="buyerMarketplaceComponentAuthor">
-                    <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                    <div className="buyerMarketplaceComponentAuthorText">
-                      <div className="buyerMarketplaceComponentAuthorName">Mavic Anes</div>                     
-                    </div>
-                  </div>
-                </div>
-              </Link>   
+                       <b>{t('text122')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
 
-              <Link className="buyerMarketplaceComponentRectangleParent" to={`/buyermarketplacepost/${userUid}/${sessionId}`}>
-                <img
-                  className="buyerMarketplaceComponentFrameChild"
-                  alt=""
-                  src={okra}
-                />
-                <div className="buyerMarketplaceComponentFrameGroup">
-                  <div className="buyerMarketplaceComponentFrameContainer">
-                    <div className="buyerMarketplaceComponentCardWrapper">
-                      <b className="buyerMarketplaceComponentCardText">Okra</b>
-                    </div>
-                    <div className="buyerMarketplaceComponentCategoryWrapper">
-                      <div className="buyerMarketplaceComponentCategoryContainer">
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text56')}</b>
-                          <span className="buyerMarketplaceComponentCategory">{t('buyerPageCategoryText1')}</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text57')}</b>
-                          <span className="buyerMarketplaceComponentCategory">{t('buyerPagePackagingText1')}</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b className="buyerMarketplaceComponentCategory">{t('text58')}</b>
-                          <span>Php 3,000</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b>{t('text59')}</b>
-                          <span className="buyerMarketplaceComponentCategory">50 kgs</span>
-                        </p>
-                        <p className="buyerMarketplaceComponentBlankLine">
-                          <b className="buyerMarketplaceComponentCategory">{t('text60')}</b>
-                          <span>
-                          {t('buyerPageDescriptionText1')}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="buyerMarketplaceComponentFrameItem" />
-                  <div className="buyerMarketplaceComponentAuthor">
-                    <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                    <div className="buyerMarketplaceComponentAuthorText">
-                      <div className="buyerMarketplaceComponentAuthorName">Arrianne Gatpo</div>                     
-                    </div>
-                  </div>
-                </div>
-              </Link>   
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                       <span>{product.price}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
 
+                       <b>Location: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>Unit: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
+
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                       <span>{product.description}</span>
+                     </p>
+                   </div>
+                 </div>
+               </div>
+               <div className="buyerMarketplaceComponentFrameItem" />
+               <div className="buyerMarketplaceComponentAuthor">
+                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                 <div className="buyerMarketplaceComponentAuthorText">
+                 <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
+                 </div>
+               </div>
+                    </div>
+                  </NavLink>
+                ))}         
               <div>                
             </div>    
         </div>   
-           
-            
             </div>
           </div>
         </div>

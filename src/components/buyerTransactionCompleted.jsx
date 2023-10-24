@@ -49,7 +49,7 @@ const { t } = useTranslation();
         <div className="buyerTransactionFrameParent">
 
         <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
-                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
+                {/* <a className="adminFarmerTransactionsPendingComponentRectangleParent">
                   <img
                     className="adminFarmerTransactionsPendingComponentFrameChild"
                     alt=""
@@ -122,7 +122,7 @@ const { t } = useTranslation();
                       </div>
                     </div>                                    
                   </div>
-                </a>             
+                </a>              */}
               </div>     
 
 

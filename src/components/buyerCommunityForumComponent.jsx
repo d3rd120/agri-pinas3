@@ -10,8 +10,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTimes } from 'react-icons/fa';
-import OnionVector from '../img/onionVector.png';
-import ProfileVector1 from '../img/profileVector1.png';
+
 
 const BuyerCommunityForumComponent = () => {
   const { t } = useTranslation();
@@ -30,17 +29,21 @@ const BuyerCommunityForumComponent = () => {
     setShowPopup(false);
   };
 
-  const fetchUserDisplayName = async (uid) => {
+  const fetchUserDetails = async (uid) => {
     try {
       const userDocRef = doc(db, 'Users', uid);
       const userDocSnapshot = await getDoc(userDocRef);
       const userData = userDocSnapshot.data();
-      const displayName = userData ? userData.fullname : 'Anonymous';
-
-      return displayName;
+  
+      if (userData) {
+        const { fullname, profileImageUrl } = userData;
+        return { displayName: fullname, profileImageUrl };
+      } else {
+        return { displayName: 'Anonymous', profileImageUrl: '' };
+      }
     } catch (error) {
       console.error('Error fetching user data:', error);
-      return 'Anonymous';
+      return { displayName: 'Anonymous', profileImageUrl: '' };
     }
   };
 
@@ -52,11 +55,12 @@ const BuyerCommunityForumComponent = () => {
   
       for (const doc of snapshot.docs) {
         const post = doc.data();
-        post.id = doc.id; // Add the id property
+        post.id = doc.id; 
   
         if (post.user) {
-          const userDisplayName = await fetchUserDisplayName(post.user.uid);
-          post.user.displayName = userDisplayName;
+          const userDetails = await fetchUserDetails(post.user.uid);
+          post.user.displayName = userDetails.displayName;
+          post.user.profileImageUrl = userDetails.profileImageUrl;
         }
   
         fetchedPosts.push(post);
@@ -142,7 +146,7 @@ const BuyerCommunityForumComponent = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const chunkedPosts = chunkArray(currentPosts, 3); // Chunk the current page's posts
+  const chunkedPosts = chunkArray(currentPosts, 2); // Chunk the current page's posts
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
 
   const handleProductClick = (post) => {
@@ -237,7 +241,7 @@ const BuyerCommunityForumComponent = () => {
                         <img
                           className="buyerCommunityForumComponentFrameIcon"
                           alt=""
-                          src={ProfileVector1}
+                          src={post.user.profileImageUrl} 
                         />
                         <div className="buyerCommunityForumComponentAuthorText">
                           <div className="buyerCommunityForumComponentAuthorName">

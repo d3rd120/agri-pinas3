@@ -60,7 +60,7 @@ const BuyerMarketplace = () => {
   const handleProductClick = (product) => {
     try {
       // Set the last clicked product ID
-      setLastClickedProductId(product);
+      setLastClickedProductId(product.id);
       console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
@@ -94,46 +94,54 @@ const BuyerMarketplace = () => {
                   className="buyerMarketplaceComponentRectangleParent"
                   to={`/buyermarketplacepost/${product.id}`}
                   activeClassName="active"
-                  onClick={() => handleProductClick(product.id)}
+                  onClick={() => handleProductClick(product)}
                 >
-                    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-                    <div className="buyerMarketplaceComponentFrameGroup">
-                      <div className="buyerMarketplaceComponentFrameContainer">
-                        <div className="buyerMarketplaceComponentCardWrapper">
-                          <b className="buyerMarketplaceComponentCardText">{product.productName}</b>
-                        </div>
-                        <div className="buyerMarketplaceComponentCategoryWrapper">
-                          <div className="buyerMarketplaceComponentCategoryContainer">
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b>{t('text121')}</b>
-                              <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b>{t('text122')}</b>
-                              <span className="buyerMarketplaceComponentCategory">{product.packaging}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
-                              <span>{product.price}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b>{t('text124')}</b>
-                              <span className="buyerMarketplaceComponentCategory">{product.kilogramPerUnit}</span>
-                            </p>
-                            <p className="buyerMarketplaceComponentBlankLine">
-                              <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
-                              <span>{product.description}</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="buyerMarketplaceComponentFrameItem" />
-                      <div className="buyerMarketplaceComponentAuthor">
-                        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                        <div className="buyerMarketplaceComponentAuthorText">
-                          <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>                          
-                        </div>
-                      </div>
+                   <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
+             <div className="buyerMarketplaceComponentFrameGroup">
+               <div className="buyerMarketplaceComponentFrameContainer">
+                 <div className="buyerMarketplaceComponentCardWrapper">
+                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
+                 </div>
+                 <div className="buyerMarketplaceComponentCategoryWrapper">
+                   <div className="buyerMarketplaceComponentCategoryContainer">
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>{t('text121')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+
+                       <b>{t('text122')}</b>
+                       <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
+
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                       <span>{product.price}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+
+                       <b>Location: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b>Unit: </b>
+                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
+
+                     </p>
+                     <p className="buyerMarketplaceComponentBlankLine">
+                       <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                       <span>{product.description}</span>
+                     </p>
+                   </div>
+                 </div>
+               </div>
+               <div className="buyerMarketplaceComponentFrameItem" />
+               <div className="buyerMarketplaceComponentAuthor">
+                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                 <div className="buyerMarketplaceComponentAuthorText">
+                 <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
+                 </div>
+               </div>
                     </div>
                   </NavLink>
                 ))}           

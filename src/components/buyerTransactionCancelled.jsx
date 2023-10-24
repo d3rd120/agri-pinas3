@@ -46,7 +46,7 @@ const BuyerTransanctionCancelled = () => {
         <div className="buyerTransactionMiddleSection">
         <div className="buyerTransactionFrameParent">
         <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
-                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
+                {/* <a className="adminFarmerTransactionsPendingComponentRectangleParent">
                   <img
                     className="adminFarmerTransactionsPendingComponentFrameChild"
                     alt=""
@@ -119,7 +119,7 @@ const BuyerTransanctionCancelled = () => {
                       </div>
                     </div>                                    
                   </div>
-                </a>           
+                </a>            */}
               </div>     
 
 

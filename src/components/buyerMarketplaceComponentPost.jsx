@@ -10,13 +10,13 @@ import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 import { RiChat1Line } from 'react-icons/ri';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
-import { collection, getDocs, setDoc, getDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, getDoc, doc, where, query } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
 
 const CustomHeaderTitle = styled.div`
@@ -25,7 +25,7 @@ const CustomHeaderTitle = styled.div`
   
 `;
 
-const BuyerMarketplace = ({ match = {} }) => {
+const BuyerMarketplace = ({ }) => {
   const { t } = useTranslation();
   const theme = {
     background: 'white',
@@ -43,6 +43,8 @@ const BuyerMarketplace = ({ match = {} }) => {
   const [product, setProduct] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { productId } = useParams();
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [loadingRelatedProducts, setLoadingRelatedProducts] = useState(true);
 
   const handleChatButtonClick = () => {
     setShowChatBot(!showChatBot);
@@ -72,33 +74,30 @@ const BuyerMarketplace = ({ match = {} }) => {
   
       const user = auth.currentUser;
       if (!user) {
-        // Handle the case where the user is not logged in
+      
         alert("Please log in to add items to your cart.");
         return;
       }
   
-      // Create a reference to the user's cart in the Firestore database
+     
       const userCartRef = doc(db, 'UserCarts', user.uid);
-  
-      // Get the current cart data
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.exists() ? userCartSnapshot.data().cart : [];
   
-      // Check if the product is already in the cart
+    
       const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);
   
       if (existingItemIndex !== -1) {
-        // If the product is already in the cart, update the quantity
+     
         currentCart[existingItemIndex].quantity += 1;
       } else {
-        // If the product is not in the cart, add it
-        currentCart.push({ ...product, quantity: 1 });
+        
+        currentCart.push({ ...product, quantity: 1, productId: product.cropID }); 
       }
   
-      // Update the cart in the database
+     
       await setDoc(userCartRef, { cart: currentCart });
   
-      // Notify the user that the item has been added to the cart
       alert(`${product.cropName} added to your cart!`);
     } catch (err) {
       console.error(err);
@@ -107,38 +106,89 @@ const BuyerMarketplace = ({ match = {} }) => {
   };
   
   
- useEffect(() => {
-    const fetchProductDetails = async () => {
-      if (!productId) {
-        console.error('Invalid productId');
+  const fetchProductDetails = async () => {
+    try {
+      if (!productId || productId === 'undefined') {
+        console.warn('Invalid productId:', productId);
         return;
       }
-
-      const productRef = doc(db, 'Marketplace', productId);
-
-      try {
-        const productDoc = await getDoc(productRef);
-        if (productDoc.exists()) {
-          const productData = productDoc.data();
-          setProduct(productData);
-          setSelectedProduct(productData); // Set the selectedProduct
-        } else {
-          console.warn('Product not found.');
-        }
-      } catch (error) {
-        console.error('Error retrieving product details:', error);
-      }
-    };
-
-    // Log productId for debugging
-    console.log('productId:', productId);
-
-    // Fetch product details when the component mounts or when productId changes
-    fetchProductDetails();
-  }, [productId]);
   
-  if (!product) {
-    return <div>Loading...</div>; // You can display a loading state while fetching data
+      const productRef = doc(db, 'Marketplace', productId);
+      const productDetails = await getDoc(productRef);
+  
+      if (productDetails.exists()) {
+        const productDetailsData = productDetails.data();
+  
+        setProduct(productDetailsData);
+        // Update selectedProduct state with the fetched product details
+        setSelectedProduct({ ...productDetailsData, productId });
+        // Other state updates...
+      } else {
+        console.warn('Product not found.');
+      }
+    } catch (error) {
+      console.error('Error in fetchProductDetails:', error.message);
+    }
+  };
+
+  const fetchRelatedProducts = async (productId) => {
+    try {
+      const productRef = doc(db, 'Marketplace', productId);
+      const productDetails = await getDoc(productRef);
+  
+      if (!productDetails.exists()) {
+        console.warn('Product not found.');
+        return;
+      }
+  
+      const selectedProductData = productDetails.data();
+  
+      const relatedProductsRef = collection(db, 'Marketplace');
+      const relatedProductsQuery = await getDocs(relatedProductsRef);
+  
+      const allRelatedProducts = relatedProductsQuery.docs
+        .filter((doc) => doc.id !== productId)
+        .map((doc) => ({ ...doc.data(), id: doc.id }));
+  
+      // Filter based on market and category
+      const filteredRelatedProducts = allRelatedProducts.filter((relatedProduct) => {
+        return (
+          relatedProduct.market === selectedProductData.market &&
+          relatedProduct.category === selectedProductData.category
+        );
+      });
+  
+      // Shuffle the array
+      const shuffledProducts = shuffleArray(filteredRelatedProducts);
+  
+      // Take the first three products
+      const randomRelatedProducts = shuffledProducts.slice(0, 3);
+  
+      setRelatedProducts([...randomRelatedProducts]);
+    } catch (error) {
+      console.error('Error fetching related products:', error.message);
+    } finally {
+      setLoadingRelatedProducts(false);
+    }
+  };
+  
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+  
+    useEffect(() => {
+      if (productId && productId !== 'undefined') {
+        fetchProductDetails();
+        fetchRelatedProducts(productId);
+      }
+    }, [productId]);
+
+  if (!product || !selectedProduct) {
+    return <div>Loading...</div>;
   }
 
 
@@ -161,7 +211,7 @@ const BuyerMarketplace = ({ match = {} }) => {
 
           <div className="buyerMarketplaceComponentPostMiddleSection">
             <div className="buyerMarketplaceComponentPostCardsContainer">
-            <div key={product.id} className="buyerMarketplaceComponentPostCard1">
+            <div key={selectedProduct.productId} className="buyerMarketplaceComponentPostCard1">
                <img
               className="buyerMarketplaceComponentPostCard1Image"
               alt=""
@@ -177,7 +227,7 @@ const BuyerMarketplace = ({ match = {} }) => {
                         <div className="buyerMarketplaceComponentPostSmallCardsDetails">
 
                           <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.cropName}</b>
-                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('text101')} {selectedProduct?.farmer}</b>
+                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('text101')} {selectedProduct?.fullname}</b>
 
                         </div>
                         
@@ -205,7 +255,7 @@ const BuyerMarketplace = ({ match = {} }) => {
                               <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.location}</span>
 
                             </p>
-                            {product.category.toLowerCase() === 'vegetable' && (
+                            {/* {product.category.toLowerCase() === 'vegetable' && (
                               <>
                                 <p className="buyerMarketplaceComponentPostBlankLine">
                                   <b className="buyerMarketplaceComponentPostCategory">{t('buyerPagePrice')} </b>
@@ -240,7 +290,7 @@ const BuyerMarketplace = ({ match = {} }) => {
 
                                 </p>
                               </>
-                            )}
+                            )} */}
                             <p className="buyerMarketplaceComponentPostBlankLine">
 
                               <b className="buyerMarketplaceComponentPostCategory">{t('text107')} </b>
@@ -285,55 +335,30 @@ const BuyerMarketplace = ({ match = {} }) => {
         <div className="buyerMarketplaceComponentPostButtonNew">
           <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('Ttext111')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
-            <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost'style={{ textDecoration: 'none' }}>
+          {relatedProducts.map((relatedProduct) => (
+            <Link key={relatedProduct.productId} 
+            className="buyerMarketplaceComponentPostButtonNewCard1" 
+            to={`/buyermarketplacepost/${relatedProduct.id}`}
+             style={{ textDecoration: 'none' }}>
               <img
                 className="buyerMarketplaceComponentPostButtonNewCard1Image" 
                 alt=""
-                src={TomatoVector}
+                src={relatedProduct.image}
               />
               <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
                 <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
                   <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{t('buyerPageDescriptionText4')}</div>
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">₱5,000</div>
+                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{relatedProduct.cropName}</div>
+                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">{relatedProduct.price}</div>
                   </div>
                 </div>
               </div>
             </Link>
-            <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost' style={{ textDecoration: 'none' }}>
-              <img
-                className="buyerMarketplaceComponentPostButtonNewCard1Image"
-                alt=""
-                src={OnionVector}
-              />
-              <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
-                <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
-                  <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{t('buyerPageDescriptionText5')}</div>
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">₱3,000</div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-            <Link className="buyerMarketplaceComponentPostButtonNewCard1" to = '/buyermarketplacepost' style={{ textDecoration: 'none' }}>
-              <img
-                className="buyerMarketplaceComponentPostButtonNewCard1Image"
-                alt=""
-                src={talong}
-              />
-              <div className="buyerMarketplaceComponentPostButtonNewCard1Details">
-                <div className="buyerMarketplaceComponentPostButtonNewCard1DetailsInner">
-                  <div className="buyerMarketplaceComponentPostButtonNewCard1Wrapper">
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Title">{t('buyerPageDescriptionText6')}</div>
-                    <div className="buyerMarketplaceComponentPostButtonNewCard1Price">₱2,000</div>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </div>
-    </div>
-    </div>
-         </div>
+          ))}
+        </div>
+      </div>
+      </div>    
+      </div>
 
       {showChatBot && !minimizedChatBot && (
             <div className="chatbot-container">

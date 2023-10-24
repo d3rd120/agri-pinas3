@@ -111,12 +111,21 @@ const ShoppingCart = () => {
   };
 
   const calculateSubtotal = (price, quantity) => {
-    const totalPrice = price && typeof price === 'number' ? price : 0;
-    return (totalPrice * quantity).toFixed(2);
+    const numericPrice = Number(price);
+
+    if (isNaN(numericPrice)) {
+      console.error(`Invalid price: ${price}`);
+      return 'N/A';
+    }
+
+    return (numericPrice * quantity).toFixed(2);
   };
-  
+
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    ).toFixed(2);
   };
 
   const handleModalConfirm = () => {
@@ -260,22 +269,24 @@ const ShoppingCart = () => {
             </div>
           </div>
           <div className="payment-details"> {/* Apply the CSS class */}
-            <h2>{t('text81')}</h2>
-            <div>
-              <strong>{t('text82')}</strong> {t('text83')}
+          <h2>{t('text81')}</h2>
+          <div>
+            <strong>{t('text82')}</strong> {t('text83')}
+          </div>
+          {cart.map((item) => (
+            <div key={item.id}>
+              <strong>{t('text84')}</strong> ₱{calculateSubtotal(item.price, item.quantity)}
             </div>
-            <div>
-              <strong>{t('text84')}</strong> $20.00
-            </div>
-            <div>
-              <strong>{t('text85')}</strong> $20.00
-            </div>
-            <div className="buttonWrapper">
-              <button className="ordercheckoutButton2" onClick={placeOrder}>
-                {t('text86')}
-              </button>
-            </div>
-            </div>
+          ))}
+          <div>
+            <strong>{t('text85')}</strong> ₱{calculateTotal()}
+          </div>
+          <div className="buttonWrapper">
+            <button className="ordercheckoutButton2" onClick={placeOrder}>
+              {t('text86')}
+            </button>
+          </div>
+        </div>
 
              
 

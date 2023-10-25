@@ -19,7 +19,6 @@ import {
   getDocs,
   setDoc
 } from "firebase/firestore"; 
-import Popup from './validationPopup';
 
 const ShoppingCart = (props) => {
   const { t } = useTranslation();
@@ -30,7 +29,6 @@ const ShoppingCart = (props) => {
   const sessionId = sessionStorage.getItem('sessionId');
   const [products, setProducts] = useState([]);
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
-  const [isCartEmptyPopupVisible, setIsCartEmptyPopupVisible] = useState(false);
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -272,16 +270,8 @@ const ShoppingCart = (props) => {
 
               <div className="total">{t('text67')}{calculateTotal()}</div>
               <div className="buttonWrapper">
-              <Link
-              to={cart.length > 0 ? "/checkout" : "#"}
-              onClick={() => {
-                if (cart.length === 0) {
-                  setIsCartEmptyPopupVisible(true);
-                }
-              }}
-              className="ordercheckoutButton2"
-            >
-                  {t('text68')}
+                <Link to="/checkout" className="ordercheckoutButton2">
+                {t('text68')}
                 </Link>
                 <Link to="/buyermarketplace" className="ordercheckoutButton2">
                 {t('text69')}
@@ -336,11 +326,6 @@ const ShoppingCart = (props) => {
                 </div>
               </Link>
             ))}
-             <Popup
-        message="Your cart is empty. Please add items to your cart before proceeding to checkout."
-        onClose={() => setIsCartEmptyPopupVisible(false)}
-        isVisible={isCartEmptyPopupVisible}
-      />
               
           </div>
         </div>

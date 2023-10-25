@@ -141,7 +141,7 @@ const BuyerMarketplace = () => {
                                 <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
                                 <span>{product.description}</span>
                               </p>
                             </div>

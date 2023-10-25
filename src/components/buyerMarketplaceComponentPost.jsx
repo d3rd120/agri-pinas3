@@ -87,15 +87,18 @@ const BuyerMarketplace = ({ }) => {
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.exists() ? userCartSnapshot.data().cart : [];
   
-      const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);
-  
+      const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);  
+    
       if (existingItemIndex !== -1) {
-        currentCart[existingItemIndex].quantity += 1;
+        // Product already exists in the cart, update the quantity
+        const updatedCart = [...currentCart];
+        updatedCart[existingItemIndex].quantity += 1;
+        await setDoc(userCartRef, { cart: updatedCart });
       } else {
-        currentCart.push({ ...product, quantity: 1, productId: product.cropID });
+        // Product does not exist in the cart, add a new entry
+        currentCart.push({ ...product, quantity: 1, productId: product.productId });
+        await setDoc(userCartRef, { cart: currentCart });
       }
-  
-      await setDoc(userCartRef, { cart: currentCart });
   
       setPopupMessage(`${product.cropName} added to your cart!`);
       setPopupVisible(true);
@@ -105,6 +108,8 @@ const BuyerMarketplace = ({ }) => {
       setPopupVisible(true);
     }
   };
+
+  
   
   const fetchProductDetails = async () => {
     try {

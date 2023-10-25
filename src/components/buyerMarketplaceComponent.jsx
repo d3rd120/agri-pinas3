@@ -183,7 +183,7 @@ const displayCount = 6;
                     >
                       <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
                       <div className="buyerMarketplaceComponentFrameGroup">
-                        <div className="buyerMarketplaceComponentFrameContainer">
+                      <div className="buyerMarketplaceComponentFrameContainer">
                           <div className="buyerMarketplaceComponentCardWrapper">
                             <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
                           </div>
@@ -210,7 +210,7 @@ const displayCount = 6;
                                 <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
                                 <span>{product.description}</span>
                               </p>
                             </div>

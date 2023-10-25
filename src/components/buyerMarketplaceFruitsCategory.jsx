@@ -120,25 +120,19 @@ const BuyerMarketplace = () => {
                         src={product.image}
                       />
                       <div className="buyerMarketplaceComponentFrameGroup">
-                        <div className="buyerMarketplaceComponentFrameContainer">
+                      <div className="buyerMarketplaceComponentFrameContainer">
                           <div className="buyerMarketplaceComponentCardWrapper">
-                            <b className="buyerMarketplaceComponentCardText">
-                              {product.cropName}
-                            </b>
+                            <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
                           </div>
                           <div className="buyerMarketplaceComponentCategoryWrapper">
                             <div className="buyerMarketplaceComponentCategoryContainer">
                               <p className="buyerMarketplaceComponentBlankLine">
                                 <b>{t('text121')}</b>
-                                <span className="buyerMarketplaceComponentCategory">
-                                  {product.category}
-                                </span>
+                                <span className="buyerMarketplaceComponentCategory">{product.category}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
                                 <b>{t('text122')}</b>
-                                <span className="buyerMarketplaceComponentCategory">
-                                  {product.quantity}
-                                </span>
+                                <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
                                 <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
@@ -146,18 +140,14 @@ const BuyerMarketplace = () => {
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
                                 <b>Location: </b>
-                                <span className="buyerMarketplaceComponentCategory">
-                                  {product.location}
-                                </span>
+                                <span className="buyerMarketplaceComponentCategory">{product.location}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
                                 <b>Unit: </b>
-                                <span className="buyerMarketplaceComponentCategory">
-                                  {product.unit}
-                                </span>
+                                <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
                                 <span>{product.description}</span>
                               </p>
                             </div>

@@ -50,7 +50,6 @@ const logInWithEmailAndPassword = async (email, password) => {
 
 const registerWithEmailAndPassword = async (fullname, contact, address, birthdate, age, email, role, password) => {
 
-
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -78,8 +77,6 @@ const registerWithEmailAndPassword = async (fullname, contact, address, birthdat
     }
   }
 };
-
-
   
 
 const sendPasswordReset = async (email) => {
@@ -148,13 +145,8 @@ const uploadImage = async (file) => {
       }
   
       // Update the cart in the database
-      await setDoc(userCartRef, { cart: currentCart });
-  
-      // Notify the user that the item has been added to the cart
-      alert(`${product.cropName} added to your cart!`);
-    } catch (err) {
-      console.error(err);
-      alert("An error occurred while adding the item to your cart. Please try again.");
+      await setDoc(userCartRef, { cart: currentCart });        
+    } catch (err) {    
     }
   };
 

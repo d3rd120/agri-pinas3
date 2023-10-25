@@ -117,7 +117,7 @@
     gap: 1.88rem;
   }
   .adminMarketplaceComponentFrameWrapper {
-    align-self: stretch;
+    align-self:stretch;
     flex-direction: row;
     flex-wrap: wrap;
     display: flex;

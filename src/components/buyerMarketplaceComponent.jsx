@@ -100,8 +100,8 @@ const displayCount = 6;
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
-                  {t('text51')}
-                </p>
+                  {t('Categories')}
+                </p>               
               </b>
             </div>
           </div>

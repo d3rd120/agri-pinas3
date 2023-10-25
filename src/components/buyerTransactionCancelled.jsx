@@ -30,15 +30,7 @@ const BuyerTransanctionCancelled = () => {
         <div className="buyerTransactionCard">
             <div className="buyerTransactionSubTitle"><FaFolderOpen /> {t('text91')}
             </div>
-            <br></br>
-           <div className = "buyerTransactionsCancelledComponentShow">{t('text92')}   
-           <select className="buyerTransactionsCancelledComponentRowSelect" onchange="updateRows(this.value)">
-                   <option value="5">5</option>
-                   <option value="10">10</option>
-                   <option value="15">15</option>
-                   <option value="20">20</option>
-            </select>
-            </div> 
+            <br></br>         
             <br></br>     
     
      
@@ -121,29 +113,7 @@ const BuyerTransanctionCancelled = () => {
                   </div>
                 </a>            */}
               </div>     
-
-
     
-            <div className="buyerTransactionForumNumber">
-              <div className="buyerTransactionForumContainer">
-                <div className="buyerTransactionForumNumberBox">1</div>
-              </div>
-              <div className="buyerTransactionForumContainer">
-                <div className="buyerTransactionForumNumberBox">2</div>
-              </div>
-              <div className="buyerTransactionForumContainer">
-                <div className="buyerTransactionForumNumberBox">3</div>
-              </div>
-              <div className="buyerTransactionForumContainer">
-                <div className="buyerTransactionForumNumberBox">4</div>
-              </div>
-              <div className="buyerTransactionForumContainer">
-                <div className="buyerTransactionForumNumberBox">5</div>
-              </div>
-              <div className="buyerTransactionForumContainer">
-                <div className="buyerTransactionForumNumberBox">6</div>
-              </div>
-            </div>
           </div>
           </div> 
         </div>

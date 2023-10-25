@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import "../css/BuyerPage/buynow.css"
 import BuyerNavigation from '../components/buyerNavigation';
-import OnionVector from '../img/onionVector.png';
-import RiceVector from '../img/riceCardImage.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
-import { FaSadCry, FaTrash } from 'react-icons/fa';
 import BuyerTopNav from '../components/buyerTopNav';
-import { db, auth, storeTransaction } from './firebase';
+import { db, auth, } from './firebase';
 import { doc, getDoc, collection, query, where, getDocs, addDoc, setDoc, serverTimestamp} from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import Popup from './validationPopup';
 
 const ShoppingCart = () => {
   const { t } = useTranslation();
@@ -22,6 +20,14 @@ const ShoppingCart = () => {
   const [contact, setContact] = useState('');
   const [address, setAddress] = useState('');
   const [barangay, setBarangay] = useState('');
+  const [popupMessage, setPopupMessage] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const showAlert = (message) => {
+    setPopupMessage(message);
+    setIsPopupVisible(true);
+  };
   
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -144,54 +150,55 @@ const ShoppingCart = () => {
   const placeOrder = async () => {
     try {
       console.log('Start placing order...');
-  
+
       const user = auth.currentUser;
-  
+
       if (!user) {
         console.log('User is not authenticated.');
-        alert('Please log in to place an order.');
+        showAlert('Please log in to place an order.');
         return;
       }
-  
+
       const userCartRef = doc(db, 'UserCarts', user.uid);
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.data()?.cart || [];
-  
+
       if (currentCart.length === 0) {
         console.log('Cart is empty.');
-        alert('Your cart is empty. Add items before placing an order.');
+        showAlert('Your cart is empty. Add items before placing an order.');
         return;
       }
-  
+
       console.log('Current Cart:', currentCart);
-  
+
       // Create a new order document
       const orderRef = await addDoc(collection(db, 'Transaction'), {
         userId: user.uid,
         cart: currentCart,
         timestamp: serverTimestamp(),
       });
-  
+
       console.log('Order document added with ID:', orderRef.id);
-  
+
       // Clear the cart
       await setDoc(userCartRef, { cart: [] });
-  
+
       console.log('Order placed successfully!');
-      alert('Order placed successfully!');
+      showAlert('Order placed successfully');
+      setTimeout(() => {
+        navigate("/buyertoreceive");
+      }, 1500); // Redirect to the login page after 2 seconds
     } catch (error) {
       console.error('Error placing order:', error);
-  
+
       if (error instanceof FirebaseError) {
         console.error('Firebase Error Code:', error.code);
         console.error('Firebase Error Message:', error.message);
       }
-  
-      alert('Error placing order. Please try again.');
+
+      showAlert('Error placing order. Please try again.');
     }
-  };
-  
-  
+  }; 
   
   
   
@@ -225,10 +232,7 @@ const ShoppingCart = () => {
             <div>
              {address}
             </div>  
-            &nbsp;    
-            <Link to="/checkout" className="ordercheckoutButton2">
-            {t('text76')}
-                </Link>                        
+            &nbsp;                               
           </div>
 
 
@@ -308,6 +312,13 @@ const ShoppingCart = () => {
               </div>
             </div>
           )}
+           {isPopupVisible && (
+          <Popup
+            message={popupMessage}
+            onClose={() => setIsPopupVisible(false)}
+            isVisible={isPopupVisible}
+          />
+        )}
           
 	</div>
 </div>

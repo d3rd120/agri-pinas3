@@ -22,7 +22,10 @@ const BuyerMarketplace = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [products, setProducts] = useState([]);
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const displayCount = 6;
 
+  // Fetch products and user information
   const fetchProducts = async () => {
     try {
       const productsCollection = collection(db, 'Marketplace');
@@ -55,13 +58,12 @@ const BuyerMarketplace = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
-  
 
   const handleProductClick = (product) => {
     try {
       // Set the last clicked product ID
       setLastClickedProductId(product.id);
-      console.log('Last Clicked', product)
+      console.log('Last Clicked', product);
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
     } catch (error) {
@@ -69,93 +71,136 @@ const BuyerMarketplace = () => {
     }
   };
 
+  function chunkArray(arr, chunkSize) {
+    const chunked = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      chunked.push(arr.slice(i, i + chunkSize));
+    }
+    return chunked;
+  }
+
+   // Calculate the total number of pages
+   const totalPages = Math.ceil(products.length / displayCount);
+
+   // Generate an array of page numbers for dynamic pagination
+   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+ 
+   // Calculate the starting and ending index for the current page
+   const startIndex = (currentPage - 1) * displayCount;
+   const endIndex = startIndex + displayCount;
 
   return (
-    <I18nextProvider i18n={i18n}> 
-    <div className="buyerMarketplaceComponent">
-      <BuyerNavigation />
-      <div className="buyerMarketplaceComponentMainPanel">
-        <BuyerTopNav />
-        <div className="buyerCommunityForumComponentTopSection">
-          <div className="buyerCommunityForumComponentMainText1">
-            <b className="buyerCommunityForumComponentMainText2">             
-              <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
-              <p className="buyerCommunityForumComponentBlankLine">{t('text120')}</p>
-            </b>
-          </div>
-        </div>
-            
-          <div className="buyerMarketplaceComponentMiddleSection">
-          <div className="buyerMarketplaceComponentFrameParent">
-            <div className="buyerMarketplaceComponentFrameWrapper">
-            {products.map((product) => (
-                  <NavLink
-                  key={product.id}
-                  className="buyerMarketplaceComponentRectangleParent"
-                  to={`/buyermarketplacepost/${product.id}`}
-                  activeClassName="active"
-                  onClick={() => handleProductClick(product)}
-                >
-                   <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-             <div className="buyerMarketplaceComponentFrameGroup">
-               <div className="buyerMarketplaceComponentFrameContainer">
-                 <div className="buyerMarketplaceComponentCardWrapper">
-                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
-                 </div>
-                 <div className="buyerMarketplaceComponentCategoryWrapper">
-                   <div className="buyerMarketplaceComponentCategoryContainer">
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>{t('text121')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-
-                       <b>{t('text122')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
-
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
-                       <span>{product.price}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-
-                       <b>Location: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Unit: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
-
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
-                       <span>{product.description}</span>
-                     </p>
-                   </div>
-                 </div>
-               </div>
-               <div className="buyerMarketplaceComponentFrameItem" />
-               <div className="buyerMarketplaceComponentAuthor">
-                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                 <div className="buyerMarketplaceComponentAuthorText">
-                 <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
-                 </div>
-               </div>
-                    </div>
-                  </NavLink>
-                ))}           
-              
-                    <div>                
-                </div>    
-            </div>     
-        
-           
+    <I18nextProvider i18n={i18n}>
+      <div className="buyerMarketplaceComponent">
+        <BuyerNavigation />
+        <div className="buyerMarketplaceComponentMainPanel">
+          <BuyerTopNav />
+          <div className="buyerCommunityForumComponentTopSection">
+            <div className="buyerCommunityForumComponentMainText1">
+              <b className="buyerCommunityForumComponentMainText2">
+                <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('text120')}</p>
+              </b>
             </div>
+          </div>
+
+          <div className="adminMarketplaceComponentMiddleSection">
+            <div className="adminMarketplaceComponentFrameParent">
+            {chunkArray(products.slice(startIndex, endIndex), 2).map((postGroup, index) => (
+                <div className="adminMarketplaceComponentFrameWrapper" key={index}>
+                  {postGroup.map((product) => (
+                    <NavLink
+                      key={product.id}
+                      className="adminMarketplaceComponentRectangleParent"
+                      to={`/buyermarketplacepost/${product.id}`}
+                    >
+                      <img
+                        className="buyerMarketplaceComponentFrameChild"
+                        alt=""
+                        src={product.image}
+                      />
+                      <div className="buyerMarketplaceComponentFrameGroup">
+                        <div className="buyerMarketplaceComponentFrameContainer">
+                          <div className="buyerMarketplaceComponentCardWrapper">
+                            <b className="buyerMarketplaceComponentCardText">
+                              {product.cropName}
+                            </b>
+                          </div>
+                          <div className="buyerMarketplaceComponentCategoryWrapper">
+                            <div className="buyerMarketplaceComponentCategoryContainer">
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>{t('text121')}</b>
+                                <span className="buyerMarketplaceComponentCategory">
+                                  {product.category}
+                                </span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>{t('text122')}</b>
+                                <span className="buyerMarketplaceComponentCategory">
+                                  {product.quantity}
+                                </span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                                <span>{product.price}</span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>Location: </b>
+                                <span className="buyerMarketplaceComponentCategory">
+                                  {product.location}
+                                </span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>Unit: </b>
+                                <span className="buyerMarketplaceComponentCategory">
+                                  {product.unit}
+                                </span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                                <span>{product.description}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="buyerMarketplaceComponentFrameItem" />
+                        <div className="buyerMarketplaceComponentAuthor">
+                          <img
+                            className="buyerMarketplaceComponentAvatarIcon"
+                            alt=""
+                            src={ProfileVector2}
+                          />
+                          <div className="buyerMarketplaceComponentAuthorText">
+                            <div className="buyerMarketplaceComponentAuthorName">
+                              {product.fullname}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </NavLink>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="adminCommunityForumComponentForumNumber">
+            {pageNumbers.map((pageNumber) => (
+              <div
+                className={`adminCommunityForumComponentForumContainer ${
+                  pageNumber === currentPage ? 'active' : ''
+                }`}
+                key={pageNumber}
+                onClick={() => setCurrentPage(pageNumber)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="adminCommunityForumComponentForumNumberBox">{pageNumber}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      </I18nextProvider>   
+    </I18nextProvider>
   );
 };
 

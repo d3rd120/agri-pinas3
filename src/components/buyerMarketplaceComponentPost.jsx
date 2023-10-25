@@ -18,6 +18,7 @@ import i18n from '../i18n';
 import { db, auth } from './firebase';
 import { collection, getDocs, setDoc, getDoc, doc, where, query } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
+import Popup from './validationPopup';
 
 const CustomHeaderTitle = styled.div`
   background-color: #557153;
@@ -45,6 +46,9 @@ const BuyerMarketplace = ({ }) => {
   const { productId } = useParams();
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [loadingRelatedProducts, setLoadingRelatedProducts] = useState(true);
+  const [popupVisible, setPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+
 
   const handleChatButtonClick = () => {
     setShowChatBot(!showChatBot);
@@ -74,37 +78,33 @@ const BuyerMarketplace = ({ }) => {
   
       const user = auth.currentUser;
       if (!user) {
-      
-        alert("Please log in to add items to your cart.");
+        setPopupMessage("Please log in to add items to your cart.");
+        setPopupVisible(true);
         return;
       }
   
-     
       const userCartRef = doc(db, 'UserCarts', user.uid);
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.exists() ? userCartSnapshot.data().cart : [];
   
-    
       const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);
   
       if (existingItemIndex !== -1) {
-     
         currentCart[existingItemIndex].quantity += 1;
       } else {
-        
-        currentCart.push({ ...product, quantity: 1, productId: product.cropID }); 
+        currentCart.push({ ...product, quantity: 1, productId: product.cropID });
       }
   
-     
       await setDoc(userCartRef, { cart: currentCart });
   
-      alert(`${product.cropName} added to your cart!`);
+      setPopupMessage(`${product.cropName} added to your cart!`);
+      setPopupVisible(true);
     } catch (err) {
       console.error(err);
-      alert("An error occurred while adding the item to your cart. Please try again.");
+      setPopupMessage("An error occurred while adding the item to your cart. Please try again.");
+      setPopupVisible(true);
     }
   };
-  
   
   const fetchProductDetails = async () => {
     try {
@@ -305,11 +305,8 @@ const BuyerMarketplace = ({ }) => {
           <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleChatButtonClick}>
             <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
             <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
-          </button>
-          <div id="popupMessage" className="popupMessage">
-            <span className="popupText">{t('buyerPagePopup')}</span>
-          </div>
-          <Link to="/shoppingcart" onClick={() => handleAddToCart(selectedProduct)}>
+          </button>       
+          <Link onClick={() => handleAddToCart(selectedProduct)}>
           <button className="buyerMarketplaceComponentPostButton outlinedButton">
             <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
             <div className="buyerMarketplaceComponentPostButtonText">{t('text109')}</div>
@@ -402,6 +399,7 @@ const BuyerMarketplace = ({ }) => {
               </button>
             </div>
           )}
+          <Popup message={popupMessage} isVisible={popupVisible} onClose={() => setPopupVisible(false)} />
     </I18nextProvider>
     </>
   );

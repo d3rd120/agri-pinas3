@@ -26,6 +26,9 @@ const userUid = sessionStorage.getItem('userUid');
 const sessionId = sessionStorage.getItem('sessionId');
 const [products, setProducts] = useState([]);
 const [lastClickedProductId, setLastClickedProductId] = useState(null);
+const [currentPage, setCurrentPage] = useState(1);
+const displayCount = 6;
+
 
   const fetchProducts = async () => {
     try {
@@ -68,6 +71,24 @@ const [lastClickedProductId, setLastClickedProductId] = useState(null);
       console.error('Error handling product click:', error);
     }
   };
+
+  function chunkArray(arr, chunkSize) {
+    const chunked = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      chunked.push(arr.slice(i, i + chunkSize));
+    }
+    return chunked;
+  }
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(products.length / displayCount);
+
+  // Generate an array of page numbers for dynamic pagination
+  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+  // Calculate the starting and ending index for the current page
+  const startIndex = (currentPage - 1) * displayCount;
+  const endIndex = startIndex + displayCount;
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -152,67 +173,77 @@ const [lastClickedProductId, setLastClickedProductId] = useState(null);
                 </Link>
               </div>
 
-              <div className="buyerMarketplaceComponentFrameWrapper">
-              {products.map((product) => (
-                  <NavLink
-                          key={product.id}
-                  className="buyerMarketplaceComponentRectangleParent"
-                  to={`/buyermarketplacepost/${product.id}`}
-                  onClick={() => handleProductClick(product)}
-                        >
-                    <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
-             <div className="buyerMarketplaceComponentFrameGroup">
-               <div className="buyerMarketplaceComponentFrameContainer">
-                 <div className="buyerMarketplaceComponentCardWrapper">
-                   <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
-                 </div>
-                 <div className="buyerMarketplaceComponentCategoryWrapper">
-                   <div className="buyerMarketplaceComponentCategoryContainer">
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>{t('text121')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.category}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-
-                       <b>{t('text122')}</b>
-                       <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
-
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
-                       <span>{product.price}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-
-                       <b>Location: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.location}</span>
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b>Unit: </b>
-                       <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
-
-                     </p>
-                     <p className="buyerMarketplaceComponentBlankLine">
-                       <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
-                       <span>{product.description}</span>
-                     </p>
-                   </div>
-                 </div>
-               </div>
-               <div className="buyerMarketplaceComponentFrameItem" />
-               <div className="buyerMarketplaceComponentAuthor">
-                 <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
-                 <div className="buyerMarketplaceComponentAuthorText">
-                 <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
-                 </div>
-               </div>
-                    </div>
-                  </NavLink>
-                ))}         
-              <div>                
-            </div>    
-        </div>   
+              {chunkArray(products.slice(startIndex, endIndex), 3).map((postGroup, index) => (
+                <div className="adminMarketplaceComponentFrameWrapper" key={index}>
+                  {postGroup.map((product) => (
+                    <NavLink
+                      key={product.id}
+                      className="adminMarketplaceComponentRectangleParent"
+                      to={`/buyermarketplacepost/${product.id}`}
+                    >
+                      <img className="buyerMarketplaceComponentFrameChild" alt="" src={product.image} />
+                      <div className="buyerMarketplaceComponentFrameGroup">
+                        <div className="buyerMarketplaceComponentFrameContainer">
+                          <div className="buyerMarketplaceComponentCardWrapper">
+                            <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
+                          </div>
+                          <div className="buyerMarketplaceComponentCategoryWrapper">
+                            <div className="buyerMarketplaceComponentCategoryContainer">
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>{t('text121')}</b>
+                                <span className="buyerMarketplaceComponentCategory">{product.category}</span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>{t('text122')}</b>
+                                <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                                <span>{product.price}</span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>Location: </b>
+                                <span className="buyerMarketplaceComponentCategory">{product.location}</span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b>Unit: </b>
+                                <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
+                              </p>
+                              <p className="buyerMarketplaceComponentBlankLine">
+                                <b className="buyerMarketplaceComponentCategory">{t('text125')}</b>
+                                <span>{product.description}</span>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="buyerMarketplaceComponentFrameItem" />
+                        <div className="buyerMarketplaceComponentAuthor">
+                          <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                          <div className="buyerMarketplaceComponentAuthorText">
+                            <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </NavLink>
+                  ))}
+                </div>
+              ))}  
             </div>
+          </div>
+          
+          <div className="adminCommunityForumComponentForumNumber">
+            {pageNumbers.map((pageNumber) => (
+              <div
+                className={`adminCommunityForumComponentForumContainer ${
+                  pageNumber === currentPage ? 'active' : ''
+                }`}
+                key={pageNumber}
+                onClick={() => setCurrentPage(pageNumber)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="adminCommunityForumComponentForumNumberBox">{pageNumber}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

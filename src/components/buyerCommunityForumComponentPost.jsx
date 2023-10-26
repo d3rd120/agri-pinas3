@@ -260,7 +260,7 @@ const FarmerMarketplace = () => {
   <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('text130')}</div>
   <div className="buyerCommunityForumComponentFullPostNewCardText">
   {otherPosts.map((otherPost, index) => (
-  <Link
+  <a
     className="buyerCommunityForumComponentFullPostNewCardButton"
     to={`/buyercommunityforumpost/${otherPost.id}`}
     key={`image-${index}`}
@@ -279,7 +279,7 @@ const FarmerMarketplace = () => {
         </div>
       </div>
     </div>
-  </Link>
+  </a>
 ))}
   </div>
         </div>

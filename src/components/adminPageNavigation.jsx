@@ -12,6 +12,9 @@ const AdminNavigation = () => {
   const { t } = useTranslation();
   const [showDropdown2, setShowDropdown2] = useState(false);
   const [showDropdown5, setShowDropdown5] = useState(false);
+  const [showMarketplaceDropdown, setShowMarketplaceDropdown] = useState(false); // Add state for the marketplace dropdown
+  const [showCommunityForumDropdown, setShowCommunityForumDropdown] = useState(false);
+
 
   const toggleDropdown2 = () => {
     setShowDropdown2(!showDropdown2);
@@ -20,6 +23,15 @@ const AdminNavigation = () => {
   const toggleDropdown5 = () => {
     setShowDropdown5(!showDropdown5);
   };
+
+  const toggleMarketplaceDropdown = () => { // Function to toggle the marketplace dropdown
+    setShowMarketplaceDropdown(!showMarketplaceDropdown);
+  };
+
+  const toggleCommunityForumDropdown = () => {
+    setShowCommunityForumDropdown(!showCommunityForumDropdown);
+  };
+
 
   return (
     <I18nextProvider i18n={i18n}> 
@@ -31,14 +43,22 @@ const AdminNavigation = () => {
       </div>
       <div className="adminPageNavigationGroupParent">
 
-        <NavLink
-          className="adminPageNavigationLink1"
-          to="/admincommunityforum"
-          activeClassName="active"
-        >
-          <div className="adminPageNavigationLinks">{t('text133')}</div>
-          <FaUsers className="adminPageNavigationLinksIcon" />
-        </NavLink>
+         <NavLink
+            className={`adminPageNavigationLink1 ${showCommunityForumDropdown ? 'active' : ''}`}
+            to="/admincommunityforum"
+            activeClassName="active"
+            onMouseEnter={toggleCommunityForumDropdown}
+            onMouseLeave={toggleCommunityForumDropdown}
+          >
+            <div className="adminPageNavigationLinks">{t('text133')} <FaAngleDown /></div>
+            <FaUsers className="adminPageNavigationLinksIcon" />
+            {showCommunityForumDropdown && (
+              <div className="horizontal-dropdown">
+                <NavLink to="/communityforumoption1">{t('Archived')}</NavLink>               
+              </div>
+            )}
+          </NavLink>
+
 
 
         <NavLink
@@ -76,7 +96,6 @@ const AdminNavigation = () => {
             </div>
           )}
         </div>
-
         <NavLink
           className="adminPageNavigationLink3"
           to="/admindashboard"
@@ -87,12 +106,20 @@ const AdminNavigation = () => {
         </NavLink>
 
         <NavLink
-          className="adminPageNavigationLink4"
+          className={`adminPageNavigationLink4 ${showMarketplaceDropdown ? 'active' : ''}`}
           to="/adminmarketplace"
           activeClassName="active"
+          onMouseEnter={toggleMarketplaceDropdown}
+          onMouseLeave={toggleMarketplaceDropdown}
         >
-          <div className="adminPageNavigationLinks">{t('text132')}</div>
+          <div className="adminPageNavigationLinks">{t('text132')} <FaAngleDown /></div>
           <FaWallet className="adminPageNavigationLinksIcon" />
+          {showMarketplaceDropdown && (
+            <div className="horizontal-dropdown">             
+              <NavLink to="/adminmarketplacearchived">{t('Archived')}</NavLink>
+             
+            </div>
+          )}
         </NavLink>
         <div
           className={`adminPageNavigationLink5 ${

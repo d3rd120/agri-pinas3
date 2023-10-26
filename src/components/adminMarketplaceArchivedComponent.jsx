@@ -1,6 +1,6 @@
 import "../css/Components/adminMarketplaceComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
-import AdminMarketplaceUpdateComponent from '../components/adminMarketplaceUpdateComponent';
+import AdminMarketplaceUnarchivedComponent from '../components/adminMarketplaceUnarchivedComponent';
 import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDeleteComponent';
 import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
@@ -9,6 +9,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import OnionVector from '../img/onionCardImage.png';
+import SiliVector from '../img/sili.png';
 
 const AdminMarketplaceComponent = () => {
   const { t } = useTranslation();
@@ -112,7 +114,7 @@ const AdminMarketplaceComponent = () => {
               <b className="adminMarketplaceComponentMainTextWrapper">
                 <p className="adminMarketplaceComponentBlankLine">&nbsp;</p>
                 <p className="adminMarketplaceComponentBlankLine">
-                  {t('text148')}
+                  {t('Marketplace Archived')}
                 </p>
               </b>
             </div>
@@ -130,7 +132,7 @@ const AdminMarketplaceComponent = () => {
                 >
                   <FaTimes />
                 </span>
-                <AdminMarketplaceUpdateComponent />
+                <AdminMarketplaceUnarchivedComponent />
               </div>
             </div>
           )}
@@ -188,60 +190,50 @@ const AdminMarketplaceComponent = () => {
 
             <div className="adminMarketplaceComponentMiddleSection">
               <div className="adminMarketplaceComponentFrameParent">
-                {chunkArray(
-                  filteredProducts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
-                  2
-                ).map((productGroup, index) => (
-                  <div className="adminMarketplaceComponentFrameWrapper" key={index}>
-                    {productGroup.map((product) => (
-                      <a className="adminMarketplaceComponentRectangleParent" key={product.id}>
-                        <img
-                          className="adminMarketplaceComponentFrameChild"
-                          alt=""
-                          src={product.image}
-                        />
-                        <div className="adminMarketplaceComponentFrameGroup">
-                          <div className="adminMarketplaceComponentFrameContainer">
-                            <div className="adminMarketplaceComponentSubText1Wrapper">
-                              <b className="adminMarketplaceComponentSubText1">{product.cropName}</b>
-                            </div>
-                            <div className="adminMarketplaceComponentSubText2Wrapper2">
-                              <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('text152')}</b> {product.category}
-                              </div>
-                              <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('Quantity: ')}</b> {product.quantity}
-                              </div>                             
-                              <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('text154')}</b> {product.price}
-                              </div>
-                              <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('Location: ')}</b> {product.location}
-                              </div>
-                              <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('Unit: ')}</b> {product.unit}
-                              </div>
-                              <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('text156')}</b> {product.description}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="adminMarketplaceComponentFrameItem" />
+              <div className="adminMarketplaceComponentFrameWrapper">
+                <a className="adminMarketplaceComponentRectangleParent">
+                  <img
+                    className="adminMarketplaceComponentFrameChild"
+                    alt=""
+                    src={OnionVector}
+                  />
+                  <div className="adminMarketplaceComponentFrameGroup">
+                    <div className="adminMarketplaceComponentFrameContainer">
+                      <div className="adminMarketplaceComponentSubText1Wrapper">
+                        <b className="adminMarketplaceComponentSubText1">{t('farmerPageProductText2')}</b>
+                      </div>
+                      <div className="adminMarketplaceComponentSubText2Wrapper2">                        
+                        <div className="adminMarketplaceComponentSubText2">
+                          <b>{t('farmerPageCategory')}</b> Vegetable
+                        </div> 
+                        <div className="adminMarketplaceComponentSubText2">
+                          <b>{t('farmerPagePackaging')}</b> Sack
+                        </div>                        
+                        <div className="adminMarketplaceComponentSubText2">
+                          <b>{t('farmerPagePrice')}</b> Php 1,000
+                        </div>    
+                        <div className="adminMarketplaceComponentSubText2">
+                          <b>{t('farmerPageKilogram')}</b> 5 kgs
+                        </div>    
+                        <div className="adminMarketplaceComponentSubText2">
+                          <b>{t('farmerPageDescription')}</b>  An onion is a round vegetable with a brown skin that grows underground. It has many white layers on its inside which have a strong.
+                        </div>    
+                      </div>
+                    </div>
+                    <div className="adminMarketplaceComponentFrameItem" />
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
+                              <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
                             </button>
                             <button className="adminMarketplaceComponentButton" onClick={handleButtonClick2}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
                             </button>
-                          </div>
-                        </div>
-                      </a>
-                    ))}
+                          </div>    
                   </div>
-                ))}
+                </a>              
+              </div>  
               </div>
             </div>
             

@@ -5,7 +5,7 @@ import AdminTransactionsDeleteComponent from '../components/adminTransactionsDel
 import AdminNavigation from '../components/adminPageNavigation';
 import SitawVector from '../img/sitaw.png';
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTrash, FaFolderOpen, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaFolderOpen, FaTimes, FaArchive } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -129,9 +129,8 @@ const AdminBuyerTransactionsPendingComponent = () => {
             <div className="adminBuyerTransactionsPendingComponentFrameParent">
 
 
-            <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
-      <div className="buyerTransactionFrameParent">
-        {orders.map((order, index) => (
+            <div className="adminBuyerTransactionsCompletedComponentFrameWrapper">
+              {orders.map((order, index) => (
           <div key={index} className="adminFarmerTransactionsPendingComponentRectangleParent">
             {order.cart.map((item, itemIndex) => (
               <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
@@ -166,20 +165,13 @@ const AdminBuyerTransactionsPendingComponent = () => {
                     <div className="adminFarmerTransactionsPendingComponentSubText2">
                       <b>{t('text99')}</b> {item.status}
                     </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
-
                     <div className="adminBuyerTransactionsPendingComponentFrameItem" />
                     <div className="adminBuyerTransactionsPendingComponentDetails">
                     <button className="adminBuyerTransactionsPendingComponentButton"
                      onClick={handleButtonClick1}>
-                        <FaEdit className="adminBuyerTransactionsPendingComponentButtonIcon"
+                        <FaArchive className="adminBuyerTransactionsPendingComponentButtonIcon"
                           />
-                        <div className="adminBuyerTransactionsPendingComponentButtonText">{t('text199')}</div>
+                        <div className="adminBuyerTransactionsPendingComponentButtonText">{t('Archive')}</div>
                       </button>
                       <button className="adminBuyerTransactionsPendingComponentButton"
                        onClick={handleButtonClick2}>
@@ -188,15 +180,15 @@ const AdminBuyerTransactionsPendingComponent = () => {
                       </button>
                     </div>
                   </div>
-                     
-
-
+                </div>
               </div>
-
-           
-
-
-
+            ))}
+          </div>
+        ))}
+                  </div>             
+                  </div>
+              </div>
+              
               <div className="adminBuyerTransactionsPendingComponentForumNumber">
                 <div className="adminBuyerTransactionsPendingComponentForumContainer">
                   <div className="adminBuyerTransactionsPendingComponentForumNumberBox">1</div>
@@ -216,12 +208,10 @@ const AdminBuyerTransactionsPendingComponent = () => {
                 <div className="adminBuyerTransactionsPendingComponentForumContainer">
                   <div className="adminBuyerTransactionsPendingComponentForumNumberBox">6</div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </I18nextProvider>
   );
 };

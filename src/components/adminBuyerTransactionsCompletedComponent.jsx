@@ -53,7 +53,7 @@ const AdminBuyerTransactionsCompletedComponent = () => {
 
 
               <div className="adminBuyerTransactionsCompletedComponentFrameWrapper">
-                <a className="adminBuyerTransactionsCompletedComponentRectangleParent">
+                {/* <a className="adminBuyerTransactionsCompletedComponentRectangleParent">
                   <img
                     className="adminBuyerTransactionsCompletedComponentFrameChild"
                     alt=""
@@ -96,8 +96,7 @@ const AdminBuyerTransactionsCompletedComponent = () => {
                     </div>
                   
                   </div>
-                </a>
-              
+                </a> */}            
 
               </div>
 

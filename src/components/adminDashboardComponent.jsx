@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   const [showPopup2, setShowPopup2] = useState(false);
   const [showPopup3, setShowPopup3] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
-
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
 
   const handleButtonClick = () => {
     setShowPopup(true);
@@ -28,7 +28,8 @@ const AdminDashboard = () => {
     setShowPopup(false);
   };
 
-  const handleButtonClick2 = () => {
+  const handleButtonClick2 = (announcement) => {
+    setSelectedAnnouncement(announcement);
     setShowPopup2(true);
   };
 
@@ -37,7 +38,8 @@ const AdminDashboard = () => {
   };
 
   
-  const handleButtonClick3 = () => {
+  const handleButtonClick3 = (announcement) => {
+    setSelectedAnnouncement(announcement);
     setShowPopup3(true);
   };
 
@@ -129,14 +131,16 @@ const AdminDashboard = () => {
             </tr>
           </thead>
           <tbody>
-          <tr> 
-                 <td>Palay Giveaway</td>
-                 <td>Sa dadating na nobyembre, mag papamigay kami ng palay na higit kumulang isang hectares</td>
-                 <td>12/07/2023</td>                           
-                 <td class = "adminDashboardButtons"onClick={handleButtonClick3}> <FaEdit /> </td>              
-                 <td class = "adminDashboardButtons"onClick={handleButtonClick2}><FaTrash/> </td>                             
+          {announcements.map((item) => (
+          <tr key={item.id}>
+              <td>{item.title}</td>
+              <td>{item.content}</td>
+              <td>{item.timestamp}</td>                          
+                 <td class = "adminDashboardButtons"onClick={() => handleButtonClick3(item)}> <FaEdit /> </td>              
+                 <td className="adminDashboardButtons" onClick={() => handleButtonClick2(item)}>
+                <FaTrash /> </td>                            
            </tr>       
-
+      ))}
                 </tbody>
               </table>
               </div> 
@@ -191,7 +195,7 @@ const AdminDashboard = () => {
                 >
                   <FaTimes />
                 </span>
-                <AdminDashboardDelete />
+                <AdminDashboardDelete closePopup={closePopup2} selectedAnnouncement={selectedAnnouncement} />
               </div>
             </div>
           )}
@@ -204,11 +208,11 @@ const AdminDashboard = () => {
               <div className="buyerCommunityForumComponentPopupContent">
                 <span
                   className="buyerCommunityForumComponentCloseButton"
-                  onClick={closePopup3}
+                  onClick={closePopup3} 
                 >
                   <FaTimes />
                 </span>
-                <AdminDashboardEdit/>
+                <AdminDashboardEdit selectedAnnouncement={selectedAnnouncement} />
               </div>
             </div>
           )}   

@@ -5,9 +5,79 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import i18n from '../i18n';
+import { db } from './firebase';
+import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 
 const AdminFarmerTransactions = () => {
-const { t } = useTranslation();
+  const { t } = useTranslation();
+  const [reports, setReports] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedReport, setEditedReport] = useState({
+    id: '',
+    timestamp: '',
+    title: '',
+    fullname: '',
+    status: '',
+    resolution: '',
+    actionTaken: '', 
+  });
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'Reports'));
+        const reportsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setReports(reportsData);
+      } catch (error) {
+        console.error('Error fetching reports: ', error);
+      }
+    };
+
+    fetchReports();
+  }, []);
+
+  const handleEdit = (report) => {
+    setIsEditing(true);
+    setEditedReport(report);
+  };
+
+  const handleSave = async () => {
+    try {
+      await updateDoc(doc(db, 'Reports', editedReport.id), {
+        title: editedReport.title,
+        fullname: editedReport.fullname,
+        status: editedReport.status,
+        resolution: editedReport.resolution,
+        actionTaken: editedReport.actionTaken, 
+      });
+
+      setIsEditing(false);
+      setEditedReport({
+        id: '',
+        timestamp: '',
+        title: '',
+        fullname: '',
+        status: '',
+        resolution: '',
+        actionTaken: '',
+      });
+
+
+      const querySnapshot = await getDocs(collection(db, 'Reports'));
+      const reportsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReports(reportsData);
+    } catch (error) {
+      console.error('Error updating report: ', error);
+    }
+  };
+
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -61,18 +131,62 @@ const { t } = useTranslation();
             </tr>
           </thead>
           <tbody>
-          <tr> 
-                 <td>10/10/2023</td>
-                 <td>Inaccurate Delivered Products</td>
-                 <td>Arrianne Clarisse Gatpo</td>               
-                 <td>Taking it to the Advisor</td>                 
-                 <td>Pending</td>       
-                 <td> <FaEdit /> </td>                            
-           </tr>       
-             
+            {reports.map((report) => (
+              <tr key={report.id}>
+                <td>{report.timestamp}</td>
+                <td>{isEditing && editedReport.id === report.id ? (
+                  <input
+                    type="text"
+                    value={editedReport.title}
+                    onChange={(e) => setEditedReport({ ...editedReport, title: e.target.value })}
+                  />
+                ) : (
+                  report.title
+                )}</td>
+                <td>{isEditing && editedReport.id === report.id ? (
+                  <input
+                    type="text"
+                    value={editedReport.fullname}
+                    onChange={(e) => setEditedReport({ ...editedReport, fullname: e.target.value })}
+                  />
+                ) : (
+                  report.fullname
+                )}</td>
+                <td>{isEditing && editedReport.id === report.id ? (
+                  <input
+                    type="text"
+                    value={editedReport.status}
+                    onChange={(e) => setEditedReport({ ...editedReport, status: e.target.value })}
+                  />
+                ) : (
+                  report.status
+                )}</td>
+                <td>{isEditing && editedReport.id === report.id ? (
+                  <input
+                    type="text"
+                    value={editedReport.resolution}
+                    onChange={(e) => setEditedReport({ ...editedReport, resolution: e.target.value })}
+                  />
+                ) : (
+                  report.resolution
+                )}</td>
+                <td>{isEditing && editedReport.id === report.id ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={editedReport.actionTaken}
+                      onChange={(e) => setEditedReport({ ...editedReport, actionTaken: e.target.value })}
+                    />
+                    <FaEdit onClick={handleSave} />
+                  </div>
+                ) : (
+                  <FaEdit onClick={() => handleEdit(report)} />
+                )}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
-   </div>
+      </div>
 
           <div className="adminCommunityForumComponentForumNumber">
             <div className="adminCommunityForumComponentForumContainer">

@@ -142,57 +142,75 @@ const AdminCommunityForumComponent = () => {
             <div className="adminMarketplaceComponentMiddleSection">
 
 
-              <div className="adminMarketplaceComponentFrameParent">             
-                {chunkArray(
-                  filteredPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
-                  2
-                ).map((postGroup, index) => (
-                  <div className="adminMarketplaceComponentFrameWrapper" key={index}>
-                    {postGroup.map((post) => (
-                      <a className="adminMarketplaceComponentRectangleParent" key={post.id}>
-                        <img
-                          className="buyerCommunityForumComponentFrameChild"
-                          alt=""
-                          src={post.image}
-                        />
-                        <div className="buyerCommunityForumComponentFrameGroup">
-                          <div className="buyerCommunityForumComponentFrameContainer">
-                            <div className="buyerCommunityForumComponentSubText1Wrapper">
-                              <b className="buyerCommunityForumComponentSubText1">
-                                {post.title}
-                              </b>
-                            </div>
-                            <div className="buyerCommunityForumComponentSubText2Wrapper2">
-                              <div className="buyerCommunityForumComponentSubText2">
-                                {post.content}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="buyerCommunityForumComponentFrameItem" />
-                          {post.user && post.user.displayName && (
-                            <div className="buyerCommunityForumComponentFrameAuthor">
-                              <img
-                                className="buyerCommunityForumComponentFrameIcon"
-                                alt=""
-                                src={ProfileVector1}
-                              />
-                              <div className="buyerCommunityForumComponentAuthorText">
-                                <div className="buyerCommunityForumComponentAuthorName">
-                                  {post.user.displayName}
-                                </div>
-                                <div className="buyerCommunityForumComponentPostTime">
-                                  {post.timestamp}
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                ))}
+            <div className="adminMarketplaceComponentFrameParent">
+  {chunkArray(
+    filteredPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
+    2
+  ).map((postGroup, index) => (
+    <div className="adminMarketplaceComponentFrameWrapper" key={index}>
+      {postGroup.map((post) => (
+        <a className="adminMarketplaceComponentRectangleParent" key={post.id}>
+          <img
+            className="buyerCommunityForumComponentFrameChild"
+            alt=""
+            src={post.image}
+          />
+          <div className="buyerCommunityForumComponentFrameGroup">
+            <div className="buyerCommunityForumComponentFrameContainer">
+              <div className="buyerCommunityForumComponentSubText1Wrapper">
+                <b className="buyerCommunityForumComponentSubText1">
+                  {post.title}
+                </b>
+              </div>
+              <div className="buyerCommunityForumComponentSubText2Wrapper2">
+                <div className="buyerCommunityForumComponentSubText2">
+                  {post.content}
+                </div>
               </div>
             </div>
+
+         
+            {post.comments && post.comments.length > 0 && (
+              <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
+                <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
+                  <p className="buyerCommunityForumComponentFullPostBlankLine">
+                    <b>{t('text129')}</b>
+                  </p>
+                  {post.comments.map((comment, commentIndex) => (
+                    <div key={commentIndex} className="buyerCommunityForumComponentFullPostComment">
+                      <b>{comment.fullname}: </b>
+                      <span>{comment.text}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="buyerCommunityForumComponentFrameItem" />
+            {post.user && post.user.displayName && (
+              <div className="buyerCommunityForumComponentFrameAuthor">
+                <img
+                  className="buyerCommunityForumComponentFrameIcon"
+                  alt=""
+                  src={ProfileVector1}
+                />
+                <div className="buyerCommunityForumComponentAuthorText">
+                  <div className="buyerCommunityForumComponentAuthorName">
+                    {post.user.displayName}
+                  </div>
+                  <div className="buyerCommunityForumComponentPostTime">
+                    {post.timestamp}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  ))}
+</div>
+</div>
 
 
             <div className="adminCommunityForumComponentForumNumber">

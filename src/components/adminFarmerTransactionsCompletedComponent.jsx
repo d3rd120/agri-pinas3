@@ -51,7 +51,7 @@ const AdminFarmerTransactionsCompletedComponent = () => {
             <div className="adminFarmerTransactionsCompletedComponentFrameParent">
 
 
-              <div className="adminFarmerTransactionsCompletedComponentFrameWrapper">
+              {/* <div className="adminFarmerTransactionsCompletedComponentFrameWrapper">
                 <a className="adminFarmerTransactionsCompletedComponentRectangleParent">
                   <img
                     className="adminFarmerTransactionsCompletedComponentFrameChild"
@@ -92,15 +92,10 @@ const AdminFarmerTransactionsCompletedComponent = () => {
                           <b>{t('text198')}</b> Completed
                         </div>
                       </div>
-                    </div>
-                 
+                    </div>                 
                   </div>
-                </a>          
-                
-
-                
-
-              </div>
+                </a>    
+              </div> */}
 
 
                

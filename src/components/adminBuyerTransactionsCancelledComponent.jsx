@@ -53,7 +53,7 @@ const AdminBuyerTransactionsCancelledComponent = () => {
 
 
               <div className="adminBuyerTransactionsCancelledComponentFrameWrapper">
-                <a className="adminBuyerTransactionsCancelledComponentRectangleParent">
+                {/* <a className="adminBuyerTransactionsCancelledComponentRectangleParent">
                   <img
                     className="adminBuyerTransactionsCancelledComponentFrameChild"
                     alt=""
@@ -96,7 +96,7 @@ const AdminBuyerTransactionsCancelledComponent = () => {
                     </div>
                     
                   </div>
-                </a>             
+                </a>              */}
 
               </div>
 

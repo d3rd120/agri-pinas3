@@ -203,6 +203,7 @@
     font-weight: 500; 
     color: #000;
     text-align: left;
+   
   }
   .buyerCommunityForumComponentFullPostNewCardTitleWrapper {
     flex: 1;
@@ -226,6 +227,7 @@
     flex-direction: column;
     padding: 1.25rem 1rem;
     justify-content: center;
+    text-decoration: none;
   }
   .holiday-details-child,
   .buyerCommunityForumComponentFullPostNewCardButton{
@@ -245,7 +247,7 @@
     background-color: transparent;
     flex: 1;
     border-radius: 10px;
-    
+    text-decoration: none;    
     box-sizing: border-box;
     height: 22.44rem;
     flex-direction: column;
@@ -265,7 +267,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));  
   }
   .buyerCommunityForumComponentFullPostNewCard {
     flex: 1;
@@ -301,7 +303,7 @@
     text-align: left;
     font-size: 1.13rem;
     color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;   
     
   }
   @media screen and (max-width: 1200px) {   

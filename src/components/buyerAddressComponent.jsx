@@ -202,10 +202,12 @@ const handleSave = async () => {
         </div>
         <div className="addressTopSection">
       <div className="addressMainText1">
-        <button className="addressMainText2" onClick={handleAddAddress}>
+        {/* <button className="addressMainText2" onClick={handleAddAddress}>
           <p className="addressBlankLine">{t('farmerPageButton18')}</p>
           <FaPlus className="farmerCommunityForumComponentPlusIcon" onClick={handleOpenEditModal3} />
-        </button>
+        </button> */}
+        <br></br>
+        <br></br>
         <Modal open={openEditModal3} onClose={handleClose}>
           <div className="editModal">
             <h2>New Address</h2>

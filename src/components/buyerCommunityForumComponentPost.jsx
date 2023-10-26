@@ -1,4 +1,4 @@
-import '../css/Components/buyerCommunityForumComponentFullPost.css';
+import '../css/BuyerPage/buyerCommunityForumPost.css';
 import React, { useState, useEffect } from 'react';
 import BuyerNavigation from './buyerNavigation';
 import { FaThumbsUp } from 'react-icons/fa';
@@ -7,7 +7,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
-import { getDoc, doc, addDoc, collection, updateDoc, getDocs, where, query } from 'firebase/firestore';
+import { getDoc, doc, addDoc, collection, updateDoc, getDocs, } from 'firebase/firestore';
 import { useParams, Link} from 'react-router-dom';
 
 
@@ -227,15 +227,17 @@ const FarmerMarketplace = () => {
                     </button>
                     </div>
                     <input
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      className="buyerCommunityForumComponentFullPostCommentInput"
-                      type="text"
-                      placeholder={t('text128')}
-                    />
-                    <button className="buyerCommunityForumComponentFullPostButton" onClick={handleComment}>
-                      {t('Add Comment')}
-                    </button>
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          className="buyerCommunityForumComponentFullPostCommentInput"
+                          type="text"
+                          placeholder={t('Comment here')}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              handleComment();
+                            }
+                          }}
+                        />                  
                     <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                       <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                         <p className="buyerCommunityForumComponentFullPostBlankLine">

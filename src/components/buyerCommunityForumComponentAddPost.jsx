@@ -4,6 +4,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { uploadImage, storage } from './firebase';
+import Popup from './validationPopup'; // Import the Popup component
 
 const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   const { t } = useTranslation();
@@ -15,6 +16,9 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
     postId: '', // To store the selected image file
   });
 
+  const [popupMessage, setPopupMessage] = useState(''); // For displaying popup messages
+  const [isPopupVisible, setPopupVisible] = useState(false); // For controlling popup visibility
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setPostDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
@@ -22,54 +26,77 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setPostDetails((prevDetails) => ({ ...prevDetails, file }));
+    if (!file) {
+      setPopupMessage('Please select an image file.');
+      setPopupVisible(true);
+    } else if (!file.type.startsWith('image/')) {
+      setPopupMessage('Please select a valid image file.');
+      setPopupVisible(true);
+    } else {
+      setPostDetails((prevDetails) => ({ ...prevDetails, file }));
+    }
   };
 
   const handlePost = async () => {
     try {
+      if (!postDetails.title || !postDetails.content) {
+        setPopupMessage('Please fill in all required fields.');
+        setPopupVisible(true);
+        return;
+      }
+
+      if (!postDetails.file) {
+        setPopupMessage('Please upload an image.');
+        setPopupVisible(true);
+        return;
+      }
+
       const newPost = {
         title: postDetails.title,
         content: postDetails.content,
-        sessionId: sessionId, // Add session ID
+        sessionId: sessionId,
       };
-  
-      // Upload the image and get the download URL
+
       if (postDetails.file) {
-        const imageUrl = await uploadImage(postDetails.file, 'images'); // Specify 'images' folder
+        const imageUrl = await uploadImage(postDetails.file, 'images');
         newPost.image = imageUrl;
-        console.log('test', postDetails);
       }
-  
-      // Call the addPost function with the new post data
+
       addPost(newPost);
-  
-      // Clear form fields after successful post
+
+      setPopupMessage('Post written successfully!');
+      setPopupVisible(true);
+
+      // Clear form fields
       setPostDetails({
         title: '',
         content: '',
         file: null,
         postId: '',
       });
+
+      setTimeout(() => {       
+        window.location.reload();
+      }, 1000);
+
     } catch (error) {
-      console.error('Error uploading image or storing post:', error);
-      alert(`Error uploading image or storing post: ${error.message}`);
+      setPopupMessage(`Error uploading image or storing post: ${error.message}`);
+      setPopupVisible(true);
     }
   };
-  
-  
+
   useEffect(() => {
     const handleUserLogin = () => {
       // Logic to obtain or generate session ID
       const newSessionId = ('');
-  
+
       // Set the session ID in the state
       setSessionId(newSessionId);
     };
-  
-    // Call the function when the component mounts or when user logs in
+
+    // Call the function when the component mounts or when the user logs in
     handleUserLogin();
   }, []); // Add dependencies as needed
-  
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -123,6 +150,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
           </div>
         </div>
       </div>
+      <Popup message={popupMessage} onClose={() => setPopupVisible(false)} isVisible={isPopupVisible} />
     </I18nextProvider>
   );
 };

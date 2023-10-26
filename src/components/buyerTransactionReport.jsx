@@ -16,7 +16,24 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   const [validationMessage, setValidationMessage] = useState('');
 
   useEffect(() => {
-    // ... Your existing useEffect logic ...
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // Get additional user info, such as full name
+        const userDoc = await getDoc(doc(db, 'Users', user.uid));
+        if (userDoc.exists()) {
+          setUserInfo({
+            uid: user.uid,
+            fullname: userDoc.data().fullname,
+          });
+        }
+      } else {
+        // User is signed out
+        setUserInfo({});
+      }
+    });
+
+    // Clean up the subscription when the component unmounts
+    return () => unsubscribe();
   }, []);
 
   const addReport = async () => {

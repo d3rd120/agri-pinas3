@@ -5,7 +5,7 @@ import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDelet
 import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -100,6 +100,56 @@ const AdminMarketplaceComponent = () => {
     const newDisplayCount = parseInt(event.target.value, 10);
     setDisplayCount(newDisplayCount);
     setCurrentPage(1); // Reset current page to 1 when changing display count
+  };
+
+  const handleArchiveButtonClick = async (productId) => {
+    try {
+      const confirmArchive = window.confirm('Are you sure you want to archive this product?');
+
+      if (confirmArchive) {
+        const productRef = doc(db, 'Marketplace', productId);
+        const productSnapshot = await getDoc(productRef);
+
+        if (productSnapshot.exists()) {
+          const productData = productSnapshot.data();
+
+          await addDoc(collection(db, 'Archive'), {
+            ...productData,
+            archived: true,
+          });
+
+          await deleteDoc(productRef);
+
+          setShowPopup1(true);
+          fetchProducts();
+        } else {
+          console.warn('Product not found.');
+        }
+      }
+    } catch (error) {
+      console.error('Error archiving product:', error);
+    }
+  };
+
+  const handleDeleteButtonClick = async (productId) => {
+    try {
+      const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+  
+      if (confirmDelete) {
+        const productRef = doc(db, 'Marketplace', productId);
+        const productSnapshot = await getDoc(productRef);
+  
+        if (productSnapshot.exists()) {
+          await deleteDoc(productRef);
+          setShowPopup2(true);
+          fetchProducts(); // Fetch updated product list
+        } else {
+          console.warn('Product not found.');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
   };
 
   return (
@@ -228,11 +278,11 @@ const AdminMarketplaceComponent = () => {
                           </div>
                           <div className="adminMarketplaceComponentFrameItem" />
                           <div className="adminMarketplaceComponentDetails">
-                            <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
+                            <button className="adminMarketplaceComponentButton" onClick={() => handleArchiveButtonClick(product.id)}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
                             </button>
-                            <button className="adminMarketplaceComponentButton" onClick={handleButtonClick2}>
+                            <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteButtonClick(product.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
                             </button>

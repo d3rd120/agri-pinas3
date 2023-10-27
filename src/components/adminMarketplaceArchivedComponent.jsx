@@ -5,7 +5,7 @@ import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDelet
 import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -20,7 +20,7 @@ const AdminMarketplaceComponent = () => {
   const [searchText, setSearchText] = useState('');
   const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
-
+  const [archivedProducts, setArchivedProducts] = useState([]);
   // Define an array of row options
   const rowOptions = [5, 10, 15, 20];
 
@@ -40,35 +40,7 @@ const AdminMarketplaceComponent = () => {
     setShowPopup2(false);
   };
 
-  const fetchProducts = async () => {
-    try {
-      const productsCollection = collection(db, 'Marketplace');
-      const querySnapshot = await getDocs(productsCollection);
 
-      if (querySnapshot.empty) {
-        console.warn('No products found.');
-        return;
-      }
-
-      const productsData = querySnapshot.docs.map((doc) => {
-        const product = doc.data();
-        return {
-          id: doc.id,
-          ...product,
-        };
-      });
-
-      console.log('Fetched products:', productsData);
-      setProducts(productsData);
-      console.log('Products in state:', productsData);
-    } catch (error) {
-      console.error('Error retrieving products:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   // Filter products based on searchText
   const filteredProducts = products.filter((product) => {
@@ -103,6 +75,90 @@ const AdminMarketplaceComponent = () => {
     setDisplayCount(newDisplayCount);
     setCurrentPage(1); // Reset current page to 1 when changing display count
   };
+
+
+  const fetchArchivedProducts = async () => {
+    try {
+      const archivedProductsCollection = collection(db, 'Archive');
+      const archivedProductsSnapshot = await getDocs(archivedProductsCollection);
+  
+      if (archivedProductsSnapshot.empty) {
+        console.warn('No archived products found.');
+        return;
+      }
+  
+      const archivedProductsData = archivedProductsSnapshot.docs.map((doc) => {
+        const product = doc.data();
+        return {
+          id: doc.id,
+          ...product,
+        };
+      });
+  
+      console.log('Fetched archived products:', archivedProductsData);
+      setArchivedProducts(archivedProductsData);
+    } catch (error) {
+      console.error('Error retrieving archived products:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchArchivedProducts();
+  }, []);
+  
+
+  const handleUnarchiveButtonClick = async (productId) => {
+    try {
+      const confirmUnarchive = window.confirm('Are you sure you want to unarchive this product?');
+
+      if (confirmUnarchive) {
+        const productRef = doc(db, 'Archive', productId);
+        const productSnapshot = await getDoc(productRef);
+
+        if (productSnapshot.exists()) {
+          const productData = productSnapshot.data();
+
+          // Move the product from 'Archive' to 'Marketplace'
+          await addDoc(collection(db, 'Marketplace'), {
+            ...productData,
+            archived: false, // Mark as unarchived
+          });
+
+          // Delete the product from 'Archive'
+          await deleteDoc(productRef);
+
+          setShowPopup1(true);
+          fetchArchivedProducts(); // Fetch updated archived product list
+        } else {
+          console.warn('Archived product not found. Product ID:', productId); // Log the productId
+        }
+      }
+    } catch (error) {
+      console.error('Error unarchiving product:', error);
+    }
+  };
+
+  const handleDeleteProduct = async (productId) => {
+    try {
+      const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+  
+      if (confirmDelete) {
+        const productRef = doc(db, 'Archive', productId);
+        const productSnapshot = await getDoc(productRef);
+  
+        if (productSnapshot.exists()) {
+          await deleteDoc(productRef);
+          setShowPopup2(true);
+          fetchArchivedProducts(); // Fetch updated archived product list
+        } else {
+          console.warn('Archived product not found.');
+        }
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+  
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -189,54 +245,59 @@ const AdminMarketplaceComponent = () => {
             <br />
 
             <div className="adminMarketplaceComponentMiddleSection">
-              <div className="adminMarketplaceComponentFrameParent">
-              <div className="adminMarketplaceComponentFrameWrapper">
-                <a className="adminMarketplaceComponentRectangleParent">
-                  <img
-                    className="adminMarketplaceComponentFrameChild"
-                    alt=""
-                    src={OnionVector}
-                  />
-                  <div className="adminMarketplaceComponentFrameGroup">
-                    <div className="adminMarketplaceComponentFrameContainer">
-                      <div className="adminMarketplaceComponentSubText1Wrapper">
-                        <b className="adminMarketplaceComponentSubText1">{t('farmerPageProductText2')}</b>
-                      </div>
-                      <div className="adminMarketplaceComponentSubText2Wrapper2">                        
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageCategory')}</b> Vegetable
-                        </div> 
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPagePackaging')}</b> Sack
-                        </div>                        
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPagePrice')}</b> Php 1,000
-                        </div>    
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageKilogram')}</b> 5 kgs
-                        </div>    
-                        <div className="adminMarketplaceComponentSubText2">
-                          <b>{t('farmerPageDescription')}</b>  An onion is a round vegetable with a brown skin that grows underground. It has many white layers on its inside which have a strong.
-                        </div>    
-                      </div>
-                    </div>
-                    <div className="adminMarketplaceComponentFrameItem" />
-                          <div className="adminMarketplaceComponentDetails">
-                            <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
-                              <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
-                            </button>
-                            <button className="adminMarketplaceComponentButton" onClick={handleButtonClick2}>
-                              <FaTrash className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
-                            </button>
-                          </div>    
+  {archivedProducts.map((product) => {
+    const productId = product.id; // Move this line here
+    return (
+      <div key={productId} className="adminMarketplaceComponentFrameParent">
+        <div className="adminMarketplaceComponentFrameWrapper">
+          <a className="adminMarketplaceComponentRectangleParent">
+            <img
+              className="adminMarketplaceComponentFrameChild"
+              alt=""
+              src={product.image} 
+            />
+            <div className="adminMarketplaceComponentFrameGroup">
+              <div className="adminMarketplaceComponentFrameContainer">
+                <div className="adminMarketplaceComponentSubText1Wrapper">
+                  <b className="adminMarketplaceComponentSubText1">{product.productName}</b>
+                </div>
+                <div className="adminMarketplaceComponentSubText2Wrapper2">
+                  <div className="adminMarketplaceComponentSubText2">
+                    <b>{t('farmerPageCategory')}</b> {product.category}
                   </div>
-                </a>              
-              </div>  
+                  <div className="adminMarketplaceComponentSubText2">
+                    <b>{t('farmerPagePackaging')}</b> {product.unit}
+                  </div>
+                  <div className="adminMarketplaceComponentSubText2">
+                    <b>{t('farmerPagePrice')}</b> {product.price}
+                  </div>
+                  <div className="adminMarketplaceComponentSubText2">
+                    <b>{t('farmerPageKilogram')}</b> {product.quantity}
+                  </div>
+                  <div className="adminMarketplaceComponentSubText2">
+                    <b>{t('farmerPageDescription')}</b> {product.description}
+                  </div>
+                </div>
+              </div>
+              <div className="adminMarketplaceComponentFrameItem" />
+              <div className="adminMarketplaceComponentDetails">
+                <button className="adminMarketplaceComponentButton" onClick={() => handleUnarchiveButtonClick(productId)}>
+                  <FaArchive className="adminMarketplaceComponentButtonIcon" />
+                  <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
+                </button>
+                <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteProduct(productId)}>
+                  <FaTrash className="adminMarketplaceComponentButtonIcon" />
+                  <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
+                </button>
               </div>
             </div>
-            
+          </a>
+        </div>
+      </div>
+    );
+  })}
+</div>
+
             <div className="adminMarketplaceComponentForumNumber">
               {Array.from({ length: Math.ceil(filteredProducts.length / displayCount) }, (_, index) => (
                 <div
@@ -252,8 +313,8 @@ const AdminMarketplaceComponent = () => {
               ))}
             </div>
           </div>
-        </div>
-      </div>
+          </div>
+          </div>
     </I18nextProvider>
   );
 };

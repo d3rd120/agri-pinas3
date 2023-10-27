@@ -36,6 +36,7 @@ import AdminAccountFarmer from './pages/AdminPage/adminAccountFarmer';
 import AdminMarketplace from './pages/AdminPage/adminMarketplace';
 import AdminLogReport from './pages/AdminPage/adminLogReport';
 import AdminMarketplaceArchived from './pages/AdminPage/adminMarketplaceArchived';
+import AdminCommunityForumArchived from './pages/AdminPage/adminCommunityForumArchived';
 import AdminBuyerPendingTransactions from './pages/AdminPage/adminBuyerPendingTransactions';
 import AdminBuyerCompletedTransactions from './pages/AdminPage/adminBuyerCompletedTransactions';
 import AdminBuyerCancelledTransactions from './pages/AdminPage/adminBuyerCancelledTransactions';
@@ -94,7 +95,9 @@ const App = () => {
           <Route path="/adminfarmerpendingtransactions" element={<AdminFarmerPendingTransactions />}/>  
           <Route path="/adminfarmercompletedtransactions" element={<AdminFarmerCompletedTransactions />}/>  
           <Route path="/adminfarmercancelledtransactions" element={<AdminFarmerCancelledTransactions />}/>  
-          <Route path="/adminmarketplacearchived" element={<AdminMarketplaceArchived />}/>            
+          <Route path="/adminmarketplacearchived" element={<AdminMarketplaceArchived />}/>     
+          <Route path="/admincommunityforumarchived" element={<AdminCommunityForumArchived />}/>      
+               
                    
           <Route element={<PublicRoutes />} />
           <Route element={<PrivateRoutes />} />

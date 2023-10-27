@@ -3,8 +3,7 @@ import AdminNavigation from '../components/adminPageNavigation';
 import React, { useState, useEffect } from 'react';
 import { onSnapshot, collection, getDoc, doc, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
-import { Link } from 'react-router-dom';
-import ProfileVector1 from '../img/profileVector1.png';
+import SquashVector from '../img/squash.png';
 import { FaComments, FaArchive, FaTrash } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -128,7 +127,7 @@ const AdminCommunityForumComponent = () => {
             <div className="adminCommunityForumComponentMainText">
               <b className="adminCommunityForumComponentMainTextWrapper">
                 <p className="adminCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="adminCommunityForumComponentBlankLine">{t('text179')}</p>
+                <p className="adminCommunityForumComponentBlankLine">{t('Community Forum Archived')}</p>
               </b>
             </div>
           </div>
@@ -158,71 +157,34 @@ const AdminCommunityForumComponent = () => {
             <br />
 
             <div className="adminMarketplaceComponentMiddleSection">
-
-
             <div className="adminMarketplaceComponentFrameParent">
-  {chunkArray(
-    filteredPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
-    1
-  ).map((postGroup, index) => (
-    <div className="adminMarketplaceComponentFrameWrapper" key={index}>
-      {postGroup.map((post) => (
-        <a className="adminMarketplaceComponentRectangleParent" key={post.id}>
-          <img
-            className="buyerCommunityForumComponentFrameChild"
-            alt=""
-            src={post.image}
-          />
-          <div className="buyerCommunityForumComponentFrameGroup">
-            <div className="buyerCommunityForumComponentFrameContainer">
-              <div className="buyerCommunityForumComponentSubText1Wrapper">
-                <b className="buyerCommunityForumComponentSubText1">
-                  {post.title}
-                </b>
-              </div>
-              <div className="buyerCommunityForumComponentSubText2Wrapper2">
-                <div className="buyerCommunityForumComponentSubText2">
-                  {post.content}
-                </div>
-              </div>
-            </div>
 
-         
-            {post.comments && post.comments.length > 0 && (
-              <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
-                <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
-                  <p className="buyerCommunityForumComponentFullPostBlankLine">
-                    <b>{t('text129')}</b>
-                  </p>
-                  {post.comments.map((comment, commentIndex) => (
-                    <div key={commentIndex} className="buyerCommunityForumComponentFullPostComment">
-                      <b>{comment.fullname}: </b>
-                      <span>{comment.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            <div className="buyerCommunityForumComponentFrameItem" />
-            {post.user && post.user.displayName && (
-              <div className="buyerCommunityForumComponentFrameAuthor">
+            <div className="adminCommunityForumComponentFrameWrapper">          
+
+              <a className="adminCommunityForumComponentRectangleParent">
                 <img
-                  className="buyerCommunityForumComponentFrameIcon"
+                  className="adminCommunityForumComponentFrameChild"
                   alt=""
-                  src={ProfileVector1}
+                  src={SquashVector}
                 />
-                <div className="buyerCommunityForumComponentAuthorText">
-                  <div className="buyerCommunityForumComponentAuthorName">
-                    {post.user.displayName}
+                <div className="adminCommunityForumComponentFrameGroup">
+                  <div className="adminCommunityForumComponentFrameContainer">
+                    <div className="adminCommunityForumComponentSubText1Wrapper">
+                      <b className="adminCommunityForumComponentSubText1">{t('Text6')}</b>
+                    </div>
+                    <div className="adminCommunityForumComponentSubText2Wrapper2">
+                      <div className="adminCommunityForumComponentSubText2">
+                       <b>{t('Text9')}</b> B001
+                      </div>
+                      <div className="adminCommunityForumComponentSubText2">
+                       <b>{t('Text10')}</b> Buyer
+                      </div>
+                      <div className="adminCommunityForumComponentSubText2">
+                       <b>{t('Text11')}</b> Jenkins Mesina
+                      </div>                           
+                    </div>
                   </div>
-                  <div className="buyerCommunityForumComponentPostTime">
-                    {post.timestamp}
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            <div className="adminMarketplaceComponentFrameItem" />
+                  <div className="adminMarketplaceComponentFrameItem" />
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
@@ -233,13 +195,14 @@ const AdminCommunityForumComponent = () => {
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
                             </button>
                           </div>
-          </div>
-        </a>
-      ))}
-    </div>
-  ))}
+  
+                </div>
+              </a> 
+            </div>  
+
 </div>
 </div>
+
 
 
             <div className="adminCommunityForumComponentForumNumber">

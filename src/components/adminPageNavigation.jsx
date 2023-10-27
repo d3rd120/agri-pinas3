@@ -54,7 +54,7 @@ const AdminNavigation = () => {
             <FaUsers className="adminPageNavigationLinksIcon" />
             {showCommunityForumDropdown && (
               <div className="horizontal-dropdown">
-                <NavLink to="/communityforumoption1">{t('Archived')}</NavLink>               
+                <NavLink to="/admincommunityforumarchived">{t('Archived')}</NavLink>               
               </div>
             )}
           </NavLink>

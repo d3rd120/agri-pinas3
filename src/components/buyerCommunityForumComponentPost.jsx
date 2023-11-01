@@ -1,4 +1,4 @@
-import '../css/BuyerPage/buyerCommunityForumPost.css';
+import '../css/Components/buyerCommunityForumComponentFullPost.css';
 import React, { useState, useEffect } from 'react';
 import BuyerNavigation from './buyerNavigation';
 import { FaThumbsUp } from 'react-icons/fa';
@@ -7,8 +7,9 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
-import { getDoc, doc, addDoc, collection, updateDoc, getDocs, } from 'firebase/firestore';
+import { getDoc, doc, addDoc, collection, updateDoc, getDocs, where, query } from 'firebase/firestore';
 import { useParams, Link} from 'react-router-dom';
+import Popup from './validationPopup';
 
 
 const FarmerMarketplace = () => {
@@ -21,6 +22,8 @@ const FarmerMarketplace = () => {
   const [commentUsers, setCommentUsers] = useState({});
   const [otherPosts, setOtherPosts] = useState([]);
   const [loadingOtherPosts, setLoadingOtherPosts] = useState(true);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [isPopupVisible, setPopupVisible] = useState(false);
 
 
   useEffect(() => {
@@ -142,8 +145,8 @@ const FarmerMarketplace = () => {
       const user = auth.currentUser;
   
       if (!user) {
-        console.warn('User is not authenticated.');
-        // You can redirect the user to the login page or show a message
+        setPopupMessage('User is not authenticated.');
+        setPopupVisible(true);
         return;
       }
   
@@ -152,6 +155,12 @@ const FarmerMarketplace = () => {
       const userDocSnapshot = await getDoc(userDocRef);
       const userData = userDocSnapshot.data();
       const fullname = userData && userData.fullname ? userData.fullname : 'Anonymous';
+  
+      if (comment.trim() === '') {
+        setPopupMessage('This field cannot be empty. Please enter your comment.');
+        setPopupVisible(true);
+        return;
+      }
   
       await addDoc(collection(db, 'Comments'), {
         postId: postId,
@@ -172,9 +181,11 @@ const FarmerMarketplace = () => {
         [fullname]: userData,
       });
     } catch (error) {
-      console.error('Error adding comment:', error.message);
+      setPopupMessage(`Error adding comment: ${error.message}`);
+      setPopupVisible(true);
     }
   };
+  
   
   
  
@@ -237,7 +248,7 @@ const FarmerMarketplace = () => {
                               handleComment();
                             }
                           }}
-                        />                  
+                        />           
                     <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                       <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                         <p className="buyerCommunityForumComponentFullPostBlankLine">
@@ -260,7 +271,7 @@ const FarmerMarketplace = () => {
   <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('text130')}</div>
   <div className="buyerCommunityForumComponentFullPostNewCardText">
   {otherPosts.map((otherPost, index) => (
-  <a
+  <Link
     className="buyerCommunityForumComponentFullPostNewCardButton"
     to={`/buyercommunityforumpost/${otherPost.id}`}
     key={`image-${index}`}
@@ -279,12 +290,15 @@ const FarmerMarketplace = () => {
         </div>
       </div>
     </div>
-  </a>
+  </Link>
 ))}
   </div>
         </div>
       </div>
     </div>
+    {isPopupVisible && (
+    <Popup message={popupMessage} onClose={() => setPopupVisible(false)} isVisible={isPopupVisible} />
+  )}
   </I18nextProvider>
 );
 

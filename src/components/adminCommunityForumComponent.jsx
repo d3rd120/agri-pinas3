@@ -1,14 +1,14 @@
 import "../css/Components/adminCommunityForumComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
 import React, { useState, useEffect } from 'react';
-import { onSnapshot, collection, getDoc, doc, getDocs } from 'firebase/firestore';
+import { onSnapshot, collection, getDoc, doc, getDocs, addDoc, deleteDoc } from 'firebase/firestore';
 import { db } from './firebase';
-import { Link } from 'react-router-dom';
 import ProfileVector1 from '../img/profileVector1.png';
 import { FaComments, FaArchive, FaTrash } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import ConfirmationDialog from './confirmationDialog';
 
 const AdminCommunityForumComponent = () => {
   const { t } = useTranslation();
@@ -18,22 +18,21 @@ const AdminCommunityForumComponent = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
+  const [showArchiveConfirmation, setShowArchiveConfirmation] = useState(false);
+  const [archivePostId, setArchivePostId] = useState(null);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [deletePostId, setDeletePostId] = useState(null);
 
-  const handleButtonClick1 = () => {
-    setShowPopup1(true);
+  const handleArchivePost = (postId) => {
+    setArchivePostId(postId);
+    setShowArchiveConfirmation(true);
   };
-
-  const closePopup1 = () => {
-    setShowPopup1(false);
+  
+  const handleDeletePost = (postId) => {
+    setDeletePostId(postId);
+    setShowDeleteConfirmation(true);
   };
-
-  const handleButtonClick2 = () => {
-    setShowPopup2(true);
-  };
-
-  const closePopup2 = () => {
-    setShowPopup2(false);
-  };
+  
 
 
   const fetchUserDisplayName = async (uid) => {
@@ -55,6 +54,7 @@ const AdminCommunityForumComponent = () => {
     }
   };
   
+  
 
   const fetchPosts = async () => {
     try {
@@ -66,10 +66,11 @@ const AdminCommunityForumComponent = () => {
         const post = doc.data();
         post.user = post.user || {}; // Ensure that post.user is initialized as an object
 
-        const userDisplayName = await fetchUserDisplayName(post.user?.uid);
-        post.user.displayName = userDisplayName || 'Anonymous'; // Set a default value if userDisplayName is falsy
-        fetchedPosts.push(post);
+        const displayName = await fetchUserDisplayName(post.user?.uid);
+        post.user.displayName = displayName; // Set a default value if userDisplayName is falsy
         post.id = doc.id;
+
+        fetchedPosts.push(post);
       }
 
       setPosts(fetchedPosts);
@@ -77,7 +78,6 @@ const AdminCommunityForumComponent = () => {
       console.error('Error fetching posts:', error);
     }
   };
-  
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "CommunityForum"), () => {
@@ -93,7 +93,7 @@ const AdminCommunityForumComponent = () => {
     const displayName = post.category || '';
     const userDisplayName = post.user && post.user.displayName ? post.user.displayName : '';
     const user = post.user && typeof post.user === 'string' ? post.user.toLowerCase() : '';
-
+  
     // Check if title, displayName, userDisplayName, or user contains the searchQuery
     return (
       title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -102,6 +102,7 @@ const AdminCommunityForumComponent = () => {
       user.includes(searchQuery.toLowerCase())
     );
   });
+  
 
   // Function to split an array into chunks
   function chunkArray(arr, size) {
@@ -119,6 +120,59 @@ const AdminCommunityForumComponent = () => {
     setCurrentPage(1); // Reset current page to 1 when changing display count
   };
 
+  const handleConfirmArchive = async () => {
+    try {
+      const postRef = doc(db, 'CommunityForum', archivePostId);
+      const postSnapshot = await getDoc(postRef);
+  
+      if (postSnapshot.exists()) {
+        const postData = postSnapshot.data();
+  
+        await addDoc(collection(db, 'ArchiveCommunityForum'), {
+          ...postData,
+          archived: true,
+        });
+  
+        await deleteDoc(postRef);
+  
+        setShowArchiveConfirmation(false);
+        fetchPosts(); // You may need to update this function name if needed
+      } else {
+        console.warn('Post not found.');
+      }
+    } catch (error) {
+      console.error('Error archiving post:', error);
+    }
+  };
+  
+  const handleCancelArchive = () => {
+    setShowArchiveConfirmation(false);
+  };
+  
+  const handleConfirmDelete = async () => {
+    try {
+      const postRef = doc(db, 'CommunityForum', deletePostId);
+      const postSnapshot = await getDoc(postRef);
+  
+      if (postSnapshot.exists()) {
+        await deleteDoc(postRef);
+  
+        setShowDeleteConfirmation(false);
+        fetchPosts(); // Update this function name if needed
+      } else {
+        console.warn('Post not found.');
+      }
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+  
+  const handleCancelDelete = () => {
+    setShowDeleteConfirmation(false);
+  };
+  
+  
+  
   return (
     <I18nextProvider i18n={i18n}>
       <div className="adminCommunityForumComponent">
@@ -146,14 +200,14 @@ const AdminCommunityForumComponent = () => {
                    <option value="15">15</option>
                    <option value="20">20</option>
               </select>
-
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
                 placeholder={t('text182')}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchQuery} // Bind the input value to the searchQuery state
+                onChange={(e) => setSearchQuery(e.target.value)} // Update the searchQuery state when the input changes
               />
+
             </div>
             <br />
 
@@ -174,61 +228,57 @@ const AdminCommunityForumComponent = () => {
             src={post.image}
           />
           <div className="buyerCommunityForumComponentFrameGroup">
-            <div className="buyerCommunityForumComponentFrameContainer">
-              <div className="buyerCommunityForumComponentSubText1Wrapper">
-                <b className="buyerCommunityForumComponentSubText1">
-                  {post.title}
-                </b>
-              </div>
-              <div className="buyerCommunityForumComponentSubText2Wrapper2">
-                <div className="buyerCommunityForumComponentSubText2">
-                  {post.content}
-                </div>
-              </div>
-            </div>
-
-         
-            {post.comments && post.comments.length > 0 && (
-              <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
-                <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
-                  <p className="buyerCommunityForumComponentFullPostBlankLine">
-                    <b>{t('text129')}</b>
-                  </p>
-                  {post.comments.map((comment, commentIndex) => (
-                    <div key={commentIndex} className="buyerCommunityForumComponentFullPostComment">
-                      <b>{comment.fullname}: </b>
-                      <span>{comment.text}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            <div className="buyerCommunityForumComponentFrameItem" />
-            {post.user && post.user.displayName && (
-              <div className="buyerCommunityForumComponentFrameAuthor">
-                <img
-                  className="buyerCommunityForumComponentFrameIcon"
-                  alt=""
-                  src={ProfileVector1}
-                />
-                <div className="buyerCommunityForumComponentAuthorText">
-                  <div className="buyerCommunityForumComponentAuthorName">
-                    {post.user.displayName}
-                  </div>
-                  <div className="buyerCommunityForumComponentPostTime">
-                    {post.timestamp}
-                  </div>
-                </div>
-              </div>
-            )}
+          <div className="adminCommunityForumComponentFrameContainer">
+                        <div className="adminCommunityForumComponentSubText1Wrapper">
+                          <b className="adminCommunityForumComponentSubText1">{post.title}</b>
+                        </div>
+                        <div className="adminCommunityForumComponentSubText2Wrapper2">                      
+                        <div className="buyerCommunityForumComponentSubText2">
+                          {post.content}
+                        </div>
+                        
+                      {post.comments && post.comments.length > 0 && (
+                        <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
+                          <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
+                            <p className="buyerCommunityForumComponentFullPostBlankLine">
+                              <b>{t('text129')}</b>
+                            </p>
+                            {post.comments.map((comment, commentIndex) => (
+                              <div key={commentIndex} className="buyerCommunityForumComponentFullPostComment">
+                                <b>{comment.fullname}: </b>
+                                <span>{comment.text}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      <br></br>
+                      <div className="buyerCommunityForumComponentFrameAuthor">
+                              <img
+                                className="buyerCommunityForumComponentFrameIcon"
+                                alt=""
+                                src={ProfileVector1}
+                              />
+                              <div className="buyerCommunityForumComponentAuthorText">
+                                <div className="buyerCommunityForumComponentAuthorName">
+                                  {post.user.displayName}
+                                </div>
+                                <div className="buyerCommunityForumComponentPostTime">
+                                  {post.timestamp}
+                                </div>
+                              </div>
+                            </div>
+                              
+                        </div>
+                      </div>
             
             <div className="adminMarketplaceComponentFrameItem" />
                           <div className="adminMarketplaceComponentDetails">
-                            <button className="adminMarketplaceComponentButton" onClick={handleButtonClick1}>
+                            <button className="adminMarketplaceComponentButton" onClick={() => handleArchivePost(post.id)}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
                             </button>
-                            <button className="adminMarketplaceComponentButton" onClick={handleButtonClick2}>
+                            <button className="adminMarketplaceComponentButton" onClick={() => handleDeletePost(post.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
                             </button>
@@ -260,6 +310,24 @@ const AdminCommunityForumComponent = () => {
           </div>
         </div>
       </div>
+      {showArchiveConfirmation && (
+  <ConfirmationDialog
+    isOpen={showArchiveConfirmation}
+    message="Are you sure you want to archive this post?"
+    onConfirm={handleConfirmArchive}
+    onCancel={handleCancelArchive}
+  />
+)}
+
+{showDeleteConfirmation && (
+  <ConfirmationDialog
+    isOpen={showDeleteConfirmation}
+    message="Are you sure you want to delete this post?"
+    onConfirm={handleConfirmDelete}
+    onCancel={handleCancelDelete}
+  />
+)}
+
     </I18nextProvider>
   );
 };

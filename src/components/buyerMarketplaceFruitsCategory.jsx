@@ -23,7 +23,25 @@ const BuyerMarketplace = () => {
   const [products, setProducts] = useState([]);
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const displayCount = 6;
+
+  useEffect(() => {
+    // Filter the products based on the search query
+    const filtered = products.filter((product) =>
+      product.cropName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.quantity.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.price.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.unit.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) 
+    );
+    setFilteredProducts(filtered);
+  }, [searchQuery, products]);
+
 
   // Fetch products and user information
   const fetchProducts = async () => {
@@ -94,7 +112,7 @@ const BuyerMarketplace = () => {
       <div className="buyerMarketplaceComponent">
         <BuyerNavigation />
         <div className="buyerMarketplaceComponentMainPanel">
-          <BuyerTopNav />
+        <BuyerTopNav setSearchQuery={setSearchQuery} />
           <div className="buyerCommunityForumComponentTopSection">
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
@@ -106,12 +124,12 @@ const BuyerMarketplace = () => {
 
           <div className="adminMarketplaceComponentMiddleSection">
             <div className="adminMarketplaceComponentFrameParent">
-            {chunkArray(products.slice(startIndex, endIndex), 2).map((postGroup, index) => (
-                <div className="adminMarketplaceComponentFrameWrapper" key={index}>
+            {chunkArray(filteredProducts.slice(startIndex, endIndex), 2).map((postGroup, index) => (
+                <div className="buyerMarketplaceComponentFrameWrapper" key={index}>
                   {postGroup.map((product) => (
                     <NavLink
                       key={product.id}
-                      className="adminMarketplaceComponentRectangleParent"
+                      className="buyerMarketplaceComponentRectangleParent"
                       to={`/buyermarketplacepost/${product.id}`}
                     >
                       <img

@@ -76,14 +76,15 @@ const Signup = () => {
         return;
       }
   
-    // Validate the password using a regex pattern (e.g., at least 8 characters, containing letters and numbers)
-    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    
-    if (!passwordPattern.test(password)) {
-      setPopupMessage("Password must contain at least 8 characters with letters and numbers.");
-      setShowPopup(true);
-      return;
-    }
+  // Validate the password using a regex pattern (e.g., at least 8 characters, containing letters, numbers, and optional special characters)
+      const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=!*_]?).{8,}$/;
+
+      if (!passwordPattern.test(password)) {
+        setPopupMessage("Password must contain at least 8 characters with letters, numbers.");
+        setShowPopup(true);
+        return;
+      }
+
 
     try {
       await registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
@@ -237,8 +238,7 @@ const Signup = () => {
               >
                 <option value="" disabled>
                   {t('text34')}
-                </option>
-                <option value="Farmer">{t('text35')}</option>
+                </option>               
                 <option value="Buyer">{t('text36')}</option>
               </select>
               <input

@@ -1,7 +1,5 @@
 import "../css/Components/adminMarketplaceComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
-import AdminMarketplaceUpdateComponent from '../components/adminMarketplaceUpdateComponent';
-import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDeleteComponent';
 import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
@@ -9,6 +7,7 @@ import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/fi
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import ConfirmationDialog from "./confirmationDialog";
 
 const AdminMarketplaceComponent = () => {
   const { t } = useTranslation();
@@ -18,25 +17,28 @@ const AdminMarketplaceComponent = () => {
   const [searchText, setSearchText] = useState('');
   const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
+  const [isArchiveDialogOpen, setIsArchiveDialogOpen] = useState(false);
+  const [archiveProductId, setArchiveProductId] = useState(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [deleteProductId, setDeleteProductId] = useState(null);
+
+
+const handleArchiveButtonClick = (productId) => {
+  setArchiveProductId(productId);
+  setIsArchiveDialogOpen(true);
+};
+
+const handleDeleteButtonClick = (productId) => {
+  setDeleteProductId(productId);
+  setIsDeleteDialogOpen(true);
+};
+
+
+  
 
   // Define an array of row options
-  const rowOptions = [5, 10, 15, 20];
-
-  const handleButtonClick1 = () => {
-    setShowPopup1(true);
-  };
-
-  const closePopup1 = () => {
-    setShowPopup1(false);
-  };
-
-  const handleButtonClick2 = () => {
-    setShowPopup2(true);
-  };
-
-  const closePopup2 = () => {
-    setShowPopup2(false);
-  };
+  const rowOptions = [10, 15, 20];
+ 
 
   const fetchProducts = async () => {
     try {
@@ -70,19 +72,23 @@ const AdminMarketplaceComponent = () => {
 
   // Filter products based on searchText
   const filteredProducts = products.filter((product) => {
-    const productName = product.productName || '';
+    const cropName = product.cropName || '';
     const category = product.category || '';
-    const packaging = product.packaging || '';
+    const quantity = product.quantity || '';
     const price = product.price || '';
-    const kilogram = product.kilogramPerUnit || '';
+    const location = product.location || '';
+    const unit = product.unit || '';
+    const description = product.description || '';
 
     // Check if any of the fields contain the searchText
     return (
-      productName.toLowerCase().includes(searchText.toLowerCase()) ||
+      cropName.toLowerCase().includes(searchText.toLowerCase()) ||
       category.toLowerCase().includes(searchText.toLowerCase()) ||
-      packaging.toLowerCase().includes(searchText.toLowerCase()) ||
+      quantity.toLowerCase().includes(searchText.toLowerCase()) ||
       price.toLowerCase().includes(searchText.toLowerCase()) ||
-      kilogram.toLowerCase().includes(searchText.toLowerCase())
+      location.toLowerCase().includes(searchText.toLowerCase()) ||
+      unit.toLowerCase().includes(searchText.toLowerCase())  ||
+      description.toLowerCase().includes(searchText.toLowerCase()) 
     );
   });
 
@@ -102,56 +108,65 @@ const AdminMarketplaceComponent = () => {
     setCurrentPage(1); // Reset current page to 1 when changing display count
   };
 
-  const handleArchiveButtonClick = async (productId) => {
+  const handleConfirmArchive = async () => {
     try {
-      const confirmArchive = window.confirm('Are you sure you want to archive this product?');
-
-      if (confirmArchive) {
-        const productRef = doc(db, 'Marketplace', productId);
-        const productSnapshot = await getDoc(productRef);
-
-        if (productSnapshot.exists()) {
-          const productData = productSnapshot.data();
-
-          await addDoc(collection(db, 'Archive'), {
-            ...productData,
-            archived: true,
-          });
-
-          await deleteDoc(productRef);
-
-          setShowPopup1(true);
-          fetchProducts();
-        } else {
-          console.warn('Product not found.');
-        }
+      const productRef = doc(db, 'Marketplace', archiveProductId);
+      const productSnapshot = await getDoc(productRef);
+  
+      if (productSnapshot.exists()) {
+        const productData = productSnapshot.data();
+  
+        await addDoc(collection(db, 'Archive'), {
+          ...productData,
+          archived: true,
+        });
+  
+        await deleteDoc(productRef);
+  
+        setShowPopup1(true);
+        fetchProducts();
+      } else {
+        console.warn('Product not found.');
       }
     } catch (error) {
       console.error('Error archiving product:', error);
     }
+  
+    // Close the dialog
+    setIsArchiveDialogOpen(false);
   };
+  
+  const handleCancelArchive = () => {
+    // Close the dialog
+    setIsArchiveDialogOpen(false);
+  };  
+ 
 
-  const handleDeleteButtonClick = async (productId) => {
+  const handleConfirmDelete = async () => {
     try {
-      const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+      const productRef = doc(db, 'Marketplace', deleteProductId);
+      const productSnapshot = await getDoc(productRef);
   
-      if (confirmDelete) {
-        const productRef = doc(db, 'Marketplace', productId);
-        const productSnapshot = await getDoc(productRef);
-  
-        if (productSnapshot.exists()) {
-          await deleteDoc(productRef);
-          setShowPopup2(true);
-          fetchProducts(); // Fetch updated product list
-        } else {
-          console.warn('Product not found.');
-        }
+      if (productSnapshot.exists()) {
+        await deleteDoc(productRef);
+        setShowPopup2(true);
+        fetchProducts(); // Fetch updated product list
+      } else {
+        console.warn('Product not found.');
       }
     } catch (error) {
       console.error('Error deleting product:', error);
     }
+  
+    // Close the dialog
+    setIsDeleteDialogOpen(false);
   };
-
+  
+  const handleCancelDelete = () => {
+    // Close the dialog
+    setIsDeleteDialogOpen(false);
+  };
+  
   return (
     <I18nextProvider i18n={i18n}>
       <div className="adminMarketplaceComponent">
@@ -167,41 +182,7 @@ const AdminMarketplaceComponent = () => {
               </b>
             </div>
           </div>
-
-          {showPopup1 && (
-            <div
-              id="buyerCommunityForumComponentPopupWindow"
-              className="buyerCommunityForumComponentPopupWindow"
-            >
-              <div className="buyerCommunityForumComponentPopupContent">
-                <span
-                  className="buyerCommunityForumComponentCloseButton"
-                  onClick={closePopup1}
-                >
-                  <FaTimes />
-                </span>
-                <AdminMarketplaceUpdateComponent />
-              </div>
-            </div>
-          )}
-
-          {showPopup2 && (
-            <div
-              id="buyerCommunityForumComponentPopupWindow"
-              className="buyerCommunityForumComponentPopupWindow"
-            >
-              <div className="buyerCommunityForumComponentPopupContent">
-                <span
-                  className="buyerCommunityForumComponentCloseButton"
-                  onClick={closePopup2}
-                >
-                  <FaTimes />
-                </span>
-                <AdminMarketplaceDeleteComponent />
-              </div>
-            </div>
-          )}
-
+         
           <div className="adminMarketplaceComponentCard">
             <div className="adminMarketplaceComponentSubTitle">
               <FaStore /> {t('text149')}
@@ -312,6 +293,18 @@ const AdminMarketplaceComponent = () => {
           </div>
         </div>
       </div>
+      <ConfirmationDialog
+        isOpen={isArchiveDialogOpen}
+        message="Are you sure you want to archive this product?"
+        onConfirm={handleConfirmArchive}
+        onCancel={handleCancelArchive}
+      />
+      <ConfirmationDialog
+      isOpen={isDeleteDialogOpen}
+      message="Are you sure you want to delete this product?"
+      onConfirm={handleConfirmDelete}
+      onCancel={handleCancelDelete}
+    />
     </I18nextProvider>
   );
 };

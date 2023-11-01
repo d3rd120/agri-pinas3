@@ -14,6 +14,7 @@ import { db } from './firebase';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import ConfirmationDialog from './confirmationDialog';
 
 const AdminBuyerTransactions = () => {
   const { t } = useTranslation();
@@ -21,6 +22,9 @@ const AdminBuyerTransactions = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState(10); // Default selected option
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [isDeleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -102,16 +106,27 @@ const AdminBuyerTransactions = () => {
     }
   };
 
-  const deleteUser = async (user) => {
-    const userRef = firestoreDoc(db, 'Users', user.uid);
-    try {
-      await deleteDoc(userRef);
-      const updatedAccounts = buyerAccounts.filter((account) => account.uid !== user.uid);
-      setBuyerAccounts(updatedAccounts);
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
+  const deleteUser = (user) => {
+    setUserToDelete(user);
+    setDeleteConfirmationDialogOpen(true);
   };
+
+  const confirmDeleteUser = async () => {
+    if (userToDelete) {
+      try {
+        await deleteUser(userToDelete);
+        const updatedAccounts = buyerAccounts.filter((account) => account.uid !== userToDelete.uid);
+        setBuyerAccounts(updatedAccounts);
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
+    }
+  
+    // Close the confirmation dialog
+    setDeleteConfirmationDialogOpen(false);
+  };
+  
+  
 
   // Filter buyerAccounts based on searchQuery
   const filteredBuyerAccounts = buyerAccounts.filter((user) => {
@@ -165,8 +180,7 @@ const AdminBuyerTransactions = () => {
                 className="adminCommunityForumComponentRowSelect"
                 value={selectedOption}
                 onChange={(e) => setSelectedOption(parseInt(e.target.value))}
-              >
-                <option value="5">5</option>
+              >               
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
@@ -191,7 +205,7 @@ const AdminBuyerTransactions = () => {
                   <th>{t('text235')}</th>
                   <th>{t('text236')}</th>
                   <th>{t('text237')}</th>
-                  <th>{t('text238')}</th>
+                  {/* <th>{t('text238')}</th> */}
                   <th>{t('text239')}</th>
                 </tr>
               </thead>
@@ -294,7 +308,7 @@ const AdminBuyerTransactions = () => {
                       )}
                     </td>
                     <td>{user.age}</td>
-                    <td>
+                    {/* <td>
                       {user.editing ? (
                         <div>
                           <button onClick={() => saveChanges(user)}>Save</button>
@@ -304,23 +318,24 @@ const AdminBuyerTransactions = () => {
                           <FaEdit onClick={() => startEditing(user)} />
                         </div>
                       )}
-                    </td>
-                    <td>
-                      {user.editing ? (
-                        <div>
-                          <button onClick={() => cancelEditing(user)}>Cancel</button>
-                        </div>
-                      ) : (
-                        <div>
-                          <FaTrash onClick={() => deleteUser(user)} />
-                        </div>
-                      )}
-                    </td>
+                    </td> */}
+                <td>
+                  {user.editing ? (
+                    <div>
+                      <button onClick={() => cancelEditing(user)} style={{ cursor: 'pointer' }}>Cancel</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <FaTrash onClick={() => deleteUser(user)} style={{ cursor: 'pointer' }} />
+                    </div>
+                  )}
+                </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
           <div className="adminAccountBuyerComponentCategories">
             {Array.from({ length: totalPages }, (_, index) => (
               <div
@@ -335,10 +350,18 @@ const AdminBuyerTransactions = () => {
                   {index + 1}
                 </div>
               </div>
+              
             ))}
           </div>
         </div>
       </div>
+
+      <ConfirmationDialog
+          isOpen={isDeleteConfirmationDialogOpen}
+          message="Are you sure you want to delete this user?"
+          onConfirm={confirmDeleteUser}
+          onCancel={() => setDeleteConfirmationDialogOpen(false)}
+        />
     </I18nextProvider>
   );
 };

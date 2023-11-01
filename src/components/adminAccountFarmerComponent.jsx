@@ -15,13 +15,17 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 import i18n from '../i18n';
+import ConfirmationDialog from './confirmationDialog';
 
 const AdminFarmerTransactions = () => {
   const { t } = useTranslation();
   const [farmerAccounts, setFarmerAccounts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [rowsToShow, setRowsToShow] = useState(5); // Default to 5 rows
+  const [selectedOption, setSelectedOption] = useState(10); // Default to 5 rows
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -45,12 +49,12 @@ const AdminFarmerTransactions = () => {
     return currentYear - birthYear;
   };
 
-  const startEditing = (user) => {
-    const updatedAccounts = farmerAccounts.map((account) =>
-      account.uid === user.uid ? { ...account, editing: true } : account
-    );
-    setFarmerAccounts(updatedAccounts);
-  };
+  // const startEditing = (user) => {
+  //   const updatedAccounts = farmerAccounts.map((account) =>
+  //     account.uid === user.uid ? { ...account, editing: true } : account
+  //   );
+  //   setFarmerAccounts(updatedAccounts);
+  // };
 
   const cancelEditing = (user) => {
     const updatedAccounts = farmerAccounts.map((account) =>
@@ -90,20 +94,25 @@ const AdminFarmerTransactions = () => {
     }
   };
 
-  const saveChanges = async (user) => {
-    const userRef = doc(db, 'Users', user.uid);
-    try {
-      await handleSaveUserData(user, userRef);
-      const updatedAccounts = farmerAccounts.map((account) =>
-        account.uid === user.uid ? { ...account, editing: false } : account
-      );
-      setFarmerAccounts(updatedAccounts);
-    } catch (error) {
-      console.error('Error updating user data:', error);
-    }
+  // const saveChanges = async (user) => {
+  //   const userRef = doc(db, 'Users', user.uid);
+  //   try {
+  //     await handleSaveUserData(user, userRef);
+  //     const updatedAccounts = farmerAccounts.map((account) =>
+  //       account.uid === user.uid ? { ...account, editing: false } : account
+  //     );
+  //     setFarmerAccounts(updatedAccounts);
+  //   } catch (error) {
+  //     console.error('Error updating user data:', error);
+  //   }
+  // };
+
+  const deleteUser = (user) => {
+    setIsDeleteConfirmationOpen(true);
+    setUserToDelete(user);
   };
 
-  const deleteUser = async (user) => {
+  const deleteConfirmedUser = async (user) => {
     const userRef = doc(db, 'Users', user.uid);
     try {
       await deleteDoc(userRef);
@@ -113,27 +122,33 @@ const AdminFarmerTransactions = () => {
       console.error('Error deleting user:', error);
     }
   };
+  
+  
 
-  const filteredFarmerAccounts = farmerAccounts
-    .filter((user) => {
-      // Convert only string user properties to lowercase for case-insensitive search
-      const searchableProperties = [
-        'fullname',
-        'email',
-        'contact',
-        'address',
-        'birthdate',
-      ];
+     // Filter buyerAccounts based on searchQuery
+  const filteredFarmerAccounts = farmerAccounts.filter((user) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      user.fullname.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query) ||
+      user.contact.toLowerCase().includes(query) ||
+      user.address.toLowerCase().includes(query) ||
+      user.birthdate.toLowerCase().includes(query) ||
+      user.age.toString().includes(query)
+    );
+  });
 
-      return searchableProperties.some((property) => {
-        const value = user[property];
-        if (typeof value === 'string') {
-          return value.toLowerCase().includes(searchQuery.toLowerCase());
-        }
-        return false;
-      });
-    })
-    .slice((currentPage - 1) * rowsToShow, currentPage * rowsToShow);
+  // Calculate the total number of pages based on the selected option (rows per page)
+  const totalPages = Math.ceil(filteredFarmerAccounts.length / selectedOption);
+
+  // Calculate the index of the last item in the current page
+  const lastIndex = currentPage * selectedOption;
+
+  // Calculate the index of the first item in the current page
+  const firstIndex = lastIndex - selectedOption;
+
+  // Get the current page's data
+  const currentData = filteredFarmerAccounts.slice(firstIndex, lastIndex);
 
   return (
     <I18nextProvider i18n={i18n}>
@@ -160,10 +175,9 @@ const AdminFarmerTransactions = () => {
 
               <select
                 className="adminCommunityForumComponentRowSelect"
-                value={rowsToShow}
-                onChange={(e) => setRowsToShow(parseInt(e.target.value))}
-              >
-                <option value="5">5</option>
+                value={selectedOption}
+                onChange={(e) => setSelectedOption(parseInt(e.target.value))}
+              >        
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
@@ -188,12 +202,12 @@ const AdminFarmerTransactions = () => {
                   <th>{t('text235')}</th>
                   <th>{t('text236')}</th>
                   <th>{t('text237')}</th>
-                  <th>{t('text238')}</th>
+                  {/* <th>{t('text238')}</th> */}
                   <th>{t('text239')}</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredFarmerAccounts.map((user) => (
+                {currentData.map((user) => (
                   <tr key={user.uid}>
                     <td>
                       {user.editing ? (
@@ -291,7 +305,7 @@ const AdminFarmerTransactions = () => {
                       )}
                     </td>
                     <td>{user.age}</td>
-                    <td>
+                    {/* <td>
                       {user.editing ? (
                         <div>
                           <button onClick={() => saveChanges(user)}>Save</button>
@@ -301,45 +315,62 @@ const AdminFarmerTransactions = () => {
                           <FaEdit onClick={() => startEditing(user)} />
                         </div>
                       )}
-                    </td>
-                    <td>
-                      {user.editing ? (
-                        <div>
-                          <button onClick={() => cancelEditing(user)}>Cancel</button>
-                        </div>
-                      ) : (
-                        <div>
-                          <FaTrash onClick={() => deleteUser(user)} />
-                        </div>
-                      )}
-                    </td>
+                    </td> */}
+                  <td>
+                    {user.editing ? (
+                      <div>
+                        <button
+                          onClick={() => cancelEditing(user)}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <div>
+                        <FaTrash
+                          onClick={() => deleteUser(user)}
+                          style={{ cursor: 'pointer' }}
+                        />
+                      </div>
+                    )}
+                  </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <div className="adminCommunityForumComponentForumNumber">
-            {Array.from(
-              { length: Math.ceil(filteredFarmerAccounts.length / rowsToShow) },
-              (_, index) => (
-                <div
-                  className={`adminCommunityForumComponentForumContainer ${
-                    index + 1 === currentPage ? 'active' : ''
-                  }`}
-                  key={index}
-                  onClick={() => setCurrentPage(index + 1)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <div className="adminCommunityForumComponentForumNumberBox">
-                    {index + 1}
-                  </div>
+       
+          <div className="adminAccountBuyerComponentCategories">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <div
+                className={`adminAccountBuyerComponentPaginationContainer ${
+                  index + 1 === currentPage ? 'active' : ''
+                }`}
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="adminAccountBuyerComponentPaginationNumber">
+                  {index + 1}
                 </div>
-              )
-            )}
+              </div>
+              
+            ))}
           </div>
+          
         </div>
       </div>
+      <ConfirmationDialog
+          isOpen={isDeleteConfirmationOpen}
+          message="Are you sure you want to delete this user?"
+          onConfirm={() => {
+            deleteConfirmedUser(userToDelete);
+            setIsDeleteConfirmationOpen(false);
+          }}
+          onCancel={() => setIsDeleteConfirmationOpen(false)}
+        />
     </I18nextProvider>
   );
 };

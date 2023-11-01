@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import Popup from './validationPopup';
 
+
 const ShoppingCart = () => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
@@ -23,6 +24,10 @@ const ShoppingCart = () => {
   const [popupMessage, setPopupMessage] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const navigate = useNavigate();
+
+
+
+  
 
   const showAlert = (message) => {
     setPopupMessage(message);

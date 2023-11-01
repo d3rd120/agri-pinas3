@@ -62,6 +62,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
       setTimeout(() => {
         window.location.reload();
       }, 1000);
+      
     } catch (error) {
       console.error('Error adding report: ', error);
       setValidationMessage('An error occurred while submitting the report.');

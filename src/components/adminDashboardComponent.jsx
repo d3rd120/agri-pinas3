@@ -19,6 +19,9 @@ const AdminDashboard = () => {
   const [showPopup3, setShowPopup3] = useState(false);
   const [announcements, setAnnouncements] = useState([]);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [selectedOption, setSelectedOption] = useState(10);
 
   const handleButtonClick = () => {
     setShowPopup(true);
@@ -64,6 +67,25 @@ const AdminDashboard = () => {
     fetchAnnouncements();
   }, []);
 
+  // Filter announcements based on search query
+    const filteredAnnouncements = announcements.filter((item) => {
+    const itemText = `${item.title} ${item.content} ${item.timestamp}`;
+    return itemText.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+    // Calculate the total number of pages based on the selected option (rows per page)
+    const totalPages = Math.ceil(filteredAnnouncements.length / selectedOption);
+
+    // Calculate the index of the last item in the current page
+    const lastIndex = currentPage * selectedOption;
+  
+    // Calculate the index of the first item in the current page
+    const firstIndex = lastIndex - selectedOption;
+  
+    // Get the current page's data
+    const currentData = filteredAnnouncements.slice(firstIndex, lastIndex);
+  
+
 
 
   return (
@@ -106,17 +128,23 @@ const AdminDashboard = () => {
               {t('Text3')}
 
               <select
-                className="adminCommunityForumComponentRowSelect"               
-              >             
+                className="adminCommunityForumComponentRowSelect"
+                value={selectedOption}
+                onChange={(e) => setSelectedOption(parseInt(e.target.value))}
+              >
+                <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
               </select>
 
               <input
-                className="adminCommunityForumComponentRowSelect"
-                type="text"              
-              />
+                  className="adminCommunityForumComponentRowSelect"
+                  type="text"
+                  placeholder="Search Announcements"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
             </div>
             <br></br>
 
@@ -131,40 +159,40 @@ const AdminDashboard = () => {
             </tr>
           </thead>
           <tbody>
-          {announcements.map((item) => (
-          <tr key={item.id}>
-              <td>{item.title}</td>
-              <td>{item.content}</td>
-              <td>{item.timestamp}</td>                          
-                 <td class = "adminDashboardButtons"onClick={() => handleButtonClick3(item)}> <FaEdit /> </td>              
-                 <td className="adminDashboardButtons" onClick={() => handleButtonClick2(item)}>
-                <FaTrash /> </td>                            
-           </tr>       
-      ))}
+          {currentData.map((item) => (
+              <tr key={item.id}>
+                <td>{item.title}</td>
+                <td>{item.content}</td>
+                <td>{item.timestamp}</td>
+                <td className="adminDashboardButtons" onClick={() => handleButtonClick3(item)}>
+                  <FaEdit />
+                </td>
+                <td className="adminDashboardButtons" onClick={() => handleButtonClick2(item)}>
+                  <FaTrash />
+                </td>
+              </tr>
+            ))}
                 </tbody>
               </table>
               </div> 
 
-              <div className="adminCommunityForumComponentForumNumber">
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">1</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">2</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">3</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">4</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">5</div>
-            </div>
-            <div className="adminCommunityForumComponentForumContainer">
-              <div className="adminCommunityForumComponentForumNumberBox">6</div>
-            </div>
-          </div>  
+              <div className="adminAccountBuyerComponentCategories">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <div
+                className={`adminAccountBuyerComponentPaginationContainer ${
+                  index + 1 === currentPage ? 'active' : ''
+                }`}
+                key={index}
+                onClick={() => setCurrentPage(index + 1)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="adminAccountBuyerComponentPaginationNumber">
+                  {index + 1}
+                </div>
+              </div>
+            ))}
+          </div>
+          
 
           {showPopup && (
             <div

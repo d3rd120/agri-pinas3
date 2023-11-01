@@ -9,25 +9,32 @@ import React from 'react';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
-import OnionVector from '../img/onionVector.png';
-import CornVector from '../img/cornVector.png';
-import okra from '../img/okra.png';
 import ProfileVector2 from '../img/profileVector2.png';
-import ProfileVector1 from '../img/profileVector1.png';
 import i18n from '../i18n';
 import  { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { getDocs, collection } from 'firebase/firestore';
 
 
-const FarmerCommunityForumComponent = () => {
+const BuyerMarketplaceComponent = () => {
 const { t } = useTranslation();
 const userUid = sessionStorage.getItem('userUid');
 const sessionId = sessionStorage.getItem('sessionId');
 const [products, setProducts] = useState([]);
 const [lastClickedProductId, setLastClickedProductId] = useState(null);
 const [currentPage, setCurrentPage] = useState(1);
+const [searchQuery, setSearchQuery] = useState('');
+const [filteredProducts, setFilteredProducts] = useState([]);
 const displayCount = 6;
+
+useEffect(() => {
+  // Filter the products based on the search query
+  const filtered = products.filter((product) =>
+    product.cropName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  setFilteredProducts(filtered);
+}, [searchQuery, products]);
+
 
 
   const fetchProducts = async () => {
@@ -95,7 +102,7 @@ const displayCount = 6;
       <div className="buyerCommunityForumComponent">
         <BuyerNavigation />
         <div className="buyerCommunityForumComponentMainPanel">
-          <BuyerTopNav />
+        <BuyerTopNav setSearchQuery={setSearchQuery} />
           <div className="buyerCommunityForumComponentTopSection">
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
@@ -105,12 +112,14 @@ const displayCount = 6;
               </b>
             </div>
           </div>
-  
+
+
+         
           <div className="buyerCommunityForumComponentMiddleSection">
+          {chunkArray(products.slice(startIndex, endIndex), 3).map((postGroup, index) => (
             <div className="buyerCommunityForumComponentFrameParent">
-  
-              <div className="buyerCommunityForumComponentFrameWrapper">
-  
+           
+              <div className="buyerCommunityForumComponentFrameWrapper">  
               <Link className="buyerCommunityForumComponentRectangleParent" to={`/buyervegetablecategory/${userUid}/${sessionId}`}>
                   <img
                     className="buyerCommunityForumComponentFrameChild"
@@ -172,8 +181,9 @@ const displayCount = 6;
                   </div>
                 </Link>
               </div>
+              
 
-              {chunkArray(products.slice(startIndex, endIndex), 3).map((postGroup, index) => (
+             
                 <div className="adminMarketplaceComponentFrameWrapper" key={index}>
                   {postGroup.map((product) => (
                     <NavLink
@@ -226,11 +236,11 @@ const displayCount = 6;
                       </div>
                     </NavLink>
                   ))}
-                </div>
-              ))}  
+                </div>              
             </div>
+            ))} 
           </div>
-          
+   
           <div className="adminCommunityForumComponentForumNumber">
             {pageNumbers.map((pageNumber) => (
               <div
@@ -252,4 +262,4 @@ const displayCount = 6;
   
 };
 
-export default FarmerCommunityForumComponent;
+export default BuyerMarketplaceComponent;

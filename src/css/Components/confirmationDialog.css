@@ -1,0 +1,55 @@
+/* CSS for Confirmation Dialog */
+.confirmation-dialog {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  padding: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.confirmation-dialog p {
+  margin: 0;
+}
+
+.confirmation-dialog button {
+  margin-top: 20px;
+  margin-left: 43px;
+  margin-right: 43px;
+}
+
+/* CSS for Overlay */
+.confirmation-dialog-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Center content within the dialog */
+.confirmation-dialog p {
+  text-align: center;
+}
+
+/* Style the buttons as needed */
+.confirmation-dialog button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.confirmation-dialog button:hover {
+  background-color: #598025;
+}

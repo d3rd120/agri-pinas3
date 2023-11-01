@@ -1,7 +1,5 @@
 import "../css/Components/adminMarketplaceComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
-import AdminMarketplaceUnarchivedComponent from '../components/adminMarketplaceUnarchivedComponent';
-import AdminMarketplaceDeleteComponent from '../components/adminMarketplaceDeleteComponent';
 import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
@@ -9,56 +7,63 @@ import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/fi
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import OnionVector from '../img/onionCardImage.png';
-import SiliVector from '../img/sili.png';
+import ConfirmationDialog from "./confirmationDialog";
 
 const AdminMarketplaceComponent = () => {
   const { t } = useTranslation();
   const [showPopup1, setShowPopup1] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
   const [products, setProducts] = useState([]);
-  const [searchText, setSearchText] = useState('');
   const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
   const [archivedProducts, setArchivedProducts] = useState([]);
+  const [isUnarchiveDialogOpen, setIsUnarchiveDialogOpen] = useState(false);
+  const [unarchiveProductId, setUnarchiveProductId] = useState(null);
+  const [isDeleteProductDialogOpen, setIsDeleteProductDialogOpen] = useState(false);
+  const [deleteProductId, setDeleteProductId] = useState(null);
+  const [searchText, setSearchText] = useState('');
+
+  const handleUnarchiveButtonClick = (productId) => {
+    setUnarchiveProductId(productId);
+    setIsUnarchiveDialogOpen(true);
+  };
+
+  const handleDeleteProduct = (productId) => {
+    setDeleteProductId(productId);
+    setIsDeleteProductDialogOpen(true);
+  };
+   // Step 2: Create an event handler to update searchText
+   const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  
+  
   // Define an array of row options
-  const rowOptions = [5, 10, 15, 20];
-
-  const handleButtonClick1 = () => {
-    setShowPopup1(true);
-  };
-
-  const closePopup1 = () => {
-    setShowPopup1(false);
-  };
-
-  const handleButtonClick2 = () => {
-    setShowPopup2(true);
-  };
-
-  const closePopup2 = () => {
-    setShowPopup2(false);
-  };
+  const rowOptions = [10, 15, 20];
 
 
 
-  // Filter products based on searchText
-  const filteredProducts = products.filter((product) => {
-    const productName = product.productName || '';
+  const filteredProducts = archivedProducts.filter((product) => {
+    const cropName = product.cropName || '';
     const category = product.category || '';
-    const packaging = product.packaging || '';
+    const quantity = product.quantity || '';
     const price = product.price || '';
-    const kilogram = product.kilogramPerUnit || '';
+    const location = product.location || '';
+    const unit = product.unit || '';
+    const description = product.description || '';
 
-    // Check if any of the fields contain the searchText
     return (
-      productName.toLowerCase().includes(searchText.toLowerCase()) ||
+      cropName.toLowerCase().includes(searchText.toLowerCase()) ||
       category.toLowerCase().includes(searchText.toLowerCase()) ||
-      packaging.toLowerCase().includes(searchText.toLowerCase()) ||
+      quantity.toLowerCase().includes(searchText.toLowerCase()) ||
       price.toLowerCase().includes(searchText.toLowerCase()) ||
-      kilogram.toLowerCase().includes(searchText.toLowerCase())
+      location.toLowerCase().includes(searchText.toLowerCase()) ||
+      unit.toLowerCase().includes(searchText.toLowerCase()) ||
+      description.toLowerCase().includes(searchText.toLowerCase())
     );
   });
+
 
   // Function to split an array into chunks
   function chunkArray(arr, size) {
@@ -107,56 +112,66 @@ const AdminMarketplaceComponent = () => {
   }, []);
   
 
-  const handleUnarchiveButtonClick = async (productId) => {
+  const handleConfirmUnarchive = async () => {
     try {
-      const confirmUnarchive = window.confirm('Are you sure you want to unarchive this product?');
-
-      if (confirmUnarchive) {
-        const productRef = doc(db, 'Archive', productId);
-        const productSnapshot = await getDoc(productRef);
-
-        if (productSnapshot.exists()) {
-          const productData = productSnapshot.data();
-
-          // Move the product from 'Archive' to 'Marketplace'
-          await addDoc(collection(db, 'Marketplace'), {
-            ...productData,
-            archived: false, // Mark as unarchived
-          });
-
-          // Delete the product from 'Archive'
-          await deleteDoc(productRef);
-
-          setShowPopup1(true);
-          fetchArchivedProducts(); // Fetch updated archived product list
-        } else {
-          console.warn('Archived product not found. Product ID:', productId); // Log the productId
-        }
+      const productRef = doc(db, 'Archive', unarchiveProductId);
+      const productSnapshot = await getDoc(productRef);
+  
+      if (productSnapshot.exists()) {
+        const productData = productSnapshot.data();
+  
+        // Move the product from 'Archive' to 'Marketplace'
+        await addDoc(collection(db, 'Marketplace'), {
+          ...productData,
+          archived: false, // Mark as unarchived
+        });
+  
+        // Delete the product from 'Archive'
+        await deleteDoc(productRef);
+  
+        setShowPopup1(true);
+        fetchArchivedProducts(); // Fetch updated archived product list
+      } else {
+        console.warn('Archived product not found. Product ID:', unarchiveProductId);
       }
     } catch (error) {
       console.error('Error unarchiving product:', error);
     }
+  
+    // Close the dialog
+    setIsUnarchiveDialogOpen(false);
   };
+  
+  const handleCancelUnarchive = () => {
+    // Close the dialog
+    setIsUnarchiveDialogOpen(false);
+  };  
+  
+  
 
-  const handleDeleteProduct = async (productId) => {
+  const handleConfirmDeleteProduct = async () => {
     try {
-      const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+      const productRef = doc(db, 'Archive', deleteProductId);
+      const productSnapshot = await getDoc(productRef);
   
-      if (confirmDelete) {
-        const productRef = doc(db, 'Archive', productId);
-        const productSnapshot = await getDoc(productRef);
-  
-        if (productSnapshot.exists()) {
-          await deleteDoc(productRef);
-          setShowPopup2(true);
-          fetchArchivedProducts(); // Fetch updated archived product list
-        } else {
-          console.warn('Archived product not found.');
-        }
+      if (productSnapshot.exists()) {
+        await deleteDoc(productRef);
+        setShowPopup2(true);
+        fetchArchivedProducts(); // Fetch updated archived product list
+      } else {
+        console.warn('Archived product not found.');
       }
     } catch (error) {
       console.error('Error deleting product:', error);
     }
+  
+    // Close the dialog
+    setIsDeleteProductDialogOpen(false);
+  };
+  
+  const handleCancelDeleteProduct = () => {
+    // Close the dialog
+    setIsDeleteProductDialogOpen(false);
   };
   
 
@@ -170,46 +185,12 @@ const AdminMarketplaceComponent = () => {
               <b className="adminMarketplaceComponentMainTextWrapper">
                 <p className="adminMarketplaceComponentBlankLine">&nbsp;</p>
                 <p className="adminMarketplaceComponentBlankLine">
-                  {t('Marketplace Archived')}
+                  {t('text148')}
                 </p>
               </b>
             </div>
           </div>
-
-          {showPopup1 && (
-            <div
-              id="buyerCommunityForumComponentPopupWindow"
-              className="buyerCommunityForumComponentPopupWindow"
-            >
-              <div className="buyerCommunityForumComponentPopupContent">
-                <span
-                  className="buyerCommunityForumComponentCloseButton"
-                  onClick={closePopup1}
-                >
-                  <FaTimes />
-                </span>
-                <AdminMarketplaceUnarchivedComponent />
-              </div>
-            </div>
-          )}
-
-          {showPopup2 && (
-            <div
-              id="buyerCommunityForumComponentPopupWindow"
-              className="buyerCommunityForumComponentPopupWindow"
-            >
-              <div className="buyerCommunityForumComponentPopupContent">
-                <span
-                  className="buyerCommunityForumComponentCloseButton"
-                  onClick={closePopup2}
-                >
-                  <FaTimes />
-                </span>
-                <AdminMarketplaceDeleteComponent />
-              </div>
-            </div>
-          )}
-
+         
           <div className="adminMarketplaceComponentCard">
             <div className="adminMarketplaceComponentSubTitle">
               <FaStore /> {t('text149')}
@@ -245,59 +226,64 @@ const AdminMarketplaceComponent = () => {
             <br />
 
             <div className="adminMarketplaceComponentMiddleSection">
-  {archivedProducts.map((product) => {
-    const productId = product.id; // Move this line here
-    return (
-      <div key={productId} className="adminMarketplaceComponentFrameParent">
-        <div className="adminMarketplaceComponentFrameWrapper">
-          <a className="adminMarketplaceComponentRectangleParent">
-            <img
-              className="adminMarketplaceComponentFrameChild"
-              alt=""
-              src={product.image} 
-            />
-            <div className="adminMarketplaceComponentFrameGroup">
-              <div className="adminMarketplaceComponentFrameContainer">
-                <div className="adminMarketplaceComponentSubText1Wrapper">
-                  <b className="adminMarketplaceComponentSubText1">{product.productName}</b>
-                </div>
-                <div className="adminMarketplaceComponentSubText2Wrapper2">
-                  <div className="adminMarketplaceComponentSubText2">
-                    <b>{t('farmerPageCategory')}</b> {product.category}
+              <div className="adminMarketplaceComponentFrameParent">
+                {chunkArray(
+                  filteredProducts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
+                  2
+                ).map((productGroup, index) => (
+                  <div className="adminMarketplaceComponentFrameWrapper" key={index}>
+                    {productGroup.map((product) => (
+                      <a className="adminMarketplaceComponentRectangleParent" key={product.id}>
+                        <img
+                          className="adminMarketplaceComponentFrameChild"
+                          alt=""
+                          src={product.image}
+                        />
+                        <div className="adminMarketplaceComponentFrameGroup">
+                          <div className="adminMarketplaceComponentFrameContainer">
+                            <div className="adminMarketplaceComponentSubText1Wrapper">
+                              <b className="adminMarketplaceComponentSubText1">{product.cropName}</b>
+                            </div>
+                            <div className="adminMarketplaceComponentSubText2Wrapper2">
+                              <div className="adminMarketplaceComponentSubText2">
+                                <b>{t('text152')}</b> {product.category}
+                              </div>
+                              <div className="adminMarketplaceComponentSubText2">
+                                <b>{t('Quantity: ')}</b> {product.quantity}
+                              </div>                             
+                              <div className="adminMarketplaceComponentSubText2">
+                                <b>{t('text154')}</b> {product.price}
+                              </div>
+                              <div className="adminMarketplaceComponentSubText2">
+                                <b>{t('Location: ')}</b> {product.location}
+                              </div>
+                              <div className="adminMarketplaceComponentSubText2">
+                                <b>{t('Unit: ')}</b> {product.unit}
+                              </div>
+                              <div className="adminMarketplaceComponentSubText2">
+                                <b>{t('text156')}</b> {product.description}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="adminMarketplaceComponentFrameItem" />
+                          <div className="adminMarketplaceComponentDetails">
+                            <button className="adminMarketplaceComponentButton" onClick={() => handleUnarchiveButtonClick(product.id)}>
+                              <FaArchive className="adminMarketplaceComponentButtonIcon" />
+                              <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
+                            </button>
+                            <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteProduct(product.id)}>
+                              <FaTrash className="adminMarketplaceComponentButtonIcon" />
+                              <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
+                            </button>
+                          </div>
+                        </div>
+                      </a>
+                    ))}
                   </div>
-                  <div className="adminMarketplaceComponentSubText2">
-                    <b>{t('farmerPagePackaging')}</b> {product.unit}
-                  </div>
-                  <div className="adminMarketplaceComponentSubText2">
-                    <b>{t('farmerPagePrice')}</b> {product.price}
-                  </div>
-                  <div className="adminMarketplaceComponentSubText2">
-                    <b>{t('farmerPageKilogram')}</b> {product.quantity}
-                  </div>
-                  <div className="adminMarketplaceComponentSubText2">
-                    <b>{t('farmerPageDescription')}</b> {product.description}
-                  </div>
-                </div>
-              </div>
-              <div className="adminMarketplaceComponentFrameItem" />
-              <div className="adminMarketplaceComponentDetails">
-                <button className="adminMarketplaceComponentButton" onClick={() => handleUnarchiveButtonClick(productId)}>
-                  <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                  <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
-                </button>
-                <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteProduct(productId)}>
-                  <FaTrash className="adminMarketplaceComponentButtonIcon" />
-                  <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
-                </button>
+                ))}
               </div>
             </div>
-          </a>
-        </div>
-      </div>
-    );
-  })}
-</div>
-
+            
             <div className="adminMarketplaceComponentForumNumber">
               {Array.from({ length: Math.ceil(filteredProducts.length / displayCount) }, (_, index) => (
                 <div
@@ -313,8 +299,23 @@ const AdminMarketplaceComponent = () => {
               ))}
             </div>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
+          <ConfirmationDialog
+          isOpen={isUnarchiveDialogOpen}
+          message="Are you sure you want to unarchive this product?"
+          onConfirm={handleConfirmUnarchive}
+          onCancel={handleCancelUnarchive}
+        />
+
+        <ConfirmationDialog
+          isOpen={isDeleteProductDialogOpen}
+          message="Are you sure you want to delete this product?"
+          onConfirm={handleConfirmDeleteProduct}
+          onCancel={handleCancelDeleteProduct}
+        />
+
+
     </I18nextProvider>
   );
 };

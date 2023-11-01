@@ -20,7 +20,9 @@ const FarmerMarketplaceComponenteDeleteProduct = ({ closePopup, selectedAnnounce
       // Use selectedAnnouncement.id to identify the announcement to delete
       await deleteDoc(doc(db, 'Announcements', selectedAnnouncement.id));
       // Close the popup or perform other actions after successful delete
-      closePopup();
+      setTimeout(() => {
+        window.location.reload();
+      },); // Show success message 
     } catch (error) {
       console.error('Error deleting announcement:', error);
     }

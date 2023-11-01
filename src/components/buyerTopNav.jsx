@@ -20,7 +20,7 @@ const CustomHeaderTitle = styled.div`
 `;
 
 
-const BuyerTopNav = () => {
+const BuyerTopNav = ({ setSearchQuery }) => {
   const { t } = useTranslation();
   const theme = {
     background: 'white',
@@ -34,13 +34,15 @@ const BuyerTopNav = () => {
   };
 
   const [isHovered, setIsHovered] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [showNotifications, setShowNotifications] = useState(false);
-  const [showMessages, setShowMessages] = useState(false);
-
-  
+  const [showMessages, setShowMessages] = useState(false);  
   const [showChatBot, setShowChatBot] = useState(false);
   const [minimizedChatBot, setMinimizedChatBot] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
 
   const handleEnd = () => {
     setShowChatBot(false);
@@ -94,10 +96,6 @@ const BuyerTopNav = () => {
     setIsHovered(false);
   };
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
   const handleBellClick = () => {
     setShowNotifications(prevState => !prevState);
   };
@@ -128,14 +126,21 @@ const BuyerTopNav = () => {
           className={`buyerComponentGroupInner2${showNotifications ? ' active' : ''}`}
           onClick={handleBellClick}
         />
-        <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>          
+        <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>        
         <input
           type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={handleSearch}
-          style={{ width: '250px' }}          
-        />   
+          placeholder="Search"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{ width: '250px' }}
+        />  
+        {/* <input
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              style={{ width: '250px' }}
+      />
+      <button onClick={handleSearch}>Search</button>       */}
+       
        </div>
         
       </div>

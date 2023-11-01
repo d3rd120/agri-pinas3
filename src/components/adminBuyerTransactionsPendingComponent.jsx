@@ -130,65 +130,57 @@ const AdminBuyerTransactionsPendingComponent = () => {
 
 
             <div className="adminBuyerTransactionsCompletedComponentFrameWrapper">
-              {orders.map((order, index) => (
-          <div key={index} className="adminFarmerTransactionsPendingComponentRectangleParent">
-            {order.cart.map((item, itemIndex) => (
-              <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
-                <img
-                  className="adminFarmerTransactionsPendingComponentFrameChild"
-                  alt=""
-                  src={item.image}
-                />
-                <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                  <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                    <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
-                  </div>
-                  <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                    <b>{t('text93')}</b> {new Date(order.timestamp.seconds * 1000).toLocaleString()}
-                    </div>
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                      <b>{t('text94')}</b> {item.farmer}
-                    </div>
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                      <b>{t('text95')}</b> {item.category}
-                    </div>
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                      <b>{t('text96')}</b> {item.unit}
-                    </div>
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                      <b>{t('text97')} </b> {item.quantity}
-                    </div>
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                      <b>{t('text98')}</b> {item.price}
-                    </div>
-                    <div className="adminFarmerTransactionsPendingComponentSubText2">
-                      <b>{t('text99')}</b> {item.status}
-                    </div>
-                    <div className="adminBuyerTransactionsPendingComponentFrameItem" />
-                    <div className="adminBuyerTransactionsPendingComponentDetails">
-                    <button className="adminBuyerTransactionsPendingComponentButton"
-                     onClick={handleButtonClick1}>
-                        <FaArchive className="adminBuyerTransactionsPendingComponentButtonIcon"
-                          />
-                        <div className="adminBuyerTransactionsPendingComponentButtonText">{t('Archive')}</div>
-                      </button>
-                      <button className="adminBuyerTransactionsPendingComponentButton"
-                       onClick={handleButtonClick2}>
-                        <FaTrash className="adminBuyerTransactionsPendingComponentButtonIcon"                         />
-                        <div className="adminBuyerTransactionsPendingComponentButtonText">{t('text200')}</div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+            <div className="adminBuyerTransactionsCompletedComponentFrameWrapper">
+  {orders && orders.map((order, index) => (
+    <div key={index} className="adminFarmerTransactionsPendingComponentRectangleParent">
+      {order.cart && order.cart.map((item, itemIndex) => (
+        <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
+          <img
+            className="adminFarmerTransactionsPendingComponentFrameChild"
+            alt=""
+            src={item.image}
+          />
+          <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+            <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+              <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
+            </div>
+            <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+              <div className="adminFarmerTransactionsPendingComponentSubText2">
+                <b>{t('text93')}</b> {new Date(order.timestamp.seconds * 1000).toLocaleString()}
               </div>
-            ))}
+              <div className="adminFarmerTransactionsPendingComponentSubText2">
+                <b>{t('text94')}</b> {item.farmer}
+              </div>
+              <div className="adminFarmerTransactionsPendingComponentSubText2">
+                <b>{t('text95')}</b> {item.category}
+              </div>
+            </div>
+            <div className="adminBuyerTransactionsPendingComponentFrameItem" />
+            <div className="adminBuyerTransactionsPendingComponentDetails">
+              <button
+                className="adminBuyerTransactionsPendingComponentButton"
+                onClick={handleButtonClick1}
+              >
+                <FaArchive className="adminBuyerTransactionsPendingComponentButtonIcon" />
+                <div className="adminBuyerTransactionsPendingComponentButtonText">{t('Archive')}</div>
+              </button>
+              <button
+                className="adminBuyerTransactionsPendingComponentButton"
+                onClick={handleButtonClick2}
+              >
+                <FaTrash className="adminBuyerTransactionsPendingComponentButtonIcon" />
+                <div className="adminBuyerTransactionsPendingComponentButtonText">{t('text200')}</div>
+              </button>
+            </div>
           </div>
-        ))}
-                  </div>             
+        </div>
+      ))}
+    </div>
+  ))}
+</div>
                   </div>
               </div>
-              
+              </div>
               <div className="adminBuyerTransactionsPendingComponentForumNumber">
                 <div className="adminBuyerTransactionsPendingComponentForumContainer">
                   <div className="adminBuyerTransactionsPendingComponentForumNumberBox">1</div>

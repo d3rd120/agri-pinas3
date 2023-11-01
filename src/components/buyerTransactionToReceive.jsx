@@ -74,17 +74,19 @@ const BuyerTransanctionPending = () => {
 
             <div className="buyerTransactionMiddleSection">
               <div className="buyerTransactionFrameParent">
-                {chunkArray(orders, 1).map((orderGroup, index) => (
-                  <div className="adminFarmerTransactionsPendingComponentFrameWrapper" key={index}>
-                    {orderGroup.map((order, orderIndex) => (
-                      <div key={orderIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
-                        {order.cart.map((item, itemIndex) => (
-                          <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
-                            <img
-                              className="adminFarmerTransactionsPendingComponentFrameChild"
-                              alt=""
-                              src={item.image}
-                            />
+                {orders && orders.length > 0 ? (
+                  chunkArray(orders, 1).map((orderGroup, index) => (
+                    <div className="adminFarmerTransactionsPendingComponentFrameWrapper" key={index}>
+                      {orderGroup.map((order, orderIndex) => (
+                        <div key={orderIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
+                          {order.cart && order.cart.length > 0 ? (
+                            order.cart.map((item, itemIndex) => (
+                              <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
+                                <img
+                                  className="adminFarmerTransactionsPendingComponentFrameChild"
+                                  alt=""
+                                  src={item.image}
+                                />
                             <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                               <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
                                 <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
@@ -132,23 +134,28 @@ const BuyerTransanctionPending = () => {
                                                 className="buyerCommunityForumComponentCloseButton"
                                                 onClick={closePopup}
                                               >
-                                                <FaTimes />
-                                              </span>
-                                              <BuyerTransactionReport/>
-                                            </div>
-                                          </div>
-                                        )}           
+                                                  <FaTimes />
+                                          </span>
+                                          <BuyerTransactionReport/>
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ))}                    
-                  </div>
-                ))}
+                              </div>
+                            ))
+                          ) : (
+                            <p></p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  ))
+                ) : (
+                  <p>Loading...</p>
+                )}
               </div>
-            </div>      
-      
+            </div>
           </div>
         </div>
       </div>

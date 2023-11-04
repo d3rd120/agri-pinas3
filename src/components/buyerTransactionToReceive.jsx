@@ -69,7 +69,16 @@ const BuyerTransanctionPending = () => {
             <div className="buyerTransactionSubTitle">
               <FaFolderOpen /> {t('text91')}
             </div>
-            <br></br>         
+              <br></br>   
+            <div className="adminBuyerTransactionsPendingComponentShow">
+          {t('Search: ')}         
+            <input 
+            className="adminBuyerTransactionsPendingComponentRowSelect"
+            type = "text"
+            placeholder = {t('text189')}>                    
+            </input>
+          </div>
+                
             <br></br>
 
             <div className="buyerTransactionMiddleSection">
@@ -93,7 +102,9 @@ const BuyerTransanctionPending = () => {
                               </div>
                               <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                                 <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text93')}</b> {new Date(order.timestamp.seconds * 1000).toLocaleString()}
+                                <b>{t('text93')}</b> {order.timestamp && order.timestamp.seconds
+                                    ? new Date(order.timestamp.seconds * 1000).toLocaleString()
+                                    : t('timestampNotAvailable')}
                                 </div>
                                 <div className="adminFarmerTransactionsPendingComponentSubText2">
                                   <b>{t('text94')}</b> {item.farmer}

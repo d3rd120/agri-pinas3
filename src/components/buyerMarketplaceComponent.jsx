@@ -108,7 +108,12 @@ useEffect(() => {
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
                   {t('text51')}
-                </p>               
+                </p>    
+                <br></br>           
+                <br></br> 
+                <p className="buyerCommunityForumComponentBlankLine" style={{ fontSize: '18px' }}>
+                  {t('Categories')}
+                </p>
               </b>
             </div>
           </div>
@@ -241,7 +246,7 @@ useEffect(() => {
             ))} 
           </div>
    
-          <div className="adminCommunityForumComponentForumNumber">
+          {/* <div className="adminCommunityForumComponentForumNumber">
             {pageNumbers.map((pageNumber) => (
               <div
                 className={`adminCommunityForumComponentForumContainer ${
@@ -254,7 +259,8 @@ useEffect(() => {
                 <div className="adminCommunityForumComponentForumNumberBox">{pageNumber}</div>
               </div>
             ))}
-          </div>
+          </div> */}
+          
         </div>
       </div>
     </I18nextProvider>

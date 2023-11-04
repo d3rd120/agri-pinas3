@@ -1,6 +1,6 @@
 import "../css/Components/adminMarketplaceComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
-import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
+import { FaStore, FaArchive } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/firestore';
@@ -8,6 +8,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import ConfirmationDialog from "./confirmationDialog";
+import ProfileVector2 from '../img/profileVector2.png';
 
 const AdminMarketplaceComponent = () => {
   const { t } = useTranslation();
@@ -28,10 +29,10 @@ const handleArchiveButtonClick = (productId) => {
   setIsArchiveDialogOpen(true);
 };
 
-const handleDeleteButtonClick = (productId) => {
-  setDeleteProductId(productId);
-  setIsDeleteDialogOpen(true);
-};
+// const handleDeleteButtonClick = (productId) => {
+//   setDeleteProductId(productId);
+//   setIsDeleteDialogOpen(true);
+// };
 
 
   
@@ -142,25 +143,25 @@ const handleDeleteButtonClick = (productId) => {
   };  
  
 
-  const handleConfirmDelete = async () => {
-    try {
-      const productRef = doc(db, 'Marketplace', deleteProductId);
-      const productSnapshot = await getDoc(productRef);
+  // const handleConfirmDelete = async () => {
+  //   try {
+  //     const productRef = doc(db, 'Marketplace', deleteProductId);
+  //     const productSnapshot = await getDoc(productRef);
   
-      if (productSnapshot.exists()) {
-        await deleteDoc(productRef);
-        setShowPopup2(true);
-        fetchProducts(); // Fetch updated product list
-      } else {
-        console.warn('Product not found.');
-      }
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
+  //     if (productSnapshot.exists()) {
+  //       await deleteDoc(productRef);
+  //       setShowPopup2(true);
+  //       fetchProducts(); // Fetch updated product list
+  //     } else {
+  //       console.warn('Product not found.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting product:', error);
+  //   }
   
-    // Close the dialog
-    setIsDeleteDialogOpen(false);
-  };
+  //   // Close the dialog
+  //   setIsDeleteDialogOpen(false);
+  // };
   
   const handleCancelDelete = () => {
     // Close the dialog
@@ -256,17 +257,23 @@ const handleDeleteButtonClick = (productId) => {
                                 <b>{t('text156')}</b> {product.description}
                               </div>
                             </div>
+                          </div>                                                 
+                          <div className="buyerMarketplaceComponentAuthor">
+                          <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                          <div className="buyerMarketplaceComponentAuthorText">
+                            <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
                           </div>
-                          <div className="adminMarketplaceComponentFrameItem" />
+                        </div>   
+                        <div className="adminMarketplaceComponentFrameItem" />       
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={() => handleArchiveButtonClick(product.id)}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
                             </button>
-                            <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteButtonClick(product.id)}>
+                            {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteButtonClick(product.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </a>
@@ -299,12 +306,12 @@ const handleDeleteButtonClick = (productId) => {
         onConfirm={handleConfirmArchive}
         onCancel={handleCancelArchive}
       />
-      <ConfirmationDialog
+      {/* <ConfirmationDialog
       isOpen={isDeleteDialogOpen}
       message="Are you sure you want to delete this product?"
       onConfirm={handleConfirmDelete}
       onCancel={handleCancelDelete}
-    />
+    /> */}
     </I18nextProvider>
   );
 };

@@ -32,7 +32,16 @@ const { t } = useTranslation();
         <div className="buyerTransactionCard">
             <div className="buyerTransactionSubTitle"><FaFolderOpen /> {t('text91')}
             </div>
-            <br></br>         
+            <br></br>   
+            <div className="adminBuyerTransactionsPendingComponentShow">
+          {t('Search: ')}         
+            <input 
+            className="adminBuyerTransactionsPendingComponentRowSelect"
+            type = "text"
+            placeholder = {t('text189')}>                    
+            </input>
+          </div>
+                  
             <br></br>     
     
      
@@ -41,7 +50,7 @@ const { t } = useTranslation();
         <div className="buyerTransactionFrameParent">
 
         <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
-                {/* <a className="adminFarmerTransactionsPendingComponentRectangleParent">
+                 <a className="adminFarmerTransactionsPendingComponentRectangleParent">
                   <img
                     className="adminFarmerTransactionsPendingComponentFrameChild"
                     alt=""
@@ -77,44 +86,8 @@ const { t } = useTranslation();
                       </div>
                     </div>                                    
                   </div>
-                </a>             
-                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
-                  <img
-                    className="adminFarmerTransactionsPendingComponentFrameChild"
-                    alt=""
-                    src={RiceVector}
-                  />
-                  <div className="adminFarmerTransactionsPendingComponentFrameGroup">
-                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">Rice</b>
-                      </div>
-                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text93')}</b> July 2, 2023
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text94')}</b> Jenkins Mesina
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text95')}</b> Fruit
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text96')}</b> Sack
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text97')}</b> 2
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text98')}</b> 10,000
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text99')}</b> Received
-                        </div>
-                      </div>
-                    </div>                                    
-                  </div>
-                </a>              */}
+                </a>            
+               
               </div>     
 
 

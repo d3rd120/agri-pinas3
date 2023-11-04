@@ -196,7 +196,7 @@ const handleSave = async () => {
         <div className="buyerCommunityForumComponentTopSection">
           <div className="buyerCommunityForumComponentMainText1">
             <b className="buyerCommunityForumComponentMainText2">
-              <p className="buyerCommunityForumComponentBlankLine">{t('farmerProfileText24')}</p>
+              <p className="buyerCommunityForumComponentBlankLine">{t('Address')}</p>
             </b>
           </div>
         </div>
@@ -281,7 +281,7 @@ const handleSave = async () => {
               <div class="numberAddress"> | {contact}</div>
               <div class="locAddress1">{barangay}</div>
               <div class="locAddress2">{address}</div>
-              <div class="defaultAddress1">Default</div>
+
               <FaEdit className="EditIconAddress" onClick={handleOpenEditModal1} />
 
 <Modal open={openEditModal1} onClose={handleClose}>
@@ -337,14 +337,10 @@ const handleSave = async () => {
             </Button>
           </div>
         </div>
-      </Modal>
-
-              <div class="nameAddress1">Jenkins Mesina</div>
-              <div class="numberAddress"> | 09675046713</div>
-              <div class="locAddress1">Timog Ave.</div>
-              <div class="locAddress2">Kristong Hari, Quezon City, Metro Manila, Metro Manila</div>
-              <FaEdit className="EditIconAddress1" onClick={handleOpenEditModal2} />
-              <Modal open={openEditModal2} onClose={handleClose}>
+      </Modal>          
+             
+             
+        <Modal open={openEditModal2} onClose={handleClose}>
         <div className="editModal">
           <h2>{t('farmerProfileText26')}</h2>
           <br />
@@ -426,7 +422,7 @@ const handleSave = async () => {
                 </div>
               </div>
             )}
-            <FaTrashAlt className="DeleteIconAddress1" onClick={handleDeleteAddress} />
+            {/* <FaTrashAlt className="DeleteIconAddress1" onClick={handleDeleteAddress} /> */}
           </div>
         </div>
       </div>

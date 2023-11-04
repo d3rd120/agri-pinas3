@@ -24,7 +24,7 @@ const ShoppingCart = () => {
   const [popupMessage, setPopupMessage] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const navigate = useNavigate();
-
+  const [buyNowData, setBuyNowData] = useState([]);
 
 
   
@@ -71,25 +71,21 @@ const ShoppingCart = () => {
   
 
   useEffect(() => {
-    const fetchCartData = async () => {
+    const fetchBuyNowData = async () => {
       try {
-        const user = auth.currentUser;
-        if (user) {
-          const userCartRef = doc(db, 'UserCarts', user.uid);
-          const userCartSnapshot = await getDoc(userCartRef);
-          const userCartData = userCartSnapshot.data();
+        const buyNowCollectionRef = collection(db, 'BuyNow');
+        const buyNowCollectionSnapshot = await getDocs(buyNowCollectionRef);
 
-          if (userCartData && userCartData.cart) {
-            setCart(userCartData.cart);
-          }
-        }
+        const data = buyNowCollectionSnapshot.docs.map((doc) => doc.data());
+        setCart(data); // Assuming buyNowData contains the items you want in the cart
       } catch (error) {
-        console.error('Error fetching cart data:', error);
+        console.error('Error fetching BuyNow data:', error);
       }
     };
 
-    fetchCartData();
+    fetchBuyNowData();
   }, []);
+  
 
   const fetchCartData = async () => {
     const updatedCart = await Promise.all(
@@ -244,58 +240,46 @@ const ShoppingCart = () => {
           <div className="cart">
             <div className="cart-container">
               <table>
-
-
                 <thead>
                   <tr>
                     <th>{t('text77')}</th>
                     <th>{t('text78')}</th>
                     <th>{t('text79')}</th>
-                    <th>{t('text80')}</th>               
+                    <th>{t('text80')}</th>
                   </tr>
                 </thead>
-
-
                 <tbody>
                   {cart.map((item) => (
                     <tr key={item.id}>
                       <td>
                         <div className="product-info">
-                        <img src={item.image} alt={item.cropName} />
-                      <span>{item.cropName}</span>
+                          <img src={item.image} alt={item.cropName} />
+                          <span>{item.cropName}</span>
                         </div>
                       </td>
                       <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
-                      <td>                        
-                        <span>{item.quantity}</span>                        
+                      <td>
+                        <span>{item.quantity}</span>
                       </td>
-                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>                
+                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
                     </tr>
-                  ))}                  
+                  ))}
                 </tbody>
-              </table>    
-           
+              </table>
             </div>
           </div>
+
           <div className="payment-details"> {/* Apply the CSS class */}
-          <h2>{t('text81')}</h2>
-          <div>
-            <strong>{t('text82')}</strong> {t('text83')}
-          </div>
-          {cart.map((item) => (
-            <div key={item.id}>
-              <strong>{t('text84')}</strong> ₱{calculateSubtotal(item.price, item.quantity)}
+            <h2>{t('text81')}</h2>
+            <div>
+              <strong>{t('text85')}</strong> ₱{calculateTotal()}
             </div>
-          ))}
-          <div>
-            <strong>{t('text85')}</strong> ₱{calculateTotal()}
+            <div className="buttonWrapper">
+              <button className="ordercheckoutButton2" onClick={placeOrder}>
+                {t('text86')}
+              </button>
+            </div>
           </div>
-          <div className="buttonWrapper">
-            <button className="ordercheckoutButton2" onClick={placeOrder}>
-              {t('text86')}
-            </button>
-          </div>
-        </div>
 
              
 

@@ -12,14 +12,28 @@ import { Link } from 'react-router-dom';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 
 
+
+
 const BuyerCommunityForumComponent = () => {
   const { t } = useTranslation();
   const [showPopup, setShowPopup] = useState(false);
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionId, setSessionId] = useState(null);
-
+  const [searchQuery, setSearchQuery] = useState('');
   const postsPerPage = 6;
+
+// Filter the posts based on the search query
+const filteredPosts = posts.filter((post) => {
+  return (
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.user.displayName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+});
+
+
+
 
   const handleButtonClick = () => {
     setShowPopup(true);
@@ -145,8 +159,13 @@ const BuyerCommunityForumComponent = () => {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const chunkedPosts = chunkArray(currentPosts, 2); // Chunk the current page's posts
+  const currentPosts = filteredPosts.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+  
+  const chunkedPosts = chunkArray(currentPosts, 2); // Chunk the filtered posts
+
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
 
   const handleProductClick = (post) => {
@@ -174,7 +193,7 @@ const BuyerCommunityForumComponent = () => {
                 <p className="buyerCommunityForumComponentBlankLine">
                   {t('text111')}
                 </p>
-              </b>
+              </b>                                          
             </div>
           </div>
 
@@ -207,6 +226,18 @@ const BuyerCommunityForumComponent = () => {
               </div>
             </div>
           )}
+
+<input
+  type="text"
+  placeholder="Search"
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+  style={{ width: '250px' }}
+/>
+
+
+
+        
 
           {chunkedPosts.map((chunk, chunkIndex) => (
             <div className="buyerCommunityForumComponentFrameWrapper" key={chunkIndex}>

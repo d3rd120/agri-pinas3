@@ -11,8 +11,8 @@ const BuyerTransactionNav = () => {
           <div className="buyerTransactionsNavigation">
                 <div className="buyerTransactionsNavigationParent">
                     <NavLink activeClassName="active" className="buyerTransactionsNavigationText" exact to='/buyertoreceive'>{t('text87')}</NavLink>
-                    <NavLink activeClassName="active" className="buyerTransactionsNavigationText" exact to='/buyercomplete'>{t('text88')}</NavLink>
-                    <NavLink activeClassName="active" className="buyerTransactionsNavigationText" exact to='/buyercancelled'>{t('text89')}</NavLink>
+                    <NavLink activeClassName="active" className="buyerTransactionsNavigationText" exact to='/buyercancelled'>{t('Cancelled')}</NavLink>
+                    <NavLink activeClassName="active" className="buyerTransactionsNavigationText" exact to='/buyercomplete'>{t('Completed')}</NavLink>
                 </div>
                 </div>
             </I18nextProvider>

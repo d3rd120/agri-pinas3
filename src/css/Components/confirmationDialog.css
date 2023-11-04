@@ -39,6 +39,7 @@
 /* Center content within the dialog */
 .confirmation-dialog p {
   text-align: center;
+  color:black;
 }
 
 /* Style the buttons as needed */

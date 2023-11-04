@@ -3,7 +3,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db } from './firebase';
-import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import AdminNavigation from '../components/adminPageNavigation';
 import { FaCheckSquare, FaEdit, FaBook, FaTrash } from 'react-icons/fa';
 
@@ -17,12 +17,13 @@ const AdminFarmerTransactions = () => {
     title: '',
     fullname: '',
     status: '',
-    resolution: '',
     actionTaken: '',
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState(10); // Default to 5 rows
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
+  const [deletedReportId, setDeletedReportId] = useState('');
+
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -49,11 +50,10 @@ const AdminFarmerTransactions = () => {
   const handleSave = async () => {
     try {
       await updateDoc(doc(db, 'Reports', editedReport.id), {
-        title: editedReport.title,
-        fullname: editedReport.fullname,
-        status: editedReport.status,
-        resolution: editedReport.resolution,
-        actionTaken: editedReport.actionTaken,
+        title: editedReport.title || '', // Set default value if undefined
+        fullname: editedReport.fullname || '', // Set default value if undefined
+        status: editedReport.status || '', // Set default value if undefined
+        actionTaken: editedReport.actionTaken || '', // Set default value if undefined
       });
 
       setIsEditing(false);
@@ -63,7 +63,6 @@ const AdminFarmerTransactions = () => {
         title: '',
         fullname: '',
         status: '',
-        resolution: '',
         actionTaken: '',
       });
 
@@ -91,6 +90,9 @@ const AdminFarmerTransactions = () => {
   });
   
 
+    // Sort the reports in descending order based on timestamp (lexicographical order)
+    reports.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+    
     // Calculate the total number of pages based on the selected option (rows per page)
     const totalPages = Math.ceil(filteredReports.length / selectedOption);
 
@@ -104,7 +106,22 @@ const AdminFarmerTransactions = () => {
     const currentData = filteredReports.slice(firstIndex, lastIndex);
   
   
+const handleDelete = async (reportId) => {
+    try {
+      await deleteDoc(doc(db, 'Reports', reportId));
 
+      setDeletedReportId(reportId);
+
+      const querySnapshot = await getDocs(collection(db, 'Reports'));
+      const reportsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReports(reportsData);
+    } catch (error) {
+      console.error('Error deleting report: ', error);
+    }
+  };
 
 
   return (
@@ -156,6 +173,7 @@ const AdminFarmerTransactions = () => {
               <thead>
                 <tr>
                   <th>{t('text244')}</th>
+                  <th>{t('Title')}</th>
                   <th>{t('text245')}</th>
                   <th>{t('text246')}</th>
                   <th>{t('text247')}</th>
@@ -166,40 +184,41 @@ const AdminFarmerTransactions = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentData.map((report) => (
+              {currentData.map((report) => (
                   <tr key={report.id}>
                     <td>{report.timestamp}</td>
                     <td>{report.title}</td>
+                    <td>{report.content}</td>
                     <td>{report.fullname}</td>
                     <td>
                       {isEditing && editedReport.id === report.id ? (
                         <input
                           type="text"
+                          value={editedReport.actionTaken}
+                          onChange={(e) =>
+                            setEditedReport({ ...editedReport, actionTaken: e.target.value })
+                          }
+                        />
+                      ) : (
+                        report.actionTaken
+                      )}
+                    </td>
+                    <td>
+                      {isEditing && editedReport.id === report.id ? (
+                        <select
                           value={editedReport.status}
                           onChange={(e) =>
                             setEditedReport({ ...editedReport, status: e.target.value })
                           }
-                        />
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Completed">Completed</option>
+                          {/* Add more status options as needed */}
+                        </select>
                       ) : (
                         report.status
                       )}
                     </td>
-                    <td>
-                    {isEditing && editedReport.id === report.id ? (
-                      <select
-                        value={editedReport.resolution}
-                        onChange={(e) =>
-                          setEditedReport({ ...editedReport, resolution: e.target.value })
-                        }
-                      >
-                        <option value="Pending">Pending</option>
-                        <option value="Completed">Completed</option>
-                        {/* Add more resolution options as needed */}
-                      </select>
-                    ) : (
-                      report.resolution
-                    )}
-                  </td>
                     <td>
                       {isEditing && editedReport.id === report.id ? (
                         <FaEdit onClick={handleSave} />
@@ -212,8 +231,8 @@ const AdminFarmerTransactions = () => {
                         <FaCheckSquare onClick={handleSave} />
                       )}
                     </td>
-                    <td>                      
-                        <FaTrash />                   
+                    <td>
+                      <FaTrash onClick={() => handleDelete(report.id)} />
                     </td>
                   </tr>
                 ))}

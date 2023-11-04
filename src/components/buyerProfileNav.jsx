@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { FaSignOutAlt, FaGlobe, FaHome, FaWallet, FaUser,FaStore, FaShoppingBag, FaCartPlus, FaEnvelope, FaUserCircle, FaBell, FaEdit } from 'react-icons/fa';
-import { NavLink, Link } from 'react-router-dom';
+import { FaSignOutAlt, FaEdit, FaUser } from 'react-icons/fa';
+import { NavLink, } from 'react-router-dom';
 import "../css/BuyerPage/buyerProfileNav.css";
-import { IconButton, Modal, TextField, Button } from '@material-ui/core';
+import { Modal, Button } from '@material-ui/core';
 import Logo from '../img/agriPinasLogo.png';
-import profile2 from '../img/profileVector2.png';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { I18nextProvider } from 'react-i18next';
@@ -13,6 +12,7 @@ import i18n from '../i18n';
 import { auth, db, storage } from './firebase';
 import { collection, where, getDocs, query, doc, getDoc, setDoc} from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import ConfirmationDialog from './confirmationDialog';
 
 const BuyerProfileNav = ({ onUserInfoChange }) => {
   const { t } = useTranslation();
@@ -24,6 +24,22 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
   const [birthdate, setbirthdate] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+
+  const changeLanguage = (lng) => {
+    localStorage.setItem('userLanguage', lng);    
+    i18n.changeLanguage(lng);  
+    setShowConfirmationDialog(false); // Close the confirmation dialog.
+    window.location.reload();
+  };
+
+  const handleLanguageLinkClick = () => {
+    setShowConfirmationDialog(true);
+  };
+
+  const handleOverlayClick = () => {
+    setShowConfirmationDialog(false); // Close the confirmation dialog without changing the language.
+  };
 
 
   const handleEditProfileClick = () => {
@@ -173,8 +189,15 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
           to="/buyeraddress"
           activeClassName="active"
         >
-          <div className="buyerNavigationLinksAddress">{t('farmerProfileText4')}</div>
+          <div className="buyerNavigationLinksAddress">{t('Address')}</div>
         </NavLink>
+        <a
+          className="buyerNavigationLink5"
+          to="/buyeraddress"         
+          activeClassName="active"
+        >
+          <div className="buyerNavigationLinksAddress5"  onClick={handleLanguageLinkClick}>{t('Language')}</div>
+        </a>
         <NavLink
           className="buyerNavigationLogout"
           to="/login"
@@ -197,6 +220,7 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
           <div className="buyerNavigationLinks">{t('farmerProfileText2')}</div>
           <FaUser className="buyerNavigationLinksIcon" />
         </NavLink>
+        
       </div>
 
       <Modal open={open} onClose={handleClose}>
@@ -275,6 +299,15 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
         </div>
       </Modal>
     </div>
+    <ConfirmationDialog
+        isOpen={showConfirmationDialog}
+        message="Change Language"
+        onConfirm={() => changeLanguage('en')}
+        onCancel={() => changeLanguage('fil')}
+        onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+        confirmLabel="English"
+        cancelLabel="Filipino"
+      />
     </I18nextProvider>
 
   );

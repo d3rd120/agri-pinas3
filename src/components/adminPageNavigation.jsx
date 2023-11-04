@@ -101,7 +101,7 @@ const AdminNavigation = () => {
           to="/admindashboard"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('text131')}</div>
+          <div className="adminPageNavigationLinks">{t('Dashboard')}</div>
           <FaHome className="adminPageNavigationLinksIcon" />
         </NavLink>
 

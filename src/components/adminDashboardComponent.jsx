@@ -51,22 +51,34 @@ const AdminDashboard = () => {
   };
   
   
-
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
         const postsCollection = collection(db, 'Announcements');
         const snapshot = await getDocs(postsCollection);
         const announcementsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+        // Sort the announcements by timestamp in descending order (latest first)
+        announcementsData.sort((a, b) => {
+          // Assuming your timestamp format is 'YYYY-MM-DD HH:mm:ss'
+          const timestampA = a.timestamp;
+          const timestampB = b.timestamp;
+  
+          if (timestampA < timestampB) return 1;
+          if (timestampA > timestampB) return -1;
+          return 0;
+        });
+  
         setAnnouncements(announcementsData);
       } catch (error) {
         console.error('Error fetching announcements:', error);
       }
     };
-
+  
     fetchAnnouncements();
   }, []);
-
+  
+  
   // Filter announcements based on search query
     const filteredAnnouncements = announcements.filter((item) => {
     const itemText = `${item.title} ${item.content} ${item.timestamp}`;
@@ -97,7 +109,7 @@ const AdminDashboard = () => {
             <div className="adminDashboardComponentMainText1">
               <b className="adminDashboardComponentMainText1Container">   
                 <p className="adminDashboardComponentBlankLine">&nbsp;</p>                      
-                <p className="adminDashboardComponentBlankLine">{t('text142')}</p>
+                <p className="adminDashboardComponentBlankLine">{t('Dashboard')}</p>
               </b>
             </div>
           </div>

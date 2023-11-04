@@ -116,8 +116,15 @@ const BuyerMarketplace = () => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="buyerCommunityForumComponentBlankLine">{t('text120')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('Vegetables')}</p>
               </b>
+              <br></br>
+              <input
+                  type="text"
+                  placeholder="Search"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ width: '250px' }}
+                />  
             </div>
           </div>    
           

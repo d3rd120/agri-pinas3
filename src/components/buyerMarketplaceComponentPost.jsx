@@ -109,6 +109,55 @@ const BuyerMarketplace = ({ }) => {
     }
   };
 
+  const buyNow = async (product) => {
+    try {
+      if (!product || !selectedProduct) {
+        console.error("Selected product for immediate purchase is null.");
+        return;
+      }
+  
+      const user = auth.currentUser;
+      if (!user) {
+        setPopupMessage("Please log in to proceed with the purchase.");
+        setPopupVisible(true);
+        return;
+      }
+  
+      const userOrdersRef = collection(db, 'BuyNow');
+  
+      const orderDoc = {
+        userId: user.uid,
+        productId: product.productId,
+        quantity: 1, // Set quantity to 1
+        dateBought: new Date().toISOString().split('T')[0],
+        isChecked: false,
+        buid: user.uid,
+        category: product.category,
+        cropID: product.productId,
+        cropName: product.cropName,
+        fullname: product.fullname,
+        image: product.image,
+        location: product.location,
+        price: product.price,
+        totalAmount: product.price, // Assuming totalAmount is the same as price for now
+        totalCost: product.price, // Assuming totalCost is the same as price for now
+        uid: user.uid,
+        unit: product.unit,
+      };
+  
+      await setDoc(doc(userOrdersRef), orderDoc);
+  
+      setPopupMessage(`${product.cropName} purchased successfully!`);
+      setPopupVisible(true);
+    } catch (err) {
+      console.error(err);
+      setPopupMessage("An error occurred during the purchase. Please try again.");
+      setPopupVisible(true);
+    }
+  };
+  
+  
+  
   
   
   const fetchProductDetails = async () => {
@@ -317,7 +366,7 @@ const BuyerMarketplace = ({ }) => {
             <div className="buyerMarketplaceComponentPostButtonText">{t('text109')}</div>
           </button>
         </Link>
-            <Link to="/checkout"onClick={() => handleAddToCart(selectedProduct)}>
+            <Link to="/checkout"onClick={() => buyNow(selectedProduct)}> 
             <button className="buyerMarketplaceComponentPostButton1">
               <div className="buyerMarketplaceComponentPostButtonText1">{t('text110')}</div>
             </button>

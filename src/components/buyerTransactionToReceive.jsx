@@ -69,45 +69,34 @@ const BuyerTransanctionPending = () => {
             <div className="buyerTransactionSubTitle">
               <FaFolderOpen /> {t('text91')}
             </div>
-              <br></br>   
-            <div className="adminBuyerTransactionsPendingComponentShow">
-          {t('Search: ')}         
-            <input 
-            className="adminBuyerTransactionsPendingComponentRowSelect"
-            type = "text"
-            placeholder = {t('text189')}>                    
-            </input>
-          </div>
-                
+            <br></br>         
             <br></br>
 
             <div className="buyerTransactionMiddleSection">
-              <div className="buyerTransactionFrameParent">
-                {orders && orders.length > 0 ? (
-                  chunkArray(orders, 1).map((orderGroup, index) => (
-                    <div className="adminFarmerTransactionsPendingComponentFrameWrapper" key={index}>
-                      {orderGroup.map((order, orderIndex) => (
-                        <div key={orderIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
-                          {order.cart && order.cart.length > 0 ? (
-                            order.cart.map((item, itemIndex) => (
-                              <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
-                                <img
-                                  className="adminFarmerTransactionsPendingComponentFrameChild"
-                                  alt=""
-                                  src={item.image}
-                                />
+  <div className="buyerTransactionFrameParent">
+    {orders && orders.length > 0 ? (
+      chunkArray(orders, 1).map((orderGroup, index) => (
+        <div className="adminFarmerTransactionsPendingComponentFrameWrapper" key={index}>
+          {orderGroup.map((order, orderIndex) => (
+            <div key={orderIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
+              {order.orders && order.orders.length > 0 ? (
+                order.orders.map((item, itemIndex) => (
+                  <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
+                    <img
+                      className="adminFarmerTransactionsPendingComponentFrameChild"
+                      alt=""
+                      src={item.image}
+                    />
                             <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                               <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
                                 <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
                               </div>
                               <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                              <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                <b>{t('text93')}</b> {item.dateBought ? new Date(item.dateBought).toLocaleDateString() : 'Date Not Available'}
+                              </div>
                                 <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                <b>{t('text93')}</b> {order.timestamp && order.timestamp.seconds
-                                    ? new Date(order.timestamp.seconds * 1000).toLocaleString()
-                                    : t('timestampNotAvailable')}
-                                </div>
-                                <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text94')}</b> {item.farmer}
+                                  <b>{t('text94')}</b> {item.fullname}
                                 </div>
                                 <div className="adminFarmerTransactionsPendingComponentSubText2">
                                   <b>{t('text95')}</b> {item.category}
@@ -122,6 +111,18 @@ const BuyerTransanctionPending = () => {
                                   <b>{t('text98')}</b> {item.price}
                                 </div>
                               </div>
+                               <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                    <b>{t('boughtQuantity: ')}</b> {item.boughtQuantity}
+                                  </div>
+                                  <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                    <b>{t('Status: ')}</b> {item.status}
+                                  </div>
+                                  <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                    <b>{t('Location: ')}</b> {item.location}
+                                  </div>
+                                  <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                    <b>{t('Payment Method : ')}</b> {item.paymentMethod}
+                                    </div>
                               <div className="adminMarketplaceComponentFrameItem" />
                                 <div className="adminMarketplaceComponentDetails">
                                   <button className="adminMarketplaceComponentButton">

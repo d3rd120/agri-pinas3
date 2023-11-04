@@ -55,12 +55,18 @@ useEffect(() => {
         };
       });
   
-      // Use the first three products directly
+    
       setProducts(productsData.slice(0, 3));
-  
+      const sessionId = generateSessionId(); 
+      sessionStorage.setItem('sessionId', sessionId);
+      console.log('sessionId', sessionId);
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
+  };
+
+  const generateSessionId = () => {
+    return Math.random().toString(36).substr(2, 10); 
   };
 
   useEffect(() => {

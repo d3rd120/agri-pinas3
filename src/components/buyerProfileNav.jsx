@@ -14,7 +14,7 @@ import { collection, where, getDocs, query, doc, getDoc, setDoc} from 'firebase/
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import ConfirmationDialog from './confirmationDialog';
 
-const BuyerProfileNav = ({ onUserInfoChange }) => {
+const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
   const { t } = useTranslation();
   const [showEditModal, setShowEditModal] = useState(false);
   const [open, setOpen] = useState(false);
@@ -165,9 +165,8 @@ const BuyerProfileNav = ({ onUserInfoChange }) => {
     });
   
     return () => unsubscribe();
-  }, []);
+  },  [sessionId]);
   
-
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="buyerNavigation">

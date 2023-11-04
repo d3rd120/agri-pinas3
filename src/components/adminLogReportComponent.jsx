@@ -18,6 +18,7 @@ const AdminFarmerTransactions = () => {
     fullname: '',
     status: '',
     actionTaken: '',
+    orderId: '',
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState(10); // Default to 5 rows
@@ -50,10 +51,11 @@ const AdminFarmerTransactions = () => {
   const handleSave = async () => {
     try {
       await updateDoc(doc(db, 'Reports', editedReport.id), {
-        title: editedReport.title || '', // Set default value if undefined
-        fullname: editedReport.fullname || '', // Set default value if undefined
-        status: editedReport.status || '', // Set default value if undefined
-        actionTaken: editedReport.actionTaken || '', // Set default value if undefined
+        title: editedReport.title || '',
+        fullname: editedReport.fullname || '',
+        status: editedReport.status || '',
+        actionTaken: editedReport.actionTaken || '',
+        orderId: editedReport.orderId || '', // Update orderId field
       });
 
       setIsEditing(false);
@@ -64,6 +66,7 @@ const AdminFarmerTransactions = () => {
         fullname: '',
         status: '',
         actionTaken: '',
+        orderId: '',
       });
 
       const querySnapshot = await getDocs(collection(db, 'Reports'));
@@ -76,6 +79,7 @@ const AdminFarmerTransactions = () => {
       console.error('Error updating report: ', error);
     }
   };
+
 
   const filteredReports = reports.filter((report) => {
     const query = searchQuery.toLowerCase();  
@@ -106,22 +110,23 @@ const AdminFarmerTransactions = () => {
     const currentData = filteredReports.slice(firstIndex, lastIndex);
   
   
-const handleDelete = async (reportId) => {
-    try {
-      await deleteDoc(doc(db, 'Reports', reportId));
-
-      setDeletedReportId(reportId);
-
-      const querySnapshot = await getDocs(collection(db, 'Reports'));
-      const reportsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setReports(reportsData);
-    } catch (error) {
-      console.error('Error deleting report: ', error);
-    }
-  };
+    const handleDelete = async (reportId) => {
+      try {
+        await deleteDoc(doc(db, 'Reports', reportId));
+  
+        setDeletedReportId(reportId);
+  
+        const querySnapshot = await getDocs(collection(db, 'Reports'));
+        const reportsData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setReports(reportsData);
+      } catch (error) {
+        console.error('Error deleting report: ', error);
+      }
+    };
+  
 
 
   return (
@@ -169,73 +174,74 @@ const handleDelete = async (reportId) => {
             </div>
             <br></br>
 
+         
             <table className="adminFarmerAccountManagementTable">
               <thead>
                 <tr>
                   <th>{t('text244')}</th>
-                  <th>{t('Title')}</th>
                   <th>{t('text245')}</th>
                   <th>{t('text246')}</th>
                   <th>{t('text247')}</th>
                   <th>{t('text248')}</th>
                   <th>{t('text249')}</th>
+                  <th>{t('text250')}</th>
                   <th>Save</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
               {currentData.map((report) => (
-                  <tr key={report.id}>
-                    <td>{report.timestamp}</td>
-                    <td>{report.title}</td>
-                    <td>{report.content}</td>
-                    <td>{report.fullname}</td>
-                    <td>
-                      {isEditing && editedReport.id === report.id ? (
-                        <input
-                          type="text"
-                          value={editedReport.actionTaken}
-                          onChange={(e) =>
-                            setEditedReport({ ...editedReport, actionTaken: e.target.value })
-                          }
-                        />
-                      ) : (
-                        report.actionTaken
-                      )}
-                    </td>
-                    <td>
-                      {isEditing && editedReport.id === report.id ? (
-                        <select
-                          value={editedReport.status}
-                          onChange={(e) =>
-                            setEditedReport({ ...editedReport, status: e.target.value })
-                          }
-                        >
-                          <option value="Pending">Pending</option>
-                          <option value="Completed">Completed</option>
-                          {/* Add more status options as needed */}
-                        </select>
-                      ) : (
-                        report.status
-                      )}
-                    </td>
-                    <td>
-                      {isEditing && editedReport.id === report.id ? (
-                        <FaEdit onClick={handleSave} />
-                      ) : (
-                        <FaEdit onClick={() => handleEdit(report)} />
-                      )}
-                    </td>
-                    <td>
-                      {isEditing && editedReport.id === report.id && (
-                        <FaCheckSquare onClick={handleSave} />
-                      )}
-                    </td>
-                    <td>
-                      <FaTrash onClick={() => handleDelete(report.id)} />
-                    </td>
-                  </tr>
-                ))}
+              <tr key={report.id}>
+                <td>{report.timestamp}</td>
+                <td>{report.title}</td>
+                <td>{report.fullname}</td>
+                <td>
+                  {isEditing && editedReport.id === report.id ? (
+                    <input
+                      type="text"
+                      value={editedReport.actionTaken}
+                      onChange={(e) =>
+                        setEditedReport({ ...editedReport, actionTaken: e.target.value })
+                      }
+                    />
+                  ) : (
+                    report.actionTaken
+                  )}
+                </td>
+                <td>
+                  {isEditing && editedReport.id === report.id ? (
+                    <select
+                      value={editedReport.status}
+                      onChange={(e) =>
+                        setEditedReport({ ...editedReport, status: e.target.value })
+                      }
+                    >
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed</option>
+                      {/* Add more status options as needed */}
+                    </select>
+                  ) : (
+                    report.status
+                  )}
+                </td>
+                <td>
+                  {isEditing && editedReport.id === report.id ? (
+                    <FaEdit onClick={handleSave} />
+                  ) : (
+                    <FaEdit onClick={() => handleEdit(report)} />
+                  )}
+                </td>
+                <td>
+                  {isEditing && editedReport.id === report.id && (
+                    <FaCheckSquare onClick={handleSave} />
+                  )}
+                </td>
+                <td>{report.orderId}</td> {/* Display orderId in the table */}
+                <td>
+                  <FaTrash onClick={() => handleDelete(report.id)} />
+                </td>
+              </tr>
+            ))}
               </tbody>
             </table>
           </div>

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { uploadImage, storage } from './firebase';
 import Popup from './validationPopup'; // Import the Popup component
+import { v4 as uuidv4 } from 'uuid'; 
 
 const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   const { t } = useTranslation();
@@ -88,7 +89,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   useEffect(() => {
     const handleUserLogin = () => {
       // Logic to obtain or generate session ID
-      const newSessionId = ('');
+      const newSessionId = uuidv4(); // Generate a new session ID
 
       // Set the session ID in the state
       setSessionId(newSessionId);

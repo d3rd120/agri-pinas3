@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import '../css/Components/loginComponent.css';
 import Logo from '../img/agriPinasLogo2.png';
 import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
@@ -21,10 +21,9 @@ const LoginPage = () => {
   const [passwordError, setPasswordError] = useState('');
   const [popupMessage, setPopupMessage] = useState(''); // State for popup message
   const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
-  
-
-
   const navigate = useNavigate();
+  const sessionTimeout = 300000;
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -32,6 +31,30 @@ const LoginPage = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+  };
+
+  const handleSessionStorage = (userUid) => {
+    sessionStorage.setItem('userUid', userUid);
+    setLoggedIn(true);
+
+    // Set a session timeout (adjust as needed)
+    setTimeout(() => {
+      clearSession();
+    }, sessionTimeout);
+  };
+
+  const clearSession = () => {
+    sessionStorage.removeItem('userUid');
+    setLoggedIn(false);
+    setFullName(''); // Clear user data
+    navigate('/login');
+  };
+
+  const handleLogout = () => {
+    // Perform logout actions, e.g., sign out from Firebase
+    auth.signOut().then(() => {
+      clearSession();
+    });
   };
 
   const fetchUserData = async (uid) => {
@@ -75,7 +98,6 @@ const LoginPage = () => {
       console.log('User logged in');
       setEmail('');
       setPassword('');
-      setLoggedIn(true);
       const userUid = user.uid;
 
       // Check if the user's role is not Admin
@@ -92,7 +114,7 @@ const LoginPage = () => {
           // Check if the user's email is verified
           if (user.emailVerified) {
             setEmailVerified(true);
-            sessionStorage.setItem('userUid', userUid);
+            handleSessionStorage(userUid);
           } else {
             setEmailVerified(false);
             setPopupMessage('Email not verified. Please verify your email address.');
@@ -102,7 +124,7 @@ const LoginPage = () => {
         } else {
           // Admin user, proceed without email verification
           setEmailVerified(true);
-          sessionStorage.setItem('userUid', userUid);
+          handleSessionStorage(userUid);
         }
       } else {
         setPopupMessage(`User data not found for UID: ${userUid}`);
@@ -117,12 +139,11 @@ const LoginPage = () => {
   useEffect(() => {
     if (loggedIn) {
       const userUid = sessionStorage.getItem('userUid');
-      console.log('Retrieved user UID:', userUid);
       if (userUid) {
         setLoading(true);
         setTimeout(() => {
           fetchUserData(userUid);
-        },); 
+        }, 1000); // Adjust the timeout as needed
       } else {
         console.error('Invalid user UID:', userUid);
       }

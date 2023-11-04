@@ -16,7 +16,8 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
-import { collection, getDocs, setDoc, getDoc, doc, where, query } from 'firebase/firestore';
+import { collection, getDocs, setDoc, getDoc, doc, updateDoc, deleteDoc} from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 import Popup from './validationPopup';
 
@@ -48,7 +49,7 @@ const BuyerMarketplace = ({ }) => {
   const [loadingRelatedProducts, setLoadingRelatedProducts] = useState(true);
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-
+  const [sessionId, setSessionId] = useState(null);
 
   const handleChatButtonClick = () => {
     setShowChatBot(!showChatBot);
@@ -69,6 +70,14 @@ const BuyerMarketplace = ({ }) => {
     setMinimizedChatBot(false);
   };
 
+  useEffect(() => {
+    setSessionId(uuidv4());
+    if (productId && productId !== 'undefined') {
+      fetchProductDetails();
+      fetchRelatedProducts(productId);
+    }
+  }, [productId]);
+  
   const handleAddToCart = async (product) => {
     try {
       if (!product) {
@@ -87,17 +96,38 @@ const BuyerMarketplace = ({ }) => {
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.exists() ? userCartSnapshot.data().cart : [];
   
-      const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);  
-    
+      const existingItemIndex = currentCart.findIndex((item) => item.productId === product.productId);
+  
       if (existingItemIndex !== -1) {
         // Product already exists in the cart, update the quantity
         const updatedCart = [...currentCart];
         updatedCart[existingItemIndex].quantity += 1;
-        await setDoc(userCartRef, { cart: updatedCart });
+        await updateDoc(userCartRef, { cart: updatedCart });
       } else {
         // Product does not exist in the cart, add a new entry
-        currentCart.push({ ...product, quantity: 1, productId: product.productId });
-        await setDoc(userCartRef, { cart: currentCart });
+        const newItem = {
+          userId: user.uid,
+          productId: product.productId,
+          boughtQuantity: 0, // Set quantity to 1
+          dateBought: new Date().toISOString().split('T')[0],
+          isChecked: false,
+          buid: user.uid,
+          category: product.category,
+          cropID: product.productId,
+          cropName: product.cropName,
+          fullname: product.fullname,
+          image: product.image,
+          location: product.location,
+          price: product.price,
+          totalAmount: product.price,
+          totalCost: product.price,
+          uid: user.uid,
+          unit: product.unit,
+          quantity: 0,
+        };
+  
+        const updatedCart = [...currentCart, newItem];
+        await setDoc(userCartRef, { cart: updatedCart });
       }
   
       setPopupMessage(`${product.cropName} added to your cart!`);
@@ -108,6 +138,7 @@ const BuyerMarketplace = ({ }) => {
       setPopupVisible(true);
     }
   };
+  
 
   const buyNow = async (product) => {
     try {
@@ -128,7 +159,7 @@ const BuyerMarketplace = ({ }) => {
       const orderDoc = {
         userId: user.uid,
         productId: product.productId,
-        quantity: 1, // Set quantity to 1
+        boughtQuantity: 1, // Set quantity to 1
         dateBought: new Date().toISOString().split('T')[0],
         isChecked: false,
         buid: user.uid,
@@ -139,13 +170,21 @@ const BuyerMarketplace = ({ }) => {
         image: product.image,
         location: product.location,
         price: product.price,
-        totalAmount: product.price, // Assuming totalAmount is the same as price for now
-        totalCost: product.price, // Assuming totalCost is the same as price for now
+        totalAmount: product.price,
+        totalCost: product.price,
         uid: user.uid,
         unit: product.unit,
+        quantity: 1,
       };
   
+      // Place the order by adding a document to the "BuyNow" collection
       await setDoc(doc(userOrdersRef), orderDoc);
+  
+      // Clear the "BuyNow" collection
+      const buyNowCollectionRef = collection(db, 'BuyNow');
+      const buyNowDocs = await getDocs(buyNowCollectionRef);
+      const deletePromises = buyNowDocs.docs.map((doc) => deleteDoc(doc.ref));
+      await Promise.all(deletePromises);
   
       setPopupMessage(`${product.cropName} purchased successfully!`);
       setPopupVisible(true);
@@ -155,6 +194,7 @@ const BuyerMarketplace = ({ }) => {
       setPopupVisible(true);
     }
   };
+  
   
   
   

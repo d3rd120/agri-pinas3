@@ -55,7 +55,7 @@ const ShoppingCart = (props) => {
   }, []);
   
 
-  const updateQuantity = async (id, newQuantity) => {
+  const updateQuantity = async (productId, newQuantity) => {
     try {
       const user = auth.currentUser;
       if (user) {
@@ -65,30 +65,25 @@ const ShoppingCart = (props) => {
   
         if (userCartData && userCartData.cart) {
           const existingItemIndex = userCartData.cart.findIndex(
-            (item) => item.id === id
+            (item) => item.productId === productId
           );
   
           if (existingItemIndex !== -1) {
-          
             const updatedCart = [...userCartData.cart];
             updatedCart[existingItemIndex].quantity = newQuantity;
-  
-       
+            updatedCart[existingItemIndex].boughtQuantity = newQuantity;
+      
             await updateDoc(userCartRef, { cart: updatedCart });
-  
-          
+      
             setCart(updatedCart);
           } else {
-         
-            const newItem = userCartData.cart.find((item) => item.id === id);
+            const newItem = userCartData.cart.find((item) => item.productId === productId);
             newItem.quantity = newQuantity;
   
             const updatedCart = [...userCartData.cart, newItem];
   
-           
             await updateDoc(userCartRef, { cart: updatedCart });
   
-           
             setCart(updatedCart);
           }
         }
@@ -97,6 +92,7 @@ const ShoppingCart = (props) => {
       console.error('Error updating quantity in Firestore:', error);
     }
   };
+  
   
 
   const deleteProductFromCart = async (productId) => {
@@ -248,13 +244,13 @@ const ShoppingCart = (props) => {
                   
                   <td>
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                       disabled={item.quantity === 1}
                     >
                       -
                     </button>
                     <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                    <button onClick={() => updateQuantity(item.productId, item.quantity + 1)}>+</button>
                   </td>
                   <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
                   <td>
@@ -273,19 +269,23 @@ const ShoppingCart = (props) => {
               <div className="total">{t('text67')}{calculateTotal()}</div>
               <div className="buttonWrapper">
               <Link
-              to={cart.length > 0 ? "/checkout" : "#"}
-              onClick={() => {
-                if (cart.length === 0) {
-                  setIsCartEmptyPopupVisible(true);
-                }
-              }}
-              className="ordercheckoutButton2"
-            >
-                  {t('text68')}
-                </Link>
-                <Link to="/buyermarketplace" className="ordercheckoutButton2">
-                {t('text69')}
-                </Link>
+                to={cart.length > 0 ? "/checkout" : "#"}
+                onClick={() => {
+                  if (cart.length === 0) {
+                    setIsCartEmptyPopupVisible(true);
+                  } else {
+                    // Update the boughtQuantity in the cart before proceeding to checkout
+                    const updatedCart = cart.map((item) => ({
+                      ...item,
+                      boughtQuantity: item.quantity,
+                    }));
+                    setCart(updatedCart);
+                  }
+                }}
+                className="ordercheckoutButton2"
+              >
+                {t('text68')}
+              </Link>
               </div>
             </div>
           </div>

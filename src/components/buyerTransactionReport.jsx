@@ -14,6 +14,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [validationMessage, setValidationMessage] = useState('');
+  const [orderRefId, setOrderRefId] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -25,10 +26,22 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
             uid: user.uid,
             fullname: userDoc.data().fullname,
           });
+
+          // Add transaction document
+          const orders = []; // Replace with your actual orders
+          const orderRef = await addDoc(collection(db, 'Transaction'), {
+            userId: user.uid,
+            orders,
+          });
+
+          // Set the orderRef.id to state
+          setOrderRefId(orderRef.id);
+          
         }
       } else {
         // User is signed out
         setUserInfo({});
+        setOrderRefId(null); // Reset orderRefId when user signs out
       }
     });
 
@@ -39,36 +52,44 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   const addReport = async () => {
     try {
       setIsSubmitting(true);
-
+  
       if (!title || !content) {
         setValidationMessage('Please fill in all fields');
         setIsSubmitting(false);
         return;
       }
-
+  
+      // Check if orderRefId is available
+      if (!orderRefId) {
+        setValidationMessage('Order ID is missing');
+        setIsSubmitting(false);
+        return;
+      }
+  
       const docRef = await addDoc(collection(db, 'Reports'), {
         title,
         content,
+        orderId: orderRefId, // Use orderRefId instead of setOrderRefId
         userId: userInfo.uid,
         fullname: userInfo.fullname,
         timestamp: new Date().toLocaleString(),
       });
-
+  
       setValidationMessage('Report submitted successfully');
       console.log('Report added with ID: ', docRef.id);
       setIsSubmitting(false);
-
+  
       // Reload the window after 1 second
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-      
     } catch (error) {
       console.error('Error adding report: ', error);
       setValidationMessage('An error occurred while submitting the report.');
       setIsSubmitting(false);
     }
   };
+  
 
   const handleSubmit = async () => {
     setValidationMessage(''); // Clear previous validation message

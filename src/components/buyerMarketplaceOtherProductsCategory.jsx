@@ -3,13 +3,13 @@ import BuyerNavigation from '../components/buyerNavigation';
 import ProfileVector2 from '../img/profileVector2.png';
 import BuyerTopNav from '../components/buyerTopNav';
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-
 
 const BuyerMarketplace = () => {
   const { t } = useTranslation();
@@ -19,6 +19,7 @@ const BuyerMarketplace = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [sessionId, setSessionId] = useState(null);
   const displayCount = 6;
 
   useEffect(() => {
@@ -36,6 +37,10 @@ const BuyerMarketplace = () => {
     setFilteredProducts(filtered);
   }, [searchQuery, products]);
 
+  useEffect(() => {
+    setSessionId(uuidv4());
+    fetchProducts(); // You can include your data fetching logic here
+  }, [])
 
   const fetchProducts = async () => {
     try {

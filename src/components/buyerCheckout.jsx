@@ -4,8 +4,9 @@ import BuyerNavigation from '../components/buyerNavigation';
 import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import BuyerTopNav from '../components/buyerTopNav';
+import { v4 as uuidv4 } from 'uuid';
 import { db, auth, } from './firebase';
-import { doc, getDoc, collection, query, where, getDocs, addDoc, setDoc, serverTimestamp} from 'firebase/firestore';
+import { doc, getDocs, collection, query, where, getDoc, setDoc, addDoc } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -16,6 +17,7 @@ const ShoppingCart = () => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
   const [cart, setCart] = useState([]);
   const [fullname, setfullname] = useState('');
   const [contact, setContact] = useState('');
@@ -25,7 +27,7 @@ const ShoppingCart = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const navigate = useNavigate();
   const [buyNowData, setBuyNowData] = useState([]);
-
+  const combinedData = [...cart, ...buyNowData];
 
   
 
@@ -66,46 +68,49 @@ const ShoppingCart = () => {
       }
     });
   
+    setSessionId(uuidv4());
+
     return () => unsubscribe();
   }, []);
   
 
   useEffect(() => {
-    const fetchBuyNowData = async () => {
+    const fetchData = async () => {
       try {
+        const user = auth.currentUser;
+
+        // Fetch BuyNow data
         const buyNowCollectionRef = collection(db, 'BuyNow');
         const buyNowCollectionSnapshot = await getDocs(buyNowCollectionRef);
+        const buyNowData = buyNowCollectionSnapshot.docs.map((doc) => doc.data());
+        setBuyNowData(buyNowData);
 
-        const data = buyNowCollectionSnapshot.docs.map((doc) => doc.data());
-        setCart(data); // Assuming buyNowData contains the items you want in the cart
+        // Fetch cart data
+        if (user) {
+          const userCartRef = doc(db, 'UserCarts', user.uid);
+          const userCartSnapshot = await getDoc(userCartRef);
+          const userCartData = userCartSnapshot.data();
+
+          if (userCartData && userCartData.cart) {
+            setCart(userCartData.cart);
+          }
+
+          // Clear the cart after fetching BuyNow data
+          await setDoc(userCartRef, { cart: [] });
+        }
       } catch (error) {
-        console.error('Error fetching BuyNow data:', error);
+        console.error('Error fetching data:', error);
       }
     };
 
-    fetchBuyNowData();
+    fetchData();
   }, []);
+
+  
   
 
-  const fetchCartData = async () => {
-    const updatedCart = await Promise.all(
-      cart.map(async (item) => {
-        // Check if product data has already been fetched
-        if (!item.productData) {
-          const productData = await fetchCartData(item.productId);
-          return productData ? { ...item, productData } : null;
-        } else {
-          return item;
-        }
-      })
-    );
-  
-    setCart(updatedCart.filter((item) => item !== null));
-  };
-  
-
-  const removeItem = (itemId) => {
-    const updatedCart = cart.filter((item) => item.id !== itemId);
+  const removeItem = (productId) => {
+    const updatedCart = combinedData.filter((item) => item.productId !== productId);
     setCart(updatedCart);
   };
 
@@ -151,55 +156,95 @@ const ShoppingCart = () => {
   const placeOrder = async () => {
     try {
       console.log('Start placing order...');
-
+  
       const user = auth.currentUser;
-
+  
+      // Check if the user is authenticated
       if (!user) {
         console.log('User is not authenticated.');
         showAlert('Please log in to place an order.');
         return;
       }
-
+  
       const userCartRef = doc(db, 'UserCarts', user.uid);
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.data()?.cart || [];
-
-      if (currentCart.length === 0) {
-        console.log('Cart is empty.');
-        showAlert('Your cart is empty. Add items before placing an order.');
+  
+      const combinedOrderData = [...currentCart, ...buyNowData]; // Combine existing cart and BuyNow items
+  
+      // Check if the combined order data is empty
+      if (combinedOrderData.length === 0) {
+        console.log('Combined order data is empty.');
+        showAlert('Your order is empty. Add items before placing an order.');
         return;
       }
-
-      console.log('Current Cart:', currentCart);
-
+  
+      // Map combined order items
+      const orders = combinedOrderData.map((item) => {
+        // Ensure that all required fields are defined
+        const orderItem = {
+          productId: item.productId,
+          boughtQuantity: item.boughtQuantity,
+          dateBought: new Date().toISOString().split('T')[0],
+          isChecked: false,
+          buid: user.uid,
+          category: item.category || '',
+          cropID: item.productId,
+          cropName: item.cropName || '',
+          fullname: item.fullname || '',
+          image: item.image || '',
+          location: item.location || '',
+          price: item.price || 0,
+          totalAmount: item.price || 0,
+          totalCost: item.price || 0,
+          uid: user.uid,
+          unit: item.unit || '',
+          quantity: item.quantity || '',
+          status: item.status || '',
+          paymentMethod: item.paymentMethod || '',
+        };
+  
+        // Check if any required field is undefined
+        const isUndefinedField = Object.values(orderItem).some((value) => value === undefined);
+  
+        if (isUndefinedField) {
+          console.error('One or more required fields are undefined:', orderItem);
+          throw new Error('One or more required fields are undefined.');
+        }
+  
+        return orderItem;
+      });
+  
       // Create a new order document
       const orderRef = await addDoc(collection(db, 'Transaction'), {
         userId: user.uid,
-        cart: currentCart,
-        timestamp: serverTimestamp(),
+        orders,
       });
-
+  
       console.log('Order document added with ID:', orderRef.id);
-
+  
       // Clear the cart
       await setDoc(userCartRef, { cart: [] });
-
+  
       console.log('Order placed successfully!');
       showAlert('Order placed successfully');
       setTimeout(() => {
-        navigate("/buyertoreceive");
+        navigate('/buyertoreceive');
       }, 1500); // Redirect to the login page after 2 seconds
     } catch (error) {
       console.error('Error placing order:', error);
-
+  
       if (error instanceof FirebaseError) {
         console.error('Firebase Error Code:', error.code);
         console.error('Firebase Error Message:', error.message);
       }
-
+  
       showAlert('Error placing order. Please try again.');
     }
-  }; 
+  };
+  
+  
+  
   
   
   
@@ -249,21 +294,22 @@ const ShoppingCart = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cart.map((item) => (
-                    <tr key={item.id}>
-                      <td>
-                        <div className="product-info">
-                          <img src={item.image} alt={item.cropName} />
-                          <span>{item.cropName}</span>
-                        </div>
-                      </td>
-                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
-                      <td>
-                        <span>{item.quantity}</span>
-                      </td>
-                      <td>₱{calculateSubtotal(item.price, item.quantity)}</td>
-                    </tr>
-                  ))}
+                {combinedData.map((item) => (
+              <tr key={item.productId}>
+                <td>
+                  <div className="product-info">
+                    <img src={item.image} alt={item.cropName} />
+                    <span>{item.cropName}</span>
+                  </div>
+                </td>
+                <td>₱{calculateSubtotal(item.price, item.boughtQuantity)}</td>
+                <td>
+                  <span>{item.boughtQuantity}</span>
+                </td>
+                
+                <td>₱{calculateSubtotal(item.price, item.boughtQuantity)}</td>
+              </tr>
+            ))}
                 </tbody>
               </table>
             </div>

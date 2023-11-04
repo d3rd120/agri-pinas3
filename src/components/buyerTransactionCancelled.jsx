@@ -2,8 +2,9 @@ import BuyerTransactionNav from '../components/buyerTransactionNav';
 import "../css/BuyerPage/buyerTransactionsCancelledComponent.css";
 import BuyerNavigation from '../components/buyerNavigation';
 import BuyerTopNav from '../components/buyerTopNav';
-
-import pakwan from '../img/pakwan.png';
+import { query, collection, where, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
+import { useState, useEffect } from 'react';
 import {FaEdit, FaTrash,FaFolderOpen} from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +12,26 @@ import i18n from '../i18n';
 
 const BuyerTransanctionCancelled = () => {
   const { t } = useTranslation();
+  const [cancelledOrders, setCancelledOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchCancelledOrders = async () => {
+      try {
+        // Query for completed or canceled orders
+        const cancelledOrdersQuery = query(collection(db, 'Transaction'), where('status', '==', 'Cancelled'));
+        const cancelledOrdersSnapshot = await getDocs(cancelledOrdersQuery);
+        const cancelledOrdersData = cancelledOrdersSnapshot.docs.map((doc) => doc.data());
+
+        setCancelledOrders(cancelledOrdersData);
+        console.log('Cancelled Orders:', cancelledOrdersData);
+      } catch (error) {
+        console.error('Error fetching cancelled orders:', error);
+      }
+    };
+
+    fetchCancelledOrders();
+  }, []);
+
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="buyerTransactionsCancelledComponent">

@@ -1,13 +1,103 @@
 {
 
-  "text1": "Login",
+
+  "text1": "Home",
   "text2": "About",
-  "text3": "Contact",
-  "text4": "Language",
+  "text3": "Language",
+  "text4": "Login",
 
   "text5": "Grown with care, Traded with trust",
   "text6": "Now Available",
   "text7": "AgriPinas Mobile App",
+  
+  "Ttext8": "© 2023, AgriPinas. All Rights Reserved.",
+  "Ttext9": "Office Location",
+  "Ttext10": "Email",
+
+  "Ttext11": "Mission and Vision",
+  "Ttext12": "Mission",
+  "Ttext13": "In order to learn how to improve the livelihood of farmers through financial assistance and services.",
+  "Ttext14": "Vision",
+  "Ttext15": "Aiming with action, honesty towards the dream of farmers to change the quality of life of each member.",
+  "Ttext16": "Goals",
+  "Ttext17": "1. Assist each member with their financial needs.",
+  "Ttext18": "2. Encourage members to save and create capital funds.",
+  "Ttext19": "3. To have sufficient capital for various businesses/projects.",
+  "Ttext20": "4. Increase the harvest and income of each member of the cooperative.",
+  "Ttext21": "5. Establishment of facilities such as warehouses, rice mills, machinery, and a dedicated plot of land.",
+  "Ttext22": "6. Establish a program for health, education, and livelihood.",
+  "Ttext23": "7. Continued education and training for all members of the cooperative.",
+
+  "Ttext24": "Change Language",
+  "Ttext25": "English",
+  "Ttext26": "Filipino",
+
+  "Ttext27": "Login",
+  "Ttext28": "Email Address",
+  "Ttext29": "Password",
+  "Ttext30": "Reset password",
+  "Ttext31": "Login",
+  "Ttext32": "Don't have an account?",
+  "Ttext33": "Signup",
+
+  "ext34": "Register",
+  "ext35": "Full Name",
+  "ext36": "Contact Number",
+  "ext37": "Address",
+  "ext38": "Age",
+  "ext39": "Email Address",
+  "ext40": "Choose a Role",
+  "eext41": "Buyer",
+  "ext41": "Password",
+  "ext42": "Confirm Password",
+  "ext43": "Register",
+  "ext44": "Already have an account?",
+  "ext45": "Login",
+  "ext46": "Please enter a valid full name.",
+  "ext47": "Please fill in all required fields",
+  "ext48": "Password and confirm password do not match",
+  "ext49": "You must be 18 or older to register.",
+  "ext50": "Please enter a valid Philippine phone number.",
+  "ext51": "Please enter a valid address.",
+  "ext52": "Password must contain at least 8 characters with letters, numbers.",
+  "ext53": "Registration successful! A verification email has been sent to your email address.\nDirecting you to the login...",
+  "ext54": "Registration failed. The email address is already in use.",
+  "ext55": "Registration failed. Please try again later.",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
   "text8": "About AgriPinas",
   "text9": "AgriPinas is an innovative mobile and web application designed to revolutionize the agricultural industry, specifically aiming to assist farmers in Cabiao, Nueva Ecija, Philippines.",

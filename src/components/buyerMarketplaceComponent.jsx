@@ -55,12 +55,18 @@ useEffect(() => {
         };
       });
   
-      // Use the first three products directly
+    
       setProducts(productsData.slice(0, 3));
-  
+      const sessionId = generateSessionId(); 
+      sessionStorage.setItem('sessionId', sessionId);
+      console.log('sessionId', sessionId);
     } catch (error) {
       console.error('Error retrieving products:', error);
     }
+  };
+
+  const generateSessionId = () => {
+    return Math.random().toString(36).substr(2, 10); 
   };
 
   useEffect(() => {
@@ -108,7 +114,12 @@ useEffect(() => {
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
                   {t('text51')}
-                </p>               
+                </p>    
+                <br></br>           
+                <br></br> 
+                <p className="buyerCommunityForumComponentBlankLine" style={{ fontSize: '18px' }}>
+                  {t('Categories')}
+                </p>
               </b>
             </div>
           </div>
@@ -241,7 +252,7 @@ useEffect(() => {
             ))} 
           </div>
    
-          <div className="adminCommunityForumComponentForumNumber">
+          {/* <div className="adminCommunityForumComponentForumNumber">
             {pageNumbers.map((pageNumber) => (
               <div
                 className={`adminCommunityForumComponentForumContainer ${
@@ -254,7 +265,8 @@ useEffect(() => {
                 <div className="adminCommunityForumComponentForumNumberBox">{pageNumber}</div>
               </div>
             ))}
-          </div>
+          </div> */}
+          
         </div>
       </div>
     </I18nextProvider>

@@ -32,28 +32,28 @@ const Signup = () => {
     const validFullName = /^[A-Za-z\s.'-]{2,}$/;
 
     if (!validFullName.test(fullname)) {
-      setPopupMessage("Please enter a valid full name.");
+      setPopupMessage(t('ext46'));
       setShowPopup(true);
       return;
     }
     
  // Check if all required fields are filled
     if (!fullname || !contact || !address || !birthdate || !age || !email || !role || !password || !confirmpassword) {
-      setPopupMessage("Please fill in all required fields");
+      setPopupMessage(t('ext47'));
       setShowPopup(true);
       return;
     }
   
     // Check if password and confirm password match
     if (password !== confirmpassword) {
-      setPopupMessage("Password and confirm password do not match");
+      setPopupMessage(t('ext48'));
       setShowPopup(true);
       return;
     }
   
     // Check if the user is 18 or older
     if (age < 18) {
-      setPopupMessage("You must be 18 or older to register.");
+      setPopupMessage(t('ext49'));
       setShowPopup(true);
       return;
     }
@@ -62,7 +62,7 @@ const Signup = () => {
     const validPhoneNumber = /^(\+63|0)(9\d{9})$/; // Adjust this regex pattern as needed
   
     if (!validPhoneNumber.test(contact)) {
-      setPopupMessage("Please enter a valid Philippine phone number.");
+      setPopupMessage(t('ext50'));
       setShowPopup(true);
       return;
     }
@@ -71,7 +71,7 @@ const Signup = () => {
       const validAddress = /^[A-Za-z0-9\s,.'-]{3,}$/; // Adjust this regex pattern as needed
 
       if (!validAddress.test(address)) {
-        setPopupMessage("Please enter a valid address.");
+        setPopupMessage(t('ext51'));
         setShowPopup(true);
         return;
       }
@@ -80,7 +80,7 @@ const Signup = () => {
       const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%^&+=!*_]?).{8,}$/;
 
       if (!passwordPattern.test(password)) {
-        setPopupMessage("Password must contain at least 8 characters with letters, numbers.");
+        setPopupMessage(t('ext52'));
         setShowPopup(true);
         return;
       }
@@ -89,7 +89,7 @@ const Signup = () => {
     try {
       await registerWithEmailAndPassword(fullname, contact, address, birthdate, age, email, role, password);
       // Registration was successful, you can redirect the user or show a success message here
-      setPopupMessage("Registration successful! A verification email has been sent to your email address.\nDirecting you to the login...");
+      setPopupMessage(t('ext53'));
       setShowPopup(true);
 
       setTimeout(() => {
@@ -102,10 +102,10 @@ const Signup = () => {
   
       // Display an error message to the user if needed
       if (error.message === "auth/email-already-in-use") {
-        setPopupMessage("Registration failed. The email address is already in use.");
+        setPopupMessage(t('ext54'));
         setShowPopup(true);
       } else {
-        setPopupMessage("Registration failed. Please try again later.");
+        setPopupMessage(t('ext55'));
         setShowPopup(true);
       }
     }
@@ -172,7 +172,7 @@ const Signup = () => {
           <div className="signupComponentForm">
             <div className="signupComponentFormText">
               <img className="signUpComponentLogo" alt="" src={Logo} />
-              <div className="signupComponentMainText">{t('text28')}</div>
+              <div className="signupComponentMainText">{t('ext34')}</div>
             </div>
             <div className="signupComponentFormFields">
               <input
@@ -181,14 +181,14 @@ const Signup = () => {
                 type="text"
                 value={fullname}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder={t('text29')}
+                placeholder={t('ext35')}
                 required
               />
               <input
                 className="signupComponentFormInput"
                 id="signupComponentContactNumber"
                 type="text"
-                placeholder={t('text30')}
+                placeholder={t('ext36')}
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
                 required
@@ -197,7 +197,7 @@ const Signup = () => {
                 className="signupComponentFormInput"
                 id="signupComponentAddress"
                 type="text"
-                placeholder={t('text31')}
+                placeholder={t('ext37')}
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 required
@@ -216,7 +216,7 @@ const Signup = () => {
                 className="signupComponentFormInput"
                 id="signupComponentAge"
                 type="text"
-                placeholder={t('text32')}
+                placeholder={t('ext38')}
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 readOnly
@@ -226,7 +226,7 @@ const Signup = () => {
                 id={email}
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder={t('text33')}
+                placeholder={t('ext39')}
                 required
               />
               <select
@@ -237,16 +237,16 @@ const Signup = () => {
                 required
               >
                 <option value="" disabled>
-                  {t('text34')}
+                  {t('ext40')}
                 </option>               
-                <option value="Buyer">{t('text36')}</option>
+                <option value="Buyer">{t('eext41')}</option>
               </select>
               <input
                 className="signupComponentFormInput"
                 id={password}
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder={t('text37')}
+                placeholder={t('ext41')}
                 required
               />
               <input
@@ -254,15 +254,15 @@ const Signup = () => {
                 id={confirmpassword}
                 type="password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder={t('text38')}
+                placeholder={t('ext42')}
                 required
               />
             </div>
             <button ref={registerButtonRef} className="signupComponentButton" onClick={register}>
-              <div className="signupComponentButtonText">{t('text39')}</div>
+              <div className="signupComponentButtonText">{t('ext43')}</div>
             </button>
             <div className="signupComponentSubTextContainer">
-              <span>{t('text40')} <Link className="signupComponentLoginLink" to="/login"> {t('text41')} </Link></span>   
+              <span>{t('ext44')} <Link className="signupComponentLoginLink" to="/login"> {t('ext45')} </Link></span>   
             </div>
           </div>
         </div>

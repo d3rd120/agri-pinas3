@@ -1,6 +1,6 @@
 import "../css/Components/adminMarketplaceComponent.css";
 import AdminNavigation from '../components/adminPageNavigation';
-import { FaTrash, FaStore, FaArchive, FaTimes } from 'react-icons/fa';
+import {FaStore, FaArchive, FaTimes } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, getDocs, doc, getDoc, addDoc, deleteDoc } from 'firebase/firestore';
@@ -8,6 +8,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import ConfirmationDialog from "./confirmationDialog";
+import ProfileVector2 from '../img/profileVector2.png';
 
 const AdminMarketplaceComponent = () => {
   const { t } = useTranslation();
@@ -149,30 +150,30 @@ const AdminMarketplaceComponent = () => {
   
   
 
-  const handleConfirmDeleteProduct = async () => {
-    try {
-      const productRef = doc(db, 'Archive', deleteProductId);
-      const productSnapshot = await getDoc(productRef);
+  // const handleConfirmDeleteProduct = async () => {
+  //   try {
+  //     const productRef = doc(db, 'Archive', deleteProductId);
+  //     const productSnapshot = await getDoc(productRef);
   
-      if (productSnapshot.exists()) {
-        await deleteDoc(productRef);
-        setShowPopup2(true);
-        fetchArchivedProducts(); // Fetch updated archived product list
-      } else {
-        console.warn('Archived product not found.');
-      }
-    } catch (error) {
-      console.error('Error deleting product:', error);
-    }
+  //     if (productSnapshot.exists()) {
+  //       await deleteDoc(productRef);
+  //       setShowPopup2(true);
+  //       fetchArchivedProducts(); // Fetch updated archived product list
+  //     } else {
+  //       console.warn('Archived product not found.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting product:', error);
+  //   }
   
-    // Close the dialog
-    setIsDeleteProductDialogOpen(false);
-  };
+  //   // Close the dialog
+  //   setIsDeleteProductDialogOpen(false);
+  // };
   
-  const handleCancelDeleteProduct = () => {
-    // Close the dialog
-    setIsDeleteProductDialogOpen(false);
-  };
+  // const handleCancelDeleteProduct = () => {
+  //   // Close the dialog
+  //   setIsDeleteProductDialogOpen(false);
+  // };
   
 
   return (
@@ -185,7 +186,7 @@ const AdminMarketplaceComponent = () => {
               <b className="adminMarketplaceComponentMainTextWrapper">
                 <p className="adminMarketplaceComponentBlankLine">&nbsp;</p>
                 <p className="adminMarketplaceComponentBlankLine">
-                  {t('text148')}
+                  {t('Marrketplace Archived')}
                 </p>
               </b>
             </div>
@@ -265,16 +266,22 @@ const AdminMarketplaceComponent = () => {
                               </div>
                             </div>
                           </div>
+                             <div className="buyerMarketplaceComponentAuthor">
+                          <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                          <div className="buyerMarketplaceComponentAuthorText">
+                            <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
+                          </div>
+                        </div>   
                           <div className="adminMarketplaceComponentFrameItem" />
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={() => handleUnarchiveButtonClick(product.id)}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
+                              <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
                             </button>
-                            <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteProduct(product.id)}>
+                            {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteProduct(product.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </a>
@@ -308,12 +315,12 @@ const AdminMarketplaceComponent = () => {
           onCancel={handleCancelUnarchive}
         />
 
-        <ConfirmationDialog
+        {/* <ConfirmationDialog
           isOpen={isDeleteProductDialogOpen}
           message="Are you sure you want to delete this product?"
           onConfirm={handleConfirmDeleteProduct}
           onCancel={handleCancelDeleteProduct}
-        />
+        /> */}
 
 
     </I18nextProvider>

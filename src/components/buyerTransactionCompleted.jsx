@@ -2,18 +2,37 @@ import BuyerTransactionNav from '../components/buyerTransactionNav';
 import "../css/BuyerPage/buyerTransactionsCompletedComponent.css";
 import BuyerNavigation from '../components/buyerNavigation';
 import BuyerTopNav from '../components/buyerTopNav';
-import ProfileVector2 from '../img/profileVector2.png';
-import pechay from '../img/pechay.png'
-import sili from '../img/sili.png';
-import RiceVector from '../img/riceCardImage.png';
-import { FaEdit, FaTrash, FaFolderOpen } from 'react-icons/fa';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from './firebase';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { useState, useEffect } from 'react';
+import { FaFolderOpen } from 'react-icons/fa';
 
 const BuyerTransanctionCompleted = () => {
   
 const { t } = useTranslation();
+const [completedOrders, setCompletedOrders] = useState([]);
+
+useEffect(() => {
+  const fetchCompletedOrders = async () => {
+    try {
+      // Query for completed or canceled orders
+      const completedOrdersQuery = query(collection(db, 'Transaction'), where('status', '==', 'Completed'));
+      const completedOrdersSnapshot = await getDocs(completedOrdersQuery);
+      const completedOrdersData = completedOrdersSnapshot.docs.map((doc) => doc.data());
+
+      setCompletedOrders(completedOrdersData);
+      console.log('Completed Orders:', completedOrdersData);
+    } catch (error) {
+      console.error('Error fetching completed orders:', error);
+    }
+  };
+
+  fetchCompletedOrders();
+}, []);
+
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="buyerTransactionsCompletedComponent">

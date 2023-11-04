@@ -2,7 +2,7 @@ import "../css/BuyerPage/buyermarketplaceComponent.css"
 import BuyerNavigation from '../components/buyerNavigation';
 import OnionVector from '../img/onionVector.png';
 import CornVector from '../img/cornVector.png';
-import okra from '../img/okra.png';
+import { v4 as uuidv4 } from 'uuid';
 import ProfileVector2 from '../img/profileVector2.png';
 import ProfileVector1 from '../img/profileVector1.png';
 import {Link} from 'react-router-dom';
@@ -25,8 +25,9 @@ const BuyerMarketplace = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const displayCount = 6;
+  const [sessionId, setSessionId] = useState(null);
 
+  const displayCount = 6;
   useEffect(() => {
     // Filter the products based on the search query
     const filtered = products.filter((product) =>
@@ -41,6 +42,11 @@ const BuyerMarketplace = () => {
     );
     setFilteredProducts(filtered);
   }, [searchQuery, products]);
+
+  useEffect(() => {
+    setSessionId(uuidv4());
+    fetchProducts(); // You can include your data fetching logic here
+  }, [])
 
 
   // Fetch products and user information
@@ -117,8 +123,15 @@ const BuyerMarketplace = () => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="buyerCommunityForumComponentBlankLine">{t('text120')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('Fruits')}</p>
               </b>
+               <br></br>
+              <input
+                  type="text"
+                  placeholder="Search"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ width: '250px' }}
+                />  
             </div>
           </div>
 

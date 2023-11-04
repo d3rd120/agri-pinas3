@@ -46,7 +46,7 @@ function Reset() {
             placeholder={t('text43')}
           />
           <button className="reset__btn" onClick={handlePasswordReset}>
-            {t('text44')}
+            {t('Send Link')}
           </button>
 
           <div>

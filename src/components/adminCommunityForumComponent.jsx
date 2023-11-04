@@ -28,10 +28,10 @@ const AdminCommunityForumComponent = () => {
     setShowArchiveConfirmation(true);
   };
   
-  const handleDeletePost = (postId) => {
-    setDeletePostId(postId);
-    setShowDeleteConfirmation(true);
-  };
+  // const handleDeletePost = (postId) => {
+  //   setDeletePostId(postId);
+  //   setShowDeleteConfirmation(true);
+  // };
   
 
 
@@ -61,24 +61,30 @@ const AdminCommunityForumComponent = () => {
       const postsCollection = collection(db, 'CommunityForum');
       const snapshot = await getDocs(postsCollection);
       const fetchedPosts = [];
-
+  
       for (const doc of snapshot.docs) {
         const post = doc.data();
         post.user = post.user || {}; // Ensure that post.user is initialized as an object
-
+  
+        // Convert the timestamp to a numeric timestamp
+        post.numericTimestamp = new Date(post.timestamp).getTime();
+  
         const displayName = await fetchUserDisplayName(post.user?.uid);
         post.user.displayName = displayName; // Set a default value if userDisplayName is falsy
         post.id = doc.id;
-
+  
         fetchedPosts.push(post);
       }
-
-      setPosts(fetchedPosts);
+  
+      // Sort the posts by numeric timestamp
+      const sortedPosts = [...fetchedPosts].sort((a, b) => b.numericTimestamp - a.numericTimestamp);
+  
+      setPosts(sortedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
   };
-
+  
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "CommunityForum"), () => {
       fetchPosts();
@@ -149,27 +155,31 @@ const AdminCommunityForumComponent = () => {
     setShowArchiveConfirmation(false);
   };
   
-  const handleConfirmDelete = async () => {
-    try {
-      const postRef = doc(db, 'CommunityForum', deletePostId);
-      const postSnapshot = await getDoc(postRef);
+  // const handleConfirmDelete = async () => {
+  //   try {
+  //     const postRef = doc(db, 'CommunityForum', deletePostId);
+  //     const postSnapshot = await getDoc(postRef);
   
-      if (postSnapshot.exists()) {
-        await deleteDoc(postRef);
+  //     if (postSnapshot.exists()) {
+  //       await deleteDoc(postRef);
   
-        setShowDeleteConfirmation(false);
-        fetchPosts(); // Update this function name if needed
-      } else {
-        console.warn('Post not found.');
-      }
-    } catch (error) {
-      console.error('Error deleting post:', error);
-    }
-  };
+  //       setShowDeleteConfirmation(false);
+  //       fetchPosts(); // Update this function name if needed
+  //     } else {
+  //       console.warn('Post not found.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting post:', error);
+  //   }
+  // };
   
-  const handleCancelDelete = () => {
-    setShowDeleteConfirmation(false);
-  };
+  // const handleCancelDelete = () => {
+  //   setShowDeleteConfirmation(false);
+  // };
+
+  const sortedPosts = [...filteredPosts].sort((a, b) => b.timestamp - a.timestamp);
+
+
   
   
   
@@ -215,9 +225,9 @@ const AdminCommunityForumComponent = () => {
 
 
             <div className="adminMarketplaceComponentFrameParent">
-  {chunkArray(
-    filteredPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
-    1
+            {chunkArray(
+  sortedPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
+  1
   ).map((postGroup, index) => (
     <div className="adminMarketplaceComponentFrameWrapper" key={index}>
       {postGroup.map((post) => (
@@ -278,18 +288,18 @@ const AdminCommunityForumComponent = () => {
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
                             </button>
-                            <button className="adminMarketplaceComponentButton" onClick={() => handleDeletePost(post.id)}>
+                            {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeletePost(post.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
                               <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
-                            </button>
+                            </button> */}
                           </div>
-          </div>
-        </a>
-      ))}
-    </div>
-  ))}
-</div>
-</div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              </div>
 
 
             <div className="adminCommunityForumComponentForumNumber">
@@ -319,14 +329,14 @@ const AdminCommunityForumComponent = () => {
   />
 )}
 
-{showDeleteConfirmation && (
+{/* {showDeleteConfirmation && (
   <ConfirmationDialog
     isOpen={showDeleteConfirmation}
     message="Are you sure you want to delete this post?"
     onConfirm={handleConfirmDelete}
     onCancel={handleCancelDelete}
   />
-)}
+)} */}
 
     </I18nextProvider>
   );

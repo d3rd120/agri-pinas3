@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage/mainPage';
 import LoginPage from './pages/MainPage/loginPage';
 import SignupPage from './pages/MainPage/signupPage';
+import AboutPage from './pages/MainPage/aboutPage';
 
 
 import BuyerMarketplace from './pages/BuyerPage/buyerMarketplace';
@@ -60,6 +61,9 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/reset" element={<Reset />} />
+          <Route path="/about" element={<AboutPage />} />          
+
+
 
 
           <Route path="/buyermarketplace" element={<BuyerMarketplace />} />

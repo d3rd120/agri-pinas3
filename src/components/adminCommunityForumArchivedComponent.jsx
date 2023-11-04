@@ -39,26 +39,32 @@ const AdminCommunityForumComponentArchived = () => {
     try {
       const archivedPostsCollection = collection(db, 'ArchiveCommunityForum');
       const archivedPostsSnapshot = await getDocs(archivedPostsCollection);
-
+  
       if (archivedPostsSnapshot.empty) {
         console.warn('No archived posts found.');
         return;
       }
-
+  
       const archivedPostsData = archivedPostsSnapshot.docs.map((doc) => {
         const post = doc.data();
+        post.user = post.user || {}; // Ensure that post.user is initialized as an object
+        post.numericTimestamp = new Date(post.timestamp).getTime();
         return {
           id: doc.id,
           ...post,
         };
       });
-
-      console.log('Fetched archived posts:', archivedPostsData);
-      setArchivedPosts(archivedPostsData);
+  
+      // Sort archived posts by numericTimestamp in descending order
+      const sortedArchivedPosts = archivedPostsData.sort((a, b) => b.numericTimestamp - a.numericTimestamp);
+  
+      console.log('Fetched archived posts:', sortedArchivedPosts);
+      setArchivedPosts(sortedArchivedPosts);
     } catch (error) {
       console.error('Error retrieving archived posts:', error);
     }
   };
+  
 
   useEffect(() => {
     fetchArchivedPosts();
@@ -152,6 +158,9 @@ const AdminCommunityForumComponentArchived = () => {
       }
     });
   };
+
+  const sortedPosts = [...filteredPosts].sort((a, b) => b.timestamp - a.timestamp);
+
   
 
 
@@ -198,7 +207,7 @@ const AdminCommunityForumComponentArchived = () => {
 
                     <div className="adminMarketplaceComponentFrameParent">
                     {chunkArray(
-                    filteredPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
+                    sortedPosts.slice((currentPage - 1) * displayCount, currentPage * displayCount),
                     1
                     ).map((archivedPosts, index) => (
                     <div className="adminMarketplaceComponentFrameWrapper" key={index}>
@@ -258,12 +267,12 @@ const AdminCommunityForumComponentArchived = () => {
                     <div className="adminMarketplaceComponentDetails">                
                         <button className="adminMarketplaceComponentButton" onClick={() => handleUnarchiveButtonClick (archivedPost.id)}>
                           <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                          <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
+                          <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
                         </button>
-                        <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteArchivedPost(archivedPost.id)}>
+                        {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteArchivedPost(archivedPost.id)}>
                           <FaTrash className="adminMarketplaceComponentButtonIcon" />
                           <div className="adminMarketplaceComponentButtonText">{t('text178')}</div>
-                        </button>
+                        </button> */}
                                   </div>
                     </div>
                     </a>

@@ -34,7 +34,8 @@ const BuyerProfile = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
-        setSessionId(user.uid); 
+        const newSessionId = user.uid; // Use user UID as session ID
+        setSessionId(newSessionId); 
         const userRef = collection(db, "Users");
         const userQuery = query(userRef, where("uid", "==", user.uid));
         
@@ -66,6 +67,7 @@ const BuyerProfile = () => {
     }
     return '';
   };
+
 
   return (
     <I18nextProvider i18n={i18n}> 

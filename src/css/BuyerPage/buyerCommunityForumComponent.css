@@ -4,7 +4,7 @@
   .buyerCommunityForumComponentMainText2 {
     align-self: stretch;
     position: relative;
-    text-transform: uppercase;
+    text-transform: uppercase;  
   }
   .buyerCommunityForumComponentMainText1 {
     flex: 1;

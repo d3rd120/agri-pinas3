@@ -126,22 +126,22 @@ const BuyerTopNav = ({ setSearchQuery }) => {
           className={`buyerComponentGroupInner2${showNotifications ? ' active' : ''}`}
           onClick={handleBellClick}
         />
-        <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>        
+        {/* <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>        
         <input
           type="text"
           placeholder="Search"
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{ width: '250px' }}
         />  
-        {/* <input
+         <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               style={{ width: '250px' }}
       />
-      <button onClick={handleSearch}>Search</button>       */}
+      <button onClick={handleSearch}>Search</button>       
        
-       </div>
+       </div> */}
         
       </div>
 
@@ -160,7 +160,7 @@ const BuyerTopNav = ({ setSearchQuery }) => {
             <li className="notificationItem">
               <span className="notificationMessage">{t('buyerTopNavText4')}</span>
               <span className="notificationTime">{t('buyerTopNavText5')}</span>
-            </li>            
+            </li>           
           </ul>
         </div>
       )}

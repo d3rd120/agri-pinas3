@@ -51,7 +51,7 @@ const AdminFarmerTransactionsCompletedComponent = () => {
             <div className="adminFarmerTransactionsCompletedComponentFrameParent">
 
 
-              {/* <div className="adminFarmerTransactionsCompletedComponentFrameWrapper">
+              <div className="adminFarmerTransactionsCompletedComponentFrameWrapper">
                 <a className="adminFarmerTransactionsCompletedComponentRectangleParent">
                   <img
                     className="adminFarmerTransactionsCompletedComponentFrameChild"
@@ -95,7 +95,7 @@ const AdminFarmerTransactionsCompletedComponent = () => {
                     </div>                 
                   </div>
                 </a>    
-              </div> */}
+              </div> 
 
 
                

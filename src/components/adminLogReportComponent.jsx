@@ -6,6 +6,7 @@ import { db } from './firebase';
 import { collection, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import AdminNavigation from '../components/adminPageNavigation';
 import { FaCheckSquare, FaEdit, FaBook, FaTrash } from 'react-icons/fa';
+import ConfirmationDialog from './confirmationDialog';
 
 const AdminFarmerTransactions = () => {
   const { t } = useTranslation();
@@ -24,7 +25,13 @@ const AdminFarmerTransactions = () => {
   const [selectedOption, setSelectedOption] = useState(10); // Default to 5 rows
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
   const [deletedReportId, setDeletedReportId] = useState('');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [reportToDelete, setReportToDelete] = useState(null);
 
+  
+  const handleOverlayClick = () => {
+    setShowConfirmation(false); // Close the confirmation dialog without changing the language.
+  }; 
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -110,22 +117,35 @@ const AdminFarmerTransactions = () => {
     const currentData = filteredReports.slice(firstIndex, lastIndex);
   
   
-    const handleDelete = async (reportId) => {
-      try {
-        await deleteDoc(doc(db, 'Reports', reportId));
-  
-        setDeletedReportId(reportId);
-  
-        const querySnapshot = await getDocs(collection(db, 'Reports'));
-        const reportsData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setReports(reportsData);
-      } catch (error) {
-        console.error('Error deleting report: ', error);
+    const handleDelete = (reportId) => {
+      // Set the report to delete and open the confirmation dialog
+      setReportToDelete(reportId);
+      setShowConfirmation(true);
+    };
+
+    const confirmDelete = async () => {
+      if (reportToDelete) {
+        try {
+          await deleteDoc(doc(db, 'Reports', reportToDelete));
+          setDeletedReportId(reportToDelete);
+    
+          // Fetch the updated reports after deletion
+          const querySnapshot = await getDocs(collection(db, 'Reports'));
+          const reportsData = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setReports(reportsData);
+        } catch (error) {
+          console.error('Error deleting report: ', error);
+        } finally {
+          // Close the confirmation dialog
+          setShowConfirmation(false);
+        }
       }
     };
+    
+    
   
 
 
@@ -184,8 +204,8 @@ const AdminFarmerTransactions = () => {
                   <th>{t('text247')}</th>
                   <th>{t('text248')}</th>
                   <th>{t('text249')}</th>
-                  <th>{t('text250')}</th>
-                  <th>Save</th>
+                  <th>{t('Order ID')}</th>
+                  {/* <th>Save</th> */}
                   <th>Delete</th>
                 </tr>
               </thead>
@@ -231,14 +251,17 @@ const AdminFarmerTransactions = () => {
                     <FaEdit onClick={() => handleEdit(report)} />
                   )}
                 </td>
-                <td>
+                <td>{report.orderId}</td> {/* Display orderId in the table */}
+                {/* <td>
                   {isEditing && editedReport.id === report.id && (
                     <FaCheckSquare onClick={handleSave} />
                   )}
-                </td>
-                <td>{report.orderId}</td> {/* Display orderId in the table */}
+                </td>                */}
                 <td>
-                  <FaTrash onClick={() => handleDelete(report.id)} />
+                <FaTrash
+                    onClick={() => handleDelete(report.id)}
+                    style={{ cursor: 'pointer' }}
+                  />
                 </td>
               </tr>
             ))}
@@ -263,9 +286,18 @@ const AdminFarmerTransactions = () => {
               
             ))}
           </div>
-
         </div>
       </div>
+      <ConfirmationDialog
+            isOpen={showConfirmation}
+            message="Are you sure you want to delete this report?"
+            onConfirm={confirmDelete}
+            onCancel={() => setShowConfirmation(false)}
+            onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+            confirmLabel={t('Confirm')}
+            cancelLabel={t('Cancel')}
+          />
+
     </I18nextProvider>
   );
 };

@@ -35,6 +35,11 @@ const handleArchiveButtonClick = (productId) => {
 // };
 
 
+const handleOverlayClick = () => {
+  setIsArchiveDialogOpen(false); // Close the confirmation dialog without changing the language.
+};
+
+
   
 
   // Define an array of row options
@@ -80,6 +85,7 @@ const handleArchiveButtonClick = (productId) => {
     const location = product.location || '';
     const unit = product.unit || '';
     const description = product.description || '';
+    const fullname = product.fullname || '';
 
     // Check if any of the fields contain the searchText
     return (
@@ -89,6 +95,7 @@ const handleArchiveButtonClick = (productId) => {
       price.toLowerCase().includes(searchText.toLowerCase()) ||
       location.toLowerCase().includes(searchText.toLowerCase()) ||
       unit.toLowerCase().includes(searchText.toLowerCase())  ||
+      fullname.toLowerCase().includes(searchText.toLowerCase())  ||
       description.toLowerCase().includes(searchText.toLowerCase()) 
     );
   });
@@ -305,6 +312,9 @@ const handleArchiveButtonClick = (productId) => {
         message="Are you sure you want to archive this product?"
         onConfirm={handleConfirmArchive}
         onCancel={handleCancelArchive}
+        onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+        confirmLabel={t('Confirm')}
+        cancelLabel={t('Cancel')}
       />
       {/* <ConfirmationDialog
       isOpen={isDeleteDialogOpen}

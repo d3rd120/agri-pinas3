@@ -223,6 +223,7 @@ const ShoppingCart = (props) => {
               <table>
                 <thead>
                   <tr>
+                    <th>{t('Select')}</th>
                     <th>{t('text62')}</th>
                     <th>{t('text63')}</th>
                     <th>{t('text64')}</th>
@@ -234,6 +235,9 @@ const ShoppingCart = (props) => {
                 <tbody>
                 {cart.map((item) => (
                 <tr key={item.id}>
+                 <td>                    
+                    <input type="checkbox" />      
+                  </td>
                   <td>
                     <div className="product-info">
                       <img src={item.image} alt={item.cropName} />

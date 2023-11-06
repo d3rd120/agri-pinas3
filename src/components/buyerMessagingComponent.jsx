@@ -11,6 +11,7 @@ const FarmerTransactions = () => {
     <BuyerNavigation />
       <div className="main-panel">
         <BuyerTopNav />
+        <br></br>
         <div className="user-messages">
           <div className="contacts">
             <b className="messages">Messages</b>

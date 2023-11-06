@@ -396,10 +396,10 @@ const BuyerMarketplace = ({ }) => {
                       
     <div className="buyerMarketplaceComponentPostButtonContainer">
         <div className="buyerMarketplaceComponentPostButtonRow">
-          <button className="buyerMarketplaceComponentPostButton outlinedButton" onClick={handleChatButtonClick}>
-            <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
-            <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
-          </button>       
+        <Link className="buyerMarketplaceComponentPostButton outlinedButton" to="/messaging" style={{ textDecoration: 'none' }}>
+          <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
+          <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
+        </Link>    
           <Link onClick={() => handleAddToCart(selectedProduct)}>
           <button className="buyerMarketplaceComponentPostButton outlinedButton">
             <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
@@ -450,7 +450,7 @@ const BuyerMarketplace = ({ }) => {
       </div>
       </div>    
       </div>
-
+{/* 
       {showChatBot && !minimizedChatBot && (
             <div className="chatbot-container">
               <ThemeProvider theme={theme}>
@@ -492,7 +492,7 @@ const BuyerMarketplace = ({ }) => {
                 <RiChat1Line className="chatbot-minimized-icon" />
               </button>
             </div>
-          )}
+          )} */}
           <Popup message={popupMessage} isVisible={popupVisible} onClose={() => setPopupVisible(false)} />
     </I18nextProvider>
     </>

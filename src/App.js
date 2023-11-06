@@ -23,6 +23,7 @@ import BuyerMarketplaceVegetableCategory from './pages/BuyerPage/buyerMarketplac
 import BuyerMarketplaceFruitsCategory from './pages/BuyerPage/buyerMarketplaceFruitsCategory';
 import BuyerMarketplaceFertilizerCategory from './pages/BuyerPage/buyerMarketplaceFertilizerCategory';
 import BuyerMarketplaceOtherProductsCategory from './pages/BuyerPage/buyerMarketplaceOtherProductsCategory';
+import BuyerMessaging from './pages/BuyerPage/buyerMessaging';
 
 
 
@@ -81,6 +82,8 @@ const App = () => {
           <Route path="/buyerfertilizercategory/:userUid/:sessionId" element={<BuyerMarketplaceFertilizerCategory />} />   
           <Route path="/buyerotherproductscategory/:userUid/:sessionId" element={<BuyerMarketplaceOtherProductsCategory />} />
           <Route path="/checkout" element={<BuyerCheckout />} /> 
+          <Route path="/messaging" element={<BuyerMessaging />} /> 
+          
                
         
       

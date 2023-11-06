@@ -113,19 +113,20 @@ const BuyerTopNav = ({ setSearchQuery }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="iconGroup">
-          <FaEnvelope
-            className={`buyerComponentGroupChild2${showMessages ? ' active' : ''}`}
-            onClick={handleEnvelopeClick}
-          />
+        <div className="iconGroup">       
+          <NavLink to="/messaging">
+            <FaEnvelope className="buyerComponentGroupChild2" />
+          </NavLink>
+
           <NavLink to="/buyerprofile">
             <FaUser className="buyerComponentGroupChild3" />
-          </NavLink>
+          </NavLink>          
         </div>
-        <FaBell
+        
+        {/* <FaBell
           className={`buyerComponentGroupInner2${showNotifications ? ' active' : ''}`}
           onClick={handleBellClick}
-        />
+        /> */}
         {/* <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>        
         <input
           type="text"
@@ -145,7 +146,7 @@ const BuyerTopNav = ({ setSearchQuery }) => {
         
       </div>
 
-      {showNotifications && (
+      {/* {showNotifications && (
         <div className="notificationsModal">
           <h2>{t('buyerTopNavText1')}</h2>
           <ul className="notificationList">
@@ -163,8 +164,8 @@ const BuyerTopNav = ({ setSearchQuery }) => {
             </li>           
           </ul>
         </div>
-      )}
-     {showMessages && (
+      )} */}
+     {/* {showMessages && (
       <div className="notificationsModal">
       <h2>Messages</h2>
       <ul className="notificationList">
@@ -187,9 +188,9 @@ const BuyerTopNav = ({ setSearchQuery }) => {
         
       </ul>
     </div>
-      )}
+      )} */}
 
-{showChatBot && !minimizedChatBot && (
+{/* {showChatBot && !minimizedChatBot && (
             <div className="chatbot-container">
               <ThemeProvider theme={theme}>
               <ChatBot
@@ -230,7 +231,7 @@ const BuyerTopNav = ({ setSearchQuery }) => {
                 <RiChat1Line className="chatbot-minimized-icon" />
               </button>
             </div>
-          )}
+          )} */}
 
     </div>
     </I18nextProvider>

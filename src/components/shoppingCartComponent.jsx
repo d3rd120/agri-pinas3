@@ -286,6 +286,9 @@ const ShoppingCart = (props) => {
               >
                 {t('text68')}
               </Link>
+              <Link to="/buyermarketplace" className="ordercheckoutButton2">
+                {t('text69')}
+                </Link>
               </div>
             </div>
           </div>

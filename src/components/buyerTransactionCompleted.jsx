@@ -10,7 +10,7 @@ import i18n from '../i18n';
 import { useState, useEffect } from 'react';
 import { FaFolderOpen } from 'react-icons/fa';
 
-const BuyerTransanctionCompleted = () => {
+const BuyerTransanctionCompleted = ({ sessionId }) => {
   
 const { t } = useTranslation();
 const [completedOrders, setCompletedOrders] = useState([]);
@@ -19,9 +19,9 @@ useEffect(() => {
   const fetchCompletedOrders = async () => {
     try {
       // Query for completed or canceled orders
-      const completedOrdersQuery = query(collection(db, 'Transaction'), where('status', '==', 'Completed'));
-      const completedOrdersSnapshot = await getDocs(completedOrdersQuery);
-      const completedOrdersData = completedOrdersSnapshot.docs.map((doc) => doc.data());
+      const completedOrdersQuery = query(collection(db, 'Transaction'), where('status', '==', 'Completed'), where('sessionId', '==', sessionId));
+        const completedOrdersSnapshot = await getDocs(completedOrdersQuery);
+        const completedOrdersData = completedOrdersSnapshot.docs.map((doc) => doc.data());
 
       setCompletedOrders(completedOrdersData);
       console.log('Completed Orders:', completedOrdersData);
@@ -31,7 +31,7 @@ useEffect(() => {
   };
 
   fetchCompletedOrders();
-}, []);
+}, [sessionId]);
 
   return (
     <I18nextProvider i18n={i18n}> 
@@ -56,88 +56,58 @@ useEffect(() => {
     
      
 
-        <div className="buyerTransactionMiddleSection">
-        <div className="buyerTransactionFrameParent">
-
-        <div className="adminFarmerTransactionsPendingComponentFrameWrapper">
-                {/* <a className="adminFarmerTransactionsPendingComponentRectangleParent">
-                  <img
-                    className="adminFarmerTransactionsPendingComponentFrameChild"
-                    alt=""
-                    src={sili}
-                  />
-                  <div className="adminFarmerTransactionsPendingComponentFrameGroup">
+            <div className="buyerTransactionMiddleSection">
+            <div className="buyerTransactionFrameParent">
+              {completedOrders && completedOrders.length > 0 ? (
+                completedOrders.map((order, orderIndex) => (
+                  <div key={orderIndex} className="adminFarmerTransactionsPendingComponentFrameWrapper">
+                    <img
+                      className="adminFarmerTransactionsPendingComponentFrameChild"
+                      alt=""
+                      src={order.image}
+                    />
                     <div className="adminFarmerTransactionsPendingComponentFrameContainer">
                       <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">Sili</b>
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">{order.cropName}</b>
                       </div>
                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text93')}</b> July 2, 2023
+                          <b>{t('text93')}</b> {order.dateBought ? new Date(order.dateBought).toLocaleDateString() : 'Date Not Available'}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text94')} </b> Jenkins Mesina
+                          <b>{t('text94')}</b> {order.fullname}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text95')} </b> Fruit
+                          <b>{t('text95')}</b> {order.category}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text96')}</b> Sack
+                          <b>{t('text96')}</b> {order.unit}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text97')} </b> 2
+                          <b>{t('text97')}</b> {order.quantity}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text98')}</b> 10,000
+                          <b>{t('text98')}</b> {order.price}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text99')} </b> Received
+                          <b>{t('boughtQuantity: ')}</b> {order.boughtQuantity}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Status: ')}</b> {order.status}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Location: ')}</b> {order.location}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Payment Method : ')}</b> {order.paymentMethod}
                         </div>
                       </div>
-                    </div>                                    
+                    </div>
                   </div>
-                </a>             
-                <a className="adminFarmerTransactionsPendingComponentRectangleParent">
-                  <img
-                    className="adminFarmerTransactionsPendingComponentFrameChild"
-                    alt=""
-                    src={RiceVector}
-                  />
-                  <div className="adminFarmerTransactionsPendingComponentFrameGroup">
-                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">Rice</b>
-                      </div>
-                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text93')}</b> July 2, 2023
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text94')}</b> Jenkins Mesina
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text95')}</b> Fruit
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text96')}</b> Sack
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text97')}</b> 2
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text98')}</b> 10,000
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text99')}</b> Received
-                        </div>
-                      </div>
-                    </div>                                    
-                  </div>
-                </a>              */}
-              </div>     
-
-
-           
+                ))
+              ) : (
+                <p>No completed orders available.</p>
+              )}
           </div>
           </div> 
         </div>

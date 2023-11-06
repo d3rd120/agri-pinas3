@@ -54,13 +54,14 @@ const fetchUserDetails = async (uid) => {
       const { fullname, profileImageUrl } = userData;
       return { displayName: fullname, profileImageUrl };
     } else {
-      return { displayName: 'Anonymous', profileImageUrl: '' };
+      return { fullname: 'Anonymous', profileImageUrl: '' };
     }
   } catch (error) {
     console.error('Error fetching user data:', error);
-    return { displayName: 'Anonymous', profileImageUrl: '' };
+    return { fullname: 'Anonymous', profileImageUrl: '' };
   }
 };
+
 
 const fetchPosts = async () => {
   try {
@@ -99,7 +100,7 @@ const createPost = async (newPost) => {
     const postWithUserInfo = {
       ...newPost,
       user: {
-        displayName: currentUser.displayName,
+        fullname: currentUser.displayName, // Update this line
         email: currentUser.email,
         uid: currentUser.uid,
       },
@@ -115,6 +116,7 @@ const createPost = async (newPost) => {
     alert(error.message);
   }
 };
+
 
 
 const addPost = (newPost) => {
@@ -263,23 +265,23 @@ const chunkArray = (array, chunkSize) => {
                       </div>
                     </div>
                     <div className="buyerCommunityForumComponentFrameItem" />
-                    {post.user && post.user.displayName && (
-                      <div className="buyerCommunityForumComponentFrameAuthor">
-                        <img
-                          className="buyerCommunityForumComponentFrameIcon"
-                          alt=""
-                          src={post.user.profileImageUrl} 
-                        />
-                        <div className="buyerCommunityForumComponentAuthorText">
-                          <div className="buyerCommunityForumComponentAuthorName">
-                            {post.user.displayName}
-                          </div>
-                          <div className="buyerCommunityForumComponentPostTime">
-                            {post.timestamp}
-                          </div>
+                    {post.user?.displayName && (
+                    <div className="buyerCommunityForumComponentFrameAuthor">
+                      <img
+                        className="buyerCommunityForumComponentFrameIcon"
+                        alt=""
+                        src={post.user.profileImageUrl}
+                      />
+                      <div className="buyerCommunityForumComponentAuthorText">
+                        <div className="buyerCommunityForumComponentAuthorName">
+                          {post.user.displayName}
+                        </div>
+                        <div className="buyerCommunityForumComponentPostTime">
+                          {post.timestamp}
                         </div>
                       </div>
-                    )}
+                    </div>
+                  )}
                   </div>
                 </Link>
               ))}

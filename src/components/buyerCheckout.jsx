@@ -27,7 +27,8 @@ const ShoppingCart = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const navigate = useNavigate();
   const [buyNowData, setBuyNowData] = useState([]);
-  const combinedData = [...cart, ...buyNowData];
+  const [combinedData, setCombinedData] = useState([]);
+
 
   
 
@@ -79,33 +80,29 @@ const ShoppingCart = () => {
       try {
         const user = auth.currentUser;
 
-        // Fetch BuyNow data
-        const buyNowCollectionRef = collection(db, 'BuyNow');
-        const buyNowCollectionSnapshot = await getDocs(buyNowCollectionRef);
-        const buyNowData = buyNowCollectionSnapshot.docs.map((doc) => doc.data());
-        setBuyNowData(buyNowData);
-
-        // Fetch cart data
         if (user) {
           const userCartRef = doc(db, 'UserCarts', user.uid);
           const userCartSnapshot = await getDoc(userCartRef);
-          const userCartData = userCartSnapshot.data();
+          const currentCart = userCartSnapshot.data()?.cart || [];
 
-          if (userCartData && userCartData.cart) {
-            setCart(userCartData.cart);
-          }
+          const buyNowCollectionRef = collection(db, 'BuyNow');
+          const buyNowCollectionSnapshot = await getDocs(buyNowCollectionRef);
+          const buyNowData = buyNowCollectionSnapshot.docs.map((doc) => doc.data());
 
-          // Clear the cart after fetching BuyNow data
-          await setDoc(userCartRef, { cart: [] });
+          const combinedOrderData = [...currentCart, ...buyNowData];
+          setCart(currentCart);
+          setBuyNowData(buyNowData);
+          setCombinedData(combinedOrderData);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchData(); // Call the fetchData function
 
+    // ... (other cleanup code if needed)
+  }, []);
   
   
 
@@ -134,10 +131,16 @@ const ShoppingCart = () => {
   };
 
   const calculateTotal = () => {
-    return cart.reduce(
-      (total, item) => total + item.price * item.quantity,
+    // Combine both regular cart items and BuyNow items
+    const allItems = [...cart, ...buyNowData];
+
+    // Calculate the total amount
+    const total = allItems.reduce(
+      (acc, item) => acc + item.price * item.boughtQuantity,
       0
     ).toFixed(2);
+
+    return total;
   };
 
   const handleModalConfirm = () => {
@@ -170,19 +173,19 @@ const ShoppingCart = () => {
       const userCartSnapshot = await getDoc(userCartRef);
       const currentCart = userCartSnapshot.data()?.cart || [];
   
-      const combinedOrderData = [...currentCart, ...buyNowData]; // Combine existing cart and BuyNow items
+      const combinedCartItems = [...currentCart, ...buyNowData]; // Combine existing cart and BuyNow items
   
-      // Check if the combined order data is empty
-      if (combinedOrderData.length === 0) {
-        console.log('Combined order data is empty.');
+      // Check if the combined cart items are empty
+      if (combinedCartItems.length === 0) {
+        console.log('Combined cart items are empty.');
         showAlert('Your order is empty. Add items before placing an order.');
         return;
       }
   
-      // Map combined order items
-      const orders = combinedOrderData.map((item) => {
+      // Map combined cart items to create orders
+      const orders = combinedCartItems.map((item) => {
         // Ensure that all required fields are defined
-        const orderItem = {
+        const cartItem = {
           productId: item.productId,
           boughtQuantity: item.boughtQuantity,
           dateBought: new Date().toISOString().split('T')[0],
@@ -200,19 +203,19 @@ const ShoppingCart = () => {
           uid: user.uid,
           unit: item.unit || '',
           quantity: item.quantity || '',
-          status: item.status || '',
+          status: 'Pending',
           paymentMethod: item.paymentMethod || '',
         };
   
         // Check if any required field is undefined
-        const isUndefinedField = Object.values(orderItem).some((value) => value === undefined);
+        const isUndefinedField = Object.values(cartItem).some((value) => value === undefined);
   
         if (isUndefinedField) {
-          console.error('One or more required fields are undefined:', orderItem);
+          console.error('One or more required fields are undefined:', cartItem);
           throw new Error('One or more required fields are undefined.');
         }
   
-        return orderItem;
+        return cartItem;
       });
   
       // Create a new order document
@@ -242,6 +245,7 @@ const ShoppingCart = () => {
       showAlert('Error placing order. Please try again.');
     }
   };
+  
   
   
   

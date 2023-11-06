@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import ProfileVector1 from '../img/profileVector1.png';
 import ConfirmationDialog from "./confirmationDialog";
+import { v4 as uuidv4 } from 'uuid';
 
 const AdminCommunityForumComponentArchived = () => {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ const AdminCommunityForumComponentArchived = () => {
   const [displayCount, setDisplayCount] = useState(10); // Default display count
   const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
   const [archivedPosts, setArchivedPosts] = useState([]); 
+  const [sessionId, setSessionId] = useState(null);
   const [confirmationDialog, setConfirmationDialog] = useState({
     isOpen: false,
     message: '',
@@ -32,7 +34,10 @@ const AdminCommunityForumComponentArchived = () => {
     });
   };  
   
-
+  useEffect(() => {
+    const sessionId = uuidv4();
+    setSessionId(sessionId);
+  }, []);
   
    
   const fetchArchivedPosts = async () => {

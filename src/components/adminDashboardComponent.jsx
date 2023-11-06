@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { db } from './firebase'; // Import Firebase Firestore
 import { collection, getDocs } from 'firebase/firestore';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const AdminDashboard = () => {
   const { t } = useTranslation();
@@ -22,6 +22,8 @@ const AdminDashboard = () => {
   const [searchQuery, setSearchQuery] = useState(''); // State for search query
   const [currentPage, setCurrentPage] = useState(1); 
   const [selectedOption, setSelectedOption] = useState(10);
+  const [sessionId, setSessionId] = useState(null);
+
 
   const handleButtonClick = () => {
     setShowPopup(true);
@@ -98,7 +100,10 @@ const AdminDashboard = () => {
     const currentData = filteredAnnouncements.slice(firstIndex, lastIndex);
   
 
-
+useEffect(() => {
+    const session = uuidv4();
+    setSessionId(session);
+  }, []);
 
   return (
     <>   

@@ -9,6 +9,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import ConfirmationDialog from './confirmationDialog';
+import { v4 as uuidv4 } from 'uuid';
 
 const AdminCommunityForumComponent = () => {
   const { t } = useTranslation();
@@ -22,7 +23,14 @@ const AdminCommunityForumComponent = () => {
   const [archivePostId, setArchivePostId] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deletePostId, setDeletePostId] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
 
+  useEffect(() => {
+    const session = uuidv4();
+    setSessionId(session);
+  }, []);
+
+  
   const handleArchivePost = (postId) => {
     setArchivePostId(postId);
     setShowArchiveConfirmation(true);

@@ -12,9 +12,9 @@ import { db } from './firebase';
 import { FaEnvelope, FaCommentDots, FaTimes } from 'react-icons/fa';
 import BuyerTransactionReport from '../components/buyerTransactionReport';
 
-const BuyerTransanctionPending = () => {
+const BuyerTransanctionPending =  ({ sessionId }) => {
   const { t } = useTranslation();
-  const [orders, setOrders] = useState([]);
+  const [cartItems, setcartItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
   const handleButtonClick = () => {
@@ -25,21 +25,34 @@ const BuyerTransanctionPending = () => {
     setShowPopup(false);
   };
 
+  const fetchCartItems = async () => {
+    try {
+      const ordersCollection = collection(db, 'Transaction');
+      const ordersSnapshot = await getDocs(ordersCollection);
+      const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
+  
+      // Filter orders with "Pending" status and valid sessionId
+      const pendingcartItems = ordersData.filter((cartItems) =>
+        cartItems.orders &&
+        Array.isArray(cartItems.orders) &&
+        cartItems.orders.length > 0 &&
+        cartItems.orders.some((item) =>
+          item && item.status === 'Pending' && item.sessionId === sessionId
+        )
+      );
+  
+      setcartItems(pendingcartItems);
+      console.log('cartItems', pendingcartItems); // Log filtered cart items data to console
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
+  
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const ordersCollection = collection(db, 'Transaction');
-        const ordersSnapshot = await getDocs(ordersCollection);
-        const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
-        setOrders(ordersData);
-        console.log('orders', ordersData); // Log orders data to console
-      } catch (error) {
-        console.error('Error fetching orders:', error);
-      }
-    };
-
-    fetchOrders();
-  }, []);
+    fetchCartItems();
+  }, [sessionId]);
+  
+  
 
   // Function to chunk an array into groups of 2
   const chunkArray = (arr, size) => {
@@ -74,101 +87,90 @@ const BuyerTransanctionPending = () => {
 
             <div className="buyerTransactionMiddleSection">
   <div className="buyerTransactionFrameParent">
-    {orders && orders.length > 0 ? (
-      chunkArray(orders, 1).map((orderGroup, index) => (
+    {cartItems && cartItems.length > 0 ? (
+      chunkArray(cartItems, 1).map((cartItemGroup, index) => (
         <div className="adminFarmerTransactionsPendingComponentFrameWrapper" key={index}>
-          {orderGroup.map((order, orderIndex) => (
-            <div key={orderIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
-              {order.orders && order.orders.length > 0 ? (
-                order.orders.map((item, itemIndex) => (
+          {cartItemGroup.map((cartItem, cartItemIndex) => (
+            <div key={cartItemIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
+              {cartItem.orders && cartItem.orders.length > 0 ? (
+                cartItem.orders.map((item, itemIndex) => (
                   <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
                     <img
                       className="adminFarmerTransactionsPendingComponentFrameChild"
                       alt=""
                       src={item.image}
                     />
-                            <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                              <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                                <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
+                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                        <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
+                      </div>
+                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('text93')}</b> {item.dateBought}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('text94')}</b> {item.fullname}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('text95')}</b> {item.category}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('text96')}</b> {item.unit}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('text97')}</b> {item.boughtQuantity}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('text98')}</b> {item.price}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Status: ')}</b> {item.status}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Location: ')}</b> {item.location}
+                        </div>
+                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                          <b>{t('Payment Method : ')}</b> {item.paymentMethod}
+                        </div>
+                        <div className="adminMarketplaceComponentFrameItem" />
+                        <div className="adminMarketplaceComponentDetails">
+                          <button className="adminMarketplaceComponentButton">
+                            <FaCommentDots className="adminMarketplaceComponentButtonIcon" />
+                            <div className="adminMarketplaceComponentButtonText">{t('Contact')}</div>
+                          </button>
+                          <button className="adminMarketplaceComponentButton" onClick={handleButtonClick}>
+                            <FaEnvelope className="adminMarketplaceComponentButtonIcon" />
+                            <div className="adminMarketplaceComponentButtonText">{t('Report')}</div>
+                          </button>
+
+                          {showPopup && (
+                            <div id="buyerCommunityForumComponentPopupWindow" className="buyerCommunityForumComponentPopupWindow">
+                              <div className="buyerCommunityForumComponentPopupContent">
+                                <span className="buyerCommunityForumComponentCloseButton" onClick={closePopup}>
+                                  <FaTimes />
+                                </span>
+                                <BuyerTransactionReport />
                               </div>
-                              <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                              <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                <b>{t('text93')}</b> {item.dateBought ? new Date(item.dateBought).toLocaleDateString() : 'Date Not Available'}
-                              </div>
-                                <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text94')}</b> {item.fullname}
-                                </div>
-                                <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text95')}</b> {item.category}
-                                </div>
-                                <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text96')}</b> {item.unit}
-                                </div>
-                                <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text97')}</b> {item.quantity}
-                                </div>
-                                <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                  <b>{t('text98')}</b> {item.price}
-                                </div>
-                              </div>
-                               <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                    <b>{t('boughtQuantity: ')}</b> {item.boughtQuantity}
-                                  </div>
-                                  <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                    <b>{t('Status: ')}</b> {item.status}
-                                  </div>
-                                  <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                    <b>{t('Location: ')}</b> {item.location}
-                                  </div>
-                                  <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                    <b>{t('Payment Method : ')}</b> {item.paymentMethod}
-                                    </div>
-                              <div className="adminMarketplaceComponentFrameItem" />
-                                <div className="adminMarketplaceComponentDetails">
-                                  <button className="adminMarketplaceComponentButton">
-                                    <FaCommentDots className="adminMarketplaceComponentButtonIcon" />
-                                    <div className="adminMarketplaceComponentButtonText">{t('Contact')}</div>
-                                  </button>                                                  
-                                  <button 
-                                  className="adminMarketplaceComponentButton"
-                                  onClick={handleButtonClick}>
-                                    <FaEnvelope className="adminMarketplaceComponentButtonIcon" />
-                                    <div className="adminMarketplaceComponentButtonText">{t('Report')}</div>
-                                  </button>
-                                  
-                                  {showPopup && (
-                                          <div
-                                            id="buyerCommunityForumComponentPopupWindow"
-                                            className="buyerCommunityForumComponentPopupWindow"
-                                          >
-                                            <div className="buyerCommunityForumComponentPopupContent">
-                                              <span
-                                                className="buyerCommunityForumComponentCloseButton"
-                                                onClick={closePopup}
-                                              >
-                                                  <FaTimes />
-                                          </span>
-                                          <BuyerTransactionReport/>
-                                        </div>
-                                      </div>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-                            ))
-                          ) : (
-                            <p></p>
+                            </div>
                           )}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                  ))
-                ) : (
-                  <p>Loading...</p>
-                )}
-              </div>
+                  </div>
+                ))
+              ) : (
+                <p>No items in this order</p>
+              )}
             </div>
-          </div>
+          ))}
+        </div>
+      ))
+    ) : (
+      <p>Loading...</p>
+    )}
+  </div>
+</div>
+</div>
         </div>
       </div>
     </I18nextProvider>

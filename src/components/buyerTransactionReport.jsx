@@ -7,7 +7,7 @@ import { db, auth } from './firebase';
 import { collection, addDoc, getDoc, doc } from 'firebase/firestore';
 import Popup from './validationPopup';
 
-const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
+const FarmerCommunityForumAddPostComponent = () => {
   const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');

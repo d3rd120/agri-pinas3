@@ -7,7 +7,7 @@ import { db, uploadImage } from './firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import Popup from './validationPopup';
 
-const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
+const FarmerCommunityForumAddPostComponent = ({ sessionId }) => {
   const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -31,6 +31,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
         title,
         content,
         timestamp: formattedDateTime,
+        sessionId,
       };
 
       const postsCollection = collection(db, 'Announcements');

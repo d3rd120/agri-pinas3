@@ -11,6 +11,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
 import { FaEnvelope, FaCommentDots, FaTimes } from 'react-icons/fa';
 import BuyerTransactionReport from '../components/buyerTransactionReport';
+import { Link } from 'react-router-dom';
 
 const BuyerTransanctionPending =  ({ sessionId }) => {
   const { t } = useTranslation();
@@ -134,10 +135,10 @@ const BuyerTransanctionPending =  ({ sessionId }) => {
                         </div>
                         <div className="adminMarketplaceComponentFrameItem" />
                         <div className="adminMarketplaceComponentDetails">
-                          <button className="adminMarketplaceComponentButton">
-                            <FaCommentDots className="adminMarketplaceComponentButtonIcon" />
-                            <div className="adminMarketplaceComponentButtonText">{t('Contact')}</div>
-                          </button>
+                        <Link className="adminMarketplaceComponentButton" to="/messaging" style={{ textDecoration: 'none' }}>
+                          <FaCommentDots className="adminMarketplaceComponentButtonIcon" />
+                          <div className="adminMarketplaceComponentButtonText">{t('Contact')}</div>
+                        </Link>
                           <button className="adminMarketplaceComponentButton" onClick={handleButtonClick}>
                             <FaEnvelope className="adminMarketplaceComponentButtonIcon" />
                             <div className="adminMarketplaceComponentButtonText">{t('Report')}</div>

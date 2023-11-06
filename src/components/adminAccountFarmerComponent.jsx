@@ -26,6 +26,10 @@ const AdminFarmerTransactions = () => {
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
 
+  const handleOverlayClick = () => {
+    setIsDeleteConfirmationOpen(false); // Close the confirmation dialog without changing the language.
+  }; 
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -370,6 +374,9 @@ const AdminFarmerTransactions = () => {
             setIsDeleteConfirmationOpen(false);
           }}
           onCancel={() => setIsDeleteConfirmationOpen(false)}
+          onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+          confirmLabel={t('Confirm')}
+          cancelLabel={t('Cancel')}
         />
     </I18nextProvider>
   );

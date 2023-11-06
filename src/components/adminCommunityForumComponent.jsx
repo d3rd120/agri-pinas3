@@ -40,6 +40,13 @@ const AdminCommunityForumComponent = () => {
   //   setDeletePostId(postId);
   //   setShowDeleteConfirmation(true);
   // };
+
+  
+const handleOverlayClick = () => {
+  setShowArchiveConfirmation(false); // Close the confirmation dialog without changing the language.
+};
+
+
   
 
 
@@ -334,6 +341,9 @@ const AdminCommunityForumComponent = () => {
     message="Are you sure you want to archive this post?"
     onConfirm={handleConfirmArchive}
     onCancel={handleCancelArchive}
+    onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+    confirmLabel={t('Confirm')}
+    cancelLabel={t('Cancel')}
   />
 )}
 

@@ -38,6 +38,11 @@ const AdminCommunityForumComponentArchived = () => {
     const sessionId = uuidv4();
     setSessionId(sessionId);
   }, []);
+
+  const handleOverlayClick = () => {
+    setConfirmationDialog(false); // Close the confirmation dialog without changing the language.
+  };
+  
   
    
   const fetchArchivedPosts = async () => {
@@ -313,6 +318,9 @@ const AdminCommunityForumComponentArchived = () => {
           setConfirmationDialog({ isOpen: false, message: '', onConfirm: null });
         }}
         onCancel={() => setConfirmationDialog({ isOpen: false, message: '', onConfirm: null })}
+        onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+        confirmLabel={t('Confirm')}
+        cancelLabel={t('Cancel')}
       />
 
     </I18nextProvider>

@@ -28,7 +28,7 @@ const ShoppingCart = () => {
   const navigate = useNavigate();
   const [buyNowData, setBuyNowData] = useState([]);
   const [combinedData, setCombinedData] = useState([]);
-
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
 
   
 
@@ -126,6 +126,7 @@ const ShoppingCart = () => {
       console.error(`Invalid price: ${price}`);
       return 'N/A';
     }
+    
 
     return (numericPrice * quantity).toFixed(2);
   };
@@ -204,7 +205,7 @@ const ShoppingCart = () => {
           unit: item.unit || '',
           quantity: item.quantity || '',
           status: 'Pending',
-          paymentMethod: item.paymentMethod || '',
+          paymentMethod: selectedPaymentMethod,
         };
   
         // Check if any required field is undefined
@@ -320,13 +321,13 @@ const ShoppingCart = () => {
           </div>
 
           <div className="payment-details">
-                <h2>{t('Payment Option: ')}</h2>
-                <select>
-                  <option value="option1">Select Payment</option>
-                  <option value="option1">Cash on Pickup</option>
-                  <option value="option2">Sending proof of payment</option>       
-                </select>
-              </div>
+            <h2>{t('Payment Option: ')}</h2>
+            <select onChange={(e) => setSelectedPaymentMethod(e.target.value)}>
+              <option value="">Select Payment</option>
+              <option value="Cash on Pickup">Cash on Pickup</option>
+              <option value="Sending proof of payment">Sending proof of payment</option>       
+            </select>
+          </div>
           <div className="payment-details"> {/* Apply the CSS class */}
             <h2>{t('text81')}</h2>
             <div>

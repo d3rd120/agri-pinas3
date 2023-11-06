@@ -37,6 +37,13 @@ const AdminMarketplaceComponent = () => {
    const handleSearchTextChange = (e) => {
     setSearchText(e.target.value);
   };
+  
+
+const handleOverlayClick = () => {
+  setIsUnarchiveDialogOpen(false); // Close the confirmation dialog without changing the language.
+};
+
+
 
   
   
@@ -53,6 +60,7 @@ const AdminMarketplaceComponent = () => {
     const location = product.location || '';
     const unit = product.unit || '';
     const description = product.description || '';
+    const fullname = product.fullname || '';
 
     return (
       cropName.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -61,6 +69,7 @@ const AdminMarketplaceComponent = () => {
       price.toLowerCase().includes(searchText.toLowerCase()) ||
       location.toLowerCase().includes(searchText.toLowerCase()) ||
       unit.toLowerCase().includes(searchText.toLowerCase()) ||
+      fullname.toLowerCase().includes(searchText.toLowerCase()) ||
       description.toLowerCase().includes(searchText.toLowerCase())
     );
   });
@@ -313,6 +322,9 @@ const AdminMarketplaceComponent = () => {
           message="Are you sure you want to unarchive this product?"
           onConfirm={handleConfirmUnarchive}
           onCancel={handleCancelUnarchive}
+          onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+          confirmLabel={t('Confirm')}
+          cancelLabel={t('Cancel')}
         />
 
         {/* <ConfirmationDialog

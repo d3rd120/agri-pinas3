@@ -25,6 +25,10 @@ const AdminBuyerTransactions = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [isDeleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
 
+  const handleOverlayClick = () => {
+    setDeleteConfirmationDialogOpen(false); // Close the confirmation dialog without changing the language.
+  }; 
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -361,6 +365,9 @@ const AdminBuyerTransactions = () => {
           message="Are you sure you want to delete this user?"
           onConfirm={confirmDeleteUser}
           onCancel={() => setDeleteConfirmationDialogOpen(false)}
+          onOverlayClick={handleOverlayClick} // Pass the overlay click handler
+          confirmLabel={t('Confirm')}
+          cancelLabel={t('Cancel')}
         />
     </I18nextProvider>
   );

@@ -319,6 +319,14 @@ const ShoppingCart = () => {
             </div>
           </div>
 
+          <div className="payment-details">
+                <h2>{t('Payment Option: ')}</h2>
+                <select>
+                  <option value="option1">Select Payment</option>
+                  <option value="option1">Cash on Pickup</option>
+                  <option value="option2">Sending proof of payment</option>       
+                </select>
+              </div>
           <div className="payment-details"> {/* Apply the CSS class */}
             <h2>{t('text81')}</h2>
             <div>

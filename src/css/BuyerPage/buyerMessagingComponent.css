@@ -1,0 +1,434 @@
+.agripinaslogo-icon {
+    position: relative;
+    width: 3.08rem;
+    height: 3.13rem;
+    object-fit: cover;
+  }
+  .agripinas {
+    position: relative;
+    display: inline-block;
+    width: 6.63rem;
+    height: 1.36rem;
+    flex-shrink: 0;
+  }
+  .agripinaslogo-parent {
+    height: 1.84rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .community {
+    position: absolute;
+    top: 0;
+    left: 2.51rem;
+    display: inline-block;
+    width: 6.63rem;
+    height: 1.38rem;
+  }
+  .group-child {
+    position: absolute;
+    top: 0.14rem;
+    left: 0;
+    width: 1.25rem;
+    height: 1.05rem;
+  }
+  .community-parent {
+    text-decoration: none;
+    position: absolute;
+    top: 7.48rem;
+    left: 0.05rem;
+    width: 9.14rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  .crop-tracker {
+    position: absolute;
+    top: 0;
+    left: 2.55rem;
+    display: inline-block;
+    width: 6.94rem;
+    height: 1.35rem;
+  }
+  .worldwide-icon {
+    position: absolute;
+    height: 90.74%;
+    width: 12.98%;
+    top: 4.63%;
+    right: 87.02%;
+    bottom: 4.63%;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .crop-tracker-parent {
+    text-decoration: none;
+    position: absolute;
+    top: 11.22rem;
+    left: 0.02rem;
+    width: 9.49rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+  .dashboard {
+    position: absolute;
+    top: 0;
+    left: 2.49rem;
+    display: inline-block;
+    width: 5.94rem;
+    height: 1.35rem;
+  }
+  .home-1-icon {
+    position: absolute;
+    height: 77.31%;
+    width: 13.06%;
+    top: 4.63%;
+    right: 86.94%;
+    bottom: 18.06%;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .dashboard-parent {
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    left: 0.08rem;
+    width: 8.43rem;
+    height: 1.35rem;
+    color: inherit;
+  }
+  .marketplace {
+    position: absolute;
+    top: 0;
+    left: 2.56rem;
+    display: inline-block;
+    width: 6.88rem;
+    height: 1.38rem;
+  }
+  .wallet-2-icon {
+    position: absolute;
+    height: 75.91%;
+    width: 13.44%;
+    top: 8.64%;
+    right: 86.56%;
+    bottom: 15.45%;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .marketplace-parent {
+    text-decoration: none;
+    position: absolute;
+    top: 3.79rem;
+    left: 0;
+    width: 9.44rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  .transactions {
+    position: absolute;
+    top: 0;
+    left: 2.53rem;
+    display: inline-block;
+    width: 7rem;
+    height: 1.38rem;
+  }
+  .store-icon {
+    position: absolute;
+    height: 75.91%;
+    width: 12.6%;
+    top: 14.09%;
+    right: 87.4%;
+    bottom: 10%;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+  }
+  .transactions-parent {
+    text-decoration: none;
+    position: absolute;
+    top: 14.91rem;
+    left: 0.04rem;
+    width: 9.53rem;
+    height: 1.38rem;
+    color: inherit;
+  }
+  .group-parent {
+    position: relative;
+    width: 9.56rem;
+    height: 16.29rem;
+  }
+  .side-bar {
+    align-self: stretch;
+    background-color: #557153;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3.31rem 2rem;
+    gap: 5.81rem;
+  }
+  .messages {
+    position: relative;
+    line-height: 150%;
+  }
+  .photoauto-layout-child {
+    position: relative;
+    border-radius: 50%;
+    width: 3.25rem;
+    height: 3.25rem;
+    object-fit: cover;
+  }
+  .omg-this-is {
+    position: relative;
+    font-size: 0.88rem;
+    line-height: 150%;
+    font-weight: 300;
+    opacity: 0.7;
+  }
+  .nametext,
+  .photoauto-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .photoauto-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .contact-card {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(74, 63, 105, 0.5);
+    box-sizing: border-box;
+    width: 20.44rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.25rem 0;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add a transition for smooth color change */
+  
+    /* Add the hover effect */
+    &:hover {
+      background-color: #f3f3f3; /* Change the background color on hover */
+    }
+  }
+  
+  .conversation {
+    flex: 1;
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 1rem;
+    color: #000;
+  }
+  .contacts,
+  .conversation,
+  .messageheader,
+  .title {
+    display: flex;
+    justify-content: flex-start;
+  }
+  .contacts {
+    align-self: stretch;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .messageheader,
+  .title {
+    flex-direction: row;
+    align-items: center;
+  }
+  .messageheader {
+    align-self: stretch;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 1.25rem;
+    color: #557153;
+  }
+  .what-do-you {
+    position: relative;
+    line-height: 150%;
+    font-weight: 300;
+  }
+  .contactmessage,
+  .conversation-bubble {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .conversation-bubble {
+    border-radius: 24px 24px 24px 0;
+    background-color: #27ae60;
+    flex-direction: row;
+    padding: 0.75rem 1rem;
+  }
+  .contactmessage {
+    align-self: stretch;
+    flex-direction: column;
+    color: #fff;
+  }
+  .i-think-the {
+    flex: 1;
+    position: relative;
+    line-height: 150%;
+    font-weight: 300;
+  }
+  .conversation-bubble2 {
+    border-radius: 24px 24px 0 24px;
+    background-color: #ebeaea;
+    width: 16.13rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+  }
+  .conversation-bubble-wrapper {
+    align-items: flex-end;
+  }
+  .contactmessage3,
+  .conversation-bubble-wrapper,
+  .messagescontainer {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .contactmessage3 {
+    height: 3rem;
+    align-items: flex-start;
+    color: #fff;
+  }
+  .messagescontainer {
+    flex: 1;
+    align-items: center;
+    padding: 0.88rem 0 0.94rem;
+    gap: 1rem;
+    overflow: scroll; /* Add this to enable scrolling */
+    max-height: 700px; /* Set a maximum height for the scrollable area */
+  }
+  
+  
+  .mask-group-icon {
+    position: absolute;
+    top: 1.03rem;
+    left: 1.13rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .type-a-message {
+    position: absolute;
+    top: 0.5rem;
+    left: 3.13rem;
+    line-height: 150%;
+    font-weight: 300;
+    opacity: 0.4;
+    width: 90%;
+    border-radius: 50px;
+  } 
+ 
+  
+  .compose-new-btn {
+    flex: 1;
+    position: relative;
+
+    background-color: #ebeaea;
+    height: 3.31rem;
+  }
+
+  .messageinput,
+  .messages1,
+  .user-messages {
+    align-self: stretch;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .messageinput {
+    background-color: #fff;
+    height: 5.19rem;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0.94rem 0;
+    box-sizing: border-box;
+  }
+  .messages1,
+  .user-messages {
+    flex: 1;
+  }
+  .messages1 {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 2.19rem 0 0;
+    font-size: 1rem;
+    color: #000;
+  }
+  .user-messages {
+    background-color: #fff;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.56rem 0 0 2.31rem;
+    box-sizing: border-box;
+    gap: 2.5rem;
+    min-height: false;
+  }
+  .farmertransactions,
+  .main-panel {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .main-panel {
+    align-self: stretch;
+    flex: 1;
+    flex-direction: column;
+    padding: 2.75rem 3.38rem;
+    font-size: 2.5rem;
+    color: #557153;
+    font-family: Poppins;
+  }
+  .farmertransactions {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 52.94rem;
+    flex-direction: row;
+    gap: 0.06rem;
+    text-align: left;
+    font-size: 1.13rem;
+    color: #fff;
+    font-family: Tomorrow;
+    height: 100%;
+    min-height: 100vh;
+  }
+  @media screen and (max-width: 1200px) {
+    .side-bar {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 960px) {
+    .contacts {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 420px) {
+    .main-panel {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      box-sizing: border-box;
+    }
+  }
+  

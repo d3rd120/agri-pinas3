@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import "../css/BuyerPage/buyermarketplace.css"
 import BuyerNavigation from "./buyerNavigation";
-import OnionVector from '../img/onionVector.png';
-import ProfileVector2 from '../img/profileVector2.png';
-import TomatoVector from '../img/tomatoVector.png';
-import talong from '../img/talong.png';
-import { FaCartArrowDown, FaCartPlus, FaCommentDots, FaComments, FaEdit, FaTrash } from 'react-icons/fa';
-import ChatBot from 'react-simple-chatbot';
-import { ThemeProvider } from 'styled-components';
+import { FaCartArrowDown, FaCommentDots} from 'react-icons/fa';
 import styled from 'styled-components';
-import { RiChat1Line } from 'react-icons/ri';
-import {Link, NavLink} from 'react-router-dom';
+import {Link,} from 'react-router-dom';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -21,11 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 import Popup from './validationPopup';
 
-const CustomHeaderTitle = styled.div`
-  background-color: #557153;
-  color: white;
-  
-`;
+
 
 const BuyerMarketplace = ({ }) => {
   const { t } = useTranslation();
@@ -39,9 +28,7 @@ const BuyerMarketplace = ({ }) => {
     userBubbleColor: 'white',
     userFontColor: 'black',
   };
-
-  const [showChatBot, setShowChatBot] = useState(false);
-  const [minimizedChatBot, setMinimizedChatBot] = useState(false);
+  
   const [product, setProduct] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { productId } = useParams();
@@ -51,24 +38,6 @@ const BuyerMarketplace = ({ }) => {
   const [popupMessage, setPopupMessage] = useState('');
   const [sessionId, setSessionId] = useState(null);
 
-  const handleChatButtonClick = () => {
-    setShowChatBot(!showChatBot);
-    setMinimizedChatBot(false);
-  };
-
-  const handleChatBotClose = () => {
-    setShowChatBot(false);
-    setMinimizedChatBot(false);
-  };
-
-  const handleChatBotMinimize = () => {
-    setMinimizedChatBot(true);
-  };
-
-  const handleEnd = () => {
-    setShowChatBot(false);
-    setMinimizedChatBot(false);
-  };
 
   useEffect(() => {
     setSessionId(uuidv4());
@@ -450,49 +419,6 @@ const BuyerMarketplace = ({ }) => {
       </div>
       </div>    
       </div>
-{/* 
-      {showChatBot && !minimizedChatBot && (
-            <div className="chatbot-container">
-              <ThemeProvider theme={theme}>
-              <ChatBot
-                steps={[
-                  {
-                    id: '1',
-                    message: 'Hi, how are you?',
-                    trigger: '2',
-                  },
-                  {
-                    id: '2',
-                    user: true,
-                    trigger: '3',
-                  },
-                  {
-                    id: '3',
-                    message: 'You said: {previousValue}',
-                    trigger: '2',
-                  },
-                ]}
-                handleEnd={handleEnd}
-                botDelay={300}
-                opened={showChatBot}
-                hideUserAvatar 
-                headerTitle="Arriane Gatpo"
-                hideHeader={false}
-                floating={true}
-                floatingIcon={<RiChat1Line />}
-                customHeaderComponent={<CustomHeaderTitle />}
-                
-              />
-              </ThemeProvider>
-            </div>
-          )}
-          {minimizedChatBot && (
-            <div className="chatbot-minimized">
-              <button className="chatbot-minimized-button" onClick={() => setMinimizedChatBot(false)}>
-                <RiChat1Line className="chatbot-minimized-icon" />
-              </button>
-            </div>
-          )} */}
           <Popup message={popupMessage} isVisible={popupVisible} onClose={() => setPopupVisible(false)} />
     </I18nextProvider>
     </>

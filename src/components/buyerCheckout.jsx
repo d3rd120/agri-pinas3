@@ -189,7 +189,7 @@ const ShoppingCart = () => {
         const cartItem = {
           productId: item.productId,
           boughtQuantity: item.boughtQuantity,
-          dateBought: new Date().toISOString().split('T')[0],
+         
           isChecked: false,
           buid: user.uid,
           category: item.category || '',
@@ -205,7 +205,9 @@ const ShoppingCart = () => {
           unit: item.unit || '',
           quantity: item.quantity || '',
           status: 'Pending',
+          dateBought: new Date().toISOString().split('T')[0],
           paymentMethod: selectedPaymentMethod,
+          
         };
   
         // Check if any required field is undefined
@@ -223,6 +225,8 @@ const ShoppingCart = () => {
       const orderRef = await addDoc(collection(db, 'Transaction'), {
         userId: user.uid,
         orders,
+        dateBought: new Date().toISOString().split('T')[0],
+        paymentMethod: selectedPaymentMethod,
       });
   
       console.log('Order document added with ID:', orderRef.id);

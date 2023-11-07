@@ -82,7 +82,7 @@ const App = () => {
           <Route path="/buyerfertilizercategory/:userUid/:sessionId" element={<BuyerMarketplaceFertilizerCategory />} />   
           <Route path="/buyerotherproductscategory/:userUid/:sessionId" element={<BuyerMarketplaceOtherProductsCategory />} />
           <Route path="/checkout" element={<BuyerCheckout />} /> 
-          <Route path="/messaging" element={<BuyerMessaging />} /> 
+          <Route path="/messaging/:roomID" element={<BuyerMessaging />} />
           
                
         

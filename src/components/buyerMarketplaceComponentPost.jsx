@@ -7,6 +7,7 @@ import {Link,} from 'react-router-dom';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
+import { useNavigate  } from 'react-router-dom';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
 import { collection, getDocs, setDoc, getDoc, doc, updateDoc, deleteDoc} from 'firebase/firestore';
@@ -16,7 +17,7 @@ import Popup from './validationPopup';
 
 
 
-const BuyerMarketplace = ({ }) => {
+const BuyerMarketplace = ({ postId }) => {
   const { t } = useTranslation();
   const theme = {
     background: 'white',
@@ -37,7 +38,7 @@ const BuyerMarketplace = ({ }) => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [sessionId, setSessionId] = useState(null);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSessionId(uuidv4());
@@ -155,7 +156,7 @@ const BuyerMarketplace = ({ }) => {
       const deletePromises = buyNowDocs.docs.map((doc) => deleteDoc(doc.ref));
       await Promise.all(deletePromises);
   
-      setPopupMessage(`${product.cropName} purchased successfully!`);
+       setPopupMessage(`${product.cropName} purchased successfully!`);
       setPopupVisible(true);
     } catch (err) {
       console.error(err);
@@ -254,7 +255,27 @@ const BuyerMarketplace = ({ }) => {
     return <div>Loading...</div>;
   }
 
-
+  const handleChatButtonClick = () => {
+    // Generate a unique room ID based on the selected contact/user details
+    const room = generateUniqueRoomID(selectedProduct);
+  
+    // Navigate to the messaging component with the room ID
+    navigate(`/messaging/${room}?contactId=${selectedProduct.uid}&contactName=${selectedProduct.fullname}`);
+  console.log('room', room);
+  };
+  
+  // Function to generate a unique room ID based on user details
+  const generateUniqueRoomID = (contact) => {
+    // Assuming the room ID is a combination of user UIDs
+    const otherUserUID = contact.uid;
+    const roomID =
+      otherUserUID < auth.currentUser.uid
+        ? `${otherUserUID}_${auth.currentUser.uid}`
+        : `${auth.currentUser.uid}_${otherUserUID}`;
+  
+    return roomID;
+  };
+  
 
   return (
     <>
@@ -365,7 +386,7 @@ const BuyerMarketplace = ({ }) => {
                       
     <div className="buyerMarketplaceComponentPostButtonContainer">
         <div className="buyerMarketplaceComponentPostButtonRow">
-        <Link className="buyerMarketplaceComponentPostButton outlinedButton" to="/messaging" style={{ textDecoration: 'none' }}>
+        <Link className="buyerMarketplaceComponentPostButton outlinedButton" to="/messaging"  onClick={handleChatButtonClick} style={{ textDecoration: 'none' }}>
           <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
           <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
         </Link>    

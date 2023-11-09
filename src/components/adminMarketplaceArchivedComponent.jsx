@@ -195,7 +195,7 @@ const handleOverlayClick = () => {
               <b className="adminMarketplaceComponentMainTextWrapper">
                 <p className="adminMarketplaceComponentBlankLine">&nbsp;</p>
                 <p className="adminMarketplaceComponentBlankLine">
-                  {t('Marrketplace Archived')}
+                  {t('Marketplace Archived')}
                 </p>
               </b>
             </div>
@@ -203,7 +203,7 @@ const handleOverlayClick = () => {
          
           <div className="adminMarketplaceComponentCard">
             <div className="adminMarketplaceComponentSubTitle">
-              <FaStore /> {t('text149')}
+              <FaStore /> {t('Unarchiving of Products in Marketplace')}
             </div>
             <br />
             <div className="adminMarketplaceComponentShow">

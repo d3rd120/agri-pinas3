@@ -323,8 +323,8 @@ const ShoppingCart = () => {
               </table>
             </div>
           </div>
-
-          <div className="payment-details">
+     
+        <div className="payment-details">
             <h2>{t('Payment Option: ')}</h2>
             <select onChange={(e) => setSelectedPaymentMethod(e.target.value)}>
               <option value="">Select Payment</option>
@@ -334,16 +334,24 @@ const ShoppingCart = () => {
           </div>
           <div className="payment-details"> {/* Apply the CSS class */}
             <h2>{t('text81')}</h2>
+            
+            {/* Display selected payment method */}
+            {selectedPaymentMethod && (
+              <div>
+                <strong>{t('text87')}: </strong> {selectedPaymentMethod}
+              </div>
+            )}
+
             <div>
               <strong>{t('text85')}</strong> ₱{calculateTotal()}
             </div>
+            
             <div className="buttonWrapper">
               <button className="ordercheckoutButton2" onClick={placeOrder}>
                 {t('text86')}
               </button>
             </div>
-          </div>
-
+          </div>      
              
 
           {showModal && (

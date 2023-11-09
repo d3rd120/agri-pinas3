@@ -213,7 +213,7 @@ const handleOverlayClick = () => {
           </div>
 
           <div className="adminCommunityForumComponentCard">
-            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('text180')}</div>
+            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('Archiving of Posts in Community Forum')}</div>
             <br />
             <div className="adminCommunityForumComponentShow">
               {t('text181')}

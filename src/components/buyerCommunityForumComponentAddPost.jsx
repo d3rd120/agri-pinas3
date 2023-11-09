@@ -14,8 +14,11 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
     title: '',
     content: '',
     file: null,
-    postId: '', // To store the selected image file
+    postId: '',
+    fullname: '',
+    timestamp: '',
   });
+  
 
   const [popupMessage, setPopupMessage] = useState(''); // For displaying popup messages
   const [isPopupVisible, setPopupVisible] = useState(false); // For controlling popup visibility
@@ -40,51 +43,38 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
 
   const handlePost = async () => {
     try {
-      if (!postDetails.title || !postDetails.content) {
-        setPopupMessage('Please fill in all required fields.');
-        setPopupVisible(true);
-        return;
-      }
-
-      if (!postDetails.file) {
-        setPopupMessage('Please upload an image.');
-        setPopupVisible(true);
-        return;
-      }
-
       const newPost = {
         title: postDetails.title,
         content: postDetails.content,
-        sessionId: sessionId,
+        fullname: postDetails.fullname,  
+        timestamp: postDetails.timestamp,
+        comments: [],
       };
-
+  
+      
       if (postDetails.file) {
-        const imageUrl = await uploadImage(postDetails.file, 'images');
+        const imageUrl = await uploadImage(postDetails.file);
         newPost.image = imageUrl;
       }
-
+  
+     
       addPost(newPost);
-
-      setPopupMessage('Post written successfully!');
-      setPopupVisible(true);
-
-      // Clear form fields
+  
+      
       setPostDetails({
         title: '',
         content: '',
         file: null,
-        postId: '',
+        fullname: '', 
+        timestamp: '', 
+        comments: [],
       });
-
-      setTimeout(() => {       
-        window.location.reload();
-      }, 1000);
-
     } catch (error) {
+      console.error('Error uploading image or storing post:', error);
       setPopupMessage(`Error uploading image or storing post: ${error.message}`);
-      setPopupVisible(true);
     }
   };
+  
 
   useEffect(() => {
     const handleUserLogin = () => {

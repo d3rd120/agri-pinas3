@@ -193,7 +193,7 @@ const handleOverlayClick = () => {
          
           <div className="adminMarketplaceComponentCard">
             <div className="adminMarketplaceComponentSubTitle">
-              <FaStore /> {t('text149')}
+              <FaStore /> {t('Archiving of Products in Marketplace')}
             </div>
             <br />
             <div className="adminMarketplaceComponentShow">

@@ -173,7 +173,7 @@ const AdminBuyerTransactions = () => {
 
           <div className="adminBuyerAccountManagementCard">
             <div className="adminBuyerAccountManagementSubTitle">
-              <FaPeopleArrows /> {t('text229')}
+              <FaPeopleArrows /> {t('Monitoring of Buyer Accounts')}
             </div>
             <br />
 

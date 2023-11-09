@@ -17,7 +17,8 @@ import {
   updateDoc,
   collection,
   getDocs,
-  setDoc
+  setDoc,
+   addDoc
 } from "firebase/firestore"; 
 import Popup from './validationPopup';
 
@@ -31,6 +32,8 @@ const ShoppingCart = (props) => {
   const [products, setProducts] = useState([]);
   const [lastClickedProductId, setLastClickedProductId] = useState(null);
   const [isCartEmptyPopupVisible, setIsCartEmptyPopupVisible] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [checkedProducts, setCheckedProducts] = useState([]);
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -69,22 +72,23 @@ const ShoppingCart = (props) => {
           );
   
           if (existingItemIndex !== -1) {
-            const updatedCart = [...userCartData.cart];
-            updatedCart[existingItemIndex].quantity = newQuantity;
-            updatedCart[existingItemIndex].boughtQuantity = newQuantity;
-      
-            await updateDoc(userCartRef, { cart: updatedCart });
-      
-            setCart(updatedCart);
+            const productRef = doc(db, 'Marketplace', productId);
+            const productSnapshot = await getDoc(productRef);
+            const productData = productSnapshot.data();
+  
+            if (productData && productData.quantity >= newQuantity) {
+              const updatedCart = [...userCartData.cart];
+              updatedCart[existingItemIndex].quantity = newQuantity;
+              updatedCart[existingItemIndex].boughtQuantity = newQuantity;
+  
+              await updateDoc(userCartRef, { cart: updatedCart });
+  
+              setCart(updatedCart);
+            } else {
+              console.error('Insufficient quantity available for the product.');
+            }
           } else {
-            const newItem = userCartData.cart.find((item) => item.productId === productId);
-            newItem.quantity = newQuantity;
-  
-            const updatedCart = [...userCartData.cart, newItem];
-  
-            await updateDoc(userCartRef, { cart: updatedCart });
-  
-            setCart(updatedCart);
+            console.error('Item not found in the cart.');
           }
         }
       }
@@ -92,6 +96,7 @@ const ShoppingCart = (props) => {
       console.error('Error updating quantity in Firestore:', error);
     }
   };
+  
   
   
 
@@ -203,6 +208,88 @@ const ShoppingCart = (props) => {
     }
   };
 
+
+  const handleCheckboxChange = (productId) => {
+    const isSelected = selectedProducts.includes(productId);
+
+    if (isSelected) {
+      // If already selected, remove from the list
+      setSelectedProducts((prevSelected) =>
+        prevSelected.filter((id) => id !== productId)
+      );
+    } else {
+      // If not selected, add to the list
+      setSelectedProducts((prevSelected) => [...prevSelected, productId]);
+    }
+  };
+
+  const storeSelectedProducts = async (productsToCheckout) => {
+    try {
+      const user = auth.currentUser;
+  
+      // Create a reference to a new 'SelectedProducts' collection
+      const selectedProductsCollection = collection(db, 'SelectedProducts');
+  
+      // Add each product to the 'SelectedProducts' collection in Firestore
+      productsToCheckout.forEach(async (product) => {
+        await addDoc(selectedProductsCollection, {
+          userId: user.uid,
+          productId: product.productId,
+          boughtQuantity: product.boughtQuantity,
+          dateBought: new Date().toISOString().split('T')[0],
+          isChecked: false,
+          buid: user.uid,
+          category: product.category,
+          cropID: product.productId,
+          cropName: product.cropName,
+          fullname: product.fullname,
+          image: product.image,
+          location: product.location,
+          price: product.price,
+          totalAmount: product.price,
+          totalCost: product.price,
+          uid: product.uid,
+          unit: product.unit,
+          quantity: 0,
+         
+        });
+      });
+  
+      console.log('Selected products stored in Firestore');
+    } catch (error) {
+      console.error('Error storing selected products:', error);
+      // Handle errors if necessary
+    }
+  };
+
+
+  const handleCheckout = () => {
+    if (selectedProducts.length === 0) {
+      setIsCartEmptyPopupVisible(true);
+    } else {
+      const productsToCheckout = cart.filter((item) =>
+        selectedProducts.includes(item.productId)
+      );
+  
+      const updatedCart = cart.map((item) => ({
+        ...item,
+        boughtQuantity: selectedProducts.includes(item.productId)
+          ? item.quantity
+          : item.boughtQuantity,
+      }));
+      setCart(updatedCart);
+  
+      console.log('Products to checkout:', productsToCheckout);
+      setCheckedProducts(productsToCheckout);
+  
+      // Store the selected products in Firestore
+      storeSelectedProducts(productsToCheckout);
+    }
+  };
+  
+
+  // Check if any product is selected to enable the checkout button
+  const isCheckoutEnabled = selectedProducts.length > 0;
   return (
     <I18nextProvider i18n={i18n}>
       <div className="buyerMarketplaceComponent">
@@ -234,9 +321,12 @@ const ShoppingCart = (props) => {
                 
                 <tbody>
                 {cart.map((item) => (
-                <tr key={item.id}>
-                 <td>                    
-                    <input type="checkbox" />      
+              <tr key={item.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    onChange={() => handleCheckboxChange(item.productId)}
+                  />   
                   </td>
                   <td>
                     <div className="product-info">
@@ -269,34 +359,21 @@ const ShoppingCart = (props) => {
               ))}
             </tbody>
               </table>
-
-              <div className="total">{t('text67')}{calculateTotal()}</div>
-              <div className="buttonWrapper">
-              <Link
-                to={cart.length > 0 ? "/checkout" : "#"}
-                onClick={() => {
-                  if (cart.length === 0) {
-                    setIsCartEmptyPopupVisible(true);
-                  } else {
-                    // Update the boughtQuantity in the cart before proceeding to checkout
-                    const updatedCart = cart.map((item) => ({
-                      ...item,
-                      boughtQuantity: item.quantity,
-                    }));
-                    setCart(updatedCart);
-                  }
-                }}
-                className="ordercheckoutButton2"
-              >
-                {t('text68')}
-              </Link>
-              <Link to="/buyermarketplace" className="ordercheckoutButton2">
-                {t('text69')}
-                </Link>
-              </div>
-            </div>
-          </div>
-
+<div className="total">{t('text67')}{calculateTotal()}</div>
+<div className="buttonWrapper">
+        <Link
+          to={isCheckoutEnabled ? '/checkout' : '#'}  // This will remain unchanged
+          onClick={handleCheckout}
+          className={`ordercheckoutButton2 ${isCheckoutEnabled ? '' : 'disabled'}`}
+        >
+          {t('text68')}
+        </Link>
+        <Link to="/buyermarketplace" className="ordercheckoutButton2">
+          {t('text69')}
+        </Link>
+      </div>
+  </div>
+ </div>
           {showModal && (
             <div className="modalBackdrop">
               <div className="modal1">

@@ -13,31 +13,21 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, auth, storage } from "../components/firebase";
 import BuyerNavigation from "../components/buyerNavigation";
 import BuyerTopNav from "../components/buyerTopNav";
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import ProfileVector1 from "../img/profileVector1.png";
+import ProfileVector2 from "../img/profileVector2.png";
 import { FaPaperclip } from "react-icons/fa";
 import "../css/BuyerPage/buyerMessagingComponent.css";
-import { Link } from 'react-router-dom';
 
-
-const FarmerTransactions = ({ room: initialRoom }) => {
+const FarmerTransactions = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesRef = collection(db, "messages");
   const messageContainerRef = useRef(null);
   const [userdata, setUserData] = useState([]);
+  const [room, setRoom] = useState("");
   const [image, setImage] = useState(null);
-  const navigate = useNavigate();
-  const { room } = useParams();
-  const [currentRoom, setRoom] = useState(room);
-  const { roomID } = useParams();
 
- useEffect(() => {
-    console.log("Room ID:", roomID);
-    // You can use roomID in the rest of your component logic
-  }, [roomID]);
-  
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -61,7 +51,6 @@ const FarmerTransactions = ({ room: initialRoom }) => {
     fetchUserData();
   }, []);
 
-  
   useEffect(() => {
     if (selectedContact) {
       const queryMessages = query(
@@ -69,7 +58,7 @@ const FarmerTransactions = ({ room: initialRoom }) => {
         where("room", "==", room),
         orderBy("createdAt")
       );
-
+  
       const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
         let messages = [];
         snapshot.forEach((doc) => {
@@ -77,7 +66,7 @@ const FarmerTransactions = ({ room: initialRoom }) => {
         });
         setMessages(messages);
       });
-
+  
       return () => unsubscribe();
     }
   }, [room]);
@@ -89,29 +78,8 @@ const FarmerTransactions = ({ room: initialRoom }) => {
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
 
-    if (newMessage === "") return;
-
-    const userfullname = await getUserfullname(auth.currentUser.uid);
-
-    await addDoc(messagesRef, {
-      text: newMessage,
-      createdAt: serverTimestamp(),
-      user: userfullname,
-      room: room,
-    });
-
-    console.log("Room value after adding doc:", room);
-
-    setNewMessage("");
-  };
-
-  useEffect(() => {
-    console.log("Current room value:", room);
-  }, [room]);
-
+  // Function to get user's first name based on UID from the 'Users' collection
   const getUserfullname = async (uid) => {
     try {
       const userQuery = query(collection(db, "Users"), where("uid", "==", uid));
@@ -131,45 +99,76 @@ const FarmerTransactions = ({ room: initialRoom }) => {
 
   const handleContactClick = async (contact) => {
     setSelectedContact(contact);
-
+  
     const otherUserUID = contact.uid;
+  
     const roomName =
       otherUserUID < auth.currentUser.uid
-        ? `${otherUserUID}-${auth.currentUser.uid}`
-        : `${auth.currentUser.uid}-${otherUserUID}`;
-
+        ? `${otherUserUID} and ${auth.currentUser.uid}`
+        : `${auth.currentUser.uid} and ${otherUserUID}`;
+  
     console.log("Selected Contact:", contact);
     console.log("Other User UID:", otherUserUID);
     console.log("Room Name:", roomName);
-
-    // Use navigate instead of returning a Link component
-    navigate(`/messaging/${roomName}`);
+  
+    
+    setRoom(roomName);
+    console.log("Room value after setting:", room);
+  
+    
   };
+ 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
   
+    if (!newMessage && !image) return;
   
-
-  useEffect(() => {
-    console.log("Current room value:", room);
-  }, [room]);
-
-  const handleImageUpload = async () => {
-    if (!image) return;
-
     const userfullname = await getUserfullname(auth.currentUser.uid);
-
-    const storageRef = ref(storage, `images/${auth.currentUser.uid}/${image.name}`);
-
-    await uploadBytes(storageRef, image);
-    const downloadURL = await getDownloadURL(storageRef);
-
-    addDoc(messagesRef, {
-      imageUrl: downloadURL,
-      createdAt: serverTimestamp(),
-      user: userfullname,
-      room: room,
-    });
+  
+    if (image) {
+      const storageRef = ref(
+        storage,
+        `files/${auth.currentUser.uid}/${image.name}`
+      );
+  
+      const fileType = image.type.split('/')[1]; // Extract file type (e.g., 'jpeg', 'pdf', 'docx', etc.)
+  
+      if (fileType === 'pdf' || fileType === 'docx') {
+        // Handle PDF and DOCX files
+        await uploadBytes(storageRef, image);
+      } else {
+        // Handle images (you can extend this for other file types)
+        await uploadBytes(storageRef, image);
+      }
+  
+      const downloadURL = await getDownloadURL(storageRef);
+  
+      await addDoc(messagesRef, {
+        fileUrl: downloadURL,
+        fileType: fileType,
+        createdAt: serverTimestamp(),
+        user: userfullname,
+        room: room,
+      });
+    } else {
+      await addDoc(messagesRef, {
+        text: newMessage,
+        createdAt: serverTimestamp(),
+        user: userfullname,
+        room: room,
+      });
+    }
+  
+    console.log("Room value after adding doc:", room);
+  
+    // Reset the new message input and image
+    setNewMessage("");
+    setImage(null); // Clear the image state
   };
+  
 
+ 
+  
   return (
     <div className="farmertransactions">
       <BuyerNavigation />
@@ -179,6 +178,30 @@ const FarmerTransactions = ({ room: initialRoom }) => {
         <div className="user-messages">
           <div className="contacts">
             <b className="messages">Messages</b>
+            <div className="conversation">
+              {userdata.map((contact) => (
+                <div
+                  key={contact.id}
+                  className={`contact-card ${
+                    selectedContact && selectedContact.uid === contact.uid
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() => handleContactClick(contact)}
+                >
+                  <div className="photoauto-layout">
+                    <img
+                      className="photoauto-layout-child"
+                      alt=""
+                      src={ProfileVector2}
+                    />
+                    <div className="nametext">
+                      <b className="messages">{contact.fullname}</b>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           {selectedContact && (
             <div className="messages1">
@@ -188,52 +211,86 @@ const FarmerTransactions = ({ room: initialRoom }) => {
                 </div>
               </div>
               <div className="messagescontainer">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`contactmessage ${
-                      message.user === auth.currentUser.email ? "sent" : "received"
-                    }`}
-                  >
-                    <span className="user" style={{ color: "#f5e9cf" }}>
-                      {message.user}:
-                    </span>{" "}
-                    <div className="conversation-bubble">
-                      {message.imageUrl ? (
-                        <img src={message.imageUrl} alt="Uploaded" style={{ maxWidth: '100%', maxHeight: '150px' }} />
-                      ) : (
-                        <div className="what-do-you">{message.text}</div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+  {messages.map((message) => (
+    <div
+      key={message.id}
+      className={`contactmessage ${
+        message.user === auth.currentUser.email ? "sent" : "received"
+      }`}
+    >
+      <span className="user" style={{ color: "#f5e9cf" }}>
+        {message.user}:
+      </span>{" "}
+      <div className="conversation-bubble">
+        {message.imageUrl ? (
+          <img
+            src={message.imageUrl}
+            alt="Uploaded"
+            style={{ maxWidth: '100%', maxHeight: '150px' }}
+          />
+        ) : message.fileUrl ? (
+          <div>
+            {message.fileType === 'pdf' ? (
+              <embed
+                src={message.fileUrl}
+                type="application/pdf"
+                width="100%"
+                height="150"
+              />
+            ) : message.fileType === 'docx' ? (
+              <p>Displaying DOCX files is more complex and requires additional handling.</p>
+            ) : (
+              <p>Unsupported file type</p>
+            )}
+          </div>
+        ) : (
+          <div className="what-do-you">{message.text}</div>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
               <div className="messageinput">
                 <div className="compose-new-btn">
-                  <label htmlFor="fileInput" className="file-input-label">
-                    <FaPaperclip className="mask-group-icon" onClick={handleImageUpload} />
-                  </label>
-                  <form onSubmit={handleSubmit} className="new-message-form">
-                    <div className="compose-new-btn">
-                      <input
-                        type="file"
-                        id="fileInput"
-                        onChange={(event) => setImage(event.target.files[0])}
-                        className="file-input"
-                      />
-                      <input
-                        type="text"
-                        value={newMessage}
-                        onChange={(event) => setNewMessage(event.target.value)}
-                        style={{ color: "#f5e9cf" }}
-                        className="type-a-message"
-                        placeholder="Type a message"
-                      />
-                      <button type="button" onClick={handleImageUpload}>
-                        Upload Image
-                      </button>
-                    </div>
-                  </form>
+                <label htmlFor="fileInput" className="file-input-label">
+              <div
+                className="mask-group-icon"
+                onClick={() => document.getElementById('fileInput').click()}
+                style={{ cursor: 'pointer', fontSize: '24px' }}
+              >
+                <FaPaperclip />
+              </div>
+              <input
+                type="file"
+                id="fileInput"
+                onChange={(event) => {
+                  setImage(event.target.files[0]);
+                  // Optionally, you can include logic to show a preview of the selected image here.
+                }}
+                className="file-input"
+                style={{ display: 'none' }}
+              />
+
+              <form onSubmit={handleSubmit} className="new-message-form">
+                <div className="compose-new-btn">
+                  {image && (
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="Selected"
+                      style={{ maxWidth: '50px', maxHeight: '50px', marginRight: '10px' }}
+                    />
+                  )}
+                  <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(event) => setNewMessage(event.target.value)}
+                    style={{ color: '#f5e9cf', width: 'calc(100% - 60px)' }}
+                    className="type-a-message"
+                    placeholder="Type a message"
+                  />
+                </div>
+              </form>
+            </label>
                 </div>
               </div>
             </div>

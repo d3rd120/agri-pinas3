@@ -171,9 +171,31 @@ const BuyerTransanctionPending =  ({ sessionId }) => {
     )}
   </div>
 </div>
-</div>
-        </div>
-      </div>
+
+<div className="adminFarmerTransactionsPendingComponentForumNumber">
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">1</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">2</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">3</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">4</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">5</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">6</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+     
     </I18nextProvider>
   );
 };

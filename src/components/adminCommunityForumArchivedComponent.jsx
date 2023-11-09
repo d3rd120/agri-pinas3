@@ -115,7 +115,7 @@ const AdminCommunityForumComponentArchived = () => {
 
  
   const handleUnarchiveButtonClick = async (postId) => {
-    openConfirmationDialog('Are you sure you want to unarchive this post?', async () => {
+    openConfirmationDialog(t('ext174'), async () => {
       try {
         const archivedPostRef = doc(db, 'ArchiveCommunityForum', postId);
         const archivedPostSnapshot = await getDoc(archivedPostRef);
@@ -183,16 +183,16 @@ const AdminCommunityForumComponentArchived = () => {
             <div className="adminCommunityForumComponentMainText">
               <b className="adminCommunityForumComponentMainTextWrapper">
                 <p className="adminCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="adminCommunityForumComponentBlankLine">{t('Community Forum Archived')}</p>
+                <p className="adminCommunityForumComponentBlankLine">{t('ext168')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminCommunityForumComponentCard">
-            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('Unarchiving of Posts in Community Forum')}</div>
+            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('ext169')}</div>
             <br />
             <div className="adminCommunityForumComponentShow">
-              {t('text181')}
+              {t('ext170')}
 
               <select className="adminCommunityForumComponentRowSelect" 
                       value={displayCount}
@@ -205,7 +205,7 @@ const AdminCommunityForumComponentArchived = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('text182')}
+                placeholder={t('ext171')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -242,7 +242,7 @@ const AdminCommunityForumComponentArchived = () => {
                                 <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                                   <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                                     <p className="buyerCommunityForumComponentFullPostBlankLine">
-                                      <b>{t('text129')}</b>
+                                      <b>{t('ext172')}</b>
                                     </p>
                                     {archivedPost.comments.map((comment, commentIndex) => (
                                       <div key={commentIndex} className="buyerCommunityForumComponentFullPostComment">
@@ -277,7 +277,7 @@ const AdminCommunityForumComponentArchived = () => {
                     <div className="adminMarketplaceComponentDetails">                
                         <button className="adminMarketplaceComponentButton" onClick={() => handleUnarchiveButtonClick (archivedPost.id)}>
                           <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                          <div className="adminMarketplaceComponentButtonText">{t('Unarchive')}</div>
+                          <div className="adminMarketplaceComponentButtonText">{t('ext173')}</div>
                         </button>
                         {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteArchivedPost(archivedPost.id)}>
                           <FaTrash className="adminMarketplaceComponentButtonIcon" />
@@ -319,8 +319,8 @@ const AdminCommunityForumComponentArchived = () => {
         }}
         onCancel={() => setConfirmationDialog({ isOpen: false, message: '', onConfirm: null })}
         onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-        confirmLabel={t('Confirm')}
-        cancelLabel={t('Cancel')}
+        confirmLabel={t('ext175')}
+        cancelLabel={t('ext176')}
       />
 
     </I18nextProvider>

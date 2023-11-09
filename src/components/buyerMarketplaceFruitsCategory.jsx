@@ -123,12 +123,12 @@ const BuyerMarketplace = () => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="buyerCommunityForumComponentBlankLine">{t('Fruits')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('ext304')}</p>
               </b>
                <br></br>
               <input
                   type="text"
-                  placeholder="Search"
+                  placeholder={t('ext297')}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   style={{ width: '250px' }}
                 />  
@@ -150,35 +150,35 @@ const BuyerMarketplace = () => {
                         alt=""
                         src={product.image}
                       />
-                      <div className="buyerMarketplaceComponentFrameGroup">
-                      <div className="buyerMarketplaceComponentFrameContainer">
+                       <div className="buyerMarketplaceComponentFrameGroup">
+                        <div className="buyerMarketplaceComponentFrameContainer">
                           <div className="buyerMarketplaceComponentCardWrapper">
                             <b className="buyerMarketplaceComponentCardText">{product.cropName}</b>
                           </div>
                           <div className="buyerMarketplaceComponentCategoryWrapper">
                             <div className="buyerMarketplaceComponentCategoryContainer">
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>{t('text121')}</b>
+                                <b>{t('ext298')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.category}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>{t('text122')}</b>
+                                <b>{t('ext299')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('ext300')}</b>
                                 <span>{product.price}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>Location: </b>
+                                <b>{t('ext301')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.location}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>Unit: </b>
+                                <b>{t('ext302')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('ext303')}</b>
                                 <span>{product.description}</span>
                               </p>
                             </div>

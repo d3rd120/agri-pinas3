@@ -85,24 +85,24 @@ const BuyerProfile = () => {
           <div className="farmerProfileComponentTopSection">
             <div className="farmerProfileComponentMainText1">
               <b className="farmerProfileComponentMainText2">
-                <p className="farmerProfileComponentBlankLine">{t('farmerProfileText16')}</p>
+                <p className="farmerProfileComponentBlankLine">{t('ext395')}</p>
               </b>
             </div>
           </div>
           <div style={{ marginTop: "-40px" }}>
             <div class="farmercourseProfile">
               <div class="course-preview1">
-                <div class="farmerProfileComponentInfo">{t('farmerProfileText17')}</div>
-                <div class="farmerProfileComponentFullName">{t('farmerProfileText18')}</div>
+                <div class="farmerProfileComponentInfo">{t('ext396')}</div>
+                <div class="farmerProfileComponentFullName">{t('ext397')}</div>
                 <div class="farmerProfileComponentName">{fullname}</div>
-                <div class="farmerProfileComponentRole">{t('farmerProfileText19')}</div>
+                <div class="farmerProfileComponentRole">{t('ext398')}</div>
                 <img class="farmerselectImageIcon" alt="" src={imagePreview} /> 
                 <div class="farmerProfileComponentRole2">{buyerRole}</div>
-                <div class="farmerProfileComponentEmail1">{t('farmerProfileText21')}</div>
+                <div class="farmerProfileComponentEmail1">{t('ext399')}</div>
                 <div class="farmerProfileComponentEmail2">{email}</div>
-                <div class="farmerProfileComponentPhoneNumber">{t('farmerProfileText23')}</div>
+                <div class="farmerProfileComponentPhoneNumber">{t('ext401')}</div>
                 <div class="farmerProfileComponentNumber">{contact}</div>
-                <div class="farmerProfileComponentBdayDate">{t('farmerProfileText22')}</div>
+                <div class="farmerProfileComponentBdayDate">{t('ext400')}</div>
                 <div class="farmerProfileComponentBirthdate">{formatDateOfBirth(new Date(birthdate))}</div>
               </div>
             </div>

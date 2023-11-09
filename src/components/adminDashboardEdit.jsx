@@ -55,18 +55,18 @@ const FarmerCommunityForumAddPostComponent = ({ selectedAnnouncement }) => {
     <I18nextProvider i18n={i18n}>
       <div className="adminCommunityForumAddPostComponent">
         <div className="adminCommunityForumAddPostComponentMainText">
-          {t('Edit Announcement')}
+          {t('ext123')}
         </div>
         <div className="adminCommunityForumAddPostComponentFrameParent">
           <div className="adminCommunityForumAddPostComponentFrameGroup">
             <div className="adminCommunityForumAddPostComponentInputParent">
               <div className="adminCommunityForumAddPostComponentTitle">
-                {t('Edit your Announcement')}
+                {t('ext124')}
               </div>
             </div>
             <div className="adminCommunityForumAddPostComponentInputParent">
               <div className="adminCommunityForumAddPostComponentTitle">
-                {t('Title')}
+                {t('ext125')}
               </div>
               <input
                 className="adminCommunityForumAddPostComponentInput3"
@@ -77,7 +77,7 @@ const FarmerCommunityForumAddPostComponent = ({ selectedAnnouncement }) => {
             </div>
             <div className="adminCommunityForumAddPostComponentInputParent">
               <div className="adminCommunityForumAddPostComponentTitle">
-                {t('Content')}
+                {t('ext126')}
               </div>
               <textarea
                 className="adminCommunityForumAddPostComponentInput3"
@@ -93,7 +93,7 @@ const FarmerCommunityForumAddPostComponent = ({ selectedAnnouncement }) => {
               }
             >
               <div className="adminCommunityForumAddPostComponentButtonText">
-                {t('Update')}
+                {t('ext127')}
               </div>
             </button>
             <div className="adminCommunityForumAddPostComponentFormChild" />

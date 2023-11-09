@@ -163,19 +163,19 @@ const AdminFarmerTransactions = () => {
             <div className="adminAccountFarmerComponentMainText">
               <b className="adminAccountFarmerComponentMainTextContainer">
                 <p className="adminAccountFarmerComponentBlankLine">&nbsp;</p>
-                <p className="adminAccountFarmerComponentBlankLine">{t('text227')}</p>
+                <p className="adminAccountFarmerComponentBlankLine">{t('ext229')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminFarmerAccountManagementCard">
             <div className="adminFarmerAccountManagementSubTitle">
-              <FaPeopleArrows /> {t('Monitoring of Farmer Accounts')}
+              <FaPeopleArrows /> {t('ext230')}
             </div>
             <br></br>
 
             <div className="adminCommunityForumComponentShow">
-              {t('text230')}
+              {t('ext231')}
 
               <select
                 className="adminCommunityForumComponentRowSelect"
@@ -190,7 +190,7 @@ const AdminFarmerTransactions = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('text231')}
+                placeholder={t('ext232')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -200,14 +200,14 @@ const AdminFarmerTransactions = () => {
             <table className="adminFarmerAccountManagementTable">
               <thead>
                 <tr>
-                  <th>{t('text232')}</th>
-                  <th>{t('text233')}</th>
-                  <th>{t('text234')}</th>
-                  <th>{t('text235')}</th>
-                  <th>{t('text236')}</th>
-                  <th>{t('text237')}</th>
+                  <th>{t('ext233')}</th>
+                  <th>{t('ext234')}</th>
+                  <th>{t('ext235')}</th>
+                  <th>{t('ext236')}</th>
+                  <th>{t('ext237')}</th>
+                  <th>{t('ext238')}</th>
                   {/* <th>{t('text238')}</th> */}
-                  <th>{t('text239')}</th>
+                  <th>{t('ext239')}</th>
                 </tr>
               </thead>
               <tbody>

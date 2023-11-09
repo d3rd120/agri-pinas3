@@ -185,7 +185,7 @@ const handleOverlayClick = () => {
               <b className="adminMarketplaceComponentMainTextWrapper">
                 <p className="adminMarketplaceComponentBlankLine">&nbsp;</p>
                 <p className="adminMarketplaceComponentBlankLine">
-                  {t('text148')}
+                  {t('ext131')}
                 </p>
               </b>
             </div>
@@ -193,11 +193,11 @@ const handleOverlayClick = () => {
          
           <div className="adminMarketplaceComponentCard">
             <div className="adminMarketplaceComponentSubTitle">
-              <FaStore /> {t('Archiving of Products in Marketplace')}
+              <FaStore /> {t('ext132')}
             </div>
             <br />
             <div className="adminMarketplaceComponentShow">
-              {t('text150')}
+              {t('ext133')}
 
 
               <select
@@ -216,7 +216,7 @@ const handleOverlayClick = () => {
               <input
                 className="adminMarketplaceComponentRowSelect"
                 type="text"
-                placeholder={t('text151')}
+                placeholder={t('ext134')}
                 value={searchText}
                 onChange={(e) => {
                   setSearchText(e.target.value);
@@ -246,22 +246,22 @@ const handleOverlayClick = () => {
                             </div>
                             <div className="adminMarketplaceComponentSubText2Wrapper2">
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('text152')}</b> {product.category}
+                                <b>{t('ext135')}</b> {product.category}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('Quantity: ')}</b> {product.quantity}
+                                <b>{t('ext136')}</b> {product.quantity}
                               </div>                             
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('text154')}</b> {product.price}
+                                <b>{t('ext137')}</b> {product.price}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('Location: ')}</b> {product.location}
+                                <b>{t('ext138')}</b> {product.location}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('Unit: ')}</b> {product.unit}
+                                <b>{t('ext139')}</b> {product.unit}
                               </div>
                               <div className="adminMarketplaceComponentSubText2">
-                                <b>{t('text156')}</b> {product.description}
+                                <b>{t('ext140')}</b> {product.description}
                               </div>
                             </div>
                           </div>                                                 
@@ -275,7 +275,7 @@ const handleOverlayClick = () => {
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={() => handleArchiveButtonClick(product.id)}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
+                              <div className="adminMarketplaceComponentButtonText">{t('ext141')}</div>
                             </button>
                             {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeleteButtonClick(product.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
@@ -309,12 +309,12 @@ const handleOverlayClick = () => {
       </div>
       <ConfirmationDialog
         isOpen={isArchiveDialogOpen}
-        message="Are you sure you want to archive this product?"
+        message={t('ext142')}
         onConfirm={handleConfirmArchive}
         onCancel={handleCancelArchive}
         onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-        confirmLabel={t('Confirm')}
-        cancelLabel={t('Cancel')}
+        confirmLabel={t('ext143')}
+        cancelLabel={t('ext144')}
       />
       {/* <ConfirmationDialog
       isOpen={isDeleteDialogOpen}

@@ -71,7 +71,7 @@ const BuyerTransanctionCancelled = ({  }) => {
           <div className="buyerTransactionTopSection">
             <div className="buyerTransactionMainText">
               <b className="buyerTransactionMainTextWrapper">
-                <p className="buyerTransactionBlankLine">{t('text90')}</p>
+                <p className="buyerTransactionBlankLine">{t('ext338')}</p>
               </b>
             </div>
           </div>
@@ -79,7 +79,7 @@ const BuyerTransanctionCancelled = ({  }) => {
 
           <div className="buyerTransactionCard">
             <div className="buyerTransactionSubTitle">
-              <FaFolderOpen /> {t('text91')}
+              <FaFolderOpen /> {t('ext339')}
             </div>
             <br></br>         
             <br></br>
@@ -114,42 +114,43 @@ const BuyerTransanctionCancelled = ({  }) => {
                       </div>
                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text93')}</b> {item.dateBought}
+                          <b>{t('ext340')}</b> {item.dateBought}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text94')}</b> {item.fullname}
+                          <b>{t('ext341')}</b> {item.fullname}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text95')}</b> {item.category}
+                          <b>{t('ext342')}</b> {item.category}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text96')}</b> {item.unit}
+                          <b>{t('ext343')}</b> {item.unit}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text97')}</b> {item.boughtQuantity}
+                          <b>{t('ext344')}</b> {item.boughtQuantity}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text98')}</b> {item.price}
+                          <b>{t('ext345')}</b> {item.price}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Status: ')}</b> {item.status}
+                          <b>{t('ext346')}</b> {item.status}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Location: ')}</b> {item.location}
+                          <b>{t('ext347')}</b> {item.location}
                         </div>
                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Payment Method : ')}</b> {item.paymentMethod}
+                          <b>{t('ext348')}</b> {item.paymentMethod}
                         </div>
-                        <div className="adminMarketplaceComponentFrameItem" />
+                        {/* <div className="adminMarketplaceComponentFrameItem" />
                         <div className="adminMarketplaceComponentDetails">
                         <Link className="adminMarketplaceComponentButton" to="/messaging" style={{ textDecoration: 'none' }}>
                           <FaCommentDots className="adminMarketplaceComponentButtonIcon" />
-                          <div className="adminMarketplaceComponentButtonText">{t('Contact')}</div>
+                          <div className="adminMarketplaceComponentButtonText">{t('ext349')}</div>
                         </Link>
                           <button className="adminMarketplaceComponentButton" onClick={handleButtonClick}>
                             <FaEnvelope className="adminMarketplaceComponentButtonIcon" />
-                            <div className="adminMarketplaceComponentButtonText">{t('Report')}</div>
+                            <div className="adminMarketplaceComponentButtonText">{t('ext350')}</div>
                           </button>
+
 
                           {showPopup && (
                             <div id="buyerCommunityForumComponentPopupWindow" className="buyerCommunityForumComponentPopupWindow">
@@ -161,20 +162,20 @@ const BuyerTransanctionCancelled = ({  }) => {
                               </div>
                             </div>
                           )}
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
-                <p>No items in this order</p>
+                <p>{t('ext353')}</p>
               )}
             </div>
           ))}
         </div>
       ))
     ) : (
-      <p>Loading...</p>
+      <p>{t('ext354')}</p>
     )}
   </div>
 </div>

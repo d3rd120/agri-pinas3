@@ -196,7 +196,7 @@ const handleSave = async () => {
         <div className="buyerCommunityForumComponentTopSection">
           <div className="buyerCommunityForumComponentMainText1">
             <b className="buyerCommunityForumComponentMainText2">
-              <p className="buyerCommunityForumComponentBlankLine">{t('Address')}</p>
+              <p className="buyerCommunityForumComponentBlankLine">{t('ext402')}</p>
             </b>
           </div>
         </div>

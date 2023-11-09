@@ -80,7 +80,7 @@ const AdminBuyerTransactionsCancelledComponent = () => {
           <div className="adminBuyerTransactionsCancelledComponentMainText">
             <b className="adminBuyerTransactionsCancelledComponentMainTextWrapper">
               <p className="adminBuyerTransactionsCancelledComponentBlankLine">&nbsp;</p>
-              <p className="adminBuyerTransactionsCancelledComponentBlankLine">{t('text183')}</p>
+              <p className="adminBuyerTransactionsCancelledComponentBlankLine">{t('ext199')}</p>
             </b>
           </div>
         </div>
@@ -88,11 +88,11 @@ const AdminBuyerTransactionsCancelledComponent = () => {
 
         <div className="adminBuyerTransactionsCancelledComponentCard">
           <div className="adminBuyerTransactionsCancelledComponentSubTitle">
-            <FaFolderOpen /> {t('text187')}
+            <FaFolderOpen /> {t('ext200')}
           </div>
           <br></br>
           <div className="adminBuyerTransactionsCancelledComponentShow">
-          {t('text188')}
+          {t('ext201')}
             <select className="adminBuyerTransactionsCancelledComponentRowSelect" onchange="updateRows(this.value)">
               <option value="5">5</option>
               <option value="10">10</option>
@@ -102,82 +102,91 @@ const AdminBuyerTransactionsCancelledComponent = () => {
             <input 
             className="adminBuyerTransactionsCancelledComponentRowSelect"
             type = "text"
-            placeholder =   {t('text189')}>                    
+            placeholder =   {t('ext202')}>                    
             </input>
           </div>
           <br></br>
 
-          <div className="adminBuyerTransactionsPendingComponentMiddleSection">
-            <div className="adminBuyerTransactionsPendingComponentFrameParent">
-            <div className="adminBuyerTransactionsCompletedComponentFrameWrapper">         
-            {cartItems && cartItems.map((cartItem, index) => (
-                <div key={index} className="adminFarmerTransactionsPendingComponentRectangleParent">
-                  {cartItem.orders && cartItem.orders.map((item, itemIndex) => (
-                    <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
-                      <img
-                        className="adminFarmerTransactionsPendingComponentFrameChild"
-                        alt=""
-                        src={item.image}
-                      />
-                      <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                        <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                          <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('text93')}</b> {item.dateBought}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('text94')}</b> {item.fullname}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('text95')}</b> {item.category}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('text96')}</b> {item.unit}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('text97')}</b> {item.boughtQuantity}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('text98')}</b> {item.price}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('Status: ')}</b> {item.status}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('Location: ')}</b> {item.location}
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                        <b>{t('Payment Method : ')}</b> {item.paymentMethod}
-                                      </div>
-                          </div>
-                          <div className="adminBuyerTransactionsPendingComponentFrameItem" />
-                          <div className="adminBuyerTransactionsPendingComponentDetails">
-                            <button
-                              className="adminBuyerTransactionsPendingComponentButton"
-                              onClick={handleButtonClick1}
+       
+          <div className="adminFarmerTransactionsPendingComponentMiddleSection">
+            <div className="adminFarmerTransactionsPendingComponentFrameParent">         
+             
+               
+                    {cartItems && cartItems.length > 0 ? (
+                      chunkArray(cartItems, 1).map((cartItemGroup, index) => (
+                        <div
+                          className="adminFarmerTransactionsPendingComponentFrameWrapper"
+                          key={index}
+                        >
+                          {cartItemGroup.map((cartItem, cartItemIndex) => (
+                            <div
+                              key={cartItemIndex}
+                              className="adminFarmerTransactionsPendingComponentRectangleParent"
                             >
-                              <FaArchive className="adminBuyerTransactionsPendingComponentButtonIcon" />
-                              <div className="adminBuyerTransactionsPendingComponentButtonText">{t('Archive')}</div>
-                            </button>
-                            <button
-                              className="adminBuyerTransactionsPendingComponentButton"
-                              onClick={handleButtonClick2}
-                            >
-                              <FaTrash className="adminBuyerTransactionsPendingComponentButtonIcon" />
-                              <div className="adminBuyerTransactionsPendingComponentButtonText">{t('text200')}</div>
-                            </button>
-                          </div>
+                              {cartItem.orders && cartItem.orders.length > 0 ? (
+                                cartItem.orders.map((item, itemIndex) => (
+                                  <div
+                                    key={itemIndex}
+                                    className="adminFarmerTransactionsPendingComponentFrameGroup"
+                                  >
+                                    <img
+                                      className="adminFarmerTransactionsPendingComponentFrameChild"
+                                      alt=""
+                                      src={item.image}
+                                    />
+                                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                                        <b className="adminFarmerTransactionsPendingComponentSubText1">
+                                          {item.cropName}
+                                        </b>
+                                      </div>
+                                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext203')}</b> {item.dateBought}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext204')}</b> {item.fullname}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext205')}</b> {item.category}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext206')}</b> {item.unit}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext207')}</b> {item.boughtQuantity}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext208')}</b> {item.price}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext209')}</b> {item.status}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext210')}</b> {item.location}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('ext211')}</b> {item.paymentMethod}
+                                        </div>                                       
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))
+                              ) : (
+                                <p key={`noPendingItems-${cartItemIndex}`}>
+                                 {t('ext214')}
+                                </p>
+                              )}
+                            </div>
+                          ))}
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ))}
-
-                  </div>
-              </div>
-              </div>
+                      ))
+                    ) : (
+                      <p>{t('ext215')}</p>
+                    )}
+                        </div>
+                    </div>                           
+       
               <div className="adminBuyerTransactionsPendingComponentForumNumber">
                 <div className="adminBuyerTransactionsPendingComponentForumContainer">
                   <div className="adminBuyerTransactionsPendingComponentForumNumberBox">1</div>

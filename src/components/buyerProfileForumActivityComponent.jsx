@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/Components/buyerCommunityForumComponent.css';
 import { auth, db } from './firebase';
-import { collection, addDoc, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, where, deleteDoc} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import BuyerProfileActivityEdit from '../components/buyerProfileForumActivityComponentEdit';
 import BuyerProfileNav from '../components/buyerProfileNav';
@@ -37,10 +37,6 @@ const filteredPosts = posts.filter((post) => {
 
   
 
-const handleButtonClick2 = () => {
-  setShowConfirmationDialog(true);
-};
-
 const handleButtonClick = () => {
   setShowPopup(true);
 };
@@ -49,93 +45,45 @@ const closePopup = () => {
   setShowPopup(false);
 };
 
-const fetchUserDetails = async (uid) => {
+const deletePost = async (postId) => {
   try {
-    const userDocRef = doc(db, 'Users', uid);
-    const userDocSnapshot = await getDoc(userDocRef);
-    const userData = userDocSnapshot.data();
+    // Delete the post from Firestore
+    await deleteDoc(doc(db, 'CommunityForum', postId));
 
-    if (userData) {
-      const { fullname, profileImageUrl } = userData;
-      return { displayName: fullname, profileImageUrl };
-    } else {
-      return { fullname: 'Anonymous', profileImageUrl: '' };
-    }
+    // Update the post list after deletion
+    await fetchUserPosts();
+    setShowConfirmationDialog(true);
   } catch (error) {
-    console.error('Error fetching user data:', error);
-    return { fullname: 'Anonymous', profileImageUrl: '' };
+    console.error('Error deleting post:', error);
   }
 };
 
 
-const fetchPosts = async () => {
-  try {
-    const postsCollection = collection(db, 'CommunityForum');
-    const snapshot = await getDocs(postsCollection);
-    const fetchedPosts = [];
-
-    for (const doc of snapshot.docs) {
-      const post = doc.data();
-      post.id = doc.id; 
-
-      if (post.user) {
-        const userDetails = await fetchUserDetails(post.user.uid);
-        post.user.displayName = userDetails.displayName;
-        post.user.profileImageUrl = userDetails.profileImageUrl;
-      }
-
-      fetchedPosts.push(post);
-    }
-
-    setPosts(fetchedPosts);
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-  }
-};
-
-
-
-const createPost = async (newPost) => {
+const fetchUserPosts = async () => {
   try {
     const currentUser = auth.currentUser;
 
-    const now = new Date();
-    const formattedDateTime = now.toLocaleString(); // Format both date and time
+    if (currentUser) {
+      const userPostsCollection = collection(db, 'CommunityForum');
+      const userPostsQuery = query(userPostsCollection, where('uid', '==', currentUser.uid));
+      const userPostsSnapshot = await getDocs(userPostsQuery);
 
-    const postWithUserInfo = {
-      ...newPost,
-      user: {
-        fullname: currentUser.displayName, // Update this line
-        email: currentUser.email,
-        uid: currentUser.uid,
-      },
-      sessionId: sessionId, // Add session ID
-      timestamp: formattedDateTime, // Use the formatted date and time
-    };
+      const fetchedUserPosts = userPostsSnapshot.docs.map((doc) => {
+        const post = doc.data();
+        post.id = doc.id;
+        return post;
+      });
 
-    // Save the post to Firestore
-    const postsCollection = collection(db, 'CommunityForum');
-    await addDoc(postsCollection, postWithUserInfo);
+      setPosts(fetchedUserPosts);
+    }
   } catch (error) {
-    console.error('Error adding post:', error);
-    alert(error.message);
+    console.error('Error fetching user posts:', error);
   }
 };
 
-
-
-const addPost = (newPost) => {
-  // Call createPost to add the post to Firestore
-  createPost(newPost);
-
-  // Update the local state with the new post
-  setPosts([...posts, newPost]);
-};
-
-
 useEffect(() => {
-  // Fetch posts from Firestore when the component mounts
-  fetchPosts();
+  fetchUserPosts(); // Fetch only the posts of the current user
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
 
@@ -169,19 +117,6 @@ const chunkArray = (array, chunkSize) => {
   
   const chunkedPosts = chunkArray(currentPosts, 2); // Chunk the filtered posts
 
-  const [lastClickedProductId, setLastClickedProductId] = useState(null);
-
-  const handleProductClick = (post) => {
-    try {
-      // Set the last clicked product ID
-      setLastClickedProductId(post.id);
-      console.log('Last Clicked', post);
-      // Fetch the detailed product information based on the product ID
-      // You may want to use this information to display the detailed view in BuyerMarketplacePost
-    } catch (error) {
-      console.error('Error handling product click:', error);
-    }
-  };
   
 
   return (
@@ -194,7 +129,7 @@ const chunkArray = (array, chunkSize) => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
-                  {t('Forum Activity')}
+                  {t('ext403')}
                 </p>
               </b>                                          
             </div>
@@ -231,15 +166,15 @@ const chunkArray = (array, chunkSize) => {
                             onClick={handleButtonClick} // Add this onClick handler
                           >
                             <FaEdit className="adminMarketplaceComponentButtonIcon" />
-                            <div className="adminMarketplaceComponentButtonText">{t('Edit')}</div>
+                            <div className="adminMarketplaceComponentButtonText">{t('ext404')}</div>
                           </button>
                           <button
-                              className="adminMarketplaceComponentButton"
-                              onClick={handleButtonClick2} // Show the confirmation dialog
-                            >
-                              <FaTrash className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('Delete')}</div>
-                            </button>
+                    className="adminMarketplaceComponentButton"
+                    onClick={() => deletePost(post.id)}
+                  >
+                    <FaTrash className="adminMarketplaceComponentButtonIcon" />
+                    <div className="adminMarketplaceComponentButtonText">{t('ext405')}</div>
+            </button>
                           </div>
                   </div>
                 </Link>
@@ -283,12 +218,12 @@ const chunkArray = (array, chunkSize) => {
       {showConfirmationDialog && (
   <ConfirmationDialog
     isOpen={showConfirmationDialog}
-    message={t('Are you sure you want to delete this post?')}
+    message={t('ext412')}
     onConfirm={() => setShowConfirmationDialog(false)} // Close the dialog
     onCancel={() => setShowConfirmationDialog(false)} // Close the dialog
     onOverlayClick={() => setShowConfirmationDialog(false)} // Close the dialog
-    confirmLabel={t('Confirm')}
-    cancelLabel={t('Cancel')}
+    confirmLabel={t('ext413')}
+    cancelLabel={t('ext414')}
   />
 )}
     </I18nextProvider>

@@ -300,7 +300,7 @@ const ShoppingCart = (props) => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="buyerCommunityForumComponentBlankLine">{t('text61')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('ext307')}</p>
               </b>
             </div>
           </div>
@@ -310,12 +310,12 @@ const ShoppingCart = (props) => {
               <table>
                 <thead>
                   <tr>
-                    <th>{t('Select')}</th>
-                    <th>{t('text62')}</th>
-                    <th>{t('text63')}</th>
-                    <th>{t('text64')}</th>
-                    <th>{t('text65')}</th>
-                    <th>{t('text66')}</th>
+                    <th>{t('ext308')}</th>
+                    <th>{t('ext309')}</th>
+                    <th>{t('ext310')}</th>
+                    <th>{t('ext311')}</th>
+                    <th>{t('ext312')}</th>
+                    <th>{t('ext313')}</th>
                   </tr>
                 </thead>
                 
@@ -359,17 +359,17 @@ const ShoppingCart = (props) => {
               ))}
             </tbody>
               </table>
-<div className="total">{t('text67')}{calculateTotal()}</div>
+<div className="total">{t('ext314')}{calculateTotal()}</div>
 <div className="buttonWrapper">
         <Link
           to={isCheckoutEnabled ? '/checkout' : '#'}  // This will remain unchanged
           onClick={handleCheckout}
           className={`ordercheckoutButton2 ${isCheckoutEnabled ? '' : 'disabled'}`}
         >
-          {t('text68')}
+          {t('ext315')}
         </Link>
         <Link to="/buyermarketplace" className="ordercheckoutButton2">
-          {t('text69')}
+          {t('ext316')}
         </Link>
       </div>
   </div>
@@ -378,14 +378,14 @@ const ShoppingCart = (props) => {
             <div className="modalBackdrop">
               <div className="modal1">
                 <div className="modalContent">
-                  <h3>{t('text70')}</h3>
+                  <h3>{t('ext317')}</h3>
                   <div className="buttonContainer">
                     <br></br>
                     <button className="confirmButton" onClick={handleModalConfirm}>
-                    {t('text71')}
+                    {t('ext318')}
                     </button>
                     <button className="cancelButton" onClick={handleModalCancel}>
-                    {t('text72')}
+                    {t('ext319')}
                     </button>
                   </div>
                 </div>
@@ -395,7 +395,7 @@ const ShoppingCart = (props) => {
 
 
       <div className="buyerMarketplaceComponentPostButtonNew">
-          <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('text73')}</div>
+          <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('ext320')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
           {products.map((product) => (
               <Link

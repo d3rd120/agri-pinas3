@@ -110,7 +110,7 @@ const AdminDashboard = () => {
             <div className="adminDashboardComponentMainText1">
               <b className="adminDashboardComponentMainText1Container">   
                 <p className="adminDashboardComponentBlankLine">&nbsp;</p>                      
-                <p className="adminDashboardComponentBlankLine">{t('Dashboard')}</p>
+                <p className="adminDashboardComponentBlankLine">{t('ext107')}</p>
               </b>
             </div>
           </div>
@@ -118,7 +118,7 @@ const AdminDashboard = () => {
           <div className="adminDashboardComponentMiddleSection">
             <div className="adminDashboardComponentOverview">
               <div className="adminDashboardComponentMainText2">
-              {t('Post Announcement')}
+              {t('ext108')}
               </div>
               <button
                 className="buyerCommunityForumComponentButton1"
@@ -126,19 +126,19 @@ const AdminDashboard = () => {
               >
                 <FaEdit className="buyerCommunityForumComponentButtonIcon1" />
                 <div className="buyerCommunityForumComponentButtonText1">
-                  {t('Post')}
+                  {t('ext109')}
                 </div>
           </button>     
 
             
            <div className="adminFarmerAccountManagementCard">
             <div className="adminFarmerAccountManagementSubTitle">
-              <FaClipboardList /> {t('Announcements')}
+              <FaClipboardList /> {t('ext110')}
             </div>
             <br></br>
 
             <div className="adminCommunityForumComponentShow">
-              {t('Text3')}
+              {t('ext111')}
 
               <select
                 className="adminCommunityForumComponentRowSelect"
@@ -154,7 +154,7 @@ const AdminDashboard = () => {
               <input
                   className="adminCommunityForumComponentRowSelect"
                   type="text"
-                  placeholder="Search Announcements"
+                  placeholder= {t('ext112')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -164,11 +164,11 @@ const AdminDashboard = () => {
             <table className="adminFarmerAccountManagementTable">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Content</th>
-              <th>Date</th>          
-              <th>Edit</th>
-              <th>Delete</th>                           
+              <th> {t('ext113')}</th>
+              <th> {t('ext114')}</th>
+              <th> {t('ext115')}</th>          
+              <th> {t('ext116')}</th>
+              <th> {t('ext117')}</th>                           
             </tr>
           </thead>
           <tbody>

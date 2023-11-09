@@ -66,11 +66,11 @@ const AdminNavigation = () => {
             onMouseEnter={toggleCommunityForumDropdown}
             onMouseLeave={toggleCommunityForumDropdown}
           >
-            <div className="adminPageNavigationLinks">{t('text133')} <FaAngleDown /></div>
+            <div className="adminPageNavigationLinks">{t('ext255')} <FaAngleDown /></div>
             <FaUsers className="adminPageNavigationLinksIcon" />
             {showCommunityForumDropdown && (
               <div className="horizontal-dropdown">
-                <NavLink to="/admincommunityforumarchived">{t('Archived')}</NavLink>               
+                <NavLink to="/admincommunityforumarchived">{t('ext256')}</NavLink>               
               </div>
             )}
           </NavLink>
@@ -82,7 +82,7 @@ const AdminNavigation = () => {
           to="/adminlogreport"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('text140')}</div>
+          <div className="adminPageNavigationLinks">{t('ext263')}</div>
           <FaBook className="adminPageNavigationLinksIcon" />
         </NavLink>  
 
@@ -93,7 +93,7 @@ const AdminNavigation = () => {
           onMouseEnter={toggleDropdown2}
           onMouseLeave={toggleDropdown2}
         >
-          <div className="adminPageNavigationLinks">{t('text134')}&nbsp;<FaAngleDown /></div>
+          <div className="adminPageNavigationLinks">{t('ext257')}&nbsp;<FaAngleDown /></div>
           <FaGlobe className="adminPageNavigationLinksIcon" />
           {showDropdown2 && (
             <div className="dropdown">
@@ -101,13 +101,13 @@ const AdminNavigation = () => {
                 to="/adminfarmerpendingtransactions"
                 activeClassName="active"
               >
-                {t('text135')}
+                {t('ext258')}
               </NavLink>
               <NavLink
                 to="/adminbuyerpendingtransactions"
                 activeClassName="active"
               >
-                {t('text136')}
+                {t('ext259')}
               </NavLink>
             </div>
           )}
@@ -117,7 +117,7 @@ const AdminNavigation = () => {
           to="/admindashboard"
           activeClassName="active"
         >
-          <div className="adminPageNavigationLinks">{t('Dashboard')}</div>
+          <div className="adminPageNavigationLinks">{t('ext252')}</div>
           <FaHome className="adminPageNavigationLinksIcon" />
         </NavLink>
 
@@ -128,11 +128,11 @@ const AdminNavigation = () => {
           onMouseEnter={toggleMarketplaceDropdown}
           onMouseLeave={toggleMarketplaceDropdown}
         >
-          <div className="adminPageNavigationLinks">{t('text132')} <FaAngleDown /></div>
+          <div className="adminPageNavigationLinks">{t('ext253')} <FaAngleDown /></div>
           <FaWallet className="adminPageNavigationLinksIcon" />
           {showMarketplaceDropdown && (
             <div className="horizontal-dropdown">             
-              <NavLink to="/adminmarketplacearchived">{t('Archived')}</NavLink>
+              <NavLink to="/adminmarketplacearchived">{t('ext254')}</NavLink>
              
             </div>
           )}
@@ -144,7 +144,7 @@ const AdminNavigation = () => {
           onMouseEnter={toggleDropdown5}
           onMouseLeave={toggleDropdown5}
         >
-          <div className="adminPageNavigationLinks">{t('text137')}&nbsp;<FaAngleDown /></div>
+          <div className="adminPageNavigationLinks">{t('ext260')}&nbsp;<FaAngleDown /></div>
           <FaStore className="adminPageNavigationLinksIcon" />
           {showDropdown5 && (
             <div className="dropdown">
@@ -152,31 +152,31 @@ const AdminNavigation = () => {
                 to="/adminaccountfarmer"
                 activeClassName="active"
               >
-                {t('text138')}
+                {t('ext261')}
               </NavLink>
               <NavLink
                 to="/adminaccountbuyer"
                 activeClassName="active"
               >
-                {t('text139')}
+                {t('ext262')}
               </NavLink>
             </div>
           )}
         </div>
       </div>
       <NavLink className="adminPageNavigationProfileParent" onClick={openLogoutConfirmation}>
-      {t('text141')}
+      {t('ext264')}
     </NavLink>
 
     </div>
               <ConfirmationDialog
             isOpen={isLogoutConfirmationOpen}
-            message="Are you sure you want to log out?"
+            message={t('ext265')}
             onConfirm={handleLogout}
             onCancel={closeLogoutConfirmation}
             onOverlayClick={closeLogoutConfirmation}
-            confirmLabel="Yes"
-            cancelLabel="No"
+            confirmLabel={t('ext266')}
+            cancelLabel={t('ext267')}
           />
     </I18nextProvider>
   );

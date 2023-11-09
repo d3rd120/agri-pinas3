@@ -113,12 +113,12 @@ useEffect(() => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
-                  {t('text51')}
+                  {t('ext272')}
                 </p>    
                 <br></br>           
                 <br></br> 
                 <p className="buyerCommunityForumComponentBlankLine" style={{ fontSize: '18px' }}>
-                  {t('Categories')}
+                  {t('ext273')}
                 </p>
               </b>
             </div>
@@ -141,7 +141,7 @@ useEffect(() => {
                     <div className="buyerCommunityForumComponentFrameContainer">
   
                       <div className="buyerCommunityForumComponentSubText1Wrapper">
-                        <b className="buyerCommunityForumComponentSubText1">{t('text52')}</b>
+                        <b className="buyerCommunityForumComponentSubText1">{t('ext274')}</b>
                       </div>                    
                     </div>                  
                   </div>
@@ -156,7 +156,7 @@ useEffect(() => {
                   <div className="buyerCommunityForumComponentFrameGroup">
                     <div className="buyerCommunityForumComponentFrameContainer">
                       <div className="buyerCommunityForumComponentSubText1Wrapper">
-                        <b className="buyerCommunityForumComponentSubText1"> {t('text53')}</b>
+                        <b className="buyerCommunityForumComponentSubText1"> {t('ext275')}</b>
                       </div>                   
                     </div>                  
                   </div>
@@ -171,7 +171,7 @@ useEffect(() => {
                     <div className="buyerCommunityForumComponentFrameContainer">
   
                       <div className="buyerCommunityForumComponentSubText1Wrapper">
-                        <b className="buyerCommunityForumComponentSubText1"> {t('text54')}</b>
+                        <b className="buyerCommunityForumComponentSubText1"> {t('ext276')}</b>
                       </div>                     
                     </div>                   
                   </div>
@@ -186,7 +186,7 @@ useEffect(() => {
                   <div className="buyerCommunityForumComponentFrameGroup">
                     <div className="buyerCommunityForumComponentFrameContainer">
                       <div className="buyerCommunityForumComponentSubText1Wrapper">
-                        <b className="buyerCommunityForumComponentSubText1"> {t('text55')}</b>
+                        <b className="buyerCommunityForumComponentSubText1"> {t('ext277')}</b>
                       </div>                    
                     </div>                                   
                   </div>
@@ -211,27 +211,27 @@ useEffect(() => {
                           <div className="buyerMarketplaceComponentCategoryWrapper">
                             <div className="buyerMarketplaceComponentCategoryContainer">
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>{t('text121')}</b>
+                                <b>{t('ext278')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.category}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>{t('text122')}</b>
+                                <b>{t('ext279')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.quantity}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('text123')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('ext280')}</b>
                                 <span>{product.price}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>Location: </b>
+                                <b>{t('ext281')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.location}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b>Unit: </b>
+                                <b>{t('ext282')}</b>
                                 <span className="buyerMarketplaceComponentCategory">{product.unit}</span>
                               </p>
                               <p className="buyerMarketplaceComponentBlankLine">
-                                <b className="buyerMarketplaceComponentCategory">{t('Ttext126')}</b>
+                                <b className="buyerMarketplaceComponentCategory">{t('ext283')}</b>
                                 <span>{product.description}</span>
                               </p>
                             </div>

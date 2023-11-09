@@ -202,7 +202,7 @@ const FarmerMarketplace = () => {
         <div className="buyerCommunityForumComponentFullPostTopSection">
           <div className="buyerCommunityForumComponentFullPostMainTextContainer">
             <b className="buyerCommunityForumComponentFullPostMainText1">              
-              <p className="buyerCommunityForumComponentFullPostBlankLine">{t('farmerCommunityText1')}</p>
+              <p className="buyerCommunityForumComponentFullPostBlankLine">{t('ext367')}</p>
             </b>
           </div>
         </div>
@@ -230,10 +230,10 @@ const FarmerMarketplace = () => {
                           {post.content}
                         </div>
                       </div>
-                      <b className="buyerCommunityForumComponentFullPostSmallCardsDescription2">  {likeCount} {t('text126')}</b>
+                      <b className="buyerCommunityForumComponentFullPostSmallCardsDescription2">  {likeCount} {t('ext368')}</b>
                       <button className="buyerCommunityForumComponentFullPostButton" onClick={handleLike}>
                       <FaThumbsUp className="buyerCommunityForumComponentFullPostButtonIcon" />
-                      <div className="buyerCommunityForumComponentFullPostButtonText"> {t('text127')}</div>
+                      <div className="buyerCommunityForumComponentFullPostButtonText"> {t('ext369')}</div>
                       <div className="buyerCommunityForumComponentFullPostButtonText"></div>
                     </button>
                     </div>
@@ -242,7 +242,7 @@ const FarmerMarketplace = () => {
                           onChange={(e) => setComment(e.target.value)}
                           className="buyerCommunityForumComponentFullPostCommentInput"
                           type="text"
-                          placeholder={t('Comment here')}
+                          placeholder={t('ext370')}
                           onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                               handleComment();
@@ -252,7 +252,7 @@ const FarmerMarketplace = () => {
                     <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                       <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                         <p className="buyerCommunityForumComponentFullPostBlankLine">
-                          <b>{t('text129')}</b>
+                          <b>{t('ext371')}</b>
                         </p>
                         {comments.map((comment, index) => (
                         <div key={index} className="buyerCommunityForumComponentFullPostComment">
@@ -268,7 +268,7 @@ const FarmerMarketplace = () => {
             </div>
           </div>
           <div className="buyerCommunityForumComponentFullPostNewCard">
-  <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('text130')}</div>
+  <div className="buyerCommunityForumComponentFullPostNewCardMainText">{t('ext372')}</div>
   <div className="buyerCommunityForumComponentFullPostNewCardText">
   {otherPosts.map((otherPost, index) => (
   <Link

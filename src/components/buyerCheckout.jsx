@@ -270,14 +270,14 @@ const ShoppingCart = () => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="buyerCommunityForumComponentBlankLine">{t('text74')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('ext321')}</p>
               </b>
             </div>
           </div>
 
           <div className="payment-details2">
             
-            <h2>{t('text75')}</h2>
+            <h2>{t('ext322')}</h2>
             <div>
               {fullname} | {contact}             
             </div>
@@ -296,10 +296,10 @@ const ShoppingCart = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>{t('text77')}</th>
-                    <th>{t('text78')}</th>
-                    <th>{t('text79')}</th>
-                    <th>{t('text80')}</th>
+                    <th>{t('ext323')}</th>
+                    <th>{t('ext324')}</th>
+                    <th>{t('ext325')}</th>
+                    <th>{t('ext326')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -325,53 +325,35 @@ const ShoppingCart = () => {
           </div>
      
         <div className="payment-details">
-            <h2>{t('Payment Option: ')}</h2>
+            <h2>{t('ext327')}</h2>
             <select onChange={(e) => setSelectedPaymentMethod(e.target.value)}>
-              <option value="">Select Payment</option>
-              <option value="Cash on Pickup">Cash on Pickup</option>
-              <option value="Sending proof of payment">Sending proof of payment</option>       
+              <option value="">{t('ext328')}</option>
+              <option value="Cash on Pickup">{t('ext329')}</option>
+              <option value="Sending proof of payment">{t('ext330')}</option>       
             </select>
           </div>
           <div className="payment-details"> {/* Apply the CSS class */}
-            <h2>{t('text81')}</h2>
+            <h2>{t('ext331')}</h2>
             
             {/* Display selected payment method */}
             {selectedPaymentMethod && (
               <div>
-                <strong>{t('text87')}: </strong> {selectedPaymentMethod}
+                <strong>{t('ext333')} </strong> {selectedPaymentMethod}
               </div>
             )}
 
             <div>
-              <strong>{t('text85')}</strong> ₱{calculateTotal()}
+              <strong>{t('ext332')}</strong> ₱{calculateTotal()}
             </div>
             
             <div className="buttonWrapper">
               <button className="ordercheckoutButton2" onClick={placeOrder}>
-                {t('text86')}
+                {t('ext334')}
               </button>
             </div>
           </div>      
              
-
-          {showModal && (
-            <div className="modalBackdrop">
-              <div className="modal1">
-                <div className="modalContent">
-                  <h3>Do you want to remove this item?</h3>
-                  <div className="buttonContainer">
-                    <br></br>
-                    <button className="confirmButton" onClick={handleModalConfirm}>
-                      Yes
-                    </button>
-                    <button className="cancelButton" onClick={handleModalCancel}>
-                      No
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+       
            {isPopupVisible && (
           <Popup
             message={popupMessage}

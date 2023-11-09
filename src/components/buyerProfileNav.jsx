@@ -194,7 +194,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
           to="/buyerprofile"
           activeClassName="active"
         >
-          <div className="buyerNavigationLinksProfile">{t('farmerProfileText3')}</div>
+          <div className="buyerNavigationLinksProfile">{t('ext376')}</div>
         </NavLink>
 
         <NavLink
@@ -202,35 +202,35 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
           to="/buyeraddress"
           activeClassName="active"
         >
-          <div className="buyerNavigationLinksAddress">{t('Address')}</div>
+          <div className="buyerNavigationLinksAddress">{t('ext377')}</div>
         </NavLink>
         <NavLink
           className="buyerNavigationLink5"         
           activeClassName="active"
           to = "/forumactivity"
         >
-          <div className="buyerNavigationLinksAddress5">{t('Forum Activity')}</div>    
+          <div className="buyerNavigationLinksAddress5">{t('ext378')}</div>    
         </NavLink>
         
         <a
           className="buyerNavigationLink6"         
           activeClassName="active"
         >
-          <div className="buyerNavigationLinksAddress6"  onClick={handleLanguageLinkClick}>{t('Language')}</div>          
+          <div className="buyerNavigationLinksAddress6"  onClick={handleLanguageLinkClick}>{t('ext379')}</div>          
         </a>
 
         <NavLink
           className="buyerNavigationLogout"        
           onClick={openLogoutConfirmation}
         >
-          <div className="buyerNavigationLinksLogout">{t('farmerProfileText5')}</div>
+          <div className="buyerNavigationLinksLogout">{t('ext383')}</div>
           <FaSignOutAlt className="buyerNavigationLinksIconLogout" />
         </NavLink>
         
 
         <div className="buyerNavigationLink3">        
           <div className="buyerNavigationLinks1">{fullname}</div>
-          <div className="buyerNavigationLinks2" onClick={handleEditProfileClick}>{t('farmerProfileText1')}</div>
+          <div className="buyerNavigationLinks2" onClick={handleEditProfileClick}>{t('ext374')}</div>
           <FaEdit className="buyerNavigationLinksIcon1" onClick={handleEditProfileClick} />
         </div>
 
@@ -239,7 +239,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
           to="#"
           activeClassName="active"
         >
-          <div className="buyerNavigationLinks">{t('farmerProfileText2')}</div>
+          <div className="buyerNavigationLinks">{t('ext375')}</div>
           <FaUser className="buyerNavigationLinksIcon" />
         </NavLink>
         
@@ -247,7 +247,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
 
       <Modal open={open} onClose={handleClose}>
         <div className="editModal">
-          <h2>{t('farmerProfileText6')}</h2>
+          <h2>{t('ext387')}</h2>
           <br />
           <div className="buyerNavEditProductComponentInputParent">
               <div className="buyerNavEditProductComponentTitle1">
@@ -258,7 +258,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
                     alt="Uploaded Profile"
                   />
                 )}
-                {t('farmerProfileText7')}
+                {t('ext388')}
               </div>
               <input
                 type="file"
@@ -270,7 +270,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
             </div>
 
           <div className="buyerNavEditProductComponentInputParent">
-            <div className="buyerNavEditProductComponentTitle1">{t('farmerProfileText8')}</div>
+            <div className="buyerNavEditProductComponentTitle1">{t('ext389')}</div>
             <input
               className="buyerNavEditProductComponentInput2"
               type="text"
@@ -280,7 +280,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
             />
           </div>
           <div className="buyerNavEditProductComponentInputParent">
-            <div className="buyerNavEditProductComponentTitle1">{t('farmerProfileText10')}</div>
+            <div className="buyerNavEditProductComponentTitle1">{t('ext390')}</div>
             <input
               className="buyerNavEditProductComponentInput2"
               type="text"
@@ -290,7 +290,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
             />
           </div>
           <div className="buyerNavEditProductComponentInputParent">
-            <div className="buyerNavEditProductComponentTitle1">{t('farmerProfileText12')}</div>
+            <div className="buyerNavEditProductComponentTitle1">{t('ext391')}</div>
             <input
               className="buyerNavEditProductComponentInput2"
               type="text"
@@ -300,7 +300,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
             />
           </div>
           <div className="buyerNavEditProductComponentInputParent dateOfBirthFieldParent">
-            <div className="buyerNavEditProductComponentTitle1">{t('farmerProfileText14')}</div>
+            <div className="buyerNavEditProductComponentTitle1">{t('ext392')}</div>
             <DatePicker
               className="buyerNavEditProductComponentInput2 dateOfBirthField"
               selected={birthdate}
@@ -312,10 +312,10 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
 
           <div className="buttonContainer1">
             <Button variant="contained" color="primary" onClick={handleClose} className="cancelButton">
-            {t('farmerPageButton4')}
+            {t('ext393')}
             </Button>
             <Button variant="contained" color="secondary" onClick={handleSaveUserData} className="saveButton">
-            {t('farmerPageButton3')}
+            {t('ext394')}
             </Button>
           </div>
         </div>
@@ -323,21 +323,21 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
     </div>
     <ConfirmationDialog
         isOpen={showConfirmationDialog}
-        message="Change Language"
+        message={t('ext380')}
         onConfirm={() => changeLanguage('en')}
         onCancel={() => changeLanguage('fil')}
         onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-        confirmLabel="English"
-        cancelLabel="Filipino"
+        confirmLabel={t('ext381')}
+        cancelLabel={t('ext382')}
       />
         <ConfirmationDialog
             isOpen={isLogoutConfirmationOpen}
-            message="Are you sure you want to log out?"
+            message={t('ext384')}
             onConfirm={handleLogout}
             onCancel={closeLogoutConfirmation}
             onOverlayClick={closeLogoutConfirmation}
-            confirmLabel="Yes"
-            cancelLabel="No"
+            confirmLabel={t('ext385')}
+            cancelLabel={t('ext386')}
           />
     </I18nextProvider>
 

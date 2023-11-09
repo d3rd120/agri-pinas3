@@ -30,17 +30,16 @@ const FarmerMarketplaceComponenteDeleteProduct = ({ closePopup, selectedAnnounce
 
   return (
     <I18nextProvider i18n={i18n}> 
-      <div className="adminMarketplaceComponenteDeleteProduct"onClick={handleDelete}>
-        <div className="adminMarketplaceComponentDeleteProductMainText">{t('text173')}</div>
+      <div className="adminMarketplaceComponenteDeleteProduct"onClick={handleDelete}>      
         <div className="adminMarketplaceComponentDeleteProductSubText">
-          {t('text174')}
+          {t('ext128')}
         </div>
         <div className="adminMarketplaceComponentDeleteProductButtonContainer">
           <button className="adminMarketplaceComponentDeleteProductButton">
-            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('text175')}</div>
+            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('ext129')}</div>
           </button>
           <button className="adminMarketplaceComponentDeleteProductButton" onClick={closePopup}>
-            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('text176')}</div>
+            <div className="adminMarketplaceComponentDeleteProductButtonText">{t('ext130')}</div>
           </button>
         </div>
       </div>

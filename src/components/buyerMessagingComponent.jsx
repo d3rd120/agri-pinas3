@@ -13,10 +13,13 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, auth, storage } from "../components/firebase";
 import BuyerNavigation from "../components/buyerNavigation";
 import BuyerTopNav from "../components/buyerTopNav";
-import ProfileVector1 from "../img/profileVector1.png";
 import ProfileVector2 from "../img/profileVector2.png";
 import { FaPaperclip } from "react-icons/fa";
 import "../css/BuyerPage/buyerMessagingComponent.css";
+import { I18nextProvider } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
+
 
 const FarmerTransactions = () => {
   const [selectedContact, setSelectedContact] = useState(null);
@@ -27,6 +30,7 @@ const FarmerTransactions = () => {
   const [userdata, setUserData] = useState([]);
   const [room, setRoom] = useState("");
   const [image, setImage] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     scrollToBottom();
@@ -170,6 +174,7 @@ const FarmerTransactions = () => {
  
   
   return (
+    <I18nextProvider i18n={i18n}>
     <div className="farmertransactions">
       <BuyerNavigation />
       <div className="main-panel">
@@ -177,7 +182,7 @@ const FarmerTransactions = () => {
         <br />
         <div className="user-messages">
           <div className="contacts">
-            <b className="messages">Messages</b>
+            <b className="messages">{t('ext373')}</b>
             <div className="conversation">
               {userdata.map((contact) => (
                 <div
@@ -298,6 +303,7 @@ const FarmerTransactions = () => {
         </div>
       </div>
     </div>
+    </I18nextProvider>
   );
 };
 

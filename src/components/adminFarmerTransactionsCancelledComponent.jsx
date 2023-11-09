@@ -77,7 +77,7 @@ const AdminFarmerTransactionsCancelledComponent = () => {
           <div className="adminFarmerTransactionsCancelledComponentMainText">
             <b className="adminFarmerTransactionsCancelledComponentMainTextWrapper">
               <p className="adminFarmerTransactionsCancelledComponentBlankLine">&nbsp;</p>
-              <p className="adminFarmerTransactionsCancelledComponentBlankLine">{t('text183')}</p>
+              <p className="adminFarmerTransactionsCancelledComponentBlankLine">{t('ext180')}</p>
             </b>
           </div>
         </div>
@@ -85,11 +85,11 @@ const AdminFarmerTransactionsCancelledComponent = () => {
 
         <div className="adminFarmerTransactionsCancelledComponentCard">
           <div className="adminFarmerTransactionsCancelledComponentSubTitle">
-            <FaFolderOpen /> {t('text187')}
+            <FaFolderOpen /> {t('ext181')}
           </div>
           <br></br>
           <div className="adminFarmerTransactionsCancelledComponentShow">
-          {t('text188')}
+          {t('ext182')}
             <select className="adminFarmerTransactionsCancelledComponentRowSelect" onchange="updateRows(this.value)">
               <option value="5">5</option>
               <option value="10">10</option>
@@ -99,7 +99,7 @@ const AdminFarmerTransactionsCancelledComponent = () => {
             <input 
             className="adminFarmerTransactionsCancelledComponentRowSelect"
             type = "text"
-            placeholder = {t('text189')}>                    
+            placeholder = {t('ext183')}>                    
             </input>
           </div>
           <br></br>
@@ -137,31 +137,31 @@ const AdminFarmerTransactionsCancelledComponent = () => {
                                       </div>
                                       <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('text93')}</b> {item.dateBought}
+                                          <b>{t('ext184')}</b> {item.dateBought}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('text94')}</b> {item.fullname}
+                                          <b>{t('ext185')}</b> {item.fullname}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('text95')}</b> {item.category}
+                                          <b>{t('ext186')}</b> {item.category}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('text96')}</b> {item.unit}
+                                          <b>{t('ext187')}</b> {item.unit}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('text97')}</b> {item.boughtQuantity}
+                                          <b>{t('ext188')}</b> {item.boughtQuantity}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('text98')}</b> {item.price}
+                                          <b>{t('ext189')}</b> {item.price}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('Status: ')}</b> {item.status}
+                                          <b>{t('ext190')}</b> {item.status}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('Location: ')}</b> {item.location}
+                                          <b>{t('ext191')}</b> {item.location}
                                         </div>
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
-                                          <b>{t('Payment Method : ')}</b> {item.paymentMethod}
+                                          <b>{t('ext192')}</b> {item.paymentMethod}
                                         </div>                                       
                                       </div>
                                     </div>
@@ -169,7 +169,7 @@ const AdminFarmerTransactionsCancelledComponent = () => {
                                 ))
                               ) : (
                                 <p key={`noPendingItems-${cartItemIndex}`}>
-                                  No cancelled items in this group
+                                  {t('ext195')}
                                 </p>
                               )}
                             </div>
@@ -177,7 +177,7 @@ const AdminFarmerTransactionsCancelledComponent = () => {
                         </div>
                       ))
                     ) : (
-                      <p>No Cancelled items</p>
+                      <p>{t('ext196')}</p>
                     )}
               
                

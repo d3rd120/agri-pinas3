@@ -274,7 +274,7 @@ const BuyerMarketplace = ({ postId }) => {
           <div className="buyerCommunityForumComponentTopSection">
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
-                <p className="buyerCommunityForumComponentBlankLine">{t('text100')}</p>
+                <p className="buyerCommunityForumComponentBlankLine">{t('ext284')}</p>
               </b>
             </div>
           </div>
@@ -298,7 +298,7 @@ const BuyerMarketplace = ({ postId }) => {
                         <div className="buyerMarketplaceComponentPostSmallCardsDetails">
 
                           <b className="buyerMarketplaceComponentPostSmallCardsProductName">{selectedProduct?.cropName}</b>
-                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('text101')} {selectedProduct?.fullname}</b>
+                          <b className="buyerMarketplaceComponentPostSmallCardsBuyerName">{t('ext285')} {selectedProduct?.fullname}</b>
 
                         </div>
                         
@@ -306,23 +306,23 @@ const BuyerMarketplace = ({ postId }) => {
                           <div className="buyerMarketplaceComponentPostSmallCardsFullDescription">
                             <p className="buyerMarketplaceComponentPostBlankLine">
 
-                              <b>{t('text102')} </b>
+                              <b>{t('ext286')} </b>
                               <span className="buyerMarketplaceComponentPostBlankLine">{selectedProduct?.price}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('text103')} </b>
+                              <b>{t('ext287')} </b>
                               <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.category}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('text104')}</b>
+                              <b>{t('ext288')}</b>
                               <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.quantity}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('text105')} </b>
+                              <b>{t('ext289')} </b>
                               <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.unit}</span>
                             </p>
                             <p className="buyerMarketplaceComponentPostBlankLine">
-                              <b>{t('text106')} </b>
+                              <b>{t('ext290')} </b>
                               <span className="buyerMarketplaceComponentPostCategory">{selectedProduct?.location}</span>
 
                             </p>
@@ -364,7 +364,7 @@ const BuyerMarketplace = ({ postId }) => {
                             )} */}
                             <p className="buyerMarketplaceComponentPostBlankLine">
 
-                              <b className="buyerMarketplaceComponentPostCategory">{t('text107')} </b>
+                              <b className="buyerMarketplaceComponentPostCategory">{t('ext291')} </b>
                               <span>{selectedProduct?.description}</span>
 
                             </p>
@@ -375,17 +375,17 @@ const BuyerMarketplace = ({ postId }) => {
         <div className="buyerMarketplaceComponentPostButtonRow">
         <Link className="buyerMarketplaceComponentPostButton outlinedButton" to='/messaging' style={{ textDecoration: 'none' }}>
           <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
-          <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
+          <div className="buyerMarketplaceComponentPostButtonText">{t('ext292')}</div>
         </Link>    
           <Link onClick={() => handleAddToCart(selectedProduct)}>
           <button className="buyerMarketplaceComponentPostButton outlinedButton">
             <FaCartArrowDown className="buyerMarketplaceComponentPostButtonIcon" />
-            <div className="buyerMarketplaceComponentPostButtonText">{t('text109')}</div>
+            <div className="buyerMarketplaceComponentPostButtonText">{t('ext293')}</div>
           </button>
         </Link>
             <Link to="/checkout"onClick={() => buyNow(selectedProduct)}> 
             <button className="buyerMarketplaceComponentPostButton1">
-              <div className="buyerMarketplaceComponentPostButtonText1">{t('text110')}</div>
+              <div className="buyerMarketplaceComponentPostButtonText1">{t('ext294')}</div>
             </button>
             </Link>
                           </div>
@@ -401,7 +401,7 @@ const BuyerMarketplace = ({ postId }) => {
 
 
         <div className="buyerMarketplaceComponentPostButtonNew">
-          <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('Ttext111')}</div>
+          <div className="buyerMarketplaceComponentPostButtonNewTitle">{t('ext295')}</div>
           <div className="buyerMarketplaceComponentPostButtonNewCourses">
           {relatedProducts.map((relatedProduct) => (
             <Link key={relatedProduct.productId} 

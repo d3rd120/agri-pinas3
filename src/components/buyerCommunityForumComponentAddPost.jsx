@@ -93,26 +93,26 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
     <I18nextProvider i18n={i18n}>
       <div className="buyerCommunityForumAddPostComponent">
         <div className="buyerCommunityForumAddPostComponentMainText">
-          {t('text113')}
+          {t('ext360')}
         </div>
         <div className="buyerCommunityForumAddPostComponentFrameParent">
           <div className="buyerCommunityForumAddPostComponentFrameGroup">
             <div className="buyerCommunityForumAddPostComponentInputParent">
               <div className="buyerCommunityForumAddPostComponentTitle">
-                {t('text114')}
+                {t('ext361')}
               </div>
               <input
                 className="buyerCommunityForumAddPostComponentInput1"
                 type="text"
                 name="title"
-                placeholder={t('text115')}
+                placeholder={t('ext362')}
                 onChange={handleInputChange}
                 value={postDetails.title}
               />
             </div>
             <div className="buyerCommunityForumAddPostComponentInputParent">
               <div className="buyerCommunityForumAddPostComponentTitle">
-                {t('text116')}
+                {t('ext363')}
               </div>
               <input
                 className="buyerCommunityForumAddPostComponentInput3"
@@ -123,18 +123,18 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
               />
             </div>
             <div className="buyerCommunityForumAddPostComponentTitle">
-              {t('text117')}
+              {t('ext364')}
             </div>
             <textarea
               className="buyerCommunityForumAddPostComponentInput4"
               name="content"
-              placeholder={t('text118')}
+              placeholder={t('ext365')}
               onChange={handleInputChange}
               value={postDetails.content}
             />
             <button className="buyerCommunityForumAddPostComponentButton" onClick={handlePost}>
               <div className="buyerCommunityForumAddPostComponentButtonText">
-                {t('text119')}
+                {t('ext366')}
               </div>
             </button>
             <div className="buyerCommunityForumAddPostComponentFormChild" />

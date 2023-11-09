@@ -196,7 +196,7 @@ const chunkArray = (array, chunkSize) => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
-                  {t('text111')}
+                  {t('ext357')}
                 </p>
               </b>                                          
             </div>
@@ -208,7 +208,7 @@ const chunkArray = (array, chunkSize) => {
           >
             <FaEdit className="buyerCommunityForumComponentButtonIcon1" />
             <div className="buyerCommunityForumComponentButtonText1">
-              {t('text112')}
+              {t('ext358')}
             </div>
           </button>
 
@@ -234,7 +234,7 @@ const chunkArray = (array, chunkSize) => {
 
 <input
   type="text"
-  placeholder="Search"
+  placeholder={t('ext359')}
   value={searchQuery}
   onChange={(e) => setSearchQuery(e.target.value)}
   style={{ width: '250px' }}

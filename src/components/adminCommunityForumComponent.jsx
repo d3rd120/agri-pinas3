@@ -207,16 +207,16 @@ const handleOverlayClick = () => {
             <div className="adminCommunityForumComponentMainText">
               <b className="adminCommunityForumComponentMainTextWrapper">
                 <p className="adminCommunityForumComponentBlankLine">&nbsp;</p>
-                <p className="adminCommunityForumComponentBlankLine">{t('text179')}</p>
+                <p className="adminCommunityForumComponentBlankLine">{t('ext159')}</p>
               </b>
             </div>
           </div>
 
           <div className="adminCommunityForumComponentCard">
-            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('Archiving of Posts in Community Forum')}</div>
+            <div className="adminCommunityForumComponentSubTitle"><FaComments /> {t('ext160')}</div>
             <br />
             <div className="adminCommunityForumComponentShow">
-              {t('text181')}
+              {t('ext161')}
 
               <select className="adminCommunityForumComponentRowSelect" 
                       value={displayCount}
@@ -228,7 +228,7 @@ const handleOverlayClick = () => {
               <input
                 className="adminCommunityForumComponentRowSelect"
                 type="text"
-                placeholder={t('text182')}
+                placeholder={t('ext162')}
                 value={searchQuery} // Bind the input value to the searchQuery state
                 onChange={(e) => setSearchQuery(e.target.value)} // Update the searchQuery state when the input changes
               />
@@ -266,7 +266,7 @@ const handleOverlayClick = () => {
                         <div className="buyerCommunityForumComponentFullPostSmallCardsDescriptionWrapper">
                           <div className="buyerCommunityForumComponentFullPostSmallCardsFullDescription">
                             <p className="buyerCommunityForumComponentFullPostBlankLine">
-                              <b>{t('text129')}</b>
+                              <b>{t('ext163')}</b>
                             </p>
                             {post.comments.map((comment, commentIndex) => (
                               <div key={commentIndex} className="buyerCommunityForumComponentFullPostComment">
@@ -301,7 +301,7 @@ const handleOverlayClick = () => {
                           <div className="adminMarketplaceComponentDetails">
                             <button className="adminMarketplaceComponentButton" onClick={() => handleArchivePost(post.id)}>
                               <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                              <div className="adminMarketplaceComponentButtonText">{t('Archive')}</div>
+                              <div className="adminMarketplaceComponentButtonText">{t('ext164')}</div>
                             </button>
                             {/* <button className="adminMarketplaceComponentButton" onClick={() => handleDeletePost(post.id)}>
                               <FaTrash className="adminMarketplaceComponentButtonIcon" />
@@ -338,12 +338,12 @@ const handleOverlayClick = () => {
       {showArchiveConfirmation && (
   <ConfirmationDialog
     isOpen={showArchiveConfirmation}
-    message="Are you sure you want to archive this post?"
+    message={t('ext165')}
     onConfirm={handleConfirmArchive}
     onCancel={handleCancelArchive}
     onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-    confirmLabel={t('Confirm')}
-    cancelLabel={t('Cancel')}
+    confirmLabel={t('ext166')}
+    cancelLabel={t('ext167')}
   />
 )}
 

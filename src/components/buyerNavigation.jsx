@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaUsers, FaGlobe, FaHome, FaWallet, FaStore, FaShoppingBag, FaCartPlus, FaEnvelope, FaUserCircle, FaBell } from 'react-icons/fa';
+import { FaUsers, FaWallet,  FaShoppingBag, FaCartPlus,} from 'react-icons/fa';
 import { NavLink, Link } from 'react-router-dom';
 import '../css/BuyerPage/buyerPageNavigation.css';
 import { I18nextProvider } from 'react-i18next';
@@ -25,7 +25,7 @@ const BuyerNavigation = () => {
             to="/buyertoreceive"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('text49')}</div>
+            <div className="buyerPageNavigationLinks">{t('ext270')}</div>
             <FaWallet className="buyerPageNavigationLinksIcon" />
           </NavLink>
   
@@ -34,7 +34,7 @@ const BuyerNavigation = () => {
             to="/buyercommunityforum"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('text50')}</div>
+            <div className="buyerPageNavigationLinks">{t('ext271')}</div>
             <FaUsers className="buyerPageNavigationLinksIcon" />
           </NavLink>
   
@@ -43,7 +43,7 @@ const BuyerNavigation = () => {
             to="/buyermarketplace"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('text47')}</div>
+            <div className="buyerPageNavigationLinks">{t('ext268')}</div>
             <FaShoppingBag className="buyerPageNavigationLinksIcon" />
           </NavLink>
   
@@ -52,7 +52,7 @@ const BuyerNavigation = () => {
             to="/shoppingcart"
             activeClassName="active"
           >
-            <div className="buyerPageNavigationLinks">{t('text48')}</div>
+            <div className="buyerPageNavigationLinks">{t('ext269')}</div>
             <FaCartPlus className="buyerPageNavigationLinksIcon" />
           </NavLink>
         </div>

@@ -6,6 +6,7 @@ import Logo from '../img/agriPinasLogo.png';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import ConfirmationDialog from './confirmationDialog'; // Make sure to provide the correct import path.
 
 
 const AdminNavigation = () => {
@@ -14,6 +15,8 @@ const AdminNavigation = () => {
   const [showDropdown5, setShowDropdown5] = useState(false);
   const [showMarketplaceDropdown, setShowMarketplaceDropdown] = useState(false); // Add state for the marketplace dropdown
   const [showCommunityForumDropdown, setShowCommunityForumDropdown] = useState(false);
+  const [isLogoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
+
 
 
   const toggleDropdown2 = () => {
@@ -31,6 +34,19 @@ const AdminNavigation = () => {
   const toggleCommunityForumDropdown = () => {
     setShowCommunityForumDropdown(!showCommunityForumDropdown);
   };
+
+  const openLogoutConfirmation = () => {
+    setLogoutConfirmationOpen(true);
+  };
+  
+  const closeLogoutConfirmation = () => {
+    setLogoutConfirmationOpen(false);
+  };
+  
+  const handleLogout = () => {
+    window.location.href = '/login'; 
+  };
+  
 
 
   return (
@@ -148,10 +164,20 @@ const AdminNavigation = () => {
           )}
         </div>
       </div>
-      <NavLink className="adminPageNavigationProfileParent" to = '/login'>       
-      {t('text141')}          
-      </NavLink>
+      <NavLink className="adminPageNavigationProfileParent" onClick={openLogoutConfirmation}>
+      {t('text141')}
+    </NavLink>
+
     </div>
+              <ConfirmationDialog
+            isOpen={isLogoutConfirmationOpen}
+            message="Are you sure you want to log out?"
+            onConfirm={handleLogout}
+            onCancel={closeLogoutConfirmation}
+            onOverlayClick={closeLogoutConfirmation}
+            confirmLabel="Yes"
+            cancelLabel="No"
+          />
     </I18nextProvider>
   );
 };

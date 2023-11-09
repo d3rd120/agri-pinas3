@@ -236,6 +236,7 @@
   .title {
     display: flex;
     justify-content: flex-start;
+    margin-bottom: 1rem;
   }
   .contacts {
     align-self: stretch;
@@ -332,11 +333,10 @@
   .type-a-message {
     position: absolute;
     top: 0.5rem;
-    left: 3.13rem;
+    left: 0.5rem;
     line-height: 150%;
     font-weight: 300;
-    opacity: 0.4;
-    width: 90%;
+    width: 97.5%;
     border-radius: 50px;
   } 
  
@@ -344,7 +344,6 @@
   .compose-new-btn {
     flex: 1;
     position: relative;
-
     background-color: #ebeaea;
     height: 3.31rem;
   }
@@ -385,6 +384,11 @@
     gap: 2.5rem;
     min-height: false;
   }
+  
+  .user{
+    color: black;
+    font-weight: bold;
+  }
   .farmertransactions,
   .main-panel {
     display: flex;
@@ -399,6 +403,10 @@
     font-size: 2.5rem;
     color: #557153;
     font-family: Poppins;
+  }
+  .file-input{
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;  
   }
   .farmertransactions {
     position: relative;

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate  } from 'react-router-dom';
 import i18n from '../i18n';
 import { db, auth } from './firebase';
-import { collection, getDocs, setDoc, getDoc, doc, updateDoc, deleteDoc} from 'firebase/firestore';
+import { collection, getDocs, setDoc, getDoc, doc, updateDoc, deleteDoc, query, where, addDoc} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
 import Popup from './validationPopup';
@@ -38,7 +38,7 @@ const BuyerMarketplace = ({ postId }) => {
   const [popupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [sessionId, setSessionId] = useState(null);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     setSessionId(uuidv4());
@@ -78,7 +78,7 @@ const BuyerMarketplace = ({ postId }) => {
         const newItem = {
           userId: user.uid,
           productId: product.productId,
-          boughtQuantity: 0, // Set quantity to 1
+          boughtQuantity: 1, // Set quantity to 1
           dateBought: new Date().toISOString().split('T')[0],
           isChecked: false,
           buid: user.uid,
@@ -91,7 +91,7 @@ const BuyerMarketplace = ({ postId }) => {
           price: product.price,
           totalAmount: product.price,
           totalCost: product.price,
-          uid: user.uid,
+          uid: product.uid,
           unit: product.unit,
           quantity: 0,
         };
@@ -142,7 +142,7 @@ const BuyerMarketplace = ({ postId }) => {
         price: product.price,
         totalAmount: product.price,
         totalCost: product.price,
-        uid: user.uid,
+        uid: product.uid,
         unit: product.unit,
         quantity: 1,
       };
@@ -255,26 +255,13 @@ const BuyerMarketplace = ({ postId }) => {
     return <div>Loading...</div>;
   }
 
-  const handleChatButtonClick = () => {
-    // Generate a unique room ID based on the selected contact/user details
-    const room = generateUniqueRoomID(selectedProduct);
+
   
-    // Navigate to the messaging component with the room ID
-    navigate(`/messaging/${room}?contactId=${selectedProduct.uid}&contactName=${selectedProduct.fullname}`);
-  console.log('room', room);
-  };
+
   
-  // Function to generate a unique room ID based on user details
-  const generateUniqueRoomID = (contact) => {
-    // Assuming the room ID is a combination of user UIDs
-    const otherUserUID = contact.uid;
-    const roomID =
-      otherUserUID < auth.currentUser.uid
-        ? `${otherUserUID}_${auth.currentUser.uid}`
-        : `${auth.currentUser.uid}_${otherUserUID}`;
   
-    return roomID;
-  };
+  
+  
   
 
   return (
@@ -386,7 +373,7 @@ const BuyerMarketplace = ({ postId }) => {
                       
     <div className="buyerMarketplaceComponentPostButtonContainer">
         <div className="buyerMarketplaceComponentPostButtonRow">
-        <Link className="buyerMarketplaceComponentPostButton outlinedButton" to="/messaging"  onClick={handleChatButtonClick} style={{ textDecoration: 'none' }}>
+        <Link className="buyerMarketplaceComponentPostButton outlinedButton" to='/messaging' style={{ textDecoration: 'none' }}>
           <FaCommentDots className="buyerMarketplaceComponentPostButtonIcon" />
           <div className="buyerMarketplaceComponentPostButtonText">{t('text108')}</div>
         </Link>    

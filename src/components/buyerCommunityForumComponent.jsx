@@ -9,7 +9,7 @@ import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FaEdit, FaTimes } from 'react-icons/fa';
 
 
@@ -35,31 +35,12 @@ const filteredPosts = posts.filter((post) => {
 
 
 
-
 const handleButtonClick = () => {
   setShowPopup(true);
 };
 
 const closePopup = () => {
   setShowPopup(false);
-};
-
-const fetchUserDetails = async (uid) => {
-  try {
-    const userDocRef = doc(db, 'Users', uid);
-    const userDocSnapshot = await getDoc(userDocRef);
-    const userData = userDocSnapshot.data();
-
-    if (userData) {
-      const { fullname, profileImageUrl } = userData;
-      return { displayName: fullname, profileImageUrl };
-    } else {
-      return { fullname: 'Anonymous', profileImageUrl: '' };
-    }
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    return { fullname: 'Anonymous', profileImageUrl: '' };
-  }
 };
 
 
@@ -69,18 +50,21 @@ const fetchPosts = async () => {
     const snapshot = await getDocs(postsCollection);
     const fetchedPosts = [];
 
-    for (const doc of snapshot.docs) {
-      const post = doc.data();
-      post.id = doc.id; 
+    for (const docSnap of snapshot.docs) {
+      const post = docSnap.data();
+      post.id = docSnap.id;
 
-      if (post.user) {
-        const userDetails = await fetchUserDetails(post.user.uid);
-        post.user.displayName = userDetails.displayName;
-        post.user.profileImageUrl = userDetails.profileImageUrl;
+      // Fetch user details for each post
+      const userSnapshot = await getDoc(doc(db, 'Users', post.uid));
+      const userData = userSnapshot.data();
+
+      if (userData) {
+        post.profileImageUrl = userData.profileImageUrl;
       }
-
       fetchedPosts.push(post);
     }
+
+    console.log('Fetched Posts:', fetchedPosts);
 
     setPosts(fetchedPosts);
   } catch (error) {
@@ -89,34 +73,57 @@ const fetchPosts = async () => {
 };
 
 
-
 const createPost = async (newPost) => {
   try {
     const currentUser = auth.currentUser;
 
-    const now = new Date();
-    const formattedDateTime = now.toLocaleString(); // Format both date and time
+    
+    if (!currentUser) {
+      console.error('User is undefined.');
+    
+      return;
+    }
 
-    const postWithUserInfo = {
-      ...newPost,
-      user: {
-        fullname: currentUser.displayName, // Update this line
-        email: currentUser.email,
-        uid: currentUser.uid,
-      },
-      sessionId: sessionId, // Add session ID
-      timestamp: formattedDateTime, // Use the formatted date and time
-    };
+   
+    const userSnapshot = await getDoc(doc(db, 'Users', currentUser.uid));
+    const userData = userSnapshot.data();
 
-    // Save the post to Firestore
-    const postsCollection = collection(db, 'CommunityForum');
-    await addDoc(postsCollection, postWithUserInfo);
+    if (userData) {
+     
+      const { fullname } = userData;
+
+      if (fullname) {
+    
+        const now = new Date();
+        const formattedDateTime = now.toLocaleString();
+
+        const postWithUserInfo = {
+          ...newPost,
+          
+            fullname: fullname,
+            uid: currentUser.uid,
+          sessionId: sessionId, 
+          timestamp: formattedDateTime, 
+          
+        };
+
+     
+        const postsCollection = collection(db, 'CommunityForum');
+        await addDoc(postsCollection, postWithUserInfo);
+        console.log('postWithUserInfo',postWithUserInfo)
+      } else {
+        console.error('User fullname is undefined.');
+     
+      }
+    } else {
+      console.error('User data not available.');
+      // You can set a default value or return, depending on your use case
+    }
   } catch (error) {
     console.error('Error adding post:', error);
     alert(error.message);
   }
 };
-
 
 
 const addPost = (newPost) => {
@@ -238,55 +245,55 @@ const chunkArray = (array, chunkSize) => {
         
 
           {chunkedPosts.map((chunk, chunkIndex) => (
-            <div className="buyerCommunityForumComponentFrameWrapper" key={chunkIndex}>
-              {chunk.map((post, index) => (
-                <Link
-                  className="buyerCommunityForumComponentRectangleParent"
-                  to={`/buyercommunityforumpost/${post.id}`}
-                  key={index.id}
-                  onClick={() => handleProductClick(post.id)}
-                >
-                  <img
-                    className="buyerCommunityForumComponentFrameChild"
-                    alt=""
-                    src={post.image}
-                  />
-                  <div className="buyerCommunityForumComponentFrameGroup">
-                    <div className="buyerCommunityForumComponentFrameContainer">
-                      <div className="buyerCommunityForumComponentSubText1Wrapper">
-                        <b className="buyerCommunityForumComponentSubText1">
-                          {post.title}
-                        </b>
-                      </div>
-                      <div className="buyerCommunityForumComponentSubText2Wrapper2">
-                        <div className="buyerCommunityForumComponentSubText2">
-                          {post.content}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="buyerCommunityForumComponentFrameItem" />
-                    {post.user?.displayName && (
-                    <div className="buyerCommunityForumComponentFrameAuthor">
-                      <img
-                        className="buyerCommunityForumComponentFrameIcon"
-                        alt=""
-                        src={post.user.profileImageUrl}
-                      />
-                      <div className="buyerCommunityForumComponentAuthorText">
-                        <div className="buyerCommunityForumComponentAuthorName">
-                          {post.user.displayName}
-                        </div>
-                        <div className="buyerCommunityForumComponentPostTime">
-                          {post.timestamp}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  </div>
-                </Link>
-              ))}
+  <div className="buyerCommunityForumComponentFrameWrapper" key={chunkIndex}>
+    {chunk.map((post, index) => (
+      <NavLink
+        className="buyerCommunityForumComponentRectangleParent"
+        to={`/buyercommunityforumpost/${post.id}`}
+        key={post.id}
+        onClick={() => handleProductClick(post.id)}
+        activeClassName="active"
+      >
+        <img
+          className="buyerCommunityForumComponentFrameChild"
+          alt=""
+          src={post.image}
+        />
+        <div className="buyerCommunityForumComponentFrameGroup">
+          <div className="buyerCommunityForumComponentFrameContainer">
+            <div className="buyerCommunityForumComponentSubText1Wrapper">
+              <b className="buyerCommunityForumComponentSubText1">
+                {post.title}
+              </b>
             </div>
-          ))}
+            <div className="buyerCommunityForumComponentSubText2Wrapper2">
+              <div className="buyerCommunityForumComponentSubText2">
+                {post.content}
+              </div>
+            </div>
+          </div>
+          <div className="buyerCommunityForumComponentFrameAuthor">
+          <img
+            className="buyerCommunityForumComponentFrameIcon"
+            alt=""
+            src={post.profileImageUrl}
+          />
+          <div className="buyerCommunityForumComponentAuthorText">
+            <div className="buyerCommunityForumComponentAuthorName">
+              {post.fullname}
+            </div>
+            <div className="buyerCommunityForumComponentPostTime">
+              {post.timestamp}
+            </div>
+          </div>
+        </div>
+
+        </div>
+      </NavLink>
+    ))}
+  </div>
+))}
+
 
           <div className="buyerCommunityForumComponentForumNumber">
             {Array.from({ length: Math.ceil(posts.length / postsPerPage) }).map((_, index) => (

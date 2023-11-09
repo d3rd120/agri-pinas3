@@ -102,6 +102,19 @@
     cursor:pointer;
     transition: 0.5s
   }
+  
+  .buyerNavigationLinksAddress6 {
+    position: absolute;
+    top: -60px;
+    left: 2.51rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    width: 8rem;
+    height: 1.38rem;
+    cursor:pointer;
+    transition: 0.5s
+  }
 
   .buyerNavigationLinks1 {
     position: absolute;
@@ -150,6 +163,11 @@ color: #FBA403;
   color: #FBA403;
 }
 
+.buyerNavigationLink6:hover{
+  color: #FBA403;
+}
+
+
 
 
 .buyerNavigationLinks:hover {
@@ -182,10 +200,10 @@ color: #FBA403;
     color: inherit;
   }
   
-  .buyerNavigationLink5 {
+  .buyerNavigationLink6 {
     text-decoration: none;
     position: absolute;
-    top: 11.22rem;
+    top: 17.22rem;
     left: 0.02rem;
     width: 9.49rem;
     height: 1.35rem;
@@ -628,7 +646,7 @@ color: #FBA403;
 .buyerNavigationLogout {
   text-decoration: none;
   position: absolute;
-  top: 13.5rem;
+  top: 15.7rem;
   left: 0.02rem;
   width: 9.49rem;
   height: 1.35rem;

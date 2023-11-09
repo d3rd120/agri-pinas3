@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next';
 import Popup from '../components/validationPopup.jsx';
 import i18n from '../i18n';
 import { registerWithEmailAndPassword } from "./firebase.jsx";
+import { useLocation } from 'react-router-dom';
+import PrivacyPolicyPopup from './privacyPolicyComponent.jsx'; // Import the PrivacyPolicyPopup component
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -26,6 +28,19 @@ const Signup = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const location = useLocation();
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname === '/signup') {
+      setShowPrivacyPolicy(true);
+    } else {
+      setShowPrivacyPolicy(false);
+    }
+  }, [location]);
+  
+
+
 
   const register = async () => {
    
@@ -268,6 +283,8 @@ const Signup = () => {
         </div>
       </div>
       <Popup message={popupMessage} onClose={closePopup} isVisible={showPopup} />
+    {showPrivacyPolicy && <PrivacyPolicyPopup />}
+    <Popup message={popupMessage} onClose={closePopup} isVisible={showPopup} />
     </I18nextProvider>
   );
 };

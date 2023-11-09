@@ -25,6 +25,20 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
+  const [isLogoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
+
+  const openLogoutConfirmation = () => {
+    setLogoutConfirmationOpen(true);
+  };
+  
+  const closeLogoutConfirmation = () => {
+    setLogoutConfirmationOpen(false);
+  };
+  
+  const handleLogout = () => {
+    window.location.href = '/login'; 
+  };  
+
 
   const changeLanguage = (lng) => {
     localStorage.setItem('userLanguage', lng);    
@@ -190,20 +204,29 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
         >
           <div className="buyerNavigationLinksAddress">{t('Address')}</div>
         </NavLink>
+        <NavLink
+          className="buyerNavigationLink5"         
+          activeClassName="active"
+          to = "/forumactivity"
+        >
+          <div className="buyerNavigationLinksAddress5">{t('Forum Activity')}</div>    
+        </NavLink>
+        
         <a
-          className="buyerNavigationLink5"
-          to="/buyeraddress"         
+          className="buyerNavigationLink6"         
           activeClassName="active"
         >
-          <div className="buyerNavigationLinksAddress5"  onClick={handleLanguageLinkClick}>{t('Language')}</div>
+          <div className="buyerNavigationLinksAddress6"  onClick={handleLanguageLinkClick}>{t('Language')}</div>          
         </a>
+
         <NavLink
-          className="buyerNavigationLogout"
-          to="/login"
+          className="buyerNavigationLogout"        
+          onClick={openLogoutConfirmation}
         >
           <div className="buyerNavigationLinksLogout">{t('farmerProfileText5')}</div>
           <FaSignOutAlt className="buyerNavigationLinksIconLogout" />
         </NavLink>
+        
 
         <div className="buyerNavigationLink3">        
           <div className="buyerNavigationLinks1">{fullname}</div>
@@ -307,6 +330,15 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
         confirmLabel="English"
         cancelLabel="Filipino"
       />
+        <ConfirmationDialog
+            isOpen={isLogoutConfirmationOpen}
+            message="Are you sure you want to log out?"
+            onConfirm={handleLogout}
+            onCancel={closeLogoutConfirmation}
+            onOverlayClick={closeLogoutConfirmation}
+            confirmLabel="Yes"
+            cancelLabel="No"
+          />
     </I18nextProvider>
 
   );

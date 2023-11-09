@@ -24,6 +24,7 @@ import BuyerMarketplaceFruitsCategory from './pages/BuyerPage/buyerMarketplaceFr
 import BuyerMarketplaceFertilizerCategory from './pages/BuyerPage/buyerMarketplaceFertilizerCategory';
 import BuyerMarketplaceOtherProductsCategory from './pages/BuyerPage/buyerMarketplaceOtherProductsCategory';
 import BuyerMessaging from './pages/BuyerPage/buyerMessaging';
+import BuyerProfileForumActivity from './pages/BuyerPage/buyerProfileForumActivity';
 
 
 
@@ -82,7 +83,10 @@ const App = () => {
           <Route path="/buyerfertilizercategory/:userUid/:sessionId" element={<BuyerMarketplaceFertilizerCategory />} />   
           <Route path="/buyerotherproductscategory/:userUid/:sessionId" element={<BuyerMarketplaceOtherProductsCategory />} />
           <Route path="/checkout" element={<BuyerCheckout />} /> 
-          <Route path="/messaging/:roomID" element={<BuyerMessaging />} />
+          <Route path="/messaging" element={<BuyerMessaging />} />
+          <Route path="/forumactivity" element={<BuyerProfileForumActivity />} />       
+          
+          
           
                
         

@@ -18,7 +18,7 @@ const AdminFarmerTransactionsPendingComponent = () => {
   const [cartItems, setcartItems] = useState([]);
   const [showPopup1, setShowPopup1] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
-  const [sessionId, setSessionId] = useState
+ 
 
   const handleButtonClick1 = () => {
     setShowPopup1(true);
@@ -48,7 +48,7 @@ const AdminFarmerTransactionsPendingComponent = () => {
         Array.isArray(cartItems.orders) &&
         cartItems.orders.length > 0 &&
         cartItems.orders.some((item) =>
-          item && item.status === 'Pending' && item.sessionId === sessionId
+          item && item.status === 'Pending'
         )
       );
   
@@ -58,10 +58,10 @@ const AdminFarmerTransactionsPendingComponent = () => {
       console.error('Error fetching cart items:', error);
     }
   };
-
+  
   useEffect(() => {
     fetchCartItems();
-  }, [sessionId]);
+  }, []);
 
   const chunkArray = (arr, size) => {
     const result = [];
@@ -145,110 +145,109 @@ const AdminFarmerTransactionsPendingComponent = () => {
           <br></br>
 
           <div className="adminFarmerTransactionsPendingComponentMiddleSection">
-            <div className="adminFarmerTransactionsPendingComponentFrameParent">
- <div className="buyerTransactionMiddleSection">
-  <div className="buyerTransactionFrameParent">
-  {cartItems && cartItems.length > 0 ? (
-        chunkArray(cartItems, 1).map((cartItemGroup, index) => (
-          <div className="adminFarmerTransactionsPendingComponentFrameWrapper" key={index}>
-            {cartItemGroup.map((cartItem, cartItemIndex) => (
-              <div key={cartItemIndex} className="adminFarmerTransactionsPendingComponentRectangleParent">
-                {cartItem.orders && cartItem.orders.length > 0 ? (
-                  cartItem.orders.map((item, itemIndex) => (
-                    <div key={itemIndex} className="adminFarmerTransactionsPendingComponentFrameGroup">
-                    <img
-                      className="adminFarmerTransactionsPendingComponentFrameChild"
-                      alt=""
-                      src={item.image}
-                    />
-                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                        <b className="adminFarmerTransactionsPendingComponentSubText1">{item.cropName}</b>
-                      </div>
-                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text93')}</b> {item.dateBought}
+            <div className="adminFarmerTransactionsPendingComponentFrameParent">          
+                
+                    {cartItems && cartItems.length > 0 ? (
+                      chunkArray(cartItems, 1).map((cartItemGroup, index) => (
+                        <div
+                          className="adminFarmerTransactionsPendingComponentFrameWrapper"
+                          key={index}
+                        >
+                          {cartItemGroup.map((cartItem, cartItemIndex) => (
+                            <div
+                              key={cartItemIndex}
+                              className="adminFarmerTransactionsPendingComponentRectangleParent"
+                            >
+                              {cartItem.orders && cartItem.orders.length > 0 ? (
+                                cartItem.orders.map((item, itemIndex) => (
+                                  <div
+                                    key={itemIndex}
+                                    className="adminFarmerTransactionsPendingComponentFrameGroup"
+                                  >
+                                    <img
+                                      className="adminFarmerTransactionsPendingComponentFrameChild"
+                                      alt=""
+                                      src={item.image}
+                                    />
+                                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                                        <b className="adminFarmerTransactionsPendingComponentSubText1">
+                                          {item.cropName}
+                                        </b>
+                                      </div>
+                                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('text93')}</b> {item.dateBought}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('text94')}</b> {item.fullname}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('text95')}</b> {item.category}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('text96')}</b> {item.unit}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('text97')}</b> {item.boughtQuantity}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('text98')}</b> {item.price}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('Status: ')}</b> {item.status}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('Location: ')}</b> {item.location}
+                                        </div>
+                                        <div className="adminFarmerTransactionsPendingComponentSubText2">
+                                          <b>{t('Payment Method : ')}</b> {item.paymentMethod}
+                                        </div>                                       
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))
+                              ) : (
+                                <p key={`noPendingItems-${cartItemIndex}`}>
+                                  No pending items in this group
+                                </p>
+                              )}
+                            </div>
+                          ))}
                         </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text94')}</b> {item.fullname}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text95')}</b> {item.category}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text96')}</b> {item.unit}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text97')}</b> {item.boughtQuantity}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('text98')}</b> {item.price}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Status: ')}</b> {item.status}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Location: ')}</b> {item.location}
-                        </div>
-                        <div className="adminFarmerTransactionsPendingComponentSubText2">
-                          <b>{t('Payment Method : ')}</b> {item.paymentMethod}
-                        </div>
-                    <div className="adminFarmerTransactionsPendingComponentFrameItem" />
-                    <div className="adminFarmerTransactionsPendingComponentDetails">
-                    <button className="adminFarmerTransactionsPendingComponentButton"
-                     onClick={handleButtonClick1}>
-                        <FaEdit className="adminFarmerTransactionsPendingComponentButtonIcon" />
-                        <div className="adminFarmerTransactionsPendingComponentButtonText">{t('text199')}</div>
-                      </button>
-                      <button className="adminFarmerTransactionsPendingComponentButton"
-                       onClick={handleButtonClick2}>
-                        <FaTrash className="adminFarmerTransactionsPendingComponentButtonIcon" />
-                        <div className="adminFarmerTransactionsPendingComponentButtonText">{t('text200')}</div>
-                      </button>
-                      </div>
-                      </div>
-                      </div>
-                      </div>
-                  ))
-                ) : (
-                  <p>No pending items in this group</p>
-                )}
-              </div>
-            ))}
-          </div>
-        ))
-      ) : (
-        <p>No pending items</p>
-      )}
-               </div>
-               </div>
+                      ))
+                    ) : (
+                      <p>No pending items</p>
+                    )}
+                  
        
-
-              <div className="adminFarmerTransactionsPendingComponentForumNumber">
-                <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                  <div className="adminFarmerTransactionsPendingComponentForumNumberBox">1</div>
+                <div className="adminFarmerTransactionsPendingComponentForumNumber">
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">1</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">2</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">3</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">4</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">5</div>
+                  </div>
+                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
+                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">6</div>
+                  </div>
                 </div>
-                <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                  <div className="adminFarmerTransactionsPendingComponentForumNumberBox">2</div>
-                </div>
-                <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                  <div className="adminFarmerTransactionsPendingComponentForumNumberBox">3</div>
-                </div>
-                <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                  <div className="adminFarmerTransactionsPendingComponentForumNumberBox">4</div>
-                </div>
-                <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                  <div className="adminFarmerTransactionsPendingComponentForumNumberBox">5</div>
-                </div>
-                <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                  <div className="adminFarmerTransactionsPendingComponentForumNumberBox">6</div>
-                </div>
-              </div>
-            </div>
+        
+           
           </div>
         </div>
       </div>
-    </div>
+      </div>
+      </div>
     </I18nextProvider>
   );
 };

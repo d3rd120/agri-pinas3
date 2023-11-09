@@ -170,7 +170,7 @@ const AdminFarmerTransactions = () => {
 
           <div className="adminFarmerAccountManagementCard">
             <div className="adminFarmerAccountManagementSubTitle">
-              <FaPeopleArrows /> {t('text228')}
+              <FaPeopleArrows /> {t('Monitoring of Farmer Accounts')}
             </div>
             <br></br>
 

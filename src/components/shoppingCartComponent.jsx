@@ -50,7 +50,7 @@ const ShoppingCart = (props) => {
           }
         }
       } catch (error) {
-        console.error('Error fetching cart data:', error);
+        // console.error('Error fetching cart data:', error);
       }
     };
   
@@ -85,15 +85,15 @@ const ShoppingCart = (props) => {
   
               setCart(updatedCart);
             } else {
-              console.error('Insufficient quantity available for the product.');
+              // console.error('Insufficient quantity available for the product.');
             }
           } else {
-            console.error('Item not found in the cart.');
+            // console.error('Item not found in the cart.');
           }
         }
       }
     } catch (error) {
-      console.error('Error updating quantity in Firestore:', error);
+      // console.error('Error updating quantity in Firestore:', error);
     }
   };
   
@@ -101,14 +101,14 @@ const ShoppingCart = (props) => {
   
 
   const deleteProductFromCart = async (productId) => {
-    console.log('deleteProductFromCart called with productId:', productId);
+    // console.log('deleteProductFromCart called with productId:', productId);
   
     const user = auth.currentUser;
   
     try {
       if (user) {
         const userCartRef = doc(db, 'UserCarts', user.uid);
-        console.log('userCartRef:', userCartRef);
+        // console.log('userCartRef:', userCartRef);
   
         
         const userCartSnapshot = await getDoc(userCartRef);
@@ -120,13 +120,13 @@ const ShoppingCart = (props) => {
           await setDoc(userCartRef, { cart: updatedFirestoreCart }, { merge: true });
           setCart(updatedFirestoreCart);
         } else {
-          console.warn('No cart data found in Firestore.');
+          // console.warn('No cart data found in Firestore.');
         }
       } else {
-        console.error('User not authenticated. Item removal aborted.');
+        // console.error('User not authenticated. Item removal aborted.');
       }
     } catch (error) {
-      console.error('Error removing item from cart:', error.message || error);
+      // console.error('Error removing item from cart:', error.message || error);
     }
   };
   
@@ -140,7 +140,7 @@ const ShoppingCart = (props) => {
     const numericPrice = Number(price);
 
     if (isNaN(numericPrice)) {
-      console.error(`Invalid price: ${price}`);
+      // console.error(`Invalid price: ${price}`);
       return 'N/A';
     }
 
@@ -172,7 +172,7 @@ const ShoppingCart = (props) => {
       const querySnapshot = await getDocs(productsCollection);
   
       if (querySnapshot.empty) {
-        console.warn('No products found.');
+        // console.warn('No products found.');
         return;
       }
   
@@ -188,7 +188,7 @@ const ShoppingCart = (props) => {
       setProducts(productsData.slice(0, 3));
   
     } catch (error) {
-      console.error('Error retrieving products:', error);
+      // console.error('Error retrieving products:', error);
     }
   };
 
@@ -200,11 +200,11 @@ const ShoppingCart = (props) => {
     try {
       // Set the last clicked product ID
       setLastClickedProductId(product.id);
-      console.log('Last Clicked', product)
+      // console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
     } catch (error) {
-      console.error('Error handling product click:', error);
+      // console.error('Error handling product click:', error);
     }
   };
 
@@ -255,9 +255,9 @@ const ShoppingCart = (props) => {
         });
       });
   
-      console.log('Selected products stored in Firestore');
+      // console.log('Selected products stored in Firestore');
     } catch (error) {
-      console.error('Error storing selected products:', error);
+      // console.error('Error storing selected products:', error);
       // Handle errors if necessary
     }
   };
@@ -279,7 +279,7 @@ const ShoppingCart = (props) => {
       }));
       setCart(updatedCart);
   
-      console.log('Products to checkout:', productsToCheckout);
+      // console.log('Products to checkout:', productsToCheckout);
       setCheckedProducts(productsToCheckout);
   
       // Store the selected products in Firestore

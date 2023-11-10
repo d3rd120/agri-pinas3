@@ -47,29 +47,6 @@ const handleOverlayClick = () => {
 };
 
 
-  
-
-
-  const fetchUserDisplayName = async (uid) => {
-    try {
-      if (!uid || typeof uid !== 'string' || uid.trim() === '') {
-        // If uid is not a non-empty string, return a default value
-        return 'Anonymous';
-      }
-  
-      const userDocRef = doc(db, 'Users', uid);
-      const userDocSnapshot = await getDoc(userDocRef);
-      const userData = userDocSnapshot.data();
-      const displayName = userData ? userData.fullname : 'Anonymous';
-  
-      return displayName;
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-      return 'Anonymous';
-    }
-  };
-  
-  
 
   const fetchPosts = async () => {
     try {
@@ -77,26 +54,25 @@ const handleOverlayClick = () => {
       const snapshot = await getDocs(postsCollection);
       const fetchedPosts = [];
   
-      for (const doc of snapshot.docs) {
-        const post = doc.data();
-        post.user = post.user || {}; // Ensure that post.user is initialized as an object
+      for (const docSnap of snapshot.docs) {
+        const post = docSnap.data();
+        post.id = docSnap.id;
   
-        // Convert the timestamp to a numeric timestamp
-        post.numericTimestamp = new Date(post.timestamp).getTime();
+        // Fetch user details for each post
+        const userSnapshot = await getDoc(doc(db, 'Users', post.uid));
+        const userData = userSnapshot.data();
   
-        const displayName = await fetchUserDisplayName(post.user?.uid);
-        post.user.displayName = displayName; // Set a default value if userDisplayName is falsy
-        post.id = doc.id;
-  
+        if (userData) {
+          post.profileImageUrl = userData.profileImageUrl;
+        }
         fetchedPosts.push(post);
       }
   
-      // Sort the posts by numeric timestamp
-      const sortedPosts = [...fetchedPosts].sort((a, b) => b.numericTimestamp - a.numericTimestamp);
+      // console.log('Fetched Posts:', fetchedPosts);
   
-      setPosts(sortedPosts);
+      setPosts(fetchedPosts);
     } catch (error) {
-      console.error('Error fetching posts:', error);
+      // console.error('Error fetching posts:', error);
     }
   };
   
@@ -159,10 +135,10 @@ const handleOverlayClick = () => {
         setShowArchiveConfirmation(false);
         fetchPosts(); // You may need to update this function name if needed
       } else {
-        console.warn('Post not found.');
+        // console.warn('Post not found.');
       }
     } catch (error) {
-      console.error('Error archiving post:', error);
+      // console.error('Error archiving post:', error);
     }
   };
   
@@ -282,11 +258,11 @@ const handleOverlayClick = () => {
                               <img
                                 className="buyerCommunityForumComponentFrameIcon"
                                 alt=""
-                                src={ProfileVector1}
+                                src={post.profileImageUrl}
                               />
                               <div className="buyerCommunityForumComponentAuthorText">
                                 <div className="buyerCommunityForumComponentAuthorName">
-                                  {post.user.displayName}
+                                  {post.fullname}
                                 </div>
                                 <div className="buyerCommunityForumComponentPostTime">
                                   {post.timestamp}

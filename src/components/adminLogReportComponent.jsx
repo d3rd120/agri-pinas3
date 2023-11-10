@@ -43,7 +43,7 @@ const AdminFarmerTransactions = () => {
         }));
         setReports(reportsData);
       } catch (error) {
-        console.error('Error fetching reports: ', error);
+        // console.error('Error fetching reports: ', error);
       }
     };
 
@@ -83,7 +83,7 @@ const AdminFarmerTransactions = () => {
       }));
       setReports(reportsData);
     } catch (error) {
-      console.error('Error updating report: ', error);
+      // console.error('Error updating report: ', error);
     }
   };
 
@@ -137,7 +137,7 @@ const AdminFarmerTransactions = () => {
           }));
           setReports(reportsData);
         } catch (error) {
-          console.error('Error deleting report: ', error);
+          // console.error('Error deleting report: ', error);
         } finally {
           // Close the confirmation dialog
           setShowConfirmation(false);

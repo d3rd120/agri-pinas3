@@ -43,7 +43,7 @@ const logInWithEmailAndPassword = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-        console.error(err);
+        // console.error(err);
         alert(err.message);
     }
 };
@@ -83,7 +83,7 @@ const sendPasswordReset = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);    
   } catch (err) {   
-    console.error(err);
+    // console.error(err);
   }
 };
 
@@ -100,7 +100,7 @@ const uploadImage = async (file) => {
       const downloadURL = await getDownloadURL(storageRef);
       return downloadURL;
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       alert(err.message);
     }
   };
@@ -110,7 +110,7 @@ const uploadImage = async (file) => {
       const postsCollection = collection(db, "CommunityForum");
       await addDoc(postsCollection, postDetails);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       alert(err.message);
     }
   };

@@ -1,9 +1,9 @@
 import '../css/BuyerPage/buyermarketplace.css';
 import BuyerNavigation from './buyerNavigation';
-import VegetableVector from '../img/vegetableVector.jpg';
-import OtherProductsVector from '../img/otherProductsVector.jpg';
-import FruitsVector from '../img/fruitsVector.jpg';
-import FertilizerVector from '../img/fertilizerVector.jpeg';
+import VegetableVector from '../img/categoryImage1.png';
+import OtherProductsVector from '../img/categoryImage4.jpg';
+import FruitsVector from '../img/categoryImage2.png';
+import FertilizerVector from '../img/categoryImage3.png';
 import {Link, NavLink} from 'react-router-dom';
 import React from 'react';
 import BuyerTopNav from '../components/buyerTopNav';
@@ -43,7 +43,7 @@ useEffect(() => {
       const querySnapshot = await getDocs(productsCollection);
   
       if (querySnapshot.empty) {
-        console.warn('No products found.');
+        // console.warn('No products found.');
         return;
       }
   
@@ -59,9 +59,9 @@ useEffect(() => {
       setProducts(productsData.slice(0, 3));
       const sessionId = generateSessionId(); 
       sessionStorage.setItem('sessionId', sessionId);
-      console.log('sessionId', sessionId);
+      // console.log('sessionId', sessionId);
     } catch (error) {
-      console.error('Error retrieving products:', error);
+      // console.error('Error retrieving products:', error);
     }
   };
 
@@ -77,11 +77,11 @@ useEffect(() => {
     try {
       // Set the last clicked product ID
       setLastClickedProductId(product.id);
-      console.log('Last Clicked', product)
+      // console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
     } catch (error) {
-      console.error('Error handling product click:', error);
+      // console.error('Error handling product click:', error);
     }
   };
 

@@ -98,7 +98,7 @@ const handleOverlayClick = () => {
       const archivedProductsSnapshot = await getDocs(archivedProductsCollection);
   
       if (archivedProductsSnapshot.empty) {
-        console.warn('No archived products found.');
+        // console.warn('No archived products found.');
         return;
       }
   
@@ -110,10 +110,10 @@ const handleOverlayClick = () => {
         };
       });
   
-      console.log('Fetched archived products:', archivedProductsData);
+      // console.log('Fetched archived products:', archivedProductsData);
       setArchivedProducts(archivedProductsData);
     } catch (error) {
-      console.error('Error retrieving archived products:', error);
+      // console.error('Error retrieving archived products:', error);
     }
   };
 
@@ -142,10 +142,10 @@ const handleOverlayClick = () => {
         setShowPopup1(true);
         fetchArchivedProducts(); // Fetch updated archived product list
       } else {
-        console.warn('Archived product not found. Product ID:', unarchiveProductId);
+        // console.warn('Archived product not found. Product ID:', unarchiveProductId);
       }
     } catch (error) {
-      console.error('Error unarchiving product:', error);
+      // console.error('Error unarchiving product:', error);
     }
   
     // Close the dialog

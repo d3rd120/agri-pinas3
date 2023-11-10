@@ -52,7 +52,7 @@ const handleOverlayClick = () => {
       const querySnapshot = await getDocs(productsCollection);
 
       if (querySnapshot.empty) {
-        console.warn('No products found.');
+        // console.warn('No products found.');
         return;
       }
 
@@ -64,11 +64,11 @@ const handleOverlayClick = () => {
         };
       });
 
-      console.log('Fetched products:', productsData);
+      // console.log('Fetched products:', productsData);
       setProducts(productsData);
-      console.log('Products in state:', productsData);
+      // console.log('Products in state:', productsData);
     } catch (error) {
-      console.error('Error retrieving products:', error);
+      // console.error('Error retrieving products:', error);
     }
   };
 
@@ -134,10 +134,10 @@ const handleOverlayClick = () => {
         setShowPopup1(true);
         fetchProducts();
       } else {
-        console.warn('Product not found.');
+        // console.warn('Product not found.');
       }
     } catch (error) {
-      console.error('Error archiving product:', error);
+      // console.error('Error archiving product:', error);
     }
   
     // Close the dialog

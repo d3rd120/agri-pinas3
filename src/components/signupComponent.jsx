@@ -113,7 +113,7 @@ const Signup = () => {
 
     } catch (error) {
       // Handle any errors that may occur during registration
-      console.error(error);
+      // console.error(error);
   
       // Display an error message to the user if needed
       if (error.message === "auth/email-already-in-use") {

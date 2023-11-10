@@ -1,10 +1,8 @@
 import "../css/Components/homeComponent.css";
-import { Link } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import HomeIcon from '../img/homePagePic.png';
-import HomePagePic1 from '../img/homePagePic1.png';
 import HomePagePic2 from '../img/homePagePic2.png';
 
 const HomeComponent = () => {
@@ -28,14 +26,11 @@ const HomeComponent = () => {
               </p>
             </div>
           </div>
-          <div className="download-buttons">    
-          {/* <div className="grown-with-care">
-             get it here
-            </div>        */}
-            <button className="google-play">
-              <img className="g4036-icon" alt="" src={HomePagePic2}/>
-            </button> 
-          </div>
+          <div className="download-buttons">        
+          <a className="google-play" href = "https://drive.google.com/file/d/1TMN2DWKi_CFgY6mLIgf32Z3ZEzvNUqsu/view?usp=sharing">
+            <img className="g4036-icon" alt="" src={HomePagePic2} />
+          </a>
+        </div>
         </div>
         <img className="group-1334-1" alt="" src={HomeIcon} />
       </div>

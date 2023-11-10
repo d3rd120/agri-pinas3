@@ -68,23 +68,23 @@ const LoginPage = () => {
         const docSnapshot = querySnapshot.docs[0];
         const userData = docSnapshot.data();
         const fullname = userData.fullname;
-        console.log('User data:', userData);
+        // console.log('User data:', userData);
         setFullName(fullname);
 
         if (userData.role === 'Buyer') {
           navigate('/buyermarketplace');
-          console.log('User role:', userData.role);
+          // console.log('User role:', userData.role);
         } else if (userData.role === 'Admin') {
           navigate('/admindashboard');
-          console.log('User role:', userData.role);
+          // console.log('User role:', userData.role);
         } else {
-          console.log('Non-existing user role');
+          // console.log('Non-existing user role');
         }
       } else {
-        console.error('User data not found for email:', uid);
+        // console.error('User data not found for email:', uid);
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      // console.error('Error fetching user data:', error);
     } finally {
       setLoading(false);
     }
@@ -95,7 +95,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const { user } = await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in');
+      // console.log('User logged in');
       setEmail('');
       setPassword('');
       const userUid = user.uid;
@@ -145,7 +145,7 @@ const LoginPage = () => {
           fetchUserData(userUid);
         }, 1000); // Adjust the timeout as needed
       } else {
-        console.error('Invalid user UID:', userUid);
+        // console.error('Invalid user UID:', userUid);
       }
     }
   }, [loggedIn, emailVerified, navigate]);

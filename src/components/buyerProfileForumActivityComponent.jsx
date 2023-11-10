@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/Components/buyerCommunityForumComponent.css';
 import { auth, db } from './firebase';
-import { collection, doc, getDocs, query, where, deleteDoc} from 'firebase/firestore';
+import { collection, doc, getDocs, query, where, deleteDoc, getDoc, addDoc} from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import BuyerProfileNav from '../components/buyerProfileNav';
 import BuyerTopNav from '../components/buyerTopNav';
@@ -11,6 +11,7 @@ import i18n from '../i18n';
 import { Link } from 'react-router-dom';
 import { FaArchive, FaTimes } from 'react-icons/fa';
 import ConfirmationDialog from '../components/confirmationDialog';
+import _ from 'lodash';
 
 
 
@@ -35,10 +36,35 @@ const filteredPosts = posts.filter((post) => {
   );
 });
 
+const handleConfirmArchiveDebounced = _.debounce(
+  async (postID) => await handleConfirmArchive(postID),
+  1000,
+  { leading: true, trailing: false }
+);
 
-const handleArchiveClick = (postId) => {
-  setSelectedPostId(postId);
-  setShowConfirmationDialog(true);
+const handleConfirmArchive = async () => {
+  try {
+    const postID = selectedPostId;
+    const postRef = doc(db, 'CommunityForum', postID);
+    const postSnapshot = await getDoc(postRef);
+
+    if (postSnapshot.exists()) {
+      const postData = postSnapshot.data();
+
+      await addDoc(collection(db, 'ForumActivityArchive'), {
+        ...postData,
+        archived: true,
+      });
+      await deleteDoc(postRef);
+
+      setShowConfirmationDialog(false);
+      fetchUserPosts(); // You may need to update this function name if needed
+    } else {
+      // console.warn('Post not found.');
+    }
+  } catch (error) {
+    // console.error('Error archiving post:', error);
+  }
 };
 
 
@@ -61,7 +87,7 @@ const fetchUserPosts = async () => {
       setPosts(fetchedUserPosts);
     }
   } catch (error) {
-    console.error('Error fetching user posts:', error);
+    // console.error('Error fetching user posts:', error);
   }
 };
 
@@ -146,12 +172,15 @@ const chunkArray = (array, chunkSize) => {
                     <div className="buyerCommunityForumComponentFrameItem" />
                     <div className="adminMarketplaceComponentDetails">
                     <button
-                      className="adminMarketplaceComponentButton"
-                      onClick={() => handleArchiveClick(post.id)}
-                    >
-                      <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                      <div className="adminMarketplaceComponentButtonText">{t('ext404')}</div>
-                    </button>
+                    className="adminMarketplaceComponentButton"
+                    onClick={() => {
+                      setSelectedPostId(post.id);
+                      setShowConfirmationDialog(true);
+                    }}
+                  >
+                    <FaArchive className="adminMarketplaceComponentButtonIcon" />
+                    <div className="adminMarketplaceComponentButtonText">{t('ext404')}</div>
+                  </button>
                  
                           </div>
                   </div>
@@ -178,19 +207,15 @@ const chunkArray = (array, chunkSize) => {
         </div>
       </div>     
       <ConfirmationDialog
-          isOpen={showConfirmationDialog}
-          message= {t('ext412')}
-          onConfirm={() => {
-            // Add logic to delete the post using selectedPostId
-            // Call fetchUserPosts() to refresh the posts after deletion
-            // Hide the confirmation dialog
-            setShowConfirmationDialog(false);
-          }}
-          onCancel={() => setShowConfirmationDialog(false)}
-          onOverlayClick={() => setShowConfirmationDialog(false)}
-          confirmLabel= {t('ext413')}
-          cancelLabel= {t('ext414')}
-        />
+  isOpen={showConfirmationDialog}
+  message={t('ext412')}
+  onConfirm={handleConfirmArchive}
+  onCancel={() => setShowConfirmationDialog(false)}
+  onOverlayClick={() => setShowConfirmationDialog(false)}
+  confirmLabel={t('ext413')}
+  cancelLabel={t('ext414')}
+/>
+
     </I18nextProvider>
   );
 };

@@ -99,7 +99,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
   const handleSaveUserData = async () => {
     const user = auth.currentUser;
     if (!user) {
-      console.error('User not authenticated.');
+      // console.error('User not authenticated.');
       return;
     }
   
@@ -128,17 +128,17 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
         // Update the user document with the new data
         await setDoc(userRef, userData, { merge: true });
   
-        console.log('User data updated successfully!');
+        // console.log('User data updated successfully!');
   
         onUserInfoChange(userData);
   
         handleClose();
       } else {
-        console.error('User document does not exist. Cannot update.');
+        // console.error('User document does not exist. Cannot update.');
         // Handle the case where the user document does not exist (e.g., show an error message)
       }
     } catch (error) {
-      console.error('Error updating user data:', error);
+      // console.error('Error updating user data:', error);
     }
   };
   
@@ -173,7 +173,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
             setbirthdate(null);
           }
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          // console.error("Error fetching user data:", error);
         }
       } else {
         setfullname('');

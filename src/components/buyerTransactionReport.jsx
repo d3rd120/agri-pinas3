@@ -76,7 +76,7 @@ const FarmerCommunityForumAddPostComponent = () => {
       });
   
       setValidationMessage('Report submitted successfully');
-      console.log('Report added with ID: ', docRef.id);
+      // console.log('Report added with ID: ', docRef.id);
       setIsSubmitting(false);
   
       // Reload the window after 1 second
@@ -84,7 +84,7 @@ const FarmerCommunityForumAddPostComponent = () => {
         window.location.reload();
       }, 1000);
     } catch (error) {
-      console.error('Error adding report: ', error);
+      // console.error('Error adding report: ', error);
       setValidationMessage('An error occurred while submitting the report.');
       setIsSubmitting(false);
     }

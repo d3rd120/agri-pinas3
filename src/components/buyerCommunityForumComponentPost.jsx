@@ -30,7 +30,7 @@ const FarmerMarketplace = () => {
     const fetchPostDetails = async () => {
       try {
         if (!postId || postId === 'undefined') {
-          console.warn('Invalid postId:', postId);
+          // console.warn('Invalid postId:', postId);
           return;
         }
   
@@ -52,10 +52,10 @@ const FarmerMarketplace = () => {
   
           fetchOtherPosts(postId);
         } else {
-          console.warn('Post not found.');
+          // console.warn('Post not found.');
         }
       } catch (error) {
-        console.error('Error in fetchPostDetails:', error.message);
+        // console.error('Error in fetchPostDetails:', error.message);
       }
     };
   
@@ -71,7 +71,7 @@ const FarmerMarketplace = () => {
   
         setOtherPosts([...filteredOtherPosts]);
       } catch (error) {
-        console.error('Error fetching other posts:', error.message);
+        // console.error('Error fetching other posts:', error.message);
       } finally {
         setLoadingOtherPosts(false); // Set loading state to false regardless of success or failure
       }
@@ -84,7 +84,7 @@ const FarmerMarketplace = () => {
 
 
   if (!postId) {
-    console.warn('Invalid postId:', postId);
+    // console.warn('Invalid postId:', postId);
     return <div>{t('Invalid postId')}</div>;
   }
 
@@ -100,7 +100,7 @@ const FarmerMarketplace = () => {
       const user = auth.currentUser;
   
       if (!user) {
-        console.warn('User is not authenticated.');
+        // console.warn('User is not authenticated.');
         // You can redirect the user to the login page or show a message
         return;
       }
@@ -114,7 +114,7 @@ const FarmerMarketplace = () => {
   
       // Ensure that postLikes is an array or initialize it as an empty array
       if (!Array.isArray(postLikes)) {
-        console.warn('Invalid or missing likes data in the post document. Initializing likes as an empty array.');
+        // console.warn('Invalid or missing likes data in the post document. Initializing likes as an empty array.');
         postLikes = [];
       }
   
@@ -127,10 +127,10 @@ const FarmerMarketplace = () => {
         // Update the local state
         setLikeCount((prevCount) => prevCount + 1);
       } else {
-        console.warn('User has already liked this post.');
+        // console.warn('User has already liked this post.');
       }
     } catch (error) {
-      console.error('Error adding like:', error.message);
+      // console.error('Error adding like:', error.message);
     }
   };
   

@@ -1,7 +1,7 @@
 import "../css/Components/aboutComponent.css";
-import AboutImage1 from '../img/aboutImage1.png';
-import AboutImage2 from '../img/aboutImage2.png';
-import AboutImage3 from '../img/aboutImage3.png';
+import AboutImage1 from '../img/aboutImage.jpg';
+import AboutImage2 from '../img/aboutImage2.jpeg';
+import AboutImage3 from '../img/categoryImage1.png';
 import AboutImage4 from '../img/aboutImage4.png';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';

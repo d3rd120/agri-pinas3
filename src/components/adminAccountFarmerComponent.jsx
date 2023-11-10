@@ -86,15 +86,15 @@ const AdminFarmerTransactions = () => {
         // Update the user document with the new data, using { merge: true } to update only the specified fields
         await setDoc(userRef, userData, { merge: true });
 
-        console.log('User data updated successfully!');
+        // console.log('User data updated successfully!');
       } else {
         // Handle the case where the user document does not exist
-        console.error('User document does not exist. Cannot update.');
+        // console.error('User document does not exist. Cannot update.');
 
         // Depending on your application's logic, you can choose to display an error message or take other actions here.
       }
     } catch (error) {
-      console.error('Error updating user data:', error);
+      // console.error('Error updating user data:', error);
     }
   };
 
@@ -123,7 +123,7 @@ const AdminFarmerTransactions = () => {
       const updatedAccounts = farmerAccounts.filter((account) => account.uid !== user.uid);
       setFarmerAccounts(updatedAccounts);
     } catch (error) {
-      console.error('Error deleting user:', error);
+      // console.error('Error deleting user:', error);
     }
   };
   

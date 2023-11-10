@@ -42,8 +42,8 @@ const FarmerCommunityForumAddPostComponent = ({  }) => {
       setSuccessMessage('Content Posted Successfully!'); // Set success message
       setIsSuccessVisible(true);
       setTimeout(() => {
-        window.location.reload();
-      }, 500); // Show success message
+        window.location.href = '/admindashboard';
+      }, 1000);// Show success message
     } catch (error) {
       console.error('Error adding post:', error);
       alert(error.message);

@@ -417,6 +417,7 @@
    "ext376": "Profile",
    "ext377": "Address",
    "ext378": "Aktibidad",
+   "eext378": "Archived",
    "ext379": "Wika",
    "ext380": "Baguhin ang Wika",
    "ext381": "Ingles",
@@ -446,7 +447,9 @@
    "ext402": "Address",
 
    "ext403": "Aktibidad sa Forum",
-   "ext404": "I-edit",
+   "eext403": "Mga Archived",
+   "ext404": "I-archive",
+   "eext404": "I-unarchive",
    "ext405": "Iburahin",
    "ext406": "I-edit ang iyong Post",
    "ext407": "I-edit ang iyong Post Dito",
@@ -454,7 +457,7 @@
    "ext409": "Mag-upload ng larawan ng post",
    "ext410": "Nilalaman",
    "ext411": "I-update",
-   "ext412": "Sigurado ka bang nais mong burahin ang iyong post?",
+   "ext412": "I-archive ang iyong post?",
    "ext413": "Oo",
    "ext414": "Hindi",
 

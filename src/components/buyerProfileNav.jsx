@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaSignOutAlt, FaEdit, FaUser } from 'react-icons/fa';
+import { FaSignOutAlt, FaEdit, FaUser, FaAngleDown } from 'react-icons/fa';
 import { NavLink, } from 'react-router-dom';
 import "../css/BuyerPage/buyerProfileNav.css";
 import { Modal, Button } from '@material-ui/core';
@@ -26,6 +26,11 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
   const [imagePreview, setImagePreview] = useState(null);
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
   const [isLogoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false);
+  const [showCommunityForumDropdown, setShowCommunityForumDropdown] = useState(false);
+
+  const toggleCommunityForumDropdown = () => {
+    setShowCommunityForumDropdown(!showCommunityForumDropdown);
+  };
 
   const openLogoutConfirmation = () => {
     setLogoutConfirmationOpen(true);
@@ -204,14 +209,22 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
         >
           <div className="buyerNavigationLinksAddress">{t('ext377')}</div>
         </NavLink>
+
         <NavLink
-          className="buyerNavigationLink5"         
-          activeClassName="active"
-          to = "/forumactivity"
-        >
-          <div className="buyerNavigationLinksAddress5">{t('ext378')}</div>    
-        </NavLink>
-        
+            className={`buyerNavigationLink5 ${showCommunityForumDropdown ? 'active' : ''}`}
+            to="/forumactivity"
+            activeClassName="active"
+            onMouseEnter={toggleCommunityForumDropdown}
+            onMouseLeave={toggleCommunityForumDropdown}
+          >
+            <div className="buyerNavigationLinksAddress5">{t('ext378')} <FaAngleDown /></div>         
+            {showCommunityForumDropdown && (
+              <div className="horizontal-dropdown1">
+                <NavLink to="/forumactivityarchived">{t('eext378')}</NavLink>               
+              </div>
+            )}
+          </NavLink>          
+    
         <a
           className="buyerNavigationLink6"         
           activeClassName="active"

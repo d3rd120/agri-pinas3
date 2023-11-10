@@ -8,7 +8,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from './firebase';
+import { db, auth } from './firebase';
 import { FaEnvelope, FaCommentDots, FaTimes } from 'react-icons/fa';
 import BuyerTransactionReport from '../components/buyerTransactionReport';
 import { Link } from 'react-router-dom';
@@ -28,26 +28,35 @@ const BuyerTransanctionPending =  ({ sessionId }) => {
 
   const fetchCartItems = async () => {
     try {
+      const user = auth.currentUser; // Get the current user
+  
+      if (!user) {
+        console.log('User is not authenticated.');
+        // Handle the case when the user is not authenticated
+        return;
+      }
+  
       const ordersCollection = collection(db, 'Transaction');
       const ordersSnapshot = await getDocs(ordersCollection);
       const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
   
-      // Filter orders with "Pending" status and valid sessionId
-      const pendingcartItems = ordersData.filter((cartItems) =>
-        cartItems.orders &&
-        Array.isArray(cartItems.orders) &&
-        cartItems.orders.length > 0 &&
-        cartItems.orders.some((item) =>
-          item && item.status === 'Pending' && item.sessionId === sessionId
-        )
-      );
+      // Filter orders for the current user with "Pending" status
+      const completedcartItems = ordersData.filter((cartItems) =>
+      cartItems.orders &&
+      Array.isArray(cartItems.orders) &&
+      cartItems.orders.length > 0 &&
+      cartItems.orders.some((item) =>
+        item && item.status === 'Pending'
+      )
+    );
+
+    setcartItems(completedcartItems);
+    console.log('cartItems', completedcartItems); // Log filtered cart items data to console
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+  }
+};
   
-      setcartItems(pendingcartItems);
-      console.log('cartItems', pendingcartItems); // Log filtered cart items data to console
-    } catch (error) {
-      console.error('Error fetching cart items:', error);
-    }
-  };
   
   useEffect(() => {
     fetchCartItems();

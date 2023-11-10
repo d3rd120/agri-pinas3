@@ -22,7 +22,7 @@ const LoginPage = () => {
   const [popupMessage, setPopupMessage] = useState(''); // State for popup message
   const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
   const navigate = useNavigate();
-  const sessionTimeout = 300000;
+  const sessionTimeout = 600000;
 
 
   const handleEmailChange = (e) => {

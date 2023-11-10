@@ -113,7 +113,7 @@ const chunkArray = (array, chunkSize) => {
             <div className="buyerCommunityForumComponentMainText1">
               <b className="buyerCommunityForumComponentMainText2">
                 <p className="buyerCommunityForumComponentBlankLine">
-                  {t('ext403')}
+                  {t('eext403')}
                 </p>
               </b>                                          
             </div>
@@ -150,7 +150,7 @@ const chunkArray = (array, chunkSize) => {
                       onClick={() => handleArchiveClick(post.id)}
                     >
                       <FaArchive className="adminMarketplaceComponentButtonIcon" />
-                      <div className="adminMarketplaceComponentButtonText">{t('ext404')}</div>
+                      <div className="adminMarketplaceComponentButtonText">{t('eext404')}</div>
                     </button>
                  
                           </div>

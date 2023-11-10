@@ -368,15 +368,15 @@ const AdminFarmerTransactions = () => {
       </div>
       <ConfirmationDialog
           isOpen={isDeleteConfirmationOpen}
-          message="Are you sure you want to delete this user?"
+          message={t('ext415')}
           onConfirm={() => {
             deleteConfirmedUser(userToDelete);
             setIsDeleteConfirmationOpen(false);
           }}
           onCancel={() => setIsDeleteConfirmationOpen(false)}
           onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-          confirmLabel={t('Confirm')}
-          cancelLabel={t('Cancel')}
+          confirmLabel={t('ext415')}
+          cancelLabel={t('ext415')}
         />
     </I18nextProvider>
   );

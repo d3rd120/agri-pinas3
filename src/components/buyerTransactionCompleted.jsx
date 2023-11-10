@@ -30,34 +30,37 @@ const BuyerTransanctionCompleted = ({  }) => {
 
   const fetchCartItems = async () => {
     try {
-      const user = auth.currentUser; // Get the current user
+      const user = auth.currentUser;
   
       if (!user) {
-        // console.log('User is not authenticated.');
-        // Handle the case when the user is not authenticated
+        console.log('User is not authenticated.');
         return;
       }
+  
+      const userId = user.uid;
+      console.log('User ID:', userId);
   
       const ordersCollection = collection(db, 'Transaction');
       const ordersSnapshot = await getDocs(ordersCollection);
       const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
   
+      console.log('All orders data:', ordersData);
+  
       // Filter orders for the current user with "Pending" status
-      const completedcartItems = ordersData.filter((cartItems) =>
-      cartItems.orders &&
-      Array.isArray(cartItems.orders) &&
-      cartItems.orders.length > 0 &&
-      cartItems.orders.some((item) =>
-        item && item.status === 'Completed'
-      )
-    );
-
-    setcartItems(completedcartItems);
-    // console.log('cartItems', completedcartItems); // Log filtered cart items data to console
-  } catch (error) {
-    // console.error('Error fetching cart items:', error);
-  }
-};
+      const userOrders = ordersData.filter((order) => {
+        return (
+          order.userId === userId &&
+          order.orders &&
+          order.orders.some((item) => item.status === 'Completed')
+        );
+      });
+  
+      console.log('User-specific orders:', userOrders);
+      setcartItems(userOrders);
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
 
 useEffect(() => {
   fetchCartItems();

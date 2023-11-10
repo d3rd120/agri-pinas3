@@ -289,7 +289,7 @@ const FarmerTransactions = () => {
                     type="text"
                     value={newMessage}
                     onChange={(event) => setNewMessage(event.target.value)}
-                    style={{ color: '#f5e9cf', width: 'calc(100% - 60px)' }}
+                    style={{ color: 'black', width: 'calc(100% - 60px)' }}
                     className="type-a-message"
                     placeholder="Type a message"
                   />

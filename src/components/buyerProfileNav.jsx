@@ -40,9 +40,19 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
     setLogoutConfirmationOpen(false);
   };
   
+  const clearSession = () => {
+   
+    sessionStorage.clear();
+
+   
+    window.location.href = '/login';
+  };
+
   const handleLogout = () => {
-    window.location.href = '/login'; 
-  };  
+    auth.signOut().then(() => {
+      clearSession();
+    });
+  };
 
 
   const changeLanguage = (lng) => {
@@ -269,6 +279,7 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
                     src={imagePreview}
                     className="accountIcon1"
                     alt="Uploaded Profile"
+                    style={{ maxWidth: '200px', maxHeight: '200px' }}
                   />
                 )}
                 {t('ext388')}

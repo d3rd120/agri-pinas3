@@ -221,7 +221,7 @@ const Signup = () => {
                 className="signupComponentFormInput"
                 id="signupComponentBirthday"
                 type="date"
-                placeholder="Birthday"
+                placeholder="Birthdate"
                 onInput={calculateAge}
                 value={birthdate}
                 onChange={(e) => setBirthdate(e.target.value)}

@@ -21,14 +21,11 @@ const AdminBuyerTransactions = () => {
   const [buyerAccounts, setBuyerAccounts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOption, setSelectedOption] = useState(10); // Default selected option
-  const [currentPage, setCurrentPage] = useState(1); // Default current page is 1
+  const [currentPage, setCurrentPage] = useState(1); // Default current page is 
+  const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
-  const [isDeleteConfirmationDialogOpen, setDeleteConfirmationDialogOpen] = useState(false);
-
-  const handleOverlayClick = () => {
-    setDeleteConfirmationDialogOpen(false); // Close the confirmation dialog without changing the language.
-  }; 
-
+  
+  
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'Users'), (snapshot) => {
@@ -85,15 +82,15 @@ const AdminBuyerTransactions = () => {
         // Update the user document with the new data
         await setDoc(userRef, userData, { merge: true });
 
-        // console.log('User data updated successfully!');
+        console.log('User data updated successfully!');
       } else {
         // Handle the case where the user document does not exist
-        // console.error('User document does not exist. Cannot update.');
+        console.error('User document does not exist. Cannot update.');
 
         // Depending on your application's logic, you can choose to display an error message or take other actions here.
       }
     } catch (error) {
-      // console.error('Error updating user data:', error);
+      console.error('Error updating user data:', error);
     }
   };
 
@@ -106,28 +103,31 @@ const AdminBuyerTransactions = () => {
       );
       setBuyerAccounts(updatedAccounts);
     } catch (error) {
-      // console.error('Error updating user data:', error);
+      console.error('Error updating user data:', error);
     }
   };
 
   const deleteUser = (user) => {
+    // Open the confirmation dialog and store the user to be deleted
+    setConfirmationDialogOpen(true);
     setUserToDelete(user);
-    setDeleteConfirmationDialogOpen(true);
   };
 
   const confirmDeleteUser = async () => {
     if (userToDelete) {
+      const userRef = firestoreDoc(db, 'Users', userToDelete.uid);
       try {
-        await deleteUser(userToDelete);
+        await deleteDoc(userRef);
         const updatedAccounts = buyerAccounts.filter((account) => account.uid !== userToDelete.uid);
         setBuyerAccounts(updatedAccounts);
       } catch (error) {
-        // console.error('Error deleting user:', error);
+        console.error('Error deleting user:', error);
+      } finally {
+        // Reset the state variables
+        setConfirmationDialogOpen(false);
+        setUserToDelete(null);
       }
     }
-  
-    // Close the confirmation dialog
-    setDeleteConfirmationDialogOpen(false);
   };
   
   
@@ -184,7 +184,8 @@ const AdminBuyerTransactions = () => {
                 className="adminCommunityForumComponentRowSelect"
                 value={selectedOption}
                 onChange={(e) => setSelectedOption(parseInt(e.target.value))}
-              >               
+              >
+                <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
@@ -209,8 +210,7 @@ const AdminBuyerTransactions = () => {
                   <th>{t('ext225')}</th>
                   <th>{t('ext226')}</th>
                   <th>{t('ext227')}</th>
-                  {/* <th>{t('text238')}</th> */}
-                  <th>{t('ext228')}</th>
+                  <th>{t('ext228')}</th>             
                 </tr>
               </thead>
               <tbody>
@@ -312,34 +312,24 @@ const AdminBuyerTransactions = () => {
                       )}
                     </td>
                     <td>{user.age}</td>
-                    {/* <td>
+                   
+                    <td>
                       {user.editing ? (
                         <div>
-                          <button onClick={() => saveChanges(user)}>Save</button>
+                          <button onClick={() => cancelEditing(user)}>Cancel</button>
                         </div>
                       ) : (
                         <div>
-                          <FaEdit onClick={() => startEditing(user)} />
+                          <FaTrash onClick={() => deleteUser(user)} 
+                          style={{ cursor: 'pointer' }}/>
                         </div>
                       )}
-                    </td> */}
-                <td>
-                  {user.editing ? (
-                    <div>
-                      <button onClick={() => cancelEditing(user)} style={{ cursor: 'pointer' }}>Cancel</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <FaTrash onClick={() => deleteUser(user)} style={{ cursor: 'pointer' }} />
-                    </div>
-                  )}
-                </td>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-
           <div className="adminAccountBuyerComponentCategories">
             {Array.from({ length: totalPages }, (_, index) => (
               <div
@@ -354,21 +344,19 @@ const AdminBuyerTransactions = () => {
                   {index + 1}
                 </div>
               </div>
-              
             ))}
           </div>
         </div>
       </div>
-
       <ConfirmationDialog
-          isOpen={isDeleteConfirmationDialogOpen}
-          message="Are you sure you want to delete this user?"
-          onConfirm={confirmDeleteUser}
-          onCancel={() => setDeleteConfirmationDialogOpen(false)}
-          onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-          confirmLabel={t('Confirm')}
-          cancelLabel={t('Cancel')}
-        />
+        isOpen={isConfirmationDialogOpen}
+        message= {t('ext415')}
+        onConfirm={confirmDeleteUser}
+        onCancel={() => setConfirmationDialogOpen(false)}
+        onOverlayClick={() => setConfirmationDialogOpen(false)}
+        confirmLabel={t('ext416')}
+        cancelLabel={t('ext417')}
+      />
     </I18nextProvider>
   );
 };

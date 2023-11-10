@@ -96,7 +96,10 @@ const BuyerProfile = () => {
                 <div class="farmerProfileComponentFullName">{t('ext397')}</div>
                 <div class="farmerProfileComponentName">{fullname}</div>
                 <div class="farmerProfileComponentRole">{t('ext398')}</div>
-                <img class="farmerselectImageIcon" alt="" src={imagePreview} /> 
+                <img class="farmerselectImageIcon" alt="" 
+                src={imagePreview} 
+                style={{ maxWidth: '200px', maxHeight: '200px' }}
+                /> 
                 <div class="farmerProfileComponentRole2">{buyerRole}</div>
                 <div class="farmerProfileComponentEmail1">{t('ext399')}</div>
                 <div class="farmerProfileComponentEmail2">{email}</div>

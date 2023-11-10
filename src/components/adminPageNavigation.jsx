@@ -7,7 +7,7 @@ import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import ConfirmationDialog from './confirmationDialog'; // Make sure to provide the correct import path.
-
+import { auth } from './firebase';
 
 const AdminNavigation = () => {
   const { t } = useTranslation();
@@ -43,8 +43,18 @@ const AdminNavigation = () => {
     setLogoutConfirmationOpen(false);
   };
   
+  const clearSession = () => {
+   
+    sessionStorage.clear();
+
+   
+    window.location.href = '/login';
+  };
+
   const handleLogout = () => {
-    window.location.href = '/login'; 
+    auth.signOut().then(() => {
+      clearSession();
+    });
   };
   
 

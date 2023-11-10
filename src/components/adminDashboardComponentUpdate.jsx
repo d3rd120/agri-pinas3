@@ -45,7 +45,7 @@ const FarmerCommunityForumAddPostComponent = ({  }) => {
         window.location.href = '/admindashboard';
       }, 1000);// Show success message
     } catch (error) {
-      console.error('Error adding post:', error);
+      // console.error('Error adding post:', error);
       alert(error.message);
     }
   };

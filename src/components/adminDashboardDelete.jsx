@@ -13,7 +13,7 @@ const FarmerMarketplaceComponenteDeleteProduct = ({ closePopup, selectedAnnounce
   const handleDelete = async () => {
     try {
       if (!selectedAnnouncement) {
-        console.error('No announcement selected for deletion');
+        // console.error('No announcement selected for deletion');
         return;
       }
 
@@ -24,7 +24,7 @@ const FarmerMarketplaceComponenteDeleteProduct = ({ closePopup, selectedAnnounce
         window.location.href = '/admindashboard';
       },); // Show success message 
     } catch (error) {
-      console.error('Error deleting announcement:', error);
+      // console.error('Error deleting announcement:', error);
     }
   };
 

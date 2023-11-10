@@ -17,6 +17,12 @@ const AdminBuyerTransactionsPendingComponent = () => {
   const [showPopup1, setShowPopup1] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
   const [cartItems, setcartItems] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5); // You can change this value based on your preference
+
+ 
+
 
   const handleButtonClick1 = () => {
     setShowPopup1(true);
@@ -33,6 +39,32 @@ const AdminBuyerTransactionsPendingComponent = () => {
   const closePopup2 = () => {
     setShowPopup2(false);
   };
+
+  const filteredCartItems = cartItems.filter((cartItem) =>
+  cartItem.orders.some(
+    (item) =>
+      item.cropName.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.dateBought.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.fullname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.category.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.unit.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.boughtQuantity.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.price.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.status.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.location.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.paymentMethod.toLowerCase().includes(searchInput.toLowerCase())
+  )
+);
+
+ 
+  // Calculate the indexes for the items to display on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredCartItems.slice(indexOfFirstItem, indexOfLastItem);
+  const pageNumbers = Math.ceil(filteredCartItems.length / itemsPerPage);
+
+
+// ...
 
   const fetchCartItems = async () => {
     try {
@@ -51,9 +83,9 @@ const AdminBuyerTransactionsPendingComponent = () => {
       );
   
       setcartItems(pendingcartItems);
-      console.log('cartItems', pendingcartItems); // Log filtered cart items data to console
+      // console.log('cartItems', pendingcartItems); // Log filtered cart items data to console
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      // console.error('Error fetching cart items:', error);
     }
   };
   
@@ -129,17 +161,32 @@ const AdminBuyerTransactionsPendingComponent = () => {
           <br></br>
           <div className="adminBuyerTransactionsPendingComponentShow">
           {t('ext201')}
-            <select className="adminBuyerTransactionsPendingComponentRowSelect" onchange="updateRows(this.value)">
+          
+          <select
+              className="adminBuyerTransactionsPendingComponentRowSelect"
+              onChange={(e) => {
+                setItemsPerPage(parseInt(e.target.value, 10));
+                setCurrentPage(1); // Reset to the first page when changing the number of items per page
+              }}
+            >
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="20">20</option>
             </select>
-            <input 
-            className="adminBuyerTransactionsPendingComponentRowSelect"
-            type = "text"
-            placeholder = {t('ext202')}>                    
-            </input>
+
+
+
+            <input
+                className="adminBuyerTransactionsPendingComponentRowSelect"
+                type="text"
+                placeholder={t('ext202')}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              ></input>
+
+
+
           </div>
           <br></br>
 
@@ -147,35 +194,35 @@ const AdminBuyerTransactionsPendingComponent = () => {
             <div className="adminFarmerTransactionsPendingComponentFrameParent">         
              
                
-                    {cartItems && cartItems.length > 0 ? (
-                      chunkArray(cartItems, 1).map((cartItemGroup, index) => (
-                        <div
-                          className="adminFarmerTransactionsPendingComponentFrameWrapper"
-                          key={index}
-                        >
-                          {cartItemGroup.map((cartItem, cartItemIndex) => (
-                            <div
-                              key={cartItemIndex}
-                              className="adminFarmerTransactionsPendingComponentRectangleParent"
-                            >
-                              {cartItem.orders && cartItem.orders.length > 0 ? (
-                                cartItem.orders.map((item, itemIndex) => (
+            {filteredCartItems && filteredCartItems.length > 0 ? (
+                           chunkArray(currentItems, 1).map((cartItemGroup, index) => (
+                              <div
+                                className="adminFarmerTransactionsPendingComponentFrameWrapper"
+                                key={index}
+                              >
+                                {cartItemGroup.map((cartItem, cartItemIndex) => (
                                   <div
-                                    key={itemIndex}
-                                    className="adminFarmerTransactionsPendingComponentFrameGroup"
+                                    key={cartItemIndex}
+                                    className="adminFarmerTransactionsPendingComponentRectangleParent"
                                   >
-                                    <img
-                                      className="adminFarmerTransactionsPendingComponentFrameChild"
-                                      alt=""
-                                      src={item.image}
-                                    />
-                                    <div className="adminFarmerTransactionsPendingComponentFrameContainer">
-                                      <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
-                                        <b className="adminFarmerTransactionsPendingComponentSubText1">
-                                          {item.cropName}
-                                        </b>
-                                      </div>
-                                      <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
+                                    {cartItem.orders && cartItem.orders.length > 0 ? (
+                                      cartItem.orders.map((item, itemIndex) => (
+                                        <div
+                                          key={itemIndex}
+                                          className="adminFarmerTransactionsPendingComponentFrameGroup"
+                                        >
+                                          <img
+                                            className="adminFarmerTransactionsPendingComponentFrameChild"
+                                            alt=""
+                                            src={item.image}
+                                          />
+                                          <div className="adminFarmerTransactionsPendingComponentFrameContainer">
+                                            <div className="adminFarmerTransactionsPendingComponentSubText1Wrapper">
+                                              <b className="adminFarmerTransactionsPendingComponentSubText1">
+                                                {item.cropName}
+                                              </b>
+                                            </div>
+                                            <div className="adminFarmerTransactionsPendingComponentSubText2Wrapper2">
                                         <div className="adminFarmerTransactionsPendingComponentSubText2">
                                           <b>{t('ext203')}</b> {item.dateBought}
                                         </div>
@@ -205,47 +252,34 @@ const AdminBuyerTransactionsPendingComponent = () => {
                                         </div>                                       
                                       </div>
                                     </div>
+                                  </div>                                            
+                                      ))
+                                    ) : (
+                                      <p key={`noPendingItems-${cartItemIndex}`}>{t('ext212')}</p>
+                                    )}
                                   </div>
-                                ))
-                              ) : (
-                                <p key={`noPendingItems-${cartItemIndex}`}>
-                                 {t('ext212')}
-                                </p>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      ))
-                    ) : (
-                      <p>{t('ext213')}</p>
-                    )}
+                                ))}
+                              </div>
+                            ))
+                          ) : (
+                            <p>{t('ext213')}</p>
+                          )}
+
                         </div>
                     </div>
                             
        
-                <div className="adminFarmerTransactionsPendingComponentForumNumber">
-                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">1</div>
-                  </div>
-                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">2</div>
-                  </div>
-                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">3</div>
-                  </div>
-                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">4</div>
-                  </div>
-                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">5</div>
-                  </div>
-                  <div className="adminFarmerTransactionsPendingComponentForumContainer">
-                    <div className="adminFarmerTransactionsPendingComponentForumNumberBox">6</div>
-                  </div>
-                </div>
-        
-      
-      
+                    <div className="adminFarmerTransactionsPendingComponentForumNumber">
+                      {Array.from({ length: pageNumbers }, (_, index) => (
+                        <div
+                          key={index}
+                          className="adminFarmerTransactionsPendingComponentForumContainer"
+                          onClick={() => setCurrentPage(index + 1)}
+                        >
+                          <div className="adminFarmerTransactionsPendingComponentForumNumberBox">{index + 1}</div>
+                        </div>
+                      ))}
+                    </div>
       </div>
       </div>
       </div>

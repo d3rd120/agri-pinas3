@@ -59,7 +59,7 @@ const ShoppingCart = () => {
             setBarangay('');
           }
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          // console.error("Error fetching user data:", error);
         }
       } else {
         setfullname('');
@@ -95,7 +95,7 @@ const ShoppingCart = () => {
           setCombinedData(combinedOrderData);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
       }
     };
 
@@ -123,7 +123,7 @@ const ShoppingCart = () => {
     const numericPrice = Number(price);
 
     if (isNaN(numericPrice)) {
-      console.error(`Invalid price: ${price}`);
+      // console.error(`Invalid price: ${price}`);
       return 'N/A';
     }
     
@@ -159,13 +159,13 @@ const ShoppingCart = () => {
  
   const placeOrder = async () => {
     try {
-      console.log('Start placing order...');
+      // console.log('Start placing order...');
   
       const user = auth.currentUser;
   
       // Check if the user is authenticated
       if (!user) {
-        console.log('User is not authenticated.');
+        // console.log('User is not authenticated.');
         showAlert('Please log in to place an order.');
         return;
       }
@@ -178,7 +178,7 @@ const ShoppingCart = () => {
   
       // Check if the combined cart items are empty
       if (combinedCartItems.length === 0) {
-        console.log('Combined cart items are empty.');
+        // console.log('Combined cart items are empty.');
         showAlert('Your order is empty. Add items before placing an order.');
         return;
       }
@@ -213,7 +213,7 @@ const ShoppingCart = () => {
         const isUndefinedField = Object.values(cartItem).some((value) => value === undefined);
   
         if (isUndefinedField) {
-          console.error('One or more required fields are undefined:', cartItem);
+          // console.error('One or more required fields are undefined:', cartItem);
           throw new Error('One or more required fields are undefined.');
         }
   
@@ -228,22 +228,22 @@ const ShoppingCart = () => {
         paymentMethod: selectedPaymentMethod,
       });
   
-      console.log('Order document added with ID:', orderRef.id);
+      // console.log('Order document added with ID:', orderRef.id);
   
       // Clear the cart
       await setDoc(userCartRef, { cart: [] });
   
-      console.log('Order placed successfully!');
+      // console.log('Order placed successfully!');
       showAlert('Order placed successfully');
       setTimeout(() => {
         navigate('/buyertoreceive');
       }, 1500); // Redirect to the login page after 2 seconds
     } catch (error) {
-      console.error('Error placing order:', error);
+      // console.error('Error placing order:', error);
   
       if (error instanceof FirebaseError) {
-        console.error('Firebase Error Code:', error.code);
-        console.error('Firebase Error Message:', error.message);
+        // console.error('Firebase Error Code:', error.code);
+        // console.error('Firebase Error Message:', error.message);
       }
   
       showAlert('Error placing order. Please try again.');

@@ -125,7 +125,7 @@ const handleSave = async () => {
         address,
       };
 
-      console.log('Updating user data:', updatedUserData);
+      // console.log('Updating user data:', updatedUserData);
 
       // Update the document in Firebase
       await updateDoc(userRef, updatedUserData);
@@ -136,9 +136,9 @@ const handleSave = async () => {
       setBarangay(updatedUserData.barangay || '');
       setAddress(updatedUserData.address || '');
 
-      console.log('User data updated successfully.');
+      // console.log('User data updated successfully.');
     } catch (error) {
-      console.error('Error updating user data:', error);
+      // console.error('Error updating user data:', error);
     }
   }
 
@@ -177,7 +177,7 @@ const handleSave = async () => {
             }
           })
           .catch((error) => {
-            console.error('Error fetching user data:', error);
+            // console.error('Error fetching user data:', error);
           });
       } else {
         setUserData(null);

@@ -51,7 +51,7 @@ const BuyerMarketplace = ({ postId }) => {
   const handleAddToCart = async (product) => {
     try {
       if (!product) {
-        console.error("Selected product is null. Check the value of selectedProduct.");
+        // console.error("Selected product is null. Check the value of selectedProduct.");
         return;
       }
   
@@ -103,7 +103,7 @@ const BuyerMarketplace = ({ postId }) => {
       setPopupMessage(`${product.cropName} added to your cart!`);
       setPopupVisible(true);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setPopupMessage("An error occurred while adding the item to your cart. Please try again.");
       setPopupVisible(true);
     }
@@ -113,7 +113,7 @@ const BuyerMarketplace = ({ postId }) => {
   const buyNow = async (product) => {
     try {
       if (!product || !selectedProduct) {
-        console.error("Selected product for immediate purchase is null.");
+        // console.error("Selected product for immediate purchase is null.");
         return;
       }
   
@@ -159,7 +159,7 @@ const BuyerMarketplace = ({ postId }) => {
        setPopupMessage(`${product.cropName} purchased successfully!`);
       setPopupVisible(true);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setPopupMessage("An error occurred during the purchase. Please try again.");
       setPopupVisible(true);
     }
@@ -173,7 +173,7 @@ const BuyerMarketplace = ({ postId }) => {
   const fetchProductDetails = async () => {
     try {
       if (!productId || productId === 'undefined') {
-        console.warn('Invalid productId:', productId);
+        // console.warn('Invalid productId:', productId);
         return;
       }
   
@@ -188,10 +188,10 @@ const BuyerMarketplace = ({ postId }) => {
         setSelectedProduct({ ...productDetailsData, productId });
         // Other state updates...
       } else {
-        console.warn('Product not found.');
+        // console.warn('Product not found.');
       }
     } catch (error) {
-      console.error('Error in fetchProductDetails:', error.message);
+      // console.error('Error in fetchProductDetails:', error.message);
     }
   };
 
@@ -201,7 +201,7 @@ const BuyerMarketplace = ({ postId }) => {
       const productDetails = await getDoc(productRef);
   
       if (!productDetails.exists()) {
-        console.warn('Product not found.');
+        // console.warn('Product not found.');
         return;
       }
   
@@ -230,7 +230,7 @@ const BuyerMarketplace = ({ postId }) => {
   
       setRelatedProducts([...randomRelatedProducts]);
     } catch (error) {
-      console.error('Error fetching related products:', error.message);
+      // console.error('Error fetching related products:', error.message);
     } finally {
       setLoadingRelatedProducts(false);
     }

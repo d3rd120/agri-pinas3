@@ -51,7 +51,7 @@ const AdminCommunityForumComponentArchived = () => {
       const archivedPostsSnapshot = await getDocs(archivedPostsCollection);
   
       if (archivedPostsSnapshot.empty) {
-        console.warn('No archived posts found.');
+        // console.warn('No archived posts found.');
         return;
       }
   
@@ -68,10 +68,10 @@ const AdminCommunityForumComponentArchived = () => {
       // Sort archived posts by numericTimestamp in descending order
       const sortedArchivedPosts = archivedPostsData.sort((a, b) => b.numericTimestamp - a.numericTimestamp);
   
-      console.log('Fetched archived posts:', sortedArchivedPosts);
+      // console.log('Fetched archived posts:', sortedArchivedPosts);
       setArchivedPosts(sortedArchivedPosts);
     } catch (error) {
-      console.error('Error retrieving archived posts:', error);
+      // console.error('Error retrieving archived posts:', error);
     }
   };
   
@@ -138,10 +138,10 @@ const AdminCommunityForumComponentArchived = () => {
             window.location.reload();
           },);  // Show success message // Fetch updated archived posts
         } else {
-          console.warn('Archived post not found. Post ID:', postId); // Log the postId
+          // console.warn('Archived post not found. Post ID:', postId); // Log the postId
         }
       } catch (error) {
-        console.error('Error unarchiving post:', error);
+        // console.error('Error unarchiving post:', error);
       }
     });
   };
@@ -161,10 +161,10 @@ const AdminCommunityForumComponentArchived = () => {
             window.location.reload();
           },); // Update this function name if needed
         } else {
-          console.warn('Archived post not found.');
+          // console.warn('Archived post not found.');
         }
       } catch (error) {
-        console.error('Error deleting archived post:', error);
+        // console.error('Error deleting archived post:', error);
       }
     });
   };
@@ -262,7 +262,7 @@ const AdminCommunityForumComponentArchived = () => {
                                       />
                                       <div className="buyerCommunityForumComponentAuthorText">
                                         <div className="buyerCommunityForumComponentAuthorName">
-                                          {archivedPost.user.displayName}
+                                          {archivedPost.fullname}
                                         </div>
                                         <div className="buyerCommunityForumComponentPostTime">
                                           {archivedPost.timestamp}

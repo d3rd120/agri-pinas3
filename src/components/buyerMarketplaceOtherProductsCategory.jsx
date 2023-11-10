@@ -48,7 +48,7 @@ const BuyerMarketplace = () => {
       const querySnapshot = await getDocs(productsCollection);
   
       if (querySnapshot.empty) {
-        console.warn('No products found.');
+        // console.warn('No products found.');
         return;
       }
   
@@ -67,7 +67,7 @@ const BuyerMarketplace = () => {
   
       setProducts(otherProducts); // Fix here: setProducts instead of fruitsProducts
     } catch (error) {
-      console.error('Error retrieving products:', error);
+      // console.error('Error retrieving products:', error);
     }
   };
   
@@ -79,11 +79,11 @@ const BuyerMarketplace = () => {
     try {
       // Set the last clicked product ID
       setLastClickedProductId(product.id);
-      console.log('Last Clicked', product)
+      // console.log('Last Clicked', product)
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
     } catch (error) {
-      console.error('Error handling product click:', error);
+      // console.error('Error handling product click:', error);
     }
   };
 

@@ -16,6 +16,9 @@ const AdminBuyerTransactionsCancelledComponent = () => {
   const [showPopup1, setShowPopup1] = useState(false);
   const [showPopup2, setShowPopup2] = useState(false);
   const [cartItems, setcartItems] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5); // You can change this value based on your preference
 
   const handleButtonClick1 = () => {
     setShowPopup1(true);
@@ -51,11 +54,35 @@ const AdminBuyerTransactionsCancelledComponent = () => {
       );
   
       setcartItems(completedcartItems);
-      console.log('cartItems', completedcartItems); // Log filtered cart items data to console
+      // console.log('cartItems', completedcartItems); // Log filtered cart items data to console
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      // console.error('Error fetching cart items:', error);
     }
   };
+
+  const filteredCartItems = cartItems.filter((cartItem) =>
+  cartItem.orders.some(
+    (item) =>
+      item.cropName.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.dateBought.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.fullname.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.category.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.unit.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.boughtQuantity.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.price.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.status.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.location.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.paymentMethod.toLowerCase().includes(searchInput.toLowerCase())
+  )
+);
+
+ 
+  // Calculate the indexes for the items to display on the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredCartItems.slice(indexOfFirstItem, indexOfLastItem);
+  const pageNumbers = Math.ceil(filteredCartItems.length / itemsPerPage);
+
   
   useEffect(() => {
     fetchCartItems();
@@ -93,17 +120,29 @@ const AdminBuyerTransactionsCancelledComponent = () => {
           <br></br>
           <div className="adminBuyerTransactionsCancelledComponentShow">
           {t('ext201')}
-            <select className="adminBuyerTransactionsCancelledComponentRowSelect" onchange="updateRows(this.value)">
+          <select
+              className="adminBuyerTransactionsPendingComponentRowSelect"
+              onChange={(e) => {
+                setItemsPerPage(parseInt(e.target.value, 10));
+                setCurrentPage(1); // Reset to the first page when changing the number of items per page
+              }}
+            >
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
               <option value="20">20</option>
             </select>
-            <input 
-            className="adminBuyerTransactionsCancelledComponentRowSelect"
-            type = "text"
-            placeholder =   {t('ext202')}>                    
-            </input>
+
+
+
+            <input
+                className="adminBuyerTransactionsPendingComponentRowSelect"
+                type="text"
+                placeholder={t('ext202')}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              ></input>
+
           </div>
           <br></br>
 
@@ -112,8 +151,8 @@ const AdminBuyerTransactionsCancelledComponent = () => {
             <div className="adminFarmerTransactionsPendingComponentFrameParent">         
              
                
-                    {cartItems && cartItems.length > 0 ? (
-                      chunkArray(cartItems, 1).map((cartItemGroup, index) => (
+            {filteredCartItems && filteredCartItems.length > 0 ? (
+                           chunkArray(currentItems, 1).map((cartItemGroup, index) => (
                         <div
                           className="adminFarmerTransactionsPendingComponentFrameWrapper"
                           key={index}
@@ -187,26 +226,17 @@ const AdminBuyerTransactionsCancelledComponent = () => {
                         </div>
                     </div>                           
        
-              <div className="adminBuyerTransactionsPendingComponentForumNumber">
-                <div className="adminBuyerTransactionsPendingComponentForumContainer">
-                  <div className="adminBuyerTransactionsPendingComponentForumNumberBox">1</div>
-                </div>
-                <div className="adminBuyerTransactionsPendingComponentForumContainer">
-                  <div className="adminBuyerTransactionsPendingComponentForumNumberBox">2</div>
-                </div>
-                <div className="adminBuyerTransactionsPendingComponentForumContainer">
-                  <div className="adminBuyerTransactionsPendingComponentForumNumberBox">3</div>
-                </div>
-                <div className="adminBuyerTransactionsPendingComponentForumContainer">
-                  <div className="adminBuyerTransactionsPendingComponentForumNumberBox">4</div>
-                </div>
-                <div className="adminBuyerTransactionsPendingComponentForumContainer">
-                  <div className="adminBuyerTransactionsPendingComponentForumNumberBox">5</div>
-                </div>
-                <div className="adminBuyerTransactionsPendingComponentForumContainer">
-                  <div className="adminBuyerTransactionsPendingComponentForumNumberBox">6</div>
-                </div>
-            </div>
+                    <div className="adminFarmerTransactionsPendingComponentForumNumber">
+                      {Array.from({ length: pageNumbers }, (_, index) => (
+                        <div
+                          key={index}
+                          className="adminFarmerTransactionsPendingComponentForumContainer"
+                          onClick={() => setCurrentPage(index + 1)}
+                        >
+                          <div className="adminFarmerTransactionsPendingComponentForumNumberBox">{index + 1}</div>
+                        </div>
+                      ))}
+                    </div>
           </div>
         </div>
       </div>

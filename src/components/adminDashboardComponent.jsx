@@ -73,7 +73,7 @@ const AdminDashboard = () => {
   
         setAnnouncements(announcementsData);
       } catch (error) {
-        console.error('Error fetching announcements:', error);
+        // console.error('Error fetching announcements:', error);
       }
     };
   

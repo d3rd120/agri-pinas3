@@ -48,7 +48,7 @@ const FarmerTransactions = () => {
           setUserData(userDataArray);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        // console.error("Error fetching user data:", error);
       }
     };
 
@@ -96,7 +96,7 @@ const FarmerTransactions = () => {
         return "Unknown User";
       }
     } catch (error) {
-      console.error("Error fetching user's first name:", error);
+      // console.error("Error fetching user's first name:", error);
       return "Error Fetching Name";
     }
   };
@@ -111,13 +111,13 @@ const FarmerTransactions = () => {
         ? `${otherUserUID} and ${auth.currentUser.uid}`
         : `${auth.currentUser.uid} and ${otherUserUID}`;
   
-    console.log("Selected Contact:", contact);
-    console.log("Other User UID:", otherUserUID);
-    console.log("Room Name:", roomName);
+    // console.log("Selected Contact:", contact);
+    // console.log("Other User UID:", otherUserUID);
+    // console.log("Room Name:", roomName);
   
     
     setRoom(roomName);
-    console.log("Room value after setting:", room);
+    // console.log("Room value after setting:", room);
   
     
   };
@@ -163,7 +163,7 @@ const FarmerTransactions = () => {
       });
     }
   
-    console.log("Room value after adding doc:", room);
+    // console.log("Room value after adding doc:", room);
   
     // Reset the new message input and image
     setNewMessage("");

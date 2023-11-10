@@ -19,7 +19,7 @@ const FarmerCommunityForumAddPostComponent = ({ selectedAnnouncement }) => {
   const updateAnnouncement = async ({ title, content }) => {
     try {
       if (!selectedAnnouncement) {
-        console.error('No announcement selected for update');
+        // console.error('No announcement selected for update');
         return;
       }
 
@@ -39,7 +39,7 @@ const FarmerCommunityForumAddPostComponent = ({ selectedAnnouncement }) => {
         window.location.reload();
       }, 500);  // Show success message
     } catch (error) {
-      console.error('Error updating announcement:', error);
+      // console.error('Error updating announcement:', error);
     }
   };
 

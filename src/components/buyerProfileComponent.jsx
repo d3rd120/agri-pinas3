@@ -49,7 +49,7 @@ const BuyerProfile = () => {
             }
           })
           .catch((error) => {
-            console.error("Error fetching user data:", error);
+            // console.error("Error fetching user data:", error);
           });
       } else {
         setIsLoggedIn(false);

@@ -132,6 +132,24 @@
   height: 100vh;
 }
 
+/* In your external stylesheet */
+.download-buttons {
+  /* Other styles */
+}
+
+.google-play {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.google-play:hover {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+
 @media screen and (max-width: 1366px) {
   .app-page-banner {
     font-size: 1.2rem;

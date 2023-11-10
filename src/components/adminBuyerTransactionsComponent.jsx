@@ -51,9 +51,9 @@ const AdminBuyerTransactionsPendingComponent = () => {
       );
   
       setcartItems(pendingcartItems);
-      console.log('cartItems', pendingcartItems); // Log filtered cart items data to console
+      // console.log('cartItems', pendingcartItems); // Log filtered cart items data to console
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      // console.error('Error fetching cart items:', error);
     }
   };
   

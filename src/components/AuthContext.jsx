@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       throw error;
     }
   };
@@ -30,7 +30,7 @@ const AuthProvider = ({ children }) => {
     try {
       await auth.createUserWithEmailAndPassword(email, password);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       throw error;
     }
   };
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     try {
       await auth.signOut();
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       throw error;
     }
   };
@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
     try {
       await auth.sendPasswordResetEmail(email);
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       throw error;
     }
   };

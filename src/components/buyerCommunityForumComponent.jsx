@@ -64,11 +64,11 @@ const fetchPosts = async () => {
       fetchedPosts.push(post);
     }
 
-    console.log('Fetched Posts:', fetchedPosts);
+    // console.log('Fetched Posts:', fetchedPosts);
 
     setPosts(fetchedPosts);
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    // console.error('Error fetching posts:', error);
   }
 };
 
@@ -79,7 +79,7 @@ const createPost = async (newPost) => {
 
     
     if (!currentUser) {
-      console.error('User is undefined.');
+      // console.error('User is undefined.');
     
       return;
     }
@@ -110,17 +110,17 @@ const createPost = async (newPost) => {
      
         const postsCollection = collection(db, 'CommunityForum');
         await addDoc(postsCollection, postWithUserInfo);
-        console.log('postWithUserInfo',postWithUserInfo)
+        // console.log('postWithUserInfo',postWithUserInfo)
       } else {
-        console.error('User fullname is undefined.');
+        // console.error('User fullname is undefined.');
      
       }
     } else {
-      console.error('User data not available.');
+      // console.error('User data not available.');
       // You can set a default value or return, depending on your use case
     }
   } catch (error) {
-    console.error('Error adding post:', error);
+    // console.error('Error adding post:', error);
     alert(error.message);
   }
 };
@@ -177,11 +177,11 @@ const chunkArray = (array, chunkSize) => {
     try {
       // Set the last clicked product ID
       setLastClickedProductId(post.id);
-      console.log('Last Clicked', post);
+      // console.log('Last Clicked', post);
       // Fetch the detailed product information based on the product ID
       // You may want to use this information to display the detailed view in BuyerMarketplacePost
     } catch (error) {
-      console.error('Error handling product click:', error);
+      // console.error('Error handling product click:', error);
     }
   };
   

@@ -28,7 +28,7 @@ function Reset() {
       }, 3000);
 
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setNotification('An error occurred while sending the password reset link. Please try again.');
     }
   };

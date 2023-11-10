@@ -41,88 +41,89 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
     }
   };
 
+  // const handlePost = async () => {
+  //   try {
+  //     if (!postDetails.title || !postDetails.content) {
+  //       setPopupMessage('Please fill in all required fields.');
+  //       setPopupVisible(true);
+  //       return;
+  //     }
+
+  //     // if (!postDetails.file) {
+  //     //   setPopupMessage('Please upload an image.');
+  //     //   setPopupVisible(true);
+  //     //   return;
+  //     // }
+
+  //     const newPost = {
+  //       title: postDetails.title,
+  //       content: postDetails.content,
+  //       sessionId: sessionId,
+  //     };
+
+  //     if (postDetails.file) {
+  //       const imageUrl = await uploadImage(postDetails.file, 'images');
+  //       newPost.image = imageUrl;
+  //     }
+
+  //     addPost(newPost);
+
+  //     setPopupMessage('Post written successfully!');
+  //     setPopupVisible(true);
+
+  //     // Clear form fields
+  //     setPostDetails({
+  //       title: '',
+  //       content: '',
+  //       file: null,
+  //       postId: '',
+  //     });
+
+      
+  //   } catch (error) {
+  //     setPopupMessage(`Error uploading image or storing post: ${error.message}`);
+  //     setPopupVisible(true);
+  //   }
+  // };
+
   const handlePost = async () => {
     try {
-      if (!postDetails.title || !postDetails.content) {
-        setPopupMessage('Please fill in all required fields.');
-        setPopupVisible(true);
-        return;
-      }
-
-      // if (!postDetails.file) {
-      //   setPopupMessage('Please upload an image.');
-      //   setPopupVisible(true);
-      //   return;
-      // }
-
       const newPost = {
         title: postDetails.title,
         content: postDetails.content,
-        sessionId: sessionId,
+        fullname: postDetails.fullname,  
+        timestamp: postDetails.timestamp,
+        comments: [],
       };
-
+  
+      
       if (postDetails.file) {
-        const imageUrl = await uploadImage(postDetails.file, 'images');
+        const imageUrl = await uploadImage(postDetails.file);
         newPost.image = imageUrl;
       }
-
+  
+     
       addPost(newPost);
-
-      setPopupMessage('Post written successfully!');
-      setPopupVisible(true);
-
-      // Clear form fields
+  
+      
       setPostDetails({
         title: '',
         content: '',
         file: null,
-        postId: '',
+        fullname: '', 
+        timestamp: '', 
+        comments: [],
       });
-
        // Navigate to /buyercommunityforum after 2 seconds
        setTimeout(() => {
         window.location.href = '/buyercommunityforum';
       }, 1000);
 
     } catch (error) {
+      console.error('Error uploading image or storing post:', error);
       setPopupMessage(`Error uploading image or storing post: ${error.message}`);
-      setPopupVisible(true);
     }
   };
-
-  // const handlePost = async () => {
-  //   try {
-  //     const newPost = {
-  //       title: postDetails.title,
-  //       content: postDetails.content,
-  //       fullname: postDetails.fullname,  
-  //       timestamp: postDetails.timestamp,
-  //       comments: [],
-  //     };
-  
-      
-  //     if (postDetails.file) {
-  //       const imageUrl = await uploadImage(postDetails.file);
-  //       newPost.image = imageUrl;
-  //     }
-  
-     
-  //     addPost(newPost);
-  
-      
-  //     setPostDetails({
-  //       title: '',
-  //       content: '',
-  //       file: null,
-  //       fullname: '', 
-  //       timestamp: '', 
-  //       comments: [],
-  //     });
-  //   } catch (error) {
-  //     console.error('Error uploading image or storing post:', error);
-  //     setPopupMessage(`Error uploading image or storing post: ${error.message}`);
-  //   }
-  // };
   
 
   useEffect(() => {

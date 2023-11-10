@@ -53,12 +53,12 @@ const AdminFarmerTransactions = () => {
     return currentYear - birthYear;
   };
 
-  // const startEditing = (user) => {
-  //   const updatedAccounts = farmerAccounts.map((account) =>
-  //     account.uid === user.uid ? { ...account, editing: true } : account
-  //   );
-  //   setFarmerAccounts(updatedAccounts);
-  // };
+  const startEditing = (user) => {
+    const updatedAccounts = farmerAccounts.map((account) =>
+      account.uid === user.uid ? { ...account, editing: true } : account
+    );
+    setFarmerAccounts(updatedAccounts);
+  };
 
   const cancelEditing = (user) => {
     const updatedAccounts = farmerAccounts.map((account) =>
@@ -98,18 +98,18 @@ const AdminFarmerTransactions = () => {
     }
   };
 
-  // const saveChanges = async (user) => {
-  //   const userRef = doc(db, 'Users', user.uid);
-  //   try {
-  //     await handleSaveUserData(user, userRef);
-  //     const updatedAccounts = farmerAccounts.map((account) =>
-  //       account.uid === user.uid ? { ...account, editing: false } : account
-  //     );
-  //     setFarmerAccounts(updatedAccounts);
-  //   } catch (error) {
-  //     console.error('Error updating user data:', error);
-  //   }
-  // };
+  const saveChanges = async (user) => {
+    const userRef = doc(db, 'Users', user.uid);
+    try {
+      await handleSaveUserData(user, userRef);
+      const updatedAccounts = farmerAccounts.map((account) =>
+        account.uid === user.uid ? { ...account, editing: false } : account
+      );
+      setFarmerAccounts(updatedAccounts);
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  };
 
   const deleteUser = (user) => {
     setIsDeleteConfirmationOpen(true);

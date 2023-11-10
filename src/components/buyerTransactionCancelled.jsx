@@ -3,7 +3,7 @@ import "../css/BuyerPage/buyerTransactionsCancelledComponent.css";
 import BuyerNavigation from '../components/buyerNavigation';
 import BuyerTopNav from '../components/buyerTopNav';
 import { query, collection, where, getDocs } from 'firebase/firestore';
-import { db } from './firebase';
+import { db, auth } from './firebase';
 import { useState, useEffect } from 'react';
 import { FaEnvelope, FaCommentDots, FaTimes, FaFolderOpen } from 'react-icons/fa';
 import { I18nextProvider } from 'react-i18next';
@@ -12,7 +12,7 @@ import i18n from '../i18n';
 import BuyerTransactionReport from '../components/buyerTransactionReport';
 import { Link } from 'react-router-dom';
 
-const BuyerTransanctionCancelled = ({  }) => {
+const BuyerTransanctionCancelled =  ({ sessionId }) => {
   const { t } = useTranslation();
   const [cartItems, setcartItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -27,26 +27,34 @@ const BuyerTransanctionCancelled = ({  }) => {
 
   const fetchCartItems = async () => {
     try {
+      const user = auth.currentUser; // Get the current user
+  
+      if (!user) {
+        console.log('User is not authenticated.');
+        // Handle the case when the user is not authenticated
+        return;
+      }
+  
       const ordersCollection = collection(db, 'Transaction');
       const ordersSnapshot = await getDocs(ordersCollection);
       const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
   
-      // Filter orders with "Completed" status
+      // Filter orders for the current user with "Pending" status
       const completedcartItems = ordersData.filter((cartItems) =>
-        cartItems.orders &&
-        Array.isArray(cartItems.orders) &&
-        cartItems.orders.length > 0 &&
-        cartItems.orders.some((item) =>
-          item && item.status === 'Cancelled'
-        )
-      );
-  
-      setcartItems(completedcartItems);
-      console.log('cartItems', completedcartItems); // Log filtered cart items data to console
-    } catch (error) {
-      console.error('Error fetching cart items:', error);
-    }
-  };
+      cartItems.orders &&
+      Array.isArray(cartItems.orders) &&
+      cartItems.orders.length > 0 &&
+      cartItems.orders.some((item) =>
+        item && item.status === 'Cancelled'
+      )
+    );
+
+    setcartItems(completedcartItems);
+    console.log('cartItems', completedcartItems); // Log filtered cart items data to console
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+  }
+};
   
   useEffect(() => {
     fetchCartItems();

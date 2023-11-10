@@ -251,7 +251,7 @@ const ShoppingCart = (props) => {
           uid: product.uid,
           unit: product.unit,
           quantity: 0,
-         
+          sessionId: sessionId,
         });
       });
   

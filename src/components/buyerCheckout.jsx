@@ -188,27 +188,26 @@ const ShoppingCart = () => {
         // Ensure that all required fields are defined
         const cartItem = {
           productId: item.productId,
-          boughtQuantity: item.boughtQuantity,
-         
+          boughtQuantity: item.boughtQuantity.toString(), // Convert boughtQuantity to a string
           isChecked: false,
           buid: user.uid,
-          category: item.category || '',
-          cropID: item.productId,
+          category: item.category || '0',
+          cropID: item.cropID,
           cropName: item.cropName || '',
           fullname: item.fullname || '',
           image: item.image || '',
           location: item.location || '',
-          price: item.price || 0,
-          totalAmount: item.price || 0,
-          totalCost: item.price || 0,
-          uid: user.uid,
+          price: (item.price || 0).toString(), // Convert price to a string
+          totalAmount: (item.price || 0).toString(), // Convert totalAmount to a string
+          totalCost: (item.price || 0).toString(), // Convert totalCost to a string
+          uid: item.uid,
           unit: item.unit || '',
-          quantity: item.quantity || '',
+          quantity: item.quantity.toString() || '0', // Convert quantity to a string
           status: 'Pending',
           dateBought: new Date().toISOString().split('T')[0],
           paymentMethod: selectedPaymentMethod,
-          
         };
+        
   
         // Check if any required field is undefined
         const isUndefinedField = Object.values(cartItem).some((value) => value === undefined);

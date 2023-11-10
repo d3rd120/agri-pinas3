@@ -3,7 +3,7 @@ import "../css/BuyerPage/buyerTransactionsCompletedComponent.css";
 import BuyerNavigation from '../components/buyerNavigation';
 import BuyerTopNav from '../components/buyerTopNav';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from './firebase';
+import { db, auth} from './firebase';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -26,14 +26,22 @@ const BuyerTransanctionCompleted = ({  }) => {
     setShowPopup(false);
   };
 
-const fetchCartItems = async () => {
-  try {
-    const ordersCollection = collection(db, 'Transaction');
-    const ordersSnapshot = await getDocs(ordersCollection);
-    const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
-
-    // Filter orders with "Completed" status
-    const completedcartItems = ordersData.filter((cartItems) =>
+  const fetchCartItems = async () => {
+    try {
+      const user = auth.currentUser; // Get the current user
+  
+      if (!user) {
+        console.log('User is not authenticated.');
+        // Handle the case when the user is not authenticated
+        return;
+      }
+  
+      const ordersCollection = collection(db, 'Transaction');
+      const ordersSnapshot = await getDocs(ordersCollection);
+      const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
+  
+      // Filter orders for the current user with "Pending" status
+      const completedcartItems = ordersData.filter((cartItems) =>
       cartItems.orders &&
       Array.isArray(cartItems.orders) &&
       cartItems.orders.length > 0 &&

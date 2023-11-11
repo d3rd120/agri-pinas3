@@ -86,7 +86,7 @@ const fetchArchivedPosts = async () => {
     }
   } catch (error) {
     // Handle errors
-    console.error('Error fetching archived posts:', error);
+    // console.error('Error fetching archived posts:', error);
   }
 };
 

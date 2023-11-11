@@ -116,7 +116,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
       });
    
     } catch (error) {
-      console.error('Error uploading image or storing post:', error);
+      // console.error('Error uploading image or storing post:', error);
       setPopupMessage(`Error uploading image or storing post: ${error.message}`);
     }
   };

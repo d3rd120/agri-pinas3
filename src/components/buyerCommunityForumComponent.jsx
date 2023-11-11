@@ -126,12 +126,23 @@ const createPost = async (newPost) => {
 };
 
 
-const addPost = (newPost) => {
-  // Call createPost to add the post to Firestore
-  createPost(newPost);
+const addPost = async (newPost) => {
+  try {
+    // Call createPost to add the post to Firestore
+    await createPost(newPost);
 
-  // Update the local state with the new post
-  setPosts([...posts, newPost]);
+    // Update the local state with the new post
+    setPosts([...posts, newPost]);
+
+    // Close the popup after a delay (3 seconds in this example)
+    setTimeout(() => {
+      closePopup();
+    }, 1500); // 3000 milliseconds = 3 seconds
+  } catch (error) {
+    // Handle error
+    // console.error('Error adding post:', error);
+    alert(error.message);
+  }
 };
 
 

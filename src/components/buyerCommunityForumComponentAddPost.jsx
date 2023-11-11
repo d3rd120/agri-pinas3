@@ -88,6 +88,19 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
 
   const handlePost = async () => {
     try {
+
+      if (!postDetails.title || !postDetails.content) {
+              setPopupMessage('Please fill in all required fields.');
+              setPopupVisible(true);
+              return;
+            }
+      
+            if (!postDetails.file) {
+              setPopupMessage('Please upload an image.');
+              setPopupVisible(true);
+              return;
+            }
+
       const newPost = {
         title: postDetails.title,
         content: postDetails.content,
@@ -104,6 +117,8 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   
      
       addPost(newPost);
+      setPopupMessage('Post written successfully!');
+      setPopupVisible(true);
   
       
       setPostDetails({

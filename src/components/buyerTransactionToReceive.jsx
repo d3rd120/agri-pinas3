@@ -34,18 +34,18 @@ const BuyerTransanctionPending =  ({ sessionId }) => {
       const user = auth.currentUser;
   
       if (!user) {
-        console.log('User is not authenticated.');
+        // console.log('User is not authenticated.');
         return;
       }
   
       const userId = user.uid;
-      console.log('User ID:', userId);
+      // console.log('User ID:', userId);
   
       const ordersCollection = collection(db, 'Transaction');
       const ordersSnapshot = await getDocs(ordersCollection);
       const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
   
-      console.log('All orders data:', ordersData);
+      // console.log('All orders data:', ordersData);
   
       // Filter orders for the current user with "Pending" status
       const userOrders = ordersData.filter((order) => {
@@ -56,10 +56,10 @@ const BuyerTransanctionPending =  ({ sessionId }) => {
         );
       });
   
-      console.log('User-specific orders:', userOrders);
+      // console.log('User-specific orders:', userOrders);
       setcartItems(userOrders);
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      // console.error('Error fetching cart items:', error);
     }
   };
   

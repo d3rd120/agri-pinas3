@@ -82,15 +82,15 @@ const AdminBuyerTransactions = () => {
         // Update the user document with the new data
         await setDoc(userRef, userData, { merge: true });
 
-        console.log('User data updated successfully!');
+        // console.log('User data updated successfully!');
       } else {
         // Handle the case where the user document does not exist
-        console.error('User document does not exist. Cannot update.');
+        // console.error('User document does not exist. Cannot update.');
 
         // Depending on your application's logic, you can choose to display an error message or take other actions here.
       }
     } catch (error) {
-      console.error('Error updating user data:', error);
+      // console.error('Error updating user data:', error);
     }
   };
 
@@ -103,7 +103,7 @@ const AdminBuyerTransactions = () => {
       );
       setBuyerAccounts(updatedAccounts);
     } catch (error) {
-      console.error('Error updating user data:', error);
+      // console.error('Error updating user data:', error);
     }
   };
 
@@ -121,7 +121,7 @@ const AdminBuyerTransactions = () => {
         const updatedAccounts = buyerAccounts.filter((account) => account.uid !== userToDelete.uid);
         setBuyerAccounts(updatedAccounts);
       } catch (error) {
-        console.error('Error deleting user:', error);
+        // console.error('Error deleting user:', error);
       } finally {
         // Reset the state variables
         setConfirmationDialogOpen(false);

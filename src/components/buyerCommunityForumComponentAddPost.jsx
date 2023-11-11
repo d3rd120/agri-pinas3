@@ -114,11 +114,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
         timestamp: '', 
         comments: [],
       });
-       // Navigate to /buyercommunityforum after 2 seconds
-       setTimeout(() => {
-        window.location.href = '/buyercommunityforum';
-      }, 1000);
-
+   
     } catch (error) {
       console.error('Error uploading image or storing post:', error);
       setPopupMessage(`Error uploading image or storing post: ${error.message}`);

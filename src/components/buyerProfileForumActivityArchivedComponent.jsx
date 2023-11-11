@@ -38,10 +38,7 @@ const filteredPosts = posts.filter((post) => {
 });
 
 
-const handleArchiveClick = (postId) => {
-  setSelectedPostId(postId);
-  setShowConfirmationDialog(true);
-};
+
 
 const fetchUserPosts = async () => {
   try {
@@ -67,10 +64,17 @@ const fetchUserPosts = async () => {
 
 
 const fetchArchivedPosts = async () => {
-    try {
+  try {
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
       // Assuming 'ForumActivityArchive' is the collection name for archived posts
       const archivePostsCollection = collection(db, 'ForumActivityArchive');
-      const archivePostsSnapshot = await getDocs(archivePostsCollection);
+      
+      // Add a where clause to filter by the current user's UID
+      const archivePostsQuery = query(archivePostsCollection, where('uid', '==', currentUser.uid));
+      
+      const archivePostsSnapshot = await getDocs(archivePostsQuery);
 
       const fetchedArchivedPosts = archivePostsSnapshot.docs.map((doc) => {
         const post = doc.data();
@@ -79,10 +83,13 @@ const fetchArchivedPosts = async () => {
       });
 
       setArchivedPosts(fetchedArchivedPosts);
-    } catch (error) {
-      // console.error('Error fetching archived posts:', error);
     }
-  };
+  } catch (error) {
+    // Handle errors
+    console.error('Error fetching archived posts:', error);
+  }
+};
+
 
   useEffect(() => {
     fetchArchivedPosts(); // Fetch archived posts
@@ -172,8 +179,6 @@ const chunkArray = (array, chunkSize) => {
               {archivedPostChunk.map((archivedPost) => (
                 <Link
                   className="buyerCommunityForumComponentRectangleParent"
-                  key={archivedPost.id}
-                  to={`/archivedPost/${archivedPost.id}`}
                 >
                   <img
                     className="buyerCommunityForumComponentFrameChild"

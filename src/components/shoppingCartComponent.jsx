@@ -223,44 +223,54 @@ const ShoppingCart = (props) => {
     }
   };
 
-  const storeSelectedProducts = async (productsToCheckout) => {
-    try {
-      const user = auth.currentUser;
-  
-      // Create a reference to a new 'SelectedProducts' collection
-      const selectedProductsCollection = collection(db, 'SelectedProducts');
-  
-      // Add each product to the 'SelectedProducts' collection in Firestore
-      productsToCheckout.forEach(async (product) => {
-        await addDoc(selectedProductsCollection, {
-          userId: user.uid,
-          productId: product.productId,
-          boughtQuantity: product.boughtQuantity,
-          dateBought: new Date().toISOString().split('T')[0],
-          isChecked: false,
-          buid: user.uid,
-          category: product.category,
-          cropID: product.productId,
-          cropName: product.cropName,
-          fullname: product.fullname,
-          image: product.image,
-          location: product.location,
-          price: product.price,
-          totalAmount: product.price,
-          totalCost: product.price,
-          uid: product.uid,
-          unit: product.unit,
-          quantity: 0,
-          sessionId: sessionId,
-        });
+ const storeSelectedProducts = async (productsToCheckout) => {
+  try {
+    const user = auth.currentUser;
+
+    if (user) {
+      // Create a reference to the user's 'SelectedProducts' document
+      const selectedProductsDocRef = doc(db, 'SelectedProducts', user.uid);
+      
+      // Fetch the existing data or create an empty object if the document doesn't exist
+      const selectedProductsData = (await getDoc(selectedProductsDocRef)).data() || {};
+
+      // Create an array to store the new products
+      const newProducts = productsToCheckout.map((product) => ({
+        userId: user.uid,
+        productId: product.productId,
+        boughtQuantity: product.boughtQuantity,
+        dateBought: new Date().toISOString().split('T')[0],
+        isChecked: false,
+        buid: user.uid,
+        category: product.category,
+        cropID: product.productId,
+        cropName: product.cropName,
+        fullname: product.fullname,
+        image: product.image,
+        location: product.location,
+        price: product.price,
+        totalAmount: product.price,
+        totalCost: product.price,
+        uid: product.uid,
+        unit: product.unit,
+        quantity: 0,
+        sessionId: sessionId,
+      }));
+
+      // Add the new products to the existing ones in the document
+      await setDoc(selectedProductsDocRef, {
+        ...selectedProductsData,
+        cart: [...(selectedProductsData.cart || []), ...newProducts],
       });
-  
+
       // console.log('Selected products stored in Firestore');
-    } catch (error) {
-      // console.error('Error storing selected products:', error);
-      // Handle errors if necessary
     }
-  };
+  } catch (error) {
+    // console.error('Error storing selected products:', error);
+    // Handle errors if necessary
+  }
+};
+
 
 
   const handleCheckout = () => {

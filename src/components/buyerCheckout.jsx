@@ -79,30 +79,39 @@ const ShoppingCart = () => {
     const fetchData = async () => {
       try {
         const user = auth.currentUser;
-
+  
         if (user) {
-          const userCartRef = doc(db, 'UserCarts', user.uid);
-          const userCartSnapshot = await getDoc(userCartRef);
-          const currentCart = userCartSnapshot.data()?.cart || [];
-
+          const selectedProductsDocRef = doc(db, 'SelectedProducts', user.uid);
+          const selectedProductsSnapshot = await getDoc(selectedProductsDocRef);
+          const selectedProductsData = selectedProductsSnapshot.data() || {};
+          const currentCart = selectedProductsData.cart || [];
+  
           const buyNowCollectionRef = collection(db, 'BuyNow');
           const buyNowCollectionSnapshot = await getDocs(buyNowCollectionRef);
           const buyNowData = buyNowCollectionSnapshot.docs.map((doc) => doc.data());
-
+  
           const combinedOrderData = [...currentCart, ...buyNowData];
           setCart(currentCart);
           setBuyNowData(buyNowData);
           setCombinedData(combinedOrderData);
+         
         }
       } catch (error) {
-        // console.error('Error fetching data:', error);
+        // Handle errors
+       // console.error('Error fetching data:', error);
       }
     };
-
+  
     fetchData(); // Call the fetchData function
-
-    // ... (other cleanup code if needed)
   }, []);
+  
+  // Add an additional useEffect to handle the data after it has been fetched
+  useEffect(() => {
+   
+  }, [combinedData]);
+  
+  
+  
   
   
 
@@ -172,6 +181,7 @@ const ShoppingCart = () => {
   
       const userCartRef = doc(db, 'UserCarts', user.uid);
       const userCartSnapshot = await getDoc(userCartRef);
+      //console.log("userCartSnapshot", userCartSnapshot.data());
       const currentCart = userCartSnapshot.data()?.cart || [];
   
       const combinedCartItems = [...currentCart, ...buyNowData]; // Combine existing cart and BuyNow items

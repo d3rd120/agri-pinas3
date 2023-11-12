@@ -126,6 +126,8 @@ input[type="text"] {
   top: 70px;
   right: 10px;
   width: 300px;
+  max-height: 400px; /* Set the maximum height as per your design */
+  overflow-y: auto; /* Add overflow-y to enable vertical scrolling */
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -133,6 +135,7 @@ input[type="text"] {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 9999999;
 }
+
 
 .notificationsModal h2 {
   font-size: 18px;
@@ -278,3 +281,10 @@ input[type="text"] {
   font-size: 12px;
   margin-left: 1rem;
 }
+
+
+
+.buyerComponentGroupInner2.newDataFetched {
+  color:rgb(204, 0, 0);
+}
+

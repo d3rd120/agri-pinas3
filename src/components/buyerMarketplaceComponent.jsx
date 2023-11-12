@@ -13,7 +13,7 @@ import ProfileVector2 from '../img/profileVector2.png';
 import i18n from '../i18n';
 import  { useState, useEffect } from 'react';
 import { db } from './firebase';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
 
 
 const BuyerMarketplaceComponent = () => {
@@ -30,40 +30,54 @@ const displayCount = 6;
 useEffect(() => {
   // Filter the products based on the search query
   const filtered = products.filter((product) =>
-    product.cropName.toLowerCase().includes(searchQuery.toLowerCase())
+    product.cropName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.quantity.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.price.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.unit.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    product.description.toLowerCase().includes(searchQuery.toLowerCase()) 
   );
   setFilteredProducts(filtered);
 }, [searchQuery, products]);
 
 
 
-  const fetchProducts = async () => {
-    try {
-      const productsCollection = collection(db, 'Marketplace');
-      const querySnapshot = await getDocs(productsCollection);
-  
-      if (querySnapshot.empty) {
-        // console.warn('No products found.');
-        return;
-      }
-  
-      const productsData = querySnapshot.docs.map((doc) => {
-        const product = doc.data();
-        return {
-          id: doc.id,
-          ...product,
-        };
-      });
-  
-    
-      setProducts(productsData.slice(0, 3));
-      const sessionId = generateSessionId(); 
-      sessionStorage.setItem('sessionId', sessionId);
-      // console.log('sessionId', sessionId);
-    } catch (error) {
-      // console.error('Error retrieving products:', error);
+const fetchProducts = async () => {
+  try {
+    const productsCollection = collection(db, 'Marketplace');
+    const querySnapshot = await getDocs(productsCollection);
+
+    if (querySnapshot.empty) {
+      // console.warn('No products found.');
+      return;
     }
-  };
+
+    const fetchedProducts = [];
+
+    for (const docSnap of querySnapshot.docs) {
+      const product = docSnap.data();
+      product.id = docSnap.id;
+
+      // Fetch user details for each product
+      const userSnapshot = await getDoc(doc(db, 'Users', product.uid));
+      const userData = userSnapshot.data();
+
+      if (userData) {
+        product.profileImageUrl = userData.profileImageUrl;
+      }
+
+      fetchedProducts.push(product);
+    }
+
+    setProducts(fetchedProducts);
+    // console.log('Fetched Products:', fetchedProducts);
+  } catch (error) {
+    console.error('Error retrieving products:', error);
+  }
+};
+
 
   const generateSessionId = () => {
     return Math.random().toString(36).substr(2, 10); 
@@ -84,6 +98,7 @@ useEffect(() => {
       // console.error('Error handling product click:', error);
     }
   };
+  
 
   function chunkArray(arr, chunkSize) {
     const chunked = [];
@@ -92,12 +107,11 @@ useEffect(() => {
     }
     return chunked;
   }
+// Calculate the total number of pages based on filtered products
+const totalPages = Math.ceil(filteredProducts.length / displayCount);
 
-  // Calculate the total number of pages
-  const totalPages = Math.ceil(products.length / displayCount);
-
-  // Generate an array of page numbers for dynamic pagination
-  const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+// Generate an array of page numbers for dynamic pagination
+const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   // Calculate the starting and ending index for the current page
   const startIndex = (currentPage - 1) * displayCount;
@@ -127,7 +141,7 @@ useEffect(() => {
 
          
           <div className="buyerCommunityForumComponentMiddleSection">
-          {chunkArray(products.slice(startIndex, endIndex), 3).map((postGroup, index) => (
+         
             <div className="buyerCommunityForumComponentFrameParent">
            
               <div className="buyerCommunityForumComponentFrameWrapper">  
@@ -192,9 +206,14 @@ useEffect(() => {
                   </div>
                 </Link>
               </div>
-              
+              <input
+                  type="text"
+                  placeholder={t('ext297')}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ width: '250px' }}
+                />  
 
-             
+            {chunkArray(filteredProducts.slice(startIndex, endIndex), 3).map((postGroup, index) => (
                 <div className="adminMarketplaceComponentFrameWrapper" key={index}>
                   {postGroup.map((product) => (
                     <NavLink
@@ -239,7 +258,7 @@ useEffect(() => {
                         </div>
                         <div className="buyerMarketplaceComponentFrameItem" />
                         <div className="buyerMarketplaceComponentAuthor">
-                          <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={product.profileImageUrl} />
                           <div className="buyerMarketplaceComponentAuthorText">
                             <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
                           </div>
@@ -247,12 +266,13 @@ useEffect(() => {
                       </div>
                     </NavLink>
                   ))}
-                </div>              
-            </div>
+                </div>             
+          
             ))} 
+              </div>
           </div>
    
-          {/* <div className="adminCommunityForumComponentForumNumber">
+           <div className="adminCommunityForumComponentForumNumber">
             {pageNumbers.map((pageNumber) => (
               <div
                 className={`adminCommunityForumComponentForumContainer ${
@@ -265,7 +285,7 @@ useEffect(() => {
                 <div className="adminCommunityForumComponentForumNumberBox">{pageNumber}</div>
               </div>
             ))}
-          </div> */}
+          </div> 
           
         </div>
       </div>

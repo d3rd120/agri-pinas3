@@ -343,7 +343,7 @@
    "ext313": "Action",
    "ext314": "Total: ",
    "ext315": "Checkout",
-   "ext316": "Add Product",
+   "ext316": "Add More",
    "ext317": "Do you want to remove this item?",
    "ext318": "Yes",
    "ext319": "No",
@@ -460,6 +460,9 @@
    "ext415": "Are you sure you want to delete this user?",
    "ext416": "Yes",
    "ext417": "No",
+
+   "ext418": "Address",
+
 
 
 

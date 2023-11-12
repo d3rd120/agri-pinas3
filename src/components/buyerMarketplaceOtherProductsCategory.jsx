@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -52,16 +52,25 @@ const BuyerMarketplace = () => {
         return;
       }
   
-      const productsData = querySnapshot.docs.map((doc) => {
-        const product = doc.data();
-        return {
-          id: doc.id,
-          ...product,
-        };
-      });
+      const fetchedProducts = [];
+  
+      for (const docSnap of querySnapshot.docs) {
+        const product = docSnap.data();
+        product.id = docSnap.id;
+  
+        // Fetch user details for each product
+        const userSnapshot = await getDoc(doc(db, 'Users', product.uid));
+        const userData = userSnapshot.data();
+  
+        if (userData) {
+          product.profileImageUrl = userData.profileImageUrl;
+        }
+  
+        fetchedProducts.push(product);
+      }
   
       // Filter products based on the "Other" category (case-insensitive)
-      const otherProducts = productsData.filter((product) =>
+      const otherProducts = fetchedProducts.filter((product) =>
         product.category.toLowerCase() === 'others'
       );
   
@@ -182,7 +191,7 @@ const BuyerMarketplace = () => {
                         </div>                       
                       <div className="buyerMarketplaceComponentFrameItem" />
                       <div className="buyerMarketplaceComponentAuthor">
-                        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                        <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={product.profileImageUrl} />
                         <div className="buyerMarketplaceComponentAuthorText">
                         <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
                         </div>

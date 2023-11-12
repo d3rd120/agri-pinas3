@@ -212,13 +212,13 @@ const BuyerProfileNav = ({ onUserInfoChange, sessionId }) => {
           <div className="buyerNavigationLinksProfile">{t('ext376')}</div>
         </NavLink>
 
-        <NavLink
+        {/* <NavLink
           className="buyerNavigationLink2"
           to="/buyeraddress"
           activeClassName="active"
         >
           <div className="buyerNavigationLinksAddress">{t('ext377')}</div>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink
             className={`buyerNavigationLink5 ${showCommunityForumDropdown ? 'active' : ''}`}

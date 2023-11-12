@@ -8,7 +8,7 @@ import BuyerTopNav from '../components/buyerTopNav';
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, getDoc, doc} from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -52,30 +52,41 @@ const BuyerMarketplace = () => {
     try {
       const productsCollection = collection(db, 'Marketplace');
       const querySnapshot = await getDocs(productsCollection);
-
+  
       if (querySnapshot.empty) {
         // console.warn('No products found.');
         return;
       }
-
-      const productsData = querySnapshot.docs.map((doc) => {
-        const product = doc.data();
-        return {
-          id: doc.id,
-          ...product,
-        };
-      });
-
-      // Filter products based on the corrected category ('vegetable')
-      const vegetablesProducts = productsData.filter(
+  
+      const fetchedProducts = [];
+  
+      for (const docSnap of querySnapshot.docs) {
+        const product = docSnap.data();
+        product.id = docSnap.id;
+  
+        // Fetch user details for each product
+        const userSnapshot = await getDoc(doc(db, 'Users', product.uid));
+        const userData = userSnapshot.data();
+  
+        if (userData) {
+          product.profileImageUrl = userData.profileImageUrl;
+        }
+  
+        fetchedProducts.push(product);
+      }
+  
+      // Filter products based on the corrected category ('vegetables')
+      const vegetablesProducts = fetchedProducts.filter(
         (product) => product.category.toLowerCase() === 'vegetables'
       );
-
+  
       setProducts(vegetablesProducts);
     } catch (error) {
-      // console.error('Error retrieving products:', error);
+      console.error('Error retrieving products:', error);
     }
   };
+  
+  
 
   useEffect(() => {
     fetchProducts();
@@ -181,7 +192,7 @@ const BuyerMarketplace = () => {
                         </div>
                         <div className="buyerMarketplaceComponentFrameItem" />
                         <div className="buyerMarketplaceComponentAuthor">
-                          <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={ProfileVector2} />
+                          <img className="buyerMarketplaceComponentAvatarIcon" alt="" src={product.profileImageUrl} />
                           <div className="buyerMarketplaceComponentAuthorText">
                             <div className="buyerMarketplaceComponentAuthorName">{product.fullname}</div>
                           </div>

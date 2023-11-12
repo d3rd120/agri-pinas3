@@ -99,6 +99,12 @@
     margin-left: 6rem;
 }
 
+.farmerProfileComponentEmail3 {
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 23rem;
+}
+
 .farmerProfileComponentFullName {
   margin-top: 3rem;
 }
@@ -117,15 +123,24 @@
   font-weight: 600;
   font-size: 17px;
   color: black;
-  margin-left: 20rem;
+  margin-left: 22rem;
   margin-top: -6.2rem;
 }
+
+.farmerProfileComponentPhoneNumber2 {
+  font-weight: 600;
+  font-size: 17px;
+  color: black;
+  margin-left: 22rem;
+  margin-top: -3.5rem;
+}
+
 
 .farmerProfileComponentNumber,
 .farmerProfileComponentBirthdate{
   font-weight: 400;
   font-size: 14px;
-  margin-left: 21.5rem;
+  margin-left: 23rem;
 }
 
 

@@ -1,5 +1,5 @@
 import { FaEnvelope, FaBell, FaUser, FaSearch } from 'react-icons/fa';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../css/BuyerPage/buyerTopNav.css';
 import profile1 from '../img/profileVector1.png';
 import profile2 from '../img/profileVector2.png';
@@ -11,6 +11,10 @@ import { RiChat1Line } from 'react-icons/ri';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { collection, getDocs } from 'firebase/firestore';
+import { db, auth } from './firebase';
+import { useLocation } from 'react-router-dom';
+
 
 
 const CustomHeaderTitle = styled.div`
@@ -20,7 +24,7 @@ const CustomHeaderTitle = styled.div`
 `;
 
 
-const BuyerTopNav = ({ setSearchQuery }) => {
+const BuyerTopNav = ({ setSearchQuery, sessionId }) => {
   const { t } = useTranslation();
   const theme = {
     background: 'white',
@@ -39,6 +43,15 @@ const BuyerTopNav = ({ setSearchQuery }) => {
   const [showChatBot, setShowChatBot] = useState(false);
   const [minimizedChatBot, setMinimizedChatBot] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [cartItems, setcartItems] = useState([]);
+  const [ordersData, setOrdersData] = useState([]);
+  const [isNewDataFetched, setIsNewDataFetched] = useState(false);
+  const location = useLocation();
+
+
+
+  
+
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -63,30 +76,9 @@ const BuyerTopNav = ({ setSearchQuery }) => {
     setMinimizedChatBot(true);
   };
 
-  const [messages, setMessages] = useState([
-    {
-      sender: 'Jenkins Mesina',
-      senderImage: profile1,
-      content: 'Your order has beem shipped',
-      timestamp: '2h ago',
-    },
-    {
-      sender: 'Arriane Gatpo',
-      senderImage: profile2,
-      content: 'You have a new message',
-      timestamp: '4h ago',
-    },
-    {
-      sender: 'Romeo London',
-      senderImage: profile1,
-      content: 'New deals are available',
-      timestamp: '8h ago',
-    },
-  ]);
+  
 
-  const handleDismiss = () => {
-    setMessages([]);
-  };
+  
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -97,12 +89,63 @@ const BuyerTopNav = ({ setSearchQuery }) => {
   };
 
   const handleBellClick = () => {
-    setShowNotifications(prevState => !prevState);
+    setShowNotifications((prevState) => !prevState);    
   };
+  
+
+
 
   const handleEnvelopeClick = () => {
     setShowMessages(prevState => !prevState);
   };
+
+
+  const fetchCartItems = async () => {
+    try {
+      const user = auth.currentUser;
+  
+      if (!user) {
+        // console.log('User is not authenticated.');
+        return;
+      }
+  
+      const userId = user.uid;
+      // console.log('User ID:', userId);
+  
+      const ordersCollection = collection(db, 'Transaction');
+      const ordersSnapshot = await getDocs(ordersCollection);
+      const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
+  
+      // console.log('All orders data:', ordersData);
+  
+      // Filter orders for the current user with "Pending" status
+      const userOrders = ordersData.filter((order) => {
+        return (
+          order.userId === userId &&
+          order.orders &&
+          order.orders.some((item) => item.status === 'Pending')
+        );
+      });
+      
+      const newUserOrders = userOrders.filter(order => !cartItems.some(cartItem => cartItem.id === order.id));
+      setcartItems([...cartItems, ...newUserOrders]);
+  
+      if (newUserOrders.length > 0) {
+        setIsNewDataFetched(true); // Set the state to true only if new items are fetched
+      }
+      // console.log('User-specific orders:', userOrders);
+      setcartItems(userOrders);
+  // Set the state to true when new data is fetched
+    } catch (error) {
+      // console.error('Error fetching cart items:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartItems();
+  }, [sessionId]);
+  
+
   return (
     <I18nextProvider i18n={i18n}> 
     <div className="buyerTopNavContainer">
@@ -122,11 +165,15 @@ const BuyerTopNav = ({ setSearchQuery }) => {
             <FaUser className="buyerComponentGroupChild3" />
           </NavLink>          
         </div>
-        
+
         <FaBell
-          className={`buyerComponentGroupInner2${showNotifications ? ' active' : ''}`}
-          onClick={handleBellClick}
-        />
+  className={`buyerComponentGroupInner2${showNotifications ? ' active' : ''}${isNewDataFetched ? ' newDataFetched' : ''}`}
+  onClick={handleBellClick}
+/>
+
+
+
+        
         {/* <div className="buyerComponentGroupInner2" style={{ width: '100%', height: '100%', marginLeft: '-17rem', }}>        
         <input
           type="text"
@@ -146,25 +193,33 @@ const BuyerTopNav = ({ setSearchQuery }) => {
         
       </div>
 
-      {/* {showNotifications && (
-        <div className="notificationsModal">
-          <h2>{t('buyerTopNavText1')}</h2>
-          <ul className="notificationList">
-            <li className="notificationItem">
-              <span className="notificationMessage">{t('buyerTopNavText2')}</span>
-              <span className="notificationTime">{t('buyerTopNavText3')}</span>
-            </li>
-            <li className="notificationItem">
-              <span className="notificationMessage">{t('buyerTopNavText4')}</span>
-              <span className="notificationTime">{t('buyerTopNavText5')}</span>
-            </li>
-            <li className="notificationItem">
-              <span className="notificationMessage">{t('buyerTopNavText4')}</span>
-              <span className="notificationTime">{t('buyerTopNavText5')}</span>
-            </li>           
-          </ul>
-        </div>
-      )} */}
+      {showNotifications && (
+  <div className="notificationsModal">
+    <h2>{t('buyerTopNavText1')}</h2>
+    <ul className="notificationList">
+      {cartItems.map((cartItem) => (
+        cartItem.orders.map((item, itemIndex) => (
+          <li key={item.orderId} className="notificationItem">
+            <span className="notificationMessage">
+            {
+                
+              }
+
+              {`${t('Your order status ')} `}
+              <strong>{item.orderId}</strong>
+              {` ${t('has been automatically canceled as it has not been picked up within 24 hours. Thank you!')}`}
+
+            </span>
+          </li>
+        ))
+      ))}
+    </ul>
+  </div>
+)}
+
+
+
+
      {/* {showMessages && (
       <div className="notificationsModal">
       <h2>Messages</h2>

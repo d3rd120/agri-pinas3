@@ -369,21 +369,23 @@ const ShoppingCart = (props) => {
               ))}
             </tbody>
               </table>
-<div className="total">{t('ext314')}{calculateTotal()}</div>
-<div className="buttonWrapper">
-        <Link
-          to={isCheckoutEnabled ? '/checkout' : '#'}  // This will remain unchanged
-          onClick={handleCheckout}
-          className={`ordercheckoutButton2 ${isCheckoutEnabled ? '' : 'disabled'}`}
-        >
-          {t('ext315')}
-        </Link>
-        <Link to="/buyermarketplace" className="ordercheckoutButton2">
-          {t('ext316')}
-        </Link>
-      </div>
-  </div>
- </div>
+              <div className="total">{t('ext314')}{calculateTotal()}</div>
+              <div className="buttonWrapper">
+                      <Link
+                        to={isCheckoutEnabled ? '/checkout' : '#'}  // This will remain unchanged
+                        onClick={handleCheckout}
+                        className={`ordercheckoutButton2 ${isCheckoutEnabled ? '' : 'disabled'}`}
+                      >
+                        {t('ext315')}
+                      </Link>
+                      {cart.length > 0 && (
+                          <Link to="/buyermarketplace" className="ordercheckoutButton2">
+                            {t('ext316')}
+                          </Link>
+                        )}
+                    </div>
+                </div>
+              </div>
           {showModal && (
             <div className="modalBackdrop">
               <div className="modal1">

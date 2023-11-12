@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "../css/BuyerPage/buyerProfileComponent.css";
 import BuyerProfileNav from '../components/buyerProfileNav';
-import ProfileVector1 from '../img/profileVector1.png';
 import BuyerTopNav from '../components/buyerTopNav';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import { collection, where, getDocs, query } from 'firebase/firestore';
 const BuyerProfile = () => {
   const { t } = useTranslation();
   const [fullname, setfullname] = useState(' ');
+  const [address, setAddress] = useState('');
   const [contact, setContact] = useState('');
   const [email, setEmail] = useState(' ');
   const [birthdate, setbirthdate] = useState('');
@@ -26,6 +26,8 @@ const BuyerProfile = () => {
     setEmail(userInfo.email || '');
     setbirthdate(userInfo.birthdate || '');
     setBuyerRole(userInfo.role || '');
+    setBuyerRole(userInfo.role || '');
+    setAddress(userInfo.address || '');
     setImagePreview(userInfo.profileImageUrl || null);
   };
   
@@ -45,7 +47,7 @@ const BuyerProfile = () => {
               const userData = querySnapshot.docs[0].data();
               handleUserInfoChange(userData);
             } else {
-              handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '' });
+              handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '', address: '' });
             }
           })
           .catch((error) => {
@@ -54,7 +56,7 @@ const BuyerProfile = () => {
       } else {
         setIsLoggedIn(false);
         setSessionId(null);
-        handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '' });
+        handleUserInfoChange({ fullname: '', contact: '', email: '', birthdate: '', role: '', address: '' });
       }
     });
   
@@ -78,6 +80,7 @@ const BuyerProfile = () => {
         phoneNumber={contact}
         email={email}
         dateOfBirth={birthdate}
+        address = {address}
         profileImageUrl={imagePreview}
       />
         <div className="farmerProfileComponentMainPanel">
@@ -103,10 +106,13 @@ const BuyerProfile = () => {
                 <div class="farmerProfileComponentRole2">{buyerRole}</div>
                 <div class="farmerProfileComponentEmail1">{t('ext399')}</div>
                 <div class="farmerProfileComponentEmail2">{email}</div>
+                <div class="farmerProfileComponentPhoneNumber2">{t('ext418')}</div>
+                <div class="farmerProfileComponentEmail3">{address}</div>
                 <div class="farmerProfileComponentPhoneNumber">{t('ext401')}</div>
                 <div class="farmerProfileComponentNumber">{contact}</div>
                 <div class="farmerProfileComponentBdayDate">{t('ext400')}</div>
                 <div class="farmerProfileComponentBirthdate">{formatDateOfBirth(new Date(birthdate))}</div>
+                
               </div>
             </div>
           </div>

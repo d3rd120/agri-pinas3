@@ -6,7 +6,7 @@ import { FirebaseError } from 'firebase/app';
 import BuyerTopNav from '../components/buyerTopNav';
 import { v4 as uuidv4 } from 'uuid';
 import { db, auth, } from './firebase';
-import { doc, getDocs, collection, query, where, getDoc, setDoc, addDoc } from 'firebase/firestore';
+import { doc, getDocs, collection, query, where, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore';
 import { I18nextProvider } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -171,7 +171,7 @@ const ShoppingCart = () => {
       // console.log('Start placing order...');
   
       const user = auth.currentUser;
-  
+      const orderId = uuidv4();
       // Check if the user is authenticated
       if (!user) {
         // console.log('User is not authenticated.');
@@ -216,6 +216,7 @@ const ShoppingCart = () => {
           status: 'Pending',
           dateBought: new Date().toISOString().split('T')[0],
           paymentMethod: selectedPaymentMethod,
+          orderId: orderId,
         };
         
   
@@ -236,18 +237,21 @@ const ShoppingCart = () => {
         orders,
         dateBought: new Date().toISOString().split('T')[0],
         paymentMethod: selectedPaymentMethod,
+        orderId: orderId,
       });
   
       // console.log('Order document added with ID:', orderRef.id);
-  
-      // Clear the cart
+      setTimeout(async () => {
+        await updateDoc(orderRef, { orders: orders.map(order => ({ ...order, status: 'Cancelled' })) });
+      }, 60000);
+      
       await setDoc(userCartRef, { cart: [] });
   
       // console.log('Order placed successfully!');
       showAlert('Order placed successfully');
       setTimeout(() => {
         navigate('/buyertoreceive');
-      }, 1500); // Redirect to the login page after 2 seconds
+      }, 1500); 
     } catch (error) {
       // console.error('Error placing order:', error);
   
@@ -259,7 +263,6 @@ const ShoppingCart = () => {
       showAlert('Error placing order. Please try again.');
     }
   };
-  
   
   
   

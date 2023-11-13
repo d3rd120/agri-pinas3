@@ -253,7 +253,8 @@ const ShoppingCart = () => {
       await setDoc(userCartRef, { cart: [] });
   
       // console.log('Order placed successfully!');
-      showAlert("Order placed successfully,\n Order Reminder - for 12 hours your order has been pending for 12 hours.\nPlease pick up within the next 12 hours to avoid automatic cancellation. Thank you!");
+      showAlert(`${t('ext425')}`);
+
 
       setTimeout(() => {
         navigate('/buyertoreceive');

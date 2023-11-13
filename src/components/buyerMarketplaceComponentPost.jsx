@@ -100,7 +100,8 @@ const BuyerMarketplace = ({ postId }) => {
         await setDoc(userCartRef, { cart: updatedCart });
       }
   
-      setPopupMessage(`${product.cropName} added to your cart!`);
+      setPopupMessage(`${product.cropName} ${t('ext423')}`);
+
       setPopupVisible(true);
     } catch (err) {
       // console.error(err);

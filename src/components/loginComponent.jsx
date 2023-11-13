@@ -117,7 +117,7 @@ const LoginPage = () => {
             handleSessionStorage(userUid);
           } else {
             setEmailVerified(false);
-            setPopupMessage('Email not verified. Please verify your email address.');
+            setPopupMessage(t('ext441'));
             setPopupVisible(true);
             // You can handle the email verification flow here if needed
           }
@@ -131,7 +131,7 @@ const LoginPage = () => {
         setPopupVisible(true);
       }
     } catch (error) {
-      setPopupMessage('Invalid email or password.');
+      setPopupMessage(t('ext440'));
       setPopupVisible(true);
     }
   };

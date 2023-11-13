@@ -434,7 +434,7 @@ const ShoppingCart = (props) => {
             ))}
 
         <Popup
-        message="Your cart is empty. Please add items to your cart before proceeding to checkout."
+        message={t('ext424')}
         onClose={() => setIsCartEmptyPopupVisible(false)}
         isVisible={isCartEmptyPopupVisible}
       />

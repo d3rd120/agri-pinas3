@@ -346,7 +346,7 @@
   "ext312": "Subtotal",
   "ext313": "Aksyon",
   "ext314": "Total: ",
-  "ext315": "Bumili na",
+  "ext315": "Checkout",
   "ext316": "Mag-add",
   "ext317": "Gusto mo bang alisin ang item na ito?",
   "ext318": "Oo",
@@ -410,7 +410,8 @@
   "ext371": "Mga komento:",
   "ext372": "Iba Pang Mga Post",
 
-   "ext373": "Mensahe",
+  "ext373": "Mensahe",
+  "eext373": "Mga magsasaka",
 
    "ext374": "I-edit",
    "ext375": "Account",
@@ -467,6 +468,40 @@
    "ext417": "Hindi",
    
    "ext418": "Address",
+
+   "ext419": "Hanapin ang magsasaka",
+
+      "ext420": "Delete itong report?",
+      "ext421": "Oo",
+      "ext422": "Hindi",
+
+      "ext423": "naidagdag sa iyong cart!",
+      "ext424": "Empty ang iyong cart, mag-add muna bago mag check out",
+       "ext425": "Na place na ang iyong order, \n Paalala - ngayon ay 12 oras na ang inyong order ay nakabinbin. Mangyaring kunin ito sa loob ng susunod na 12 oras upang maiwasan ang awtomatikong kanselasyon. Salamat!",
+
+  "ext426": "I-Report",
+  "ext427": "Title ng Report",
+  "ext428": "Ilagay ang title ng report",
+  "ext429": "Deskripsyon ng isyu",
+  "ext430": "Ilagay deskripsyon ng isyu",
+  "ext431": "I-Submit",
+
+  "ext432": "I-Fill lahat ng fields",
+  "ext433": "Naisubmit na ang iyong report!",
+
+  "ext434": "I-fill lahat ng fields",
+  "ext435": "Mag upload ng image",
+  "ext436": "Na i-post na ang iyong post!",
+  
+  "ext437": "Notipikasyon",
+  
+  "ext438": "Ang iyong order ID:",
+  "ext439": "Maari itong awtomatikong kanselahin kung hindi ito makuha sa loob ng 24 oras. Salamat!",
+
+  "ext440": "Invalid ang email or password",
+  "ext441": "Ang iyong email ay hindi pa verified, I-verify muna.",
+
+  
 
 
 

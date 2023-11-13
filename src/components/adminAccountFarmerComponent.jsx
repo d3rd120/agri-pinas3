@@ -375,8 +375,8 @@ const AdminFarmerTransactions = () => {
           }}
           onCancel={() => setIsDeleteConfirmationOpen(false)}
           onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-          confirmLabel={t('ext415')}
-          cancelLabel={t('ext415')}
+          confirmLabel={t('ext416')}
+          cancelLabel={t('ext417')}
         />
     </I18nextProvider>
   );

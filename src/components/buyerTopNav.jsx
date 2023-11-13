@@ -195,7 +195,7 @@ const BuyerTopNav = ({ setSearchQuery, sessionId }) => {
 
       {showNotifications && (
   <div className="notificationsModal">
-    <h2>{t('buyerTopNavText1')}</h2>
+    <h2>{t('ext437')}</h2>
     <ul className="notificationList">
       {cartItems.map((cartItem) => (
         cartItem.orders.map((item, itemIndex) => (
@@ -205,9 +205,9 @@ const BuyerTopNav = ({ setSearchQuery, sessionId }) => {
                 
               }
 
-              {`${t('Your order status ')} `}
+              {`${t('ext438')} `}
               <strong>{item.orderId}</strong>
-              {` ${t('has been automatically canceled as it has not been picked up within 24 hours. Thank you!')}`}
+              {` ${t('ext439')}`}
 
             </span>
           </li>

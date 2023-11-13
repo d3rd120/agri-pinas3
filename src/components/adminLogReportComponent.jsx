@@ -290,12 +290,12 @@ const AdminFarmerTransactions = () => {
       </div>
       <ConfirmationDialog
             isOpen={showConfirmation}
-            message="Are you sure you want to delete this report?"
+            message= {t('ext420')}
             onConfirm={confirmDelete}
             onCancel={() => setShowConfirmation(false)}
             onOverlayClick={handleOverlayClick} // Pass the overlay click handler
-            confirmLabel={t('Confirm')}
-            cancelLabel={t('Cancel')}
+            confirmLabel= {t('ext421')}
+            cancelLabel= {t('ext422')}
           />
 
     </I18nextProvider>

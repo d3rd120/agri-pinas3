@@ -54,7 +54,7 @@ const FarmerCommunityForumAddPostComponent = () => {
       setIsSubmitting(true);
   
       if (!title || !content) {
-        setValidationMessage('Please fill in all fields');
+        setValidationMessage(t('ext432'));
         setIsSubmitting(false);
         return;
       }
@@ -75,7 +75,7 @@ const FarmerCommunityForumAddPostComponent = () => {
         timestamp: new Date().toLocaleString(),
       });
   
-      setValidationMessage('Report submitted successfully');
+      setValidationMessage(t('ext433'));
       // console.log('Report added with ID: ', docRef.id);
       setIsSubmitting(false);
   
@@ -100,30 +100,30 @@ const FarmerCommunityForumAddPostComponent = () => {
     <I18nextProvider i18n={i18n}>
       <div className="buyerCommunityForumAddPostComponent">
         <div className="buyerCommunityForumAddPostComponentMainText">
-          {t('Report')}
+          {t('ext426')}
         </div>
         <div className="buyerCommunityForumAddPostComponentFrameParent">
           <div className="buyerCommunityForumAddPostComponentFrameGroup">
             <div className="buyerCommunityForumAddPostComponentInputParent">
               <div className="buyerCommunityForumAddPostComponentTitle">
-                {t('Report Title')}
+                {t('ext427')}
               </div>
               <input
                 className="buyerCommunityForumAddPostComponentInput1"
                 type="text"
                 name="title"
-                placeholder={t('Enter report Title')}
+                placeholder={t('ext428')}
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
             <div className="buyerCommunityForumAddPostComponentTitle">
-              {t('Issue Description')}
+              {t('ext429')}
             </div>
             <textarea
               className="buyerCommunityForumAddPostComponentInput4"
               name="content"
-              placeholder={t('text118')}
+              placeholder={t('ext430')}
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
@@ -134,7 +134,7 @@ const FarmerCommunityForumAddPostComponent = () => {
               disabled={isSubmitting}
             >
               <div className="buyerCommunityForumAddPostComponentButtonText">
-                {isSubmitting ? t('Submitting...') : t('Report')}
+                {isSubmitting ? t('Submitting...') : t('ext431')}
               </div>
             </button>
             <div className="buyerCommunityForumAddPostComponentFormChild" />

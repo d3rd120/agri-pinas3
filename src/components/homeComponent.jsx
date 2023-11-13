@@ -27,7 +27,7 @@ const HomeComponent = () => {
             </div>
           </div>
           <div className="download-buttons">        
-          <a className="google-play" href = "https://drive.google.com/file/d/1TMN2DWKi_CFgY6mLIgf32Z3ZEzvNUqsu/view?usp=sharing">
+          <a className="google-play" href = "https://l.messenger.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1JHizFPP1Jj-5bBWrVUjqVArAKVTnzWIw%3Fusp%3Ddrive_link&h=AT2FohJbxpYAsv2RUK1uELs8_PpfGZl5RZVFOMsFgHkCryZXLR3paz2EPGlu2pij_WD5wOIgLFQ_wC8afAgf17wdJvfDuIqRS1J1v0vhpZENZoNU7WMGtaUpmpWQPKhPdEWu7w">
             <img className="g4036-icon" alt="" src={HomePagePic2} />
           </a>
         </div>

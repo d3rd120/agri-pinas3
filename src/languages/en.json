@@ -407,6 +407,7 @@
    "ext372": "Other Posts",
 
    "ext373": "Messages",
+   "eext373": "Farmers",
 
    "ext374": "Edit Profile",
    "ext375": "My Account",
@@ -462,6 +463,44 @@
    "ext417": "No",
 
    "ext418": "Address",
+
+   "ext419": "Search for farmer's name",
+
+   "ext420": "Are you sure you want to delete this report?",
+   "ext421": "Yes",
+   "ext422": "No",
+
+   "ext423": "added to your cart!",
+   "ext424": "Your cart is empty. Please add items to your cart before proceeding to checkout",
+   "ext425": "Order placed successfully, \nOrder Reminder - for 12 hours your order has been pending for 12 hours.\nPlease pick up within the next 12 hours to avoid automatic cancellation. Thank you!",
+   
+   "ext426": "Report",
+   "ext427": "Report Title",
+   "ext428": "Enter report title",
+   "ext429": "Issue Description",
+   "ext430": "Enter description issue",
+   "ext431": "Submit",
+
+   "ext432": "Please fill in all fields",
+   "ext433": "Your report has been submitted",
+
+   "ext434": "Please fill in all required fields.",
+   "ext435": "Please upload an image.",
+   "ext436": "Post written successfully!",
+
+   "ext437": "Notifications",
+
+   "ext438": "Your order ID:",
+   "ext439": "will be automatically cancelled if it is not been picked up within 24 hours. Thank you!",
+
+   "ext440": "Invalid email or password",
+  "ext441": "Email not verified, please verify email",
+
+ 
+
+ 
+ 
+ 
 
 
 

@@ -90,13 +90,14 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
     try {
 
       if (!postDetails.title || !postDetails.content) {
-              setPopupMessage('Please fill in all required fields.');
+              setPopupMessage(t('ext434'));
               setPopupVisible(true);
               return;
             }
       
             if (!postDetails.file) {
-              setPopupMessage('Please upload an image.');
+              setPopupMessage(t('ext435'));
+
               setPopupVisible(true);
               return;
             }
@@ -117,7 +118,7 @@ const FarmerCommunityForumAddPostComponent = ({ addPost }) => {
   
      
       addPost(newPost);
-      setPopupMessage('Post written successfully!');
+      setPopupMessage(t('ext436'));
       setPopupVisible(true);
   
       

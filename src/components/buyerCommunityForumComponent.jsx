@@ -29,7 +29,7 @@ const filteredPosts = posts.filter((post) => {
   return (
     post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.user.displayName.toLowerCase().includes(searchQuery.toLowerCase())
+    post.fullname.toLowerCase().includes(searchQuery.toLowerCase())
   );
 });
 
